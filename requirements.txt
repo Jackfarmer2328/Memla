@@ -1,0 +1,6 @@
+letta
+requests
+torch
+transformers
+peft
+safetensors
