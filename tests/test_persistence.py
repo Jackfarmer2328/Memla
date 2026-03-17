@@ -34,7 +34,7 @@ class TestPersistence(unittest.TestCase):
                 "Project Memory Spec.\n"
                 "Page 87: The launch code is ORANGE-DELTA-741.\n"
                 "Decision: We prefer SQLite as the episode store.\n"
-                "Entity: Letta is the middleware layer.\n"
+                "Entity: The middleware layer is the TTT wrapper.\n"
             )
             ttt1.on_user_message(session_id=session1, user_id=user_id, user_text=doc, base_system="x", top_k=10)
             log1.close()
