@@ -1,23 +1,14 @@
-# Local LLM Memory System (Step 1)
+# The AI that never forgets you
 
-This repository implements **Step 1: Core memory loop** for a local LLM using **Ollama**.
+Every LLM session starts from zero. You re-explain your stack, your context, your decisions — every single time.
 
-## What you get
+This fixes that. **Persistently. Locally.**
 
-- **SQLite append-only episode log**
-- **Chunk extraction** (facts, decisions, entities) from each user message
-- **Retrieval** by keyword overlap + recency
-- **Prompt injection** of retrieved memories on every model call
-- A simple **terminal chat loop** in `memory_system/main.py`
-
-## Prereqs
-
-- Python **3.11+**
-- Ollama installed and running:
-  - Start the daemon: `ollama serve`
-  - Pull a model: `ollama pull llama3.2` (or `mistral`)
+Works with **Claude** (Anthropic), **OpenAI-compatible APIs**, or **any local model via Ollama**. Your memory store is **SQLite on your machine**.
 
 ## Install
+
+Prereqs: **Python 3.11+**
 
 ```bash
 python -m venv .venv
@@ -25,24 +16,56 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Run
+## Run (one command)
+
+### Local (Ollama)
 
 ```bash
+ollama serve
+ollama pull llama3.2
 python -m memory_system.main --model llama3.2 --db ./memory.sqlite --user_id default
 ```
 
-### Commands inside the chat loop
+### Anthropic (Claude) — native API
 
-- `/new_session` – start a new session id (memory persists in DB)
-- `/recall` – print top retrieved chunks for your last message
-- `/exit` – quit
+```bash
+export LLM_PROVIDER=anthropic
+export LLM_API_KEY="sk-ant-..."
+export LLM_BASE_URL="https://api.anthropic.com"
+python -m memory_system.main --model claude-sonnet-4-6 --db ./memory.sqlite --user_id default
+```
 
-## Persistence test (manual)
+### OpenAI-compatible (any vendor that implements `/v1/chat/completions`)
 
-1. Paste a long document (or several pages) into the chat.
-2. Ask it to extract key points (so memories get chunked).
-3. Exit.
-4. Restart the program and ask about a specific detail that was mentioned earlier.
+```bash
+export LLM_PROVIDER=openai
+export LLM_API_KEY="YOUR_KEY"
+export LLM_BASE_URL="https://api.openai.com"
+python -m memory_system.main --model gpt-4o-mini --db ./memory.sqlite --user_id default
+```
 
-If retrieval works, the answer should come from injected memories, not from the raw document being in-context.
+## One working demo (persistence)
+
+1. Paste a long document into the chat.
+2. Exit with `/exit`.
+3. Restart the program.
+4. Ask a question about a detail that was only in the pasted document.
+
+If it answers correctly, it’s using **retrieved memories injected into the prompt**, not the original document.
+
+## Commands
+
+- `/new_session` — new session id (memory still persists in SQLite)
+- `/recall` — print retrieved memory chunks from last turn
+- `/merge_adapters` — manual multi-user merge into shared base (Steps 4–5)
+- `/update_subspace` — recompute safe subspace (debug)
+- `/exit` — quit
+
+## How it works (for the curious)
+
+- **Step 1 (Memory loop)**: logs episodes + chunks to SQLite; injects top memories into the system prompt.
+- **Step 2 (Train retrieval, not generation)**: LoRA trains a tiny retrieval model that reranks memory chunks; generation model is untouched.
+- **Step 3 (EWC bolding)**: Fisher information protects important retrieval weights so new updates don’t overwrite identity.
+- **Step 4 (Multi-user merge)**: PCA extracts shared directions and writes a shared base update without blending personal adapters.
+- **Step 5 (Safe subspace)**: shared updates are projected into a “safe” agreement subspace to prevent contradictory users tearing the shared base.
 

@@ -10,7 +10,7 @@ from .memory.episode_log import EpisodeLog
 from .memory.chunk_manager import ChunkManager
 from .memory.llm_extractor import LLMChunkExtractor
 from .middleware.ttt_layer import TTTLayer
-from .ollama_client import ChatMessage, OllamaClient
+from .ollama_client import ChatMessage, UniversalLLMClient
 
 
 BASE_SYSTEM = """
@@ -37,7 +37,10 @@ def run_chat(
     num_ctx: int | None,
 ) -> int:
     log = EpisodeLog(db_path)
-    client = OllamaClient(base_url=ollama_base_url)
+    # Default stays Ollama unless LLM_PROVIDER env overrides.
+    client = UniversalLLMClient.from_env()
+    if client.provider == "ollama":
+        client.base_url = ollama_base_url.rstrip("/")
     extractor = LLMChunkExtractor(client=client, model=model, temperature=0.0, num_ctx=num_ctx)
     cm = ChunkManager(log, llm_extractor=extractor.extract)
     ttt = TTTLayer(episode_log=log, chunk_manager=cm)

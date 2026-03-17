@@ -5,7 +5,7 @@ import re
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from ..ollama_client import ChatMessage, OllamaClient
+from ..ollama_client import ChatMessage, UniversalLLMClient
 from .chunk_manager import MemoryChunkDraft, _stable_key
 
 
@@ -38,7 +38,7 @@ def _strip_to_json(s: str) -> str:
 
 @dataclass
 class LLMChunkExtractor:
-    client: OllamaClient
+    client: UniversalLLMClient
     model: str
     temperature: float = 0.0
     num_ctx: Optional[int] = None
