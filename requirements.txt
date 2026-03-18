@@ -4,3 +4,5 @@ transformers>=4.40
 peft>=0.7
 safetensors>=0.4
 sentence-transformers>=2.2
+fastapi>=0.100
+uvicorn>=0.20

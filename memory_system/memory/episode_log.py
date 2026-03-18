@@ -75,7 +75,7 @@ class EpisodeLog:
     def __init__(self, db_path: str | os.PathLike[str]) -> None:
         self.db_path = str(db_path)
         Path(self.db_path).parent.mkdir(parents=True, exist_ok=True)
-        self._conn = sqlite3.connect(self.db_path)
+        self._conn = sqlite3.connect(self.db_path, check_same_thread=False)
         self._conn.row_factory = sqlite3.Row
         self._conn.executescript(SCHEMA_SQL)
         self._migrate_recall_count()
