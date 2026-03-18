@@ -1,10 +1,14 @@
 # Project Memory
 
-**The AI that never forgets you — and lets you show it what matters.**
+**The memory layer for AI — for humans and agents.**
 
-Every LLM session starts from zero. You re-explain your stack, your context, your decisions — every single time. This fixes that. Persistently. Locally.
+Every LLM session starts from zero. Every agent forgets what it learned yesterday. Every multi-agent system has agents that can't share what they know. This fixes all three. Persistently. Locally.
 
-But memory alone isn't enough. Current chat interfaces have one input: text. The system guesses what context matters. Project Memory introduces a **spatial prompt interface** — you select memories on a live knowledge graph, draw connections between them, and *then* type your question. The model receives both your text and the relational structure you explicitly chose.
+**For humans:** A spatial prompt interface — select memories on a live knowledge graph, draw connections, then type. The model receives both your text and the relational structure you explicitly chose. Not a chat interface with a sidebar. A new interaction paradigm.
+
+**For agents:** An MCP server that gives any agent on any framework (CrewAI, LangGraph, AutoGen, Claude Desktop, Cursor) persistent memory that learns. Four tool calls: retrieve, store, link, merge. Drop it into any agent. It stops being amnesiac.
+
+**For multi-agent systems:** Each agent gets its own retrieval adapter. Periodic merges distill shared knowledge across all agents via PCA + EWC weight protection. Agents get collectively smarter without overwriting what they individually specialized in.
 
 Works with **Ollama** (local), **Anthropic** (Claude), or **OpenAI-compatible APIs**. Your memory is **SQLite on your machine**. Your retrieval model trains locally via LoRA.
 
@@ -17,6 +21,8 @@ Works with **Ollama** (local), **Anthropic** (Claude), or **OpenAI-compatible AP
 3. **The learning loop is closed properly.** Training signal comes from whether the LLM *actually used* a retrieved memory in its response — not from the retriever scoring itself. This prevents the system from calcifying on its own biases.
 
 4. **Generation is untouched.** Only the retrieval model (MiniLM) gets fine-tuned via LoRA. The generation LLM (Ollama/Claude/GPT) stays as a black box. No risk of degrading output quality.
+
+5. **Agents get the same memory humans get.** Via MCP, any agent on any framework connects to the same memory system. Retrieval adapts to each agent individually. Cross-agent merge distills shared knowledge without catastrophic forgetting.
 
 ## Quick start
 
@@ -42,6 +48,34 @@ Opens `http://localhost:8765` in your browser. Pick any local Ollama model from 
 - `--model qwen3.5:4b` — default model (any Ollama model)
 - `--db ./memory.sqlite` — database path
 - `--user_id default` — user identity for multi-user setups
+
+### MCP Server (for agents)
+
+```bash
+# stdio transport (Claude Desktop, Cursor, local frameworks)
+python mcp_server.py
+
+# HTTP transport (remote agents, multi-machine setups)
+python mcp_server.py --transport http --port 8766
+
+# Custom agent identity (each agent gets its own LoRA adapter)
+python mcp_server.py --agent_id researcher --db ./memory.sqlite
+python mcp_server.py --agent_id coder --db ./memory.sqlite
+```
+
+Any MCP-compatible client connects and gets 7 tools:
+
+| Tool | What it does |
+|------|-------------|
+| `memory_retrieve` | Semantic + keyword search over memories |
+| `memory_store` | Persist a fact, decision, entity, or note |
+| `memory_link` | Connect two chunks (fires LoRA training signal) |
+| `memory_unlink` | Remove a connection |
+| `memory_chat` | Full pipeline: retrieve + inject + LLM + train |
+| `memory_feedback` | Positive/negative signal on last interaction |
+| `memory_merge` | Cross-agent adapter merge (PCA + EWC) |
+
+Plus 2 resources: `memory://graph` (full knowledge graph) and `memory://chunks/{agent_id}` (inspect any agent's memories).
 
 ### CLI mode
 
@@ -125,6 +159,31 @@ On top of the pipeline, the web UI adds:
 | Explicit | `/good` or `/bad` command | High | 1x |
 | Spatial | User drew a connection on the graph | Highest | 1x (bidirectional) |
 
+## Multi-agent memory
+
+Multiple agents share the same SQLite database with different `--agent_id` values. Each gets its own LoRA retrieval adapter that learns what *that* agent needs. Periodically, any agent calls `memory_merge` to distill shared knowledge.
+
+```
+┌─────────────┐  ┌─────────────┐  ┌─────────────┐
+│  researcher  │  │    coder    │  │   writer    │
+│  (LoRA A)    │  │  (LoRA B)   │  │  (LoRA C)   │
+└──────┬───────┘  └──────┬──────┘  └──────┬──────┘
+       │                 │                │
+       └────────┬────────┴────────┬───────┘
+                │                 │
+         ┌──────▼──────┐  ┌──────▼──────┐
+         │  PCA merge  │→ │ EWC protect │→ shared_base/
+         └─────────────┘  └─────────────┘
+```
+
+The merge pipeline:
+1. **PCA** extracts shared retrieval directions across all agent adapters via SVD
+2. **EWC** protects important weights — frequently-used retrieval pathways can't be overwritten
+3. **Safe subspace projection** ensures updates only go where all agents agree
+4. The resulting `shared_base` adapter is loaded by all agents on next startup
+
+This means a researcher agent's discoveries about API patterns strengthen the coder agent's retrieval of related code decisions — without overwriting the coder's specialized knowledge about implementation details.
+
 ## Commands (CLI mode)
 
 - `/new_session` — new session (memory persists)
@@ -139,6 +198,7 @@ On top of the pipeline, the web UI adds:
 ```
 Project-Memory/
 ├── app.py                          # Web UI server (FastAPI + SSE streaming)
+├── mcp_server.py                   # MCP server for agents (FastMCP, stdio/HTTP)
 ├── static/index.html               # Frontend (D3 graph + chat)
 ├── memory_system/
 │   ├── main.py                     # CLI entry point
@@ -174,4 +234,5 @@ safetensors>=0.4
 sentence-transformers>=2.2
 fastapi>=0.100
 uvicorn>=0.20
+fastmcp>=2.0
 ```
