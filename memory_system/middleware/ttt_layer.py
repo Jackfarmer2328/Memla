@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import threading
 import time
 from dataclasses import dataclass, field
 from typing import Any, Optional
@@ -63,21 +64,23 @@ class TTTLayer:
     ) -> TurnArtifacts:
         ts_i = int(ts if ts is not None else time.time())
 
-        # --- Correction detection on the PREVIOUS turn ---
+        # --- Correction detection on the PREVIOUS turn (background) ---
         if self._prev_turn is not None and self._prev_turn.chunk_qualities:
             try:
                 from .quality import detect_correction
                 correction = detect_correction(user_text)
                 if correction > 0.3:
-                    try:
-                        deferred_train(
-                            user_id=self._prev_turn.user_id,
-                            user_query=self._prev_turn.user_query,
-                            chunk_qualities=self._prev_turn.chunk_qualities,
-                            correction_weight=correction,
-                        )
-                    except Exception:
-                        pass
+                    prev = self._prev_turn
+
+                    def _bg_correction(uid=prev.user_id, uq=prev.user_query,
+                                       cq=list(prev.chunk_qualities), cw=correction):
+                        try:
+                            deferred_train(user_id=uid, user_query=uq,
+                                           chunk_qualities=cq, correction_weight=cw)
+                        except Exception:
+                            pass
+
+                    threading.Thread(target=_bg_correction, daemon=True).start()
             except Exception:
                 pass
 
@@ -136,7 +139,7 @@ class TTTLayer:
             ts=ts_i,
         )
 
-        # --- Deferred training with real quality signal ---
+        # --- Deferred training with real quality signal (background) ---
         if self._prev_turn is not None and self._prev_turn.retrieved:
             try:
                 from .quality import score_chunk_usage
@@ -146,15 +149,53 @@ class TTTLayer:
                 )
                 self._prev_turn.chunk_qualities = qualities
 
-                deferred_train(
-                    user_id=user_id,
-                    user_query=self._prev_turn.user_query,
-                    chunk_qualities=qualities,
-                )
+                def _bg_train(uid=user_id, uq=self._prev_turn.user_query,
+                              cq=list(qualities)):
+                    try:
+                        deferred_train(user_id=uid, user_query=uq,
+                                       chunk_qualities=cq)
+                    except Exception:
+                        pass
+
+                threading.Thread(target=_bg_train, daemon=True).start()
             except Exception:
                 pass
 
         return episode_id
+
+    def explicit_feedback(self, *, is_positive: bool) -> bool:
+        """
+        User invoked /good or /bad on the last response.
+
+        /good: high-confidence positive signal (quality_signal=1.0).
+        /bad:  high-confidence correction (correction_weight=1.0, flips signal).
+
+        Returns True if feedback was applied, False if no previous turn exists.
+        """
+        if self._prev_turn is None or not self._prev_turn.chunk_qualities:
+            return False
+
+        prev = self._prev_turn
+
+        if is_positive:
+            def _bg(uid=prev.user_id, uq=prev.user_query,
+                    cq=list(prev.chunk_qualities)):
+                try:
+                    deferred_train(user_id=uid, user_query=uq,
+                                   chunk_qualities=cq, correction_weight=0.0)
+                except Exception:
+                    pass
+        else:
+            def _bg(uid=prev.user_id, uq=prev.user_query,
+                    cq=list(prev.chunk_qualities)):
+                try:
+                    deferred_train(user_id=uid, user_query=uq,
+                                   chunk_qualities=cq, correction_weight=1.0)
+                except Exception:
+                    pass
+
+        threading.Thread(target=_bg, daemon=True).start()
+        return True
 
     def clear_turn_state(self) -> None:
         """Call on session reset to avoid cross-session correction detection."""

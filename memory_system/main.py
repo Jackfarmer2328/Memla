@@ -50,7 +50,7 @@ def run_chat(
     max_history_turns = 20
 
     print(f"[memory_system] user_id={user_id} session_id={session_id} model={model}")
-    print("[memory_system] Commands: /new_session, /recall, /merge_adapters, /exit\n")
+    print("[memory_system] Commands: /new_session, /recall, /good, /bad, /merge_adapters, /exit\n")
 
     try:
         while True:
@@ -69,6 +69,18 @@ def run_chat(
                 conversation_history.clear()
                 ttt.clear_turn_state()
                 print(f"[memory_system] new session_id={session_id}")
+                continue
+            if user_text.strip() == "/good":
+                if ttt.explicit_feedback(is_positive=True):
+                    print("[memory_system] positive feedback recorded — retrieval adapter reinforced.")
+                else:
+                    print("[memory_system] no previous turn to give feedback on.")
+                continue
+            if user_text.strip() == "/bad":
+                if ttt.explicit_feedback(is_positive=False):
+                    print("[memory_system] negative feedback recorded — retrieval adapter corrected.")
+                else:
+                    print("[memory_system] no previous turn to give feedback on.")
                 continue
             if user_text.strip() == "/recall":
                 retrieved = ttt.last_retrieved

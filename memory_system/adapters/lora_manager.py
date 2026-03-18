@@ -255,3 +255,21 @@ class RetrievalLoRAManager:
         scores = (q_emb @ c_emb.T).squeeze(0)  # [N]
         return scores.detach().cpu().tolist()
 
+    def embed_query(self, query: str) -> list[float]:
+        """Return a normalized embedding vector for a single query string."""
+        self.ensure_loaded()
+        emb = self._embed_texts([query])  # [1, H]
+        return emb.squeeze(0).detach().cpu().tolist()
+
+    def embed_many(self, texts: list[str], *, batch_size: int = 64) -> list[list[float]]:
+        """Return normalized embeddings for a batch of texts."""
+        self.ensure_loaded()
+        if not texts:
+            return []
+        all_embs: list[list[float]] = []
+        for i in range(0, len(texts), batch_size):
+            batch = texts[i : i + batch_size]
+            emb = self._embed_texts(batch)
+            all_embs.extend(emb.detach().cpu().tolist())
+        return all_embs
+

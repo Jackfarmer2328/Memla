@@ -77,8 +77,9 @@ class MemoryChunkDraft:
 class ChunkManager:
     """
     Step 1 memory chunks:
-    - Extracts a few structured chunks from each user message (heuristic, local)
-    - Retrieves top-k by keyword overlap + recency + frequency
+    - Extracts a few structured chunks from each user message (heuristic or LLM)
+    - Retrieves top-k by hybrid scoring: semantic (MiniLM) + keyword + recency + frequency
+    - Falls back to keyword-only if the embedding model is unavailable
     """
 
     def __init__(
@@ -180,7 +181,6 @@ class ChunkManager:
         return episode_id, chunk_ids
 
     def retrieve(self, *, user_id: str, query_text: str, k: int = 12) -> list[Chunk]:
-        # Candidate pool: recent chunks.
         candidates = self.log.fetch_recent_chunks(user_id=user_id, limit=400)
         if not candidates:
             return []
@@ -188,25 +188,45 @@ class ChunkManager:
         q_tokens = set(_tokenize(query_text))
         now = time.time()
 
+        # --- Attempt semantic scoring via MiniLM embeddings ---
+        sem_scores: dict[int, float] = {}
+        try:
+            from ..middleware.context_builder import _get_lora_manager
+            mgr = _get_lora_manager()
+            if mgr is not None:
+                chunk_texts = [c.text for c in candidates]
+                q_emb = mgr.embed_query(query_text)
+                c_embs = mgr.embed_many(chunk_texts)
+                if q_emb and c_embs:
+                    for idx, c_emb in enumerate(c_embs):
+                        dot = sum(a * b for a, b in zip(q_emb, c_emb))
+                        sem_scores[candidates[idx].id] = float(dot)
+        except Exception:
+            pass
+
+        has_semantic = bool(sem_scores)
+
         def score(c: Chunk) -> float:
             c_tokens = set(_tokenize(c.text)) | set(_tokenize(c.key))
             overlap = len(q_tokens & c_tokens)
 
-            # Exponential recency on last recall time.
             age_s = max(0.0, now - float(c.last_recalled_ts))
-            recency = math.exp(-age_s / (60.0 * 60.0 * 24.0 * 7.0))  # 1 week half-ish
+            recency = math.exp(-age_s / (60.0 * 60.0 * 24.0 * 7.0))
 
             freq = math.log(1.0 + float(c.frequency_count))
 
-            # Bias: decisions and entities are usually higher leverage.
             type_boost = 0.0
             if c.chunk_type == "decision":
                 type_boost = 0.6
             elif c.chunk_type == "entity":
                 type_boost = 0.3
 
-            # If no token overlap, allow recency/frequency to keep a few "recent context" lines.
-            return (1.2 * overlap) + (1.0 * recency) + (0.4 * freq) + type_boost
+            if has_semantic:
+                # Cosine sim is in [-1, 1]; shift to [0, 2] for positive weighting.
+                semantic = (sem_scores.get(c.id, 0.0) + 1.0)
+                return (2.0 * semantic) + (0.6 * overlap) + (0.6 * recency) + (0.3 * freq) + type_boost
+            else:
+                return (1.2 * overlap) + (1.0 * recency) + (0.4 * freq) + type_boost
 
         ranked = sorted(candidates, key=score, reverse=True)
         top = ranked[: max(3, int(k))]
