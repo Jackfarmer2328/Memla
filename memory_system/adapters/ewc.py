@@ -71,9 +71,9 @@ class EWC:
             import torch
 
             if self.fisher_path.exists():
-                self.fisher = torch.load(str(self.fisher_path), map_location="cpu") or {}
+                self.fisher = torch.load(str(self.fisher_path), map_location="cpu", weights_only=True) or {}
             if self.snapshot_path.exists():
-                self.snapshot = torch.load(str(self.snapshot_path), map_location="cpu") or {}
+                self.snapshot = torch.load(str(self.snapshot_path), map_location="cpu", weights_only=True) or {}
         except Exception:
             self.fisher = {}
             self.snapshot = {}

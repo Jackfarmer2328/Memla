@@ -32,7 +32,8 @@ CREATE TABLE IF NOT EXISTS chunks (
   key TEXT NOT NULL,                -- normalized key for retrieval
   text TEXT NOT NULL,               -- human-readable memory
   source_episode_id INTEGER,         -- nullable
-  frequency_count INTEGER NOT NULL DEFAULT 1,
+  frequency_count INTEGER NOT NULL DEFAULT 1,  -- times user mentioned/restated this
+  recall_count INTEGER NOT NULL DEFAULT 0,     -- times system retrieved this
   last_recalled_ts INTEGER NOT NULL,
   meta_json TEXT NOT NULL DEFAULT '{}',
   UNIQUE(user_id, chunk_type, key, text)
@@ -65,6 +66,7 @@ class Chunk:
     text: str
     source_episode_id: Optional[int]
     frequency_count: int
+    recall_count: int
     last_recalled_ts: int
     meta: dict[str, Any]
 
@@ -76,7 +78,14 @@ class EpisodeLog:
         self._conn = sqlite3.connect(self.db_path)
         self._conn.row_factory = sqlite3.Row
         self._conn.executescript(SCHEMA_SQL)
+        self._migrate_recall_count()
         self._conn.commit()
+
+    def _migrate_recall_count(self) -> None:
+        try:
+            self._conn.execute("SELECT recall_count FROM chunks LIMIT 1")
+        except sqlite3.OperationalError:
+            self._conn.execute("ALTER TABLE chunks ADD COLUMN recall_count INTEGER NOT NULL DEFAULT 0")
 
     def close(self) -> None:
         self._conn.close()
@@ -157,7 +166,7 @@ class EpisodeLog:
         self._conn.execute(
             f"""
             UPDATE chunks
-            SET frequency_count = frequency_count + 1,
+            SET recall_count = recall_count + 1,
                 last_recalled_ts = ?
             WHERE id IN ({q})
             """,
@@ -207,6 +216,11 @@ class EpisodeLog:
         )
 
     def _row_to_chunk(self, row: sqlite3.Row) -> Chunk:
+        recall_count = 0
+        try:
+            recall_count = int(row["recall_count"])
+        except (IndexError, KeyError):
+            pass
         return Chunk(
             id=int(row["id"]),
             ts=int(row["ts"]),
@@ -217,6 +231,7 @@ class EpisodeLog:
             text=str(row["text"]),
             source_episode_id=int(row["source_episode_id"]) if row["source_episode_id"] is not None else None,
             frequency_count=int(row["frequency_count"]),
+            recall_count=recall_count,
             last_recalled_ts=int(row["last_recalled_ts"]),
             meta=json.loads(row["meta_json"] or "{}"),
         )

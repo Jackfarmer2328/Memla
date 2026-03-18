@@ -46,6 +46,9 @@ def run_chat(
     ttt = TTTLayer(episode_log=log, chunk_manager=cm)
 
     session_id = _new_session_id()
+    conversation_history: list[ChatMessage] = []
+    max_history_turns = 20
+
     print(f"[memory_system] user_id={user_id} session_id={session_id} model={model}")
     print("[memory_system] Commands: /new_session, /recall, /merge_adapters, /exit\n")
 
@@ -63,6 +66,8 @@ def run_chat(
                 break
             if user_text.strip() == "/new_session":
                 session_id = _new_session_id()
+                conversation_history.clear()
+                ttt.clear_turn_state()
                 print(f"[memory_system] new session_id={session_id}")
                 continue
             if user_text.strip() == "/recall":
@@ -129,6 +134,7 @@ def run_chat(
 
             messages = [
                 ChatMessage(role="system", content=artifacts.built.system_prompt),
+                *conversation_history[-(max_history_turns * 2):],
                 ChatMessage(role="user", content=user_text),
             ]
 
@@ -150,6 +156,10 @@ def run_chat(
                 assistant_text=assistant_text,
                 meta={"retrieved_chunk_ids": [c.id for c in artifacts.retrieved]},
             )
+
+            conversation_history.append(ChatMessage(role="user", content=user_text))
+            conversation_history.append(ChatMessage(role="assistant", content=assistant_text.strip()))
+
             print(assistant_text.strip())
             print()
     finally:

@@ -164,8 +164,7 @@ class UniversalLLMClient:
             "model": model,
             "messages": amsgs,
             "temperature": float(temperature),
-            # Required by Anthropic; keep conservative default.
-            "max_tokens": 1024,
+            "max_tokens": 4096,
         }
         if system:
             payload["system"] = system

@@ -17,6 +17,7 @@ def _mk(freq: int) -> Chunk:
         text="t",
         source_episode_id=None,
         frequency_count=freq,
+        recall_count=0,
         last_recalled_ts=1,
         meta={},
     )

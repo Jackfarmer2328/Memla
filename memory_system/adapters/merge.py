@@ -81,7 +81,7 @@ def _load_adapter_state(adapter_dir: Path) -> Tuple[dict, dict]:
     if state is None and bin_path.exists():
         import torch
 
-        state = torch.load(str(bin_path), map_location="cpu")
+        state = torch.load(str(bin_path), map_location="cpu", weights_only=True)
 
     if state is None:
         raise FileNotFoundError(f"No adapter model file in {adapter_dir}")

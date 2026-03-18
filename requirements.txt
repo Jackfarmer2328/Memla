@@ -1,5 +1,6 @@
-requests
-torch
-transformers
-peft
-safetensors
+requests>=2.31,<3
+torch>=2.1
+transformers>=4.40
+peft>=0.7
+safetensors>=0.4
+sentence-transformers>=2.2

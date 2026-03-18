@@ -21,7 +21,9 @@ class TestStep5ProjectionCorrectness(unittest.TestCase):
             basis[0, 0] = 1.0
             safe = {"p": {"basis": basis}}
 
-            torch.save(safe, str(_safe_subspace_path(td)))
+            sp = _safe_subspace_path(td)
+            sp.parent.mkdir(parents=True, exist_ok=True)
+            torch.save(safe, str(sp))
             gp = GradientProjector(adapters_dir=td)
 
             g = torch.tensor([1.0, 2.0, 0.0])

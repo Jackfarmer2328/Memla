@@ -169,7 +169,7 @@ class RetrievalLoRAManager:
         try:
             import torch
 
-            upd = torch.load(str(p), map_location="cpu")
+            upd = torch.load(str(p), map_location="cpu", weights_only=True)
             if not isinstance(upd, dict):
                 return
             sd = base_model.state_dict()

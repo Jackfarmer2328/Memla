@@ -27,6 +27,7 @@ class TestStep2ColdStart(unittest.TestCase):
                     text="Fact: User is booking a hotel in Berlin.",
                     source_episode_id=None,
                     frequency_count=1,
+                    recall_count=0,
                     last_recalled_ts=1,
                     meta={},
                 )

@@ -78,7 +78,7 @@ class GradientProjector:
         try:
             import torch
 
-            data = torch.load(str(p), map_location="cpu")
+            data = torch.load(str(p), map_location="cpu", weights_only=True)
             if not isinstance(data, dict):
                 raise ValueError("safe_subspace.pt not a dict")
             self.safe_subspace = data
@@ -135,7 +135,7 @@ class GradientProjector:
             if not p.exists():
                 continue
             try:
-                shared_dirs = torch.load(str(p), map_location="cpu")
+                shared_dirs = torch.load(str(p), map_location="cpu", weights_only=True)
             except Exception:
                 continue
             if not isinstance(shared_dirs, dict):
