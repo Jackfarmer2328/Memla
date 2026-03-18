@@ -52,6 +52,18 @@ def _tok(text: str) -> set[str]:
             if len(t) >= 2 and t not in _STOP}
 
 
+_USER_LINKS_DDL = """
+CREATE TABLE IF NOT EXISTS user_links (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id TEXT NOT NULL,
+    chunk_a_id INTEGER NOT NULL,
+    chunk_b_id INTEGER NOT NULL,
+    created_ts INTEGER NOT NULL,
+    UNIQUE(user_id, chunk_a_id, chunk_b_id)
+)
+"""
+
+
 class State:
     def __init__(self) -> None:
         self.lock = threading.Lock()
@@ -82,6 +94,9 @@ class State:
         cm = ChunkManager(self.log, llm_extractor=ext.extract)
         self.ttt = TTTLayer(episode_log=self.log, chunk_manager=cm)
 
+        self.log._conn.execute(_USER_LINKS_DDL)
+        self.log._conn.commit()
+
     def set_model(self, model: str) -> None:
         self.model = model
         if self.client and self.ttt:
@@ -94,6 +109,19 @@ class State:
         if self.ttt:
             self.ttt.clear_turn_state()
 
+    def fetch_user_links(self) -> list[dict]:
+        if not self.log:
+            return []
+        rows = self.log._conn.execute(
+            "SELECT chunk_a_id, chunk_b_id FROM user_links WHERE user_id=?",
+            (self.user_id,),
+        ).fetchall()
+        return [{"source": r[0], "target": r[1]} for r in rows]
+
+    def chunk_by_id(self, cid: int):
+        all_c = self.log.fetch_recent_chunks(user_id=self.user_id, limit=9999)
+        return next((c for c in all_c if c.id == cid), None)
+
 
 S = State()
 
@@ -103,10 +131,16 @@ S = State()
 class ChatReq(BaseModel):
     message: str
     model: str = ""
+    pinned_ids: list[int] = []
 
 
 class FeedbackReq(BaseModel):
     is_positive: bool
+
+
+class LinkReq(BaseModel):
+    chunk_a: int
+    chunk_b: int
 
 
 # ── FastAPI ──────────────────────────────────────────────────────
@@ -173,8 +207,25 @@ def chat(req: ChatReq):
          "text": c.text, "freq": c.frequency_count}
         for c in artifacts.retrieved
     ]
+
+    # Inject user-pinned context with highest priority
+    system_prompt = artifacts.built.system_prompt
+    if req.pinned_ids:
+        all_chunks = S.log.fetch_recent_chunks(user_id=S.user_id, limit=9999)
+        pinned = [c for c in all_chunks if c.id in set(req.pinned_ids)]
+        if pinned:
+            sec = "\n\n=== USER-PINNED CONTEXT (highest priority) ===\n"
+            sec += (
+                "The user explicitly selected these memories as the lens "
+                "for their question. Ground your response primarily in them:\n\n"
+            )
+            for c in pinned:
+                sec += f"[{c.chunk_type}] {c.key}: {c.text}\n"
+            sec += "\n=== END PINNED CONTEXT ===\n"
+            system_prompt += sec
+
     messages = [
-        ChatMessage(role="system", content=artifacts.built.system_prompt),
+        ChatMessage(role="system", content=system_prompt),
         *S.history[-(20 * 2):],
         ChatMessage(role="user", content=msg),
     ]
@@ -229,6 +280,59 @@ def feedback(req: FeedbackReq):
     return {"ok": S.ttt.explicit_feedback(is_positive=req.is_positive)}
 
 
+@app.post("/api/link")
+def create_link(req: LinkReq):
+    """User drew a connection between two memory nodes — persist + train."""
+    if not S.log:
+        return {"ok": False}
+    a, b = min(req.chunk_a, req.chunk_b), max(req.chunk_a, req.chunk_b)
+    S.log._conn.execute(
+        "INSERT OR IGNORE INTO user_links "
+        "(user_id, chunk_a_id, chunk_b_id, created_ts) VALUES (?,?,?,?)",
+        (S.user_id, a, b, int(time.time())),
+    )
+    S.log._conn.commit()
+
+    def _bg_train():
+        try:
+            from memory_system.adapters.gradient_pass import micro_gradient_pass
+            from memory_system.middleware.context_builder import _get_lora_manager
+            mgr = _get_lora_manager()
+            if mgr is None:
+                return
+            ca, cb = S.chunk_by_id(a), S.chunk_by_id(b)
+            if not ca or not cb:
+                return
+            micro_gradient_pass(
+                manager=mgr, user_id=S.user_id, query=ca.text,
+                retrieved_texts=[cb.text], candidate_texts=[ca.text, cb.text],
+                quality_signal=1.0,
+            )
+            micro_gradient_pass(
+                manager=mgr, user_id=S.user_id, query=cb.text,
+                retrieved_texts=[ca.text], candidate_texts=[ca.text, cb.text],
+                quality_signal=1.0,
+            )
+        except Exception:
+            pass
+    threading.Thread(target=_bg_train, daemon=True).start()
+    return {"ok": True}
+
+
+@app.post("/api/unlink")
+def delete_link(req: LinkReq):
+    """User removed a connection."""
+    if not S.log:
+        return {"ok": False}
+    a, b = min(req.chunk_a, req.chunk_b), max(req.chunk_a, req.chunk_b)
+    S.log._conn.execute(
+        "DELETE FROM user_links WHERE user_id=? AND chunk_a_id=? AND chunk_b_id=?",
+        (S.user_id, a, b),
+    )
+    S.log._conn.commit()
+    return {"ok": True}
+
+
 @app.post("/api/session")
 def new_session():
     S.new_session()
@@ -238,10 +342,10 @@ def new_session():
 @app.get("/api/memories")
 def get_memories():
     if not S.log:
-        return {"nodes": [], "edges": []}
+        return {"nodes": [], "edges": [], "user_links": []}
     chunks = S.log.fetch_recent_chunks(user_id=S.user_id, limit=200)
     if not chunks:
-        return {"nodes": [], "edges": []}
+        return {"nodes": [], "edges": [], "user_links": S.fetch_user_links()}
 
     nodes = []
     ti: dict[str, set[int]] = defaultdict(set)
@@ -267,7 +371,7 @@ def get_memories():
         {"source": chunks[a].id, "target": chunks[b].id, "weight": w}
         for (a, b), w in ew.items() if w >= 2
     ]
-    return {"nodes": nodes, "edges": edges}
+    return {"nodes": nodes, "edges": edges, "user_links": S.fetch_user_links()}
 
 
 @app.get("/api/recall")

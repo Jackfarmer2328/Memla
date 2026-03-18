@@ -10,7 +10,7 @@
 :root{
   --bg:#09090b;--surface:#0f0f12;--surface-2:#1a1a22;
   --border:#27272a;--text:#fafafa;--text-2:#a1a1aa;--text-3:#71717a;
-  --accent:#8b5cf6;--accent-2:#7c3aed;
+  --accent:#8b5cf6;--accent-2:#7c3aed;--accent-glow:rgba(139,92,246,.35);
   --fact:#60a5fa;--decision:#c084fc;--entity:#34d399;--note:#fbbf24;
   --danger:#f87171;--radius:10px
 }
@@ -36,8 +36,7 @@ header{
 .model-wrap select{
   background:var(--surface-2);color:var(--text);
   border:1px solid var(--border);border-radius:var(--radius);
-  padding:5px 10px;font-size:12px;cursor:pointer;outline:none;
-  font-family:inherit
+  padding:5px 10px;font-size:12px;cursor:pointer;outline:none;font-family:inherit
 }
 .model-wrap select:focus{border-color:var(--accent)}
 .hdr-right{margin-left:auto;display:flex;align-items:center;gap:10px}
@@ -54,20 +53,27 @@ main{display:flex;flex:1;overflow:hidden}
 
 /* ── Graph panel ────────────────────────────────── */
 #graph-panel{
-  width:380px;min-width:0;border-right:1px solid var(--border);
+  width:400px;min-width:0;border-right:1px solid var(--border);
   display:flex;flex-direction:column;background:var(--surface);
-  transition:width .3s ease,min-width .3s ease,opacity .3s ease;
-  flex-shrink:0;overflow:hidden
+  transition:width .3s ease,opacity .3s ease;flex-shrink:0;overflow:hidden
 }
 #graph-panel.collapsed{width:0;border-right:none;opacity:0;pointer-events:none}
 .panel-hdr{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:10px 14px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;
+  padding:8px 14px;border-bottom:1px solid var(--border);
   font-size:12px;font-weight:600;color:var(--text-2)
 }
+.panel-hdr .title{white-space:nowrap}
+#graph-search{
+  flex:1;min-width:0;background:var(--bg);color:var(--text);
+  border:1px solid var(--border);border-radius:6px;
+  padding:4px 8px;font-size:11px;outline:none;font-family:inherit
+}
+#graph-search:focus{border-color:var(--accent)}
+#graph-search::placeholder{color:var(--text-3)}
 .panel-hdr button{
   background:none;border:none;color:var(--text-3);cursor:pointer;
-  font-size:14px;padding:2px 4px;transition:color .15s
+  font-size:14px;padding:2px 4px;transition:color .15s;flex-shrink:0
 }
 .panel-hdr button:hover{color:var(--text)}
 #graph-container{flex:1;position:relative;overflow:hidden}
@@ -77,14 +83,23 @@ main{display:flex;flex:1;overflow:hidden}
   text-align:center;color:var(--text-3);font-size:12px;line-height:1.7;pointer-events:none
 }
 .graph-empty svg{display:block;margin:0 auto 10px;opacity:.3}
+.graph-hint{
+  padding:6px 14px;border-top:1px solid var(--border);
+  font-size:10px;color:var(--text-3);line-height:1.5
+}
+.graph-hint kbd{
+  background:var(--surface-2);border:1px solid var(--border);
+  border-radius:3px;padding:0 4px;font-size:10px;font-family:inherit
+}
 .legend{
-  display:flex;gap:10px;padding:8px 14px;border-top:1px solid var(--border);
+  display:flex;gap:10px;padding:6px 14px;border-top:1px solid var(--border);
   font-size:10px;color:var(--text-3);flex-wrap:wrap
 }
 .legend-item{display:flex;align-items:center;gap:3px}
 .dot{width:7px;height:7px;border-radius:50%;display:inline-block}
 .dot.fact{background:var(--fact)}.dot.decision{background:var(--decision)}
 .dot.entity{background:var(--entity)}.dot.note{background:var(--note)}
+.dot.user-link{background:var(--accent)}
 
 /* ── Chat panel ─────────────────────────────────── */
 #chat-panel{flex:1;display:flex;flex-direction:column;min-width:0}
@@ -127,16 +142,35 @@ main{display:flex;flex:1;overflow:hidden}
 }
 .empty-chat h2{color:var(--text-2);font-size:18px;font-weight:600}
 .empty-chat p{font-size:13px}
-
-/* ── Retrieved chips (shown after response) ────── */
-.retrieved-chips{
-  display:flex;flex-wrap:wrap;gap:4px;margin-top:10px
-}
+.retrieved-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
 .r-chip{
   font-size:10px;padding:2px 7px;border-radius:12px;
-  border:1px solid var(--border);color:var(--text-3);
-  background:var(--surface-2)
+  border:1px solid var(--border);color:var(--text-3);background:var(--surface-2)
 }
+
+/* ── Pinned context bar ─────────────────────────── */
+#pinned-bar{
+  display:none;border-bottom:1px solid var(--border);
+  padding:8px 24px;background:var(--surface);
+  animation:fadeIn .2s ease
+}
+#pinned-bar.visible{display:block}
+.pinned-label{
+  font-size:10px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--accent);margin-bottom:5px
+}
+#pinned-chips{display:flex;flex-wrap:wrap;gap:4px}
+.pin-chip{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:11px;padding:3px 8px;border-radius:14px;
+  background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);
+  color:var(--text);cursor:default;animation:fadeIn .15s ease
+}
+.pin-chip .pin-x{
+  cursor:pointer;opacity:.5;font-size:13px;line-height:1;
+  transition:opacity .1s
+}
+.pin-chip .pin-x:hover{opacity:1}
 
 /* ── Input area ─────────────────────────────────── */
 #input-area{
@@ -198,6 +232,21 @@ main{display:flex;flex:1;overflow:hidden}
   font-size:12px;color:var(--text-2);line-height:1.5
 }
 .recall-item .rt{font-weight:600;font-size:10px;text-transform:uppercase;margin-right:5px}
+
+/* ── Connect preview line ───────────────────────── */
+.connect-preview{
+  stroke:var(--accent);stroke-width:2;stroke-dasharray:6 4;
+  opacity:.7;pointer-events:none
+}
+
+/* ── Toast ──────────────────────────────────────── */
+#toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:var(--accent);color:#fff;padding:8px 18px;border-radius:20px;
+  font-size:12px;font-weight:600;opacity:0;transition:opacity .3s;
+  pointer-events:none;z-index:200
+}
+#toast.show{opacity:1}
 </style>
 </head>
 <body>
@@ -224,30 +273,48 @@ main{display:flex;flex:1;overflow:hidden}
   <!-- Graph panel -->
   <aside id="graph-panel">
     <div class="panel-hdr">
-      <span>Memory Map</span>
+      <span class="title">Memory Map</span>
+      <input type="text" id="graph-search" placeholder="Search memories…">
       <button id="btn-close-graph" title="Close">&times;</button>
     </div>
     <div id="graph-container">
-      <svg id="graph-svg"></svg>
+      <svg id="graph-svg">
+        <defs>
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="4" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+      </svg>
       <div class="graph-empty" id="graph-empty">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="12" cy="18" r="2"/><line x1="8" y1="6" x2="16" y2="8" opacity=".4"/><line x1="7" y1="8" x2="11" y2="16" opacity=".4"/><line x1="17" y1="10" x2="13" y2="16" opacity=".4"/></svg>
         <div>No memories yet.<br>Start chatting to build your map.</div>
       </div>
+    </div>
+    <div class="graph-hint">
+      <kbd>Click</kbd> select &nbsp; <kbd>Shift+Click</kbd> connect &nbsp; <kbd>Drag</kbd> move &nbsp; <kbd>Shift+Drag</kbd> draw link
     </div>
     <div class="legend">
       <span class="legend-item"><span class="dot fact"></span>Fact</span>
       <span class="legend-item"><span class="dot decision"></span>Decision</span>
       <span class="legend-item"><span class="dot entity"></span>Entity</span>
       <span class="legend-item"><span class="dot note"></span>Note</span>
+      <span class="legend-item"><span class="dot user-link"></span>Your links</span>
     </div>
   </aside>
 
   <!-- Chat panel -->
   <section id="chat-panel">
+    <!-- Pinned context bar (appears when nodes selected) -->
+    <div id="pinned-bar">
+      <div class="pinned-label">Pinned context — the model will focus on these:</div>
+      <div id="pinned-chips"></div>
+    </div>
+
     <div id="messages">
       <div class="empty-chat" id="empty-chat">
         <h2>Project Memory</h2>
-        <p>Your AI assistant that never forgets.</p>
+        <p>Select memories on the map, then ask a question.</p>
       </div>
     </div>
 
@@ -264,6 +331,7 @@ main{display:flex;flex:1;overflow:hidden}
         <button class="ctrl good" id="btn-good" title="Good response">&#x1F44D; Good</button>
         <button class="ctrl bad" id="btn-bad" title="Bad response">&#x1F44E; Bad</button>
         <button class="ctrl" id="btn-recall">Recall</button>
+        <button class="ctrl" id="btn-clear-pins" style="margin-left:auto" title="Clear all selected nodes">Clear pins</button>
       </div>
     </div>
   </section>
@@ -271,6 +339,8 @@ main{display:flex;flex:1;overflow:hidden}
 
 <!-- Tooltip -->
 <div id="tooltip"></div>
+<!-- Toast -->
+<div id="toast"></div>
 
 <!-- ── Script ──────────────────────────────────── -->
 <script>
@@ -278,10 +348,21 @@ const COLORS = {fact:'#60a5fa',decision:'#c084fc',entity:'#34d399',note:'#fbbf24
 let currentModel = '';
 let sending = false;
 let graphOpen = true;
+
+/* ── Selection state ───────────────────────────────── */
+const selectedNodes = new Map();   // id -> node data
+let lastSelectedId = null;         // for shift+click connect
+
+/* ── Graph state ───────────────────────────────────── */
 let sim, svgEl, gEl, linkSel, nodeSel;
 let graphW = 0, graphH = 0;
+let currentNodes = [];
+let currentEdges = [];             // combined auto + user
+let rawUserLinks = [];             // from API
+let connectSource = null;          // shift+drag source node
+let connectLine = null;            // preview SVG line
 
-/* ── Init ────────────────────────────────────────── */
+/* ── Init ──────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', async () => {
   await fetchModels();
   await fetchState();
@@ -290,21 +371,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupListeners();
 });
 
-/* ── API helpers ─────────────────────────────────── */
+/* ── API helpers ───────────────────────────────────── */
 async function fetchModels() {
   try {
     const r = await fetch('/api/models');
     const d = await r.json();
     const sel = document.getElementById('model-picker');
-    if (d.error) {
-      sel.innerHTML = '<option>Ollama offline</option>';
-      return;
-    }
+    if (d.error) { sel.innerHTML = '<option>Ollama offline</option>'; return; }
     sel.innerHTML = d.models.map(m =>
       `<option value="${m.name}" ${m.name===d.current?'selected':''}>${m.name}</option>`
     ).join('');
     currentModel = d.current;
-  } catch { /* offline */ }
+  } catch {}
 }
 
 async function fetchState() {
@@ -321,11 +399,12 @@ async function refreshGraph() {
     const empty = document.getElementById('graph-empty');
     if (!d.nodes.length) { empty.style.display = ''; return; }
     empty.style.display = 'none';
+    rawUserLinks = d.user_links || [];
     updateGraph(d);
   } catch {}
 }
 
-/* ── Chat streaming ──────────────────────────────── */
+/* ── Chat streaming ────────────────────────────────── */
 async function sendMessage() {
   const inp = document.getElementById('msg-input');
   const text = inp.value.trim();
@@ -343,13 +422,15 @@ async function sendMessage() {
   const aEl = addMsg('assistant', '');
   aEl.classList.add('streaming');
 
+  const pinnedIds = [...selectedNodes.keys()];
+
   let full = '';
   let retrieved = [];
   try {
     const resp = await fetch('/api/chat', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({message: text, model: currentModel}),
+      body: JSON.stringify({message: text, model: currentModel, pinned_ids: pinnedIds}),
     });
     const reader = resp.body.getReader();
     const dec = new TextDecoder();
@@ -373,8 +454,6 @@ async function sendMessage() {
           } else if (ev.type === 'error') {
             setContent(aEl, 'Error: ' + ev.text);
             aEl.classList.add('error');
-          } else if (ev.type === 'done') {
-            /* finalize */
           }
         } catch {}
       }
@@ -420,11 +499,7 @@ function addMsg(role, text) {
 function setContent(el, text, final) {
   const c = el.querySelector('.content');
   if (!text) { c.innerHTML = ''; return; }
-  if (final) {
-    c.innerHTML = md(text);
-  } else {
-    c.innerHTML = md(text);
-  }
+  c.innerHTML = md(text);
   scrollBottom();
 }
 
@@ -433,7 +508,81 @@ function scrollBottom() {
   m.scrollTop = m.scrollHeight;
 }
 
-/* ── Markdown (lightweight) ──────────────────────── */
+/* ── Pinned context chips ──────────────────────────── */
+function renderPinnedChips() {
+  const bar = document.getElementById('pinned-bar');
+  const box = document.getElementById('pinned-chips');
+  if (!selectedNodes.size) {
+    bar.classList.remove('visible');
+    return;
+  }
+  bar.classList.add('visible');
+  box.innerHTML = '';
+  for (const [id, nd] of selectedNodes) {
+    const chip = document.createElement('span');
+    chip.className = 'pin-chip';
+    const color = COLORS[nd.type] || '#888';
+    chip.innerHTML = `<span style="color:${color}">${nd.type}</span>: ${esc(nd.key.slice(0,30))} <span class="pin-x" data-id="${id}">&times;</span>`;
+    box.appendChild(chip);
+  }
+  box.querySelectorAll('.pin-x').forEach(x => {
+    x.onclick = () => { deselectNode(+x.dataset.id); };
+  });
+}
+
+function selectNode(d) {
+  selectedNodes.set(d.id, d);
+  lastSelectedId = d.id;
+  renderPinnedChips();
+  updateNodeStyles();
+}
+
+function deselectNode(id) {
+  selectedNodes.delete(id);
+  if (lastSelectedId === id) lastSelectedId = null;
+  renderPinnedChips();
+  updateNodeStyles();
+}
+
+function clearSelection() {
+  selectedNodes.clear();
+  lastSelectedId = null;
+  renderPinnedChips();
+  updateNodeStyles();
+}
+
+/* ── User link management ──────────────────────────── */
+async function apiLink(aId, bId) {
+  await fetch('/api/link', {
+    method: 'POST', headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({chunk_a: aId, chunk_b: bId}),
+  });
+  toast('Link created — training retrieval');
+  refreshGraph();
+}
+
+async function apiUnlink(aId, bId) {
+  await fetch('/api/unlink', {
+    method: 'POST', headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({chunk_a: aId, chunk_b: bId}),
+  });
+  toast('Link removed');
+  refreshGraph();
+}
+
+function hasUserLink(aId, bId) {
+  const lo = Math.min(aId, bId), hi = Math.max(aId, bId);
+  return rawUserLinks.some(l =>
+    (Math.min(l.source, l.target) === lo && Math.max(l.source, l.target) === hi)
+  );
+}
+
+function toggleLink(aId, bId) {
+  if (hasUserLink(aId, bId)) apiUnlink(aId, bId);
+  else apiLink(aId, bId);
+}
+
+/* ── Markdown (lightweight) ────────────────────────── */
 function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function md(raw) {
@@ -442,49 +591,44 @@ function md(raw) {
     blocks.push('<pre><code>' + esc(code.replace(/\n$/, '')) + '</code></pre>');
     return '\x00B' + (blocks.length - 1) + '\x00';
   });
-
   out = esc(out);
   out = out.replace(/`([^`\n]+)`/g, '<code>$1</code>');
   out = out.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   out = out.replace(/\*([^*]+)\*/g, '<em>$1</em>');
-
-  let lines = out.split('\n');
-  let html = '';
-  let inList = false;
+  let lines = out.split('\n'), html = '', inList = false;
   for (let l of lines) {
     if (/^#{1,3}\s/.test(l)) {
+      if (inList) { html += '</ul>'; inList = false; }
       const lvl = l.match(/^(#+)/)[1].length;
-      html += `<h${lvl+1}>${l.replace(/^#+\s/, '')}</h${lvl+1}>`;
+      html += `<h${lvl+1}>${l.replace(/^#+\s/,'')}</h${lvl+1}>`;
     } else if (/^[-*]\s/.test(l)) {
       if (!inList) { html += '<ul>'; inList = true; }
-      html += '<li>' + l.replace(/^[-*]\s/, '') + '</li>';
+      html += '<li>' + l.replace(/^[-*]\s/,'') + '</li>';
     } else if (/^\d+\.\s/.test(l)) {
       if (!inList) { html += '<ol>'; inList = true; }
-      html += '<li>' + l.replace(/^\d+\.\s/, '') + '</li>';
+      html += '<li>' + l.replace(/^\d+\.\s/,'') + '</li>';
     } else {
       if (inList) { html += '</ul>'; inList = false; }
-      if (l.trim() === '') html += '<br>';
-      else html += '<p>' + l + '</p>';
+      html += l.trim() === '' ? '<br>' : '<p>' + l + '</p>';
     }
   }
   if (inList) html += '</ul>';
-
-  for (let i = 0; i < blocks.length; i++) {
+  for (let i = 0; i < blocks.length; i++)
     html = html.replace('\x00B' + i + '\x00', blocks[i]);
-  }
   return html;
 }
 
-/* ── D3 Graph ────────────────────────────────────── */
+/* ── D3 Graph ──────────────────────────────────────── */
 function initGraph() {
   const box = document.getElementById('graph-container').getBoundingClientRect();
-  graphW = box.width || 380;
-  graphH = box.height || 400;
+  graphW = box.width || 400; graphH = box.height || 400;
 
   svgEl = d3.select('#graph-svg').attr('width', graphW).attr('height', graphH);
+  gEl = svgEl.select('defs').node().parentNode === svgEl.node()
+    ? svgEl.append('g') : svgEl.append('g');
   gEl = svgEl.append('g');
 
-  svgEl.call(d3.zoom().scaleExtent([.2, 5]).on('zoom', e => gEl.attr('transform', e.transform)));
+  svgEl.call(d3.zoom().scaleExtent([.15, 6]).on('zoom', e => gEl.attr('transform', e.transform)));
 
   linkSel = gEl.append('g').attr('class','links').selectAll('line');
   nodeSel = gEl.append('g').attr('class','nodes').selectAll('circle');
@@ -508,31 +652,53 @@ function initGraph() {
 }
 
 function updateGraph(data) {
-  linkSel = linkSel.data(data.edges, d => d.source.id ?? d.source + '-' + (d.target.id ?? d.target))
+  currentNodes = data.nodes;
+  const userEdges = (data.user_links || []).map(l => ({...l, _user: true, weight: 3}));
+  const autoEdges = data.edges.map(l => ({...l, _user: false}));
+  const allEdges = [...autoEdges, ...userEdges];
+  currentEdges = allEdges;
+
+  linkSel = linkSel
+    .data(allEdges, d => `${d.source.id??d.source}-${d.target.id??d.target}-${d._user}`)
     .join('line')
-    .attr('stroke', '#3f3f46')
-    .attr('stroke-opacity', d => Math.min(.7, .15 + d.weight * .08))
-    .attr('stroke-width', d => Math.min(2, .5 + d.weight * .2));
+    .attr('stroke', d => d._user ? '#8b5cf6' : '#3f3f46')
+    .attr('stroke-width', d => d._user ? 2.5 : Math.min(2, .5 + (d.weight||1) * .2))
+    .attr('stroke-dasharray', d => d._user ? '7 4' : null)
+    .attr('stroke-opacity', d => d._user ? .85 : Math.min(.7, .15 + (d.weight||1) * .08));
 
   nodeSel = nodeSel.data(data.nodes, d => d.id).join(
     enter => enter.append('circle')
       .attr('r', 0)
       .attr('fill', d => COLORS[d.type] || '#888')
-      .attr('stroke', 'rgba(255,255,255,.12)')
-      .attr('stroke-width', 1)
+      .attr('stroke', d => selectedNodes.has(d.id) ? '#8b5cf6' : 'rgba(255,255,255,.12)')
+      .attr('stroke-width', d => selectedNodes.has(d.id) ? 3 : 1)
+      .attr('filter', d => selectedNodes.has(d.id) ? 'url(#glow)' : null)
       .attr('cursor', 'pointer')
       .call(dragBehavior())
+      .on('click', onNodeClick)
       .on('mouseover', tipShow)
       .on('mousemove', tipMove)
       .on('mouseout', tipHide)
       .transition().duration(400).attr('r', d => rad(d)),
-    update => update.attr('fill', d => COLORS[d.type] || '#888'),
+    update => update
+      .attr('fill', d => COLORS[d.type] || '#888')
+      .attr('stroke', d => selectedNodes.has(d.id) ? '#8b5cf6' : 'rgba(255,255,255,.12)')
+      .attr('stroke-width', d => selectedNodes.has(d.id) ? 3 : 1)
+      .attr('filter', d => selectedNodes.has(d.id) ? 'url(#glow)' : null),
     exit => exit.transition().duration(250).attr('r', 0).remove()
   );
 
   sim.nodes(data.nodes);
-  sim.force('link').links(data.edges);
+  sim.force('link').links(allEdges);
   sim.alpha(.6).restart();
+}
+
+function updateNodeStyles() {
+  if (!nodeSel) return;
+  nodeSel
+    .attr('stroke', d => selectedNodes.has(d.id) ? '#8b5cf6' : 'rgba(255,255,255,.12)')
+    .attr('stroke-width', d => selectedNodes.has(d.id) ? 3 : 1)
+    .attr('filter', d => selectedNodes.has(d.id) ? 'url(#glow)' : null);
 }
 
 function tick() {
@@ -543,32 +709,117 @@ function tick() {
 
 function rad(d) { return Math.min(14, 4 + Math.sqrt(d.freq || 1) * 2.5); }
 
-function dragBehavior() {
-  return d3.drag()
-    .on('start', (e,d) => { if(!e.active) sim.alphaTarget(.3).restart(); d.fx=d.x; d.fy=d.y; })
-    .on('drag', (e,d) => { d.fx=e.x; d.fy=e.y; })
-    .on('end', (e,d) => { if(!e.active) sim.alphaTarget(0); d.fx=null; d.fy=null; });
+/* ── Node click (select / shift+click to connect) ── */
+function onNodeClick(event, d) {
+  event.stopPropagation();
+  if (event.shiftKey && lastSelectedId != null && lastSelectedId !== d.id) {
+    toggleLink(lastSelectedId, d.id);
+    selectNode(d);
+    return;
+  }
+  if (selectedNodes.has(d.id)) {
+    deselectNode(d.id);
+  } else {
+    selectNode(d);
+  }
 }
 
-/* ── Tooltip ─────────────────────────────────────── */
+/* ── Drag: normal move vs shift+drag to connect ──── */
+function dragBehavior() {
+  return d3.drag()
+    .on('start', function(e, d) {
+      if (e.sourceEvent && e.sourceEvent.shiftKey) {
+        connectSource = d;
+        connectLine = gEl.append('line')
+          .attr('class', 'connect-preview')
+          .attr('x1', d.x).attr('y1', d.y)
+          .attr('x2', d.x).attr('y2', d.y);
+      } else {
+        if (!e.active) sim.alphaTarget(.3).restart();
+        d.fx = d.x; d.fy = d.y;
+      }
+    })
+    .on('drag', function(e, d) {
+      if (connectSource) {
+        const [mx, my] = d3.pointer(e, gEl.node());
+        connectLine.attr('x2', mx).attr('y2', my);
+      } else {
+        d.fx = e.x; d.fy = e.y;
+      }
+    })
+    .on('end', function(e, d) {
+      if (connectSource) {
+        const [mx, my] = d3.pointer(e, gEl.node());
+        let closest = null, best = Infinity;
+        for (const n of currentNodes) {
+          if (n === connectSource) continue;
+          const dist = Math.hypot((n.x||0) - mx, (n.y||0) - my);
+          if (dist < best && dist < 30) { best = dist; closest = n; }
+        }
+        if (closest) {
+          toggleLink(connectSource.id, closest.id);
+          selectNode(connectSource);
+          selectNode(closest);
+        }
+        if (connectLine) connectLine.remove();
+        connectSource = null;
+        connectLine = null;
+      } else {
+        if (!e.active) sim.alphaTarget(0);
+        d.fx = null; d.fy = null;
+      }
+    });
+}
+
+/* ── Graph search ──────────────────────────────────── */
+function onGraphSearch(query) {
+  if (!nodeSel) return;
+  const q = query.toLowerCase().trim();
+  if (!q) {
+    nodeSel.attr('opacity', 1);
+    linkSel.attr('opacity', d => d._user ? .85 : Math.min(.7, .15 + (d.weight||1) * .08));
+    return;
+  }
+  const matchIds = new Set();
+  currentNodes.forEach(n => {
+    if ((n.key + ' ' + n.text).toLowerCase().includes(q)) matchIds.add(n.id);
+  });
+  nodeSel.attr('opacity', d => matchIds.has(d.id) ? 1 : .12);
+  linkSel.attr('opacity', d => {
+    const sId = d.source.id ?? d.source, tId = d.target.id ?? d.target;
+    return (matchIds.has(sId) || matchIds.has(tId)) ? .6 : .04;
+  });
+}
+
+/* ── Tooltip ───────────────────────────────────────── */
 const tip = document.getElementById('tooltip');
 function tipShow(e, d) {
-  tip.innerHTML = `<span class="tip-type" style="color:${COLORS[d.type]||'#888'}">${d.type}</span>
+  const sel = selectedNodes.has(d.id) ? ' <span style="color:var(--accent)">[PINNED]</span>' : '';
+  tip.innerHTML = `<span class="tip-type" style="color:${COLORS[d.type]||'#888'}">${d.type}${sel}</span>
     <div class="tip-text">${esc(d.text)}</div>
     <span class="tip-key">${esc(d.key)}</span>`;
   tip.style.opacity = '1';
   tipMove(e);
 }
 function tipMove(e) {
-  const pad = 14;
-  let x = e.clientX + pad, y = e.clientY - pad;
+  let x = e.clientX + 14, y = e.clientY - 14;
   if (x + 270 > window.innerWidth) x = e.clientX - 270;
-  if (y < 0) y = e.clientY + pad;
+  if (y < 0) y = e.clientY + 14;
   tip.style.left = x + 'px'; tip.style.top = y + 'px';
 }
 function tipHide() { tip.style.opacity = '0'; }
 
-/* ── Event listeners ─────────────────────────────── */
+/* ── Toast notification ────────────────────────────── */
+let toastTimer;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2000);
+}
+
+/* ── Event listeners ───────────────────────────────── */
 function setupListeners() {
   document.getElementById('send-btn').onclick = sendMessage;
 
@@ -586,6 +837,7 @@ function setupListeners() {
     await fetch('/api/session', {method:'POST'});
     document.getElementById('messages').innerHTML =
       '<div class="empty-chat" id="empty-chat"><h2>Project Memory</h2><p>New session started.</p></div>';
+    clearSelection();
     fetchState();
   };
 
@@ -617,6 +869,16 @@ function setupListeners() {
     }
     drawer.classList.add('open');
   };
+
+  document.getElementById('btn-clear-pins').onclick = clearSelection;
+
+  document.getElementById('graph-search').addEventListener('input', e => {
+    onGraphSearch(e.target.value);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') clearSelection();
+  });
 
   inp.focus();
 }
