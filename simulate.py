@@ -587,14 +587,19 @@ def main():
     print(f"  Personas: {a.personas}")
     print(f"  Turns/persona: {a.turns}")
     print(f"  Mode: {'fast (no LLM)' if a.fast else 'full (with LLM)'}")
-    print(f"  DB: {a.db}")
-
-    if Path(a.db).exists():
-        Path(a.db).unlink()
-    for suffix in ["-wal", "-shm"]:
-        p2 = Path(a.db + suffix)
-        if p2.exists():
-            p2.unlink()
+    db_path = a.db
+    if Path(db_path).exists():
+        try:
+            Path(db_path).unlink()
+            for suffix in ["-wal", "-shm"]:
+                p2 = Path(db_path + suffix)
+                if p2.exists():
+                    p2.unlink()
+        except PermissionError:
+            ts = int(time.time())
+            db_path = str(Path(db_path).with_stem(f"{Path(db_path).stem}_{ts}"))
+            print(f"  [DB locked, using {db_path} instead]")
+    print(f"  DB: {db_path}")
 
     t0 = time.time()
     metrics = run_simulation(
@@ -603,7 +608,7 @@ def main():
         num_personas=min(a.personas, len(PERSONAS)),
         turns_per_persona=a.turns,
         fast=a.fast,
-        db_path=a.db,
+        db_path=db_path,
     )
     elapsed = time.time() - t0
 

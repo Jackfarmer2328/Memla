@@ -84,7 +84,6 @@ _STRONG_PATTERNS = [
     r"^\s*incorrect",
     r"^\s*that'?s?\s+(?:not\s+(?:right|correct|what)|wrong|incorrect)",
     r"^\s*i\s+(?:said|meant|asked|told\s+you)",
-    r"^\s*actually[,\s]",
     r"^\s*i\s+(?:didn'?t|did\s+not)\s+(?:mean|ask|say|want)",
     r"^\s*you\s+(?:got|have)\s+(?:it|that)\s+wrong",
     r"^\s*not\s+(?:what|that)",
@@ -103,6 +102,9 @@ _WEAK_PATTERNS = [
     r"\bi\s+told\s+you\b",
     r"\bwell\s+actually\b",
     r"\bbut\s+i\s+(?:said|meant|asked)\b",
+    # "Actually" now only counts as a weak correction when followed
+    # closely by a clearly negative word.
+    r"\bactually\b.{0,24}\b(wrong|incorrect|off|bad|no|not|missed|issue|problem)\b",
 ]
 
 
