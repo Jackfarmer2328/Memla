@@ -310,6 +310,46 @@ def memory_feedback(is_positive: bool) -> str:
 
 
 @mcp.tool()
+<<<<<<< HEAD
+=======
+def memory_expand(node_id: int) -> str:
+    """Expand a summary node to see its child memories.
+
+    When you retrieve a summary chunk and need the granular details
+    it was consolidated from, call this with the summary's chunk ID.
+    Returns the original detailed memories that were folded into it.
+    """
+    S.ensure_init()
+    children = S.log.fetch_children(node_id)
+    if not children:
+        return json.dumps({"node_id": node_id, "children": [], "note": "Not a summary node."})
+    return json.dumps({
+        "node_id": node_id,
+        "children": [_chunk_to_dict(c) for c in children],
+        "count": len(children),
+    }, indent=2)
+
+
+@mcp.tool()
+def memory_consolidate() -> str:
+    """Consolidate similar memories into summary nodes.
+
+    Clusters similar chunks, creates summary nodes, and demotes
+    the originals so they don't clog the retrieval window.
+    Call this when the memory store grows large.
+    """
+    S.ensure_init()
+    from memory_system.memory.consolidator import consolidate
+    summary_ids = consolidate(S.log, user_id=S.agent_id)
+    return json.dumps({
+        "consolidated": True,
+        "summary_nodes_created": len(summary_ids),
+        "summary_ids": summary_ids,
+    })
+
+
+@mcp.tool()
+>>>>>>> import-yosazo
 def memory_merge() -> str:
     """Merge retrieval adapters across all agents sharing this database.
 

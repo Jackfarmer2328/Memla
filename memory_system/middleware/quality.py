@@ -84,7 +84,10 @@ _STRONG_PATTERNS = [
     r"^\s*incorrect",
     r"^\s*that'?s?\s+(?:not\s+(?:right|correct|what)|wrong|incorrect)",
     r"^\s*i\s+(?:said|meant|asked|told\s+you)",
+<<<<<<< HEAD
     r"^\s*actually[,\s]",
+=======
+>>>>>>> import-yosazo
     r"^\s*i\s+(?:didn'?t|did\s+not)\s+(?:mean|ask|say|want)",
     r"^\s*you\s+(?:got|have)\s+(?:it|that)\s+wrong",
     r"^\s*not\s+(?:what|that)",
@@ -103,19 +106,70 @@ _WEAK_PATTERNS = [
     r"\bi\s+told\s+you\b",
     r"\bwell\s+actually\b",
     r"\bbut\s+i\s+(?:said|meant|asked)\b",
+<<<<<<< HEAD
 ]
 
 
+=======
+    # "Actually" now only counts as a weak correction when followed
+    # closely by a clearly negative word.
+    r"\bactually\b.{0,24}\b(wrong|incorrect|off|bad|no|not|missed|issue|problem)\b",
+]
+
+
+# Rhetorical / sarcasm exemptions (C2 frame detection).
+# Beginning anchor + end anchor together reveal structural intent.
+# "No way" + "!" = excitement, NOT a correction.
+_RHETORICAL_PATTERNS = [
+    r"^\s*no\s+way\b.*[!]",
+    r"^\s*no\s+kidding\b",
+    r"^\s*no\s+shit\b",
+    r"^\s*no\s+doubt\b",
+    r"^\s*no\b.*(?:awesome|amazing|perfect|great|incredible|wow|cool|nice|love|beautiful)[!?]*\s*$",
+    r"^\s*(?:wait|oh)\s+no\b.*[!]",
+    r"^\s*(?:hell|heck)\s+no\b.*[!]",
+    r"^\s*actually[,\s].*(?:awesome|amazing|perfect|great|works?|love|nice|good)[!?]*\s*$",
+    r"^\s*wrong\b.*(?:lol|haha|lmao|rofl)[!?]*\s*$",
+]
+
+
+def _is_rhetorical(text: str) -> bool:
+    """Detect rhetorical/sarcastic excitement that looks like correction but isn't."""
+    lowered = text.lower().strip()
+    for pat in _RHETORICAL_PATTERNS:
+        if re.search(pat, lowered):
+            return True
+    # Frame heuristic: starts with "no" but ends with exclamation/excitement
+    if re.match(r"^\s*no\b", lowered) and lowered.rstrip().endswith("!"):
+        words = lowered.split()
+        if len(words) >= 3 and not any(w in words for w in ("wrong", "incorrect", "bad", "error")):
+            return True
+    return False
+
+
+>>>>>>> import-yosazo
 def detect_correction(user_text: str) -> float:
     """
     Returns a correction confidence: 0.0 = normal continuation, ~0.8 = likely correction.
 
+<<<<<<< HEAD
     Used to retroactively penalize the chunks that drove the previous (incorrect) response.
+=======
+    Uses frame detection (C2): reads the beginning anchor AND end punctuation/words
+    together. "No way" + "worked!" = rhetorical excitement, no signal.
+    "No," + "wrong." = genuine correction, fires signal.
+>>>>>>> import-yosazo
     """
     text = user_text.strip()
     if not text:
         return 0.0
 
+<<<<<<< HEAD
+=======
+    if _is_rhetorical(text):
+        return 0.0
+
+>>>>>>> import-yosazo
     lowered = text.lower()
 
     for pattern in _STRONG_PATTERNS:
