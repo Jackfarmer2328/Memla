@@ -30,7 +30,7 @@ Works with **Ollama** (local), **Anthropic** (Claude), or **OpenAI-compatible AP
 
 ```bash
 git clone https://github.com/Jackfarmer2328/Memla.git
-cd Project-Memory
+cd Memla
 pip install -r requirements.txt
 ```
 
