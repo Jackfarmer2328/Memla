@@ -106,14 +106,49 @@ _WEAK_PATTERNS = [
 ]
 
 
+# Rhetorical / sarcasm exemptions (C2 frame detection).
+# Beginning anchor + end anchor together reveal structural intent.
+# "No way" + "!" = excitement, NOT a correction.
+_RHETORICAL_PATTERNS = [
+    r"^\s*no\s+way\b.*[!]",
+    r"^\s*no\s+kidding\b",
+    r"^\s*no\s+shit\b",
+    r"^\s*no\s+doubt\b",
+    r"^\s*no\b.*(?:awesome|amazing|perfect|great|incredible|wow|cool|nice|love|beautiful)[!?]*\s*$",
+    r"^\s*(?:wait|oh)\s+no\b.*[!]",
+    r"^\s*(?:hell|heck)\s+no\b.*[!]",
+    r"^\s*actually[,\s].*(?:awesome|amazing|perfect|great|works?|love|nice|good)[!?]*\s*$",
+    r"^\s*wrong\b.*(?:lol|haha|lmao|rofl)[!?]*\s*$",
+]
+
+
+def _is_rhetorical(text: str) -> bool:
+    """Detect rhetorical/sarcastic excitement that looks like correction but isn't."""
+    lowered = text.lower().strip()
+    for pat in _RHETORICAL_PATTERNS:
+        if re.search(pat, lowered):
+            return True
+    # Frame heuristic: starts with "no" but ends with exclamation/excitement
+    if re.match(r"^\s*no\b", lowered) and lowered.rstrip().endswith("!"):
+        words = lowered.split()
+        if len(words) >= 3 and not any(w in words for w in ("wrong", "incorrect", "bad", "error")):
+            return True
+    return False
+
+
 def detect_correction(user_text: str) -> float:
     """
     Returns a correction confidence: 0.0 = normal continuation, ~0.8 = likely correction.
 
-    Used to retroactively penalize the chunks that drove the previous (incorrect) response.
+    Uses frame detection (C2): reads the beginning anchor AND end punctuation/words
+    together. "No way" + "worked!" = rhetorical excitement, no signal.
+    "No," + "wrong." = genuine correction, fires signal.
     """
     text = user_text.strip()
     if not text:
+        return 0.0
+
+    if _is_rhetorical(text):
         return 0.0
 
     lowered = text.lower()

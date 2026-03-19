@@ -898,9 +898,14 @@ function setupListeners() {
   inp.addEventListener('keydown', e => {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
   });
+  let preflightTimer = null;
   inp.addEventListener('input', () => {
     inp.style.height = 'auto';
     inp.style.height = Math.min(inp.scrollHeight, 150) + 'px';
+    clearTimeout(preflightTimer);
+    const val = inp.value.trim();
+    if (val.length < 3) { clearPreflightHighlight(); return; }
+    preflightTimer = setTimeout(() => preflightHighlight(val), 300);
   });
 
   document.getElementById('model-picker').onchange = e => { currentModel = e.target.value; };
@@ -982,6 +987,43 @@ function setupListeners() {
 function flash(el, ok) {
   el.classList.add('active');
   setTimeout(() => el.classList.remove('active'), ok ? 800 : 300);
+}
+
+/* ── Pre-flight semantic highlighting (C3) ─────────── */
+let preflightHits = new Set();
+
+async function preflightHighlight(text) {
+  try {
+    const r = await fetch('/api/preflight', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({text}),
+    });
+    const d = await r.json();
+    clearPreflightHighlight();
+    if (!d.hits || !d.hits.length) return;
+    preflightHits = new Set(d.hits.map(h => h.id));
+    if (!nodeSel) return;
+    nodeSel
+      .attr('opacity', nd => preflightHits.has(nd.id) ? 1 : 0.2)
+      .attr('stroke', nd => {
+        if (selectedNodes.has(nd.id)) return '#8b5cf6';
+        if (preflightHits.has(nd.id)) return '#22d3ee';
+        return 'rgba(255,255,255,.12)';
+      })
+      .attr('stroke-width', nd => preflightHits.has(nd.id) ? 2.5 : selectedNodes.has(nd.id) ? 2 : 1);
+    if (linkSel) linkSel.attr('opacity', 0.08);
+  } catch {}
+}
+
+function clearPreflightHighlight() {
+  preflightHits.clear();
+  if (!nodeSel) return;
+  nodeSel
+    .attr('opacity', 1)
+    .attr('stroke', nd => selectedNodes.has(nd.id) ? '#8b5cf6' : 'rgba(255,255,255,.12)')
+    .attr('stroke-width', nd => selectedNodes.has(nd.id) ? 2 : 1);
+  if (linkSel) linkSel.attr('opacity', d => d._user ? .85 : Math.min(.7, .15 + (d.weight||1) * .08));
 }
 
 /* ── Trajectory panel ─────────────────────────────── */

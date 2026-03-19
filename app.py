@@ -29,8 +29,10 @@ from pydantic import BaseModel
 from memory_system.memory.episode_log import EpisodeLog
 from memory_system.memory.chunk_manager import ChunkManager
 from memory_system.memory.llm_extractor import LLMChunkExtractor
+from memory_system.memory.lazy_import import LazyImporter
 from memory_system.middleware.ttt_layer import TTTLayer
 from memory_system.ollama_client import ChatMessage, UniversalLLMClient
+from memory_system.sync import pull_if_enabled, push_if_enabled
 from memory_system.reasoning.trajectory import (
     TrajectoryLog, Trajectory, TrajectoryStep,
     inject_reasoning_prompt, parse_trajectory, has_trajectory_format,
@@ -82,6 +84,7 @@ class State:
         self.client: Optional[UniversalLLMClient] = None
         self.ttt: Optional[TTTLayer] = None
         self.traj_log: Optional[TrajectoryLog] = None
+        self.lazy: Optional[LazyImporter] = None
         self.last_trajectory_id: Optional[int] = None
 
     def init(self, *, model: str, db: str, user_id: str, ollama_url: str) -> None:
@@ -95,6 +98,10 @@ class State:
         self.session_id = f"sess_{int(time.time())}_{secrets.token_hex(3)}"
         self.history = []
 
+        pulled = pull_if_enabled()
+        if pulled is not None:
+            print(f"[sync] pulled {pulled} files from cloud")
+
         self.log = EpisodeLog(db)
         self.client = UniversalLLMClient(provider="ollama", base_url=self.ollama_url)
         ext = LLMChunkExtractor(client=self.client, model=model, temperature=0.0)
@@ -104,6 +111,7 @@ class State:
         self.log._conn.execute(_USER_LINKS_DDL)
         self.log._conn.commit()
         self.traj_log = TrajectoryLog(self.log._conn)
+        self.lazy = LazyImporter(self.log)
 
     def set_model(self, model: str) -> None:
         self.model = model
@@ -203,6 +211,9 @@ def chat(req: ChatReq):
     msg = req.message.strip()
     if not msg:
         return JSONResponse({"error": "Empty message"}, 400)
+
+    if S.lazy:
+        S.lazy.on_demand_extract(query=msg, user_id=S.user_id, session_id=S.session_id)
 
     with S.lock:
         artifacts = S.ttt.on_user_message(
@@ -441,6 +452,98 @@ def get_memories():
     return {"nodes": nodes, "edges": edges, "user_links": S.fetch_user_links()}
 
 
+class LazyImportReq(BaseModel):
+    path: str
+    title: str = ""
+
+
+@app.post("/api/lazy/import")
+def lazy_import(req: LazyImportReq):
+    """Register a file for lazy import — metadata only, no heavy extraction."""
+    if not S.lazy:
+        return JSONResponse({"error": "Not initialized"}, 500)
+    sid = S.lazy.register_source(req.path, user_id=S.user_id, title=req.title)
+    return {"status": "registered", "source_id": sid}
+
+
+@app.get("/api/lazy/sources")
+def lazy_sources():
+    if not S.lazy:
+        return {"sources": []}
+    srcs = S.lazy.list_sources(S.user_id)
+    return {"sources": [
+        {"id": s.id, "title": s.title, "path": s.source_path,
+         "words": s.word_count, "extracted": s.extracted_ts is not None,
+         "tombstoned": s.tombstoned}
+        for s in srcs
+    ]}
+
+
+@app.post("/api/lazy/gc")
+def lazy_gc():
+    """Behavioral GC — tombstone stale never-recalled imported chunks."""
+    if not S.lazy:
+        return JSONResponse({"error": "Not initialized"}, 500)
+    count = S.lazy.gc(user_id=S.user_id)
+    return {"tombstoned": count}
+
+
+@app.post("/api/sync/push")
+def sync_push():
+    """Manually push to cloud storage."""
+    count = push_if_enabled()
+    if count is None:
+        return {"status": "disabled", "message": "Set MEMLA_SYNC_BACKEND env var to enable"}
+    return {"status": "ok", "files_pushed": count}
+
+
+@app.post("/api/sync/pull")
+def sync_pull():
+    """Manually pull from cloud storage."""
+    count = pull_if_enabled()
+    if count is None:
+        return {"status": "disabled", "message": "Set MEMLA_SYNC_BACKEND env var to enable"}
+    return {"status": "ok", "files_pulled": count}
+
+
+class PreflightReq(BaseModel):
+    text: str
+
+
+@app.post("/api/preflight")
+def preflight(req: PreflightReq):
+    """Live pre-flight: as user types, return which memory node IDs are being targeted.
+
+    Debounced from the frontend (300ms). Returns top node IDs + scores so the
+    graph can highlight them in real-time before the user hits Enter.
+    """
+    if not S.log or not req.text.strip():
+        return {"hits": []}
+    try:
+        from memory_system.middleware.context_builder import _get_lora_manager
+        mgr = _get_lora_manager()
+        if mgr is None:
+            return {"hits": []}
+        chunks = S.log.fetch_top_level_chunks(user_id=S.user_id, limit=200)
+        if not chunks:
+            return {"hits": []}
+        q_emb = mgr.embed_query(req.text.strip())
+        c_embs = mgr.embed_many([c.text for c in chunks])
+        if not q_emb or not c_embs:
+            return {"hits": []}
+        scored = []
+        for i, c_emb in enumerate(c_embs):
+            dot = sum(a * b for a, b in zip(q_emb, c_emb))
+            scored.append((chunks[i].id, float(dot)))
+        scored.sort(key=lambda x: x[1], reverse=True)
+        top = scored[:8]
+        if top and top[0][1] < 0.2:
+            return {"hits": []}
+        return {"hits": [{"id": nid, "score": round(s, 3)} for nid, s in top if s > 0.15]}
+    except Exception:
+        return {"hits": []}
+
+
 class TrajectoryCorrection(BaseModel):
     trajectory_id: int
     steps: list[dict]
@@ -495,6 +598,13 @@ def recall():
             for c in S.ttt.last_retrieved
         ],
     }
+
+
+@app.on_event("shutdown")
+def _on_shutdown():
+    pushed = push_if_enabled()
+    if pushed is not None:
+        print(f"[sync] pushed {pushed} files to cloud")
 
 
 # ── Entry point ──────────────────────────────────────────────────

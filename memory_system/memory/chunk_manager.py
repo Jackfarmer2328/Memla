@@ -188,15 +188,19 @@ class ChunkManager:
         q_tokens = set(_tokenize(query_text))
         now = time.time()
 
+        # --- Graph-augmented contextual retrieval (C1) ---
+        # Enrich chunk text with connected node context before embedding.
+        # MiniLM doesn't know domain vocabulary, but reads context clues.
+        enriched_texts = self._enrich_with_graph_context(candidates, user_id)
+
         # --- Attempt semantic scoring via MiniLM embeddings ---
         sem_scores: dict[int, float] = {}
         try:
             from ..middleware.context_builder import _get_lora_manager
             mgr = _get_lora_manager()
             if mgr is not None:
-                chunk_texts = [c.text for c in candidates]
                 q_emb = mgr.embed_query(query_text)
-                c_embs = mgr.embed_many(chunk_texts)
+                c_embs = mgr.embed_many(enriched_texts)
                 if q_emb and c_embs:
                     for idx, c_emb in enumerate(c_embs):
                         dot = sum(a * b for a, b in zip(q_emb, c_emb))
@@ -231,6 +235,59 @@ class ChunkManager:
         ranked = sorted(candidates, key=score, reverse=True)
         top = ranked[: max(3, int(k))]
         return top
+
+    def _enrich_with_graph_context(self, chunks: list[Chunk], user_id: str) -> list[str]:
+        """Prepend connected-node context clues to each chunk before embedding.
+
+        The graph becomes a living dictionary: MiniLM doesn't know "Project Phoenix",
+        but it reads "[Context: React frontend, Supabase database]" and maps correctly.
+        """
+        try:
+            links = self.log._conn.execute(
+                "SELECT chunk_a_id, chunk_b_id FROM user_links WHERE user_id=?",
+                (user_id,),
+            ).fetchall()
+        except Exception:
+            return [c.text for c in chunks]
+
+        if not links:
+            return [c.text for c in chunks]
+
+        neighbors: dict[int, set[int]] = {}
+        for a, b in links:
+            neighbors.setdefault(a, set()).add(b)
+            neighbors.setdefault(b, set()).add(a)
+
+        chunk_by_id = {c.id: c for c in chunks}
+        all_chunks_by_id = chunk_by_id.copy()
+        missing_ids = set()
+        for c in chunks:
+            for nid in neighbors.get(c.id, set()):
+                if nid not in all_chunks_by_id:
+                    missing_ids.add(nid)
+        if missing_ids:
+            all_db = self.log.fetch_recent_chunks(user_id=user_id, limit=9999)
+            for c in all_db:
+                if c.id in missing_ids:
+                    all_chunks_by_id[c.id] = c
+
+        enriched: list[str] = []
+        for c in chunks:
+            nids = neighbors.get(c.id, set())
+            if not nids:
+                enriched.append(c.text)
+                continue
+            clues = []
+            for nid in list(nids)[:5]:
+                nc = all_chunks_by_id.get(nid)
+                if nc:
+                    clues.append(nc.key)
+            if clues:
+                context = ", ".join(clues)
+                enriched.append(f"{c.text} [Context: {context}]")
+            else:
+                enriched.append(c.text)
+        return enriched
 
     def mark_recalled(self, chunks: Sequence[Chunk]) -> None:
         self.log.mark_recalled([c.id for c in chunks])
