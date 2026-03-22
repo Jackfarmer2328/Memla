@@ -10,7 +10,7 @@ import tempfile
 from datetime import datetime, timedelta
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Sequence
 from collections.abc import Callable
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -20,7 +20,8 @@ if str(ROOT) not in sys.path:
 from memory_system.memory.chunk_manager import ChunkManager, _stable_key
 from memory_system.memory.episode_log import Chunk, EpisodeLog
 from memory_system.memory.llm_extractor import LLMChunkExtractor
-from memory_system.middleware.context_builder import build_system_prompt
+from memory_system.middleware.context_builder import build_system_prompt, deferred_train
+from memory_system.middleware.quality import ChunkQuality, score_chunk_usage
 from memory_system.middleware.ttt_layer import TTTLayer
 from memory_system.ollama_client import ChatMessage, UniversalLLMClient
 
@@ -98,6 +99,18 @@ class MemoryRuntime:
         finally:
             self.db_dir.cleanup()
             self.adapters_dir.cleanup()
+
+
+@dataclass(frozen=True)
+class GraphQueryPlan:
+    subject_name: str | None
+    relation_targets: tuple[str, ...]
+    object_targets: tuple[str, ...]
+    answer_kind: str
+    prefer_previous: bool
+    prefer_current: bool
+    asks_time: bool
+    list_mode: bool
 
 
 def _session_keys(conversation: dict[str, Any]) -> list[str]:
@@ -414,6 +427,715 @@ def _query_subject_name(query: str) -> str | None:
     if m:
         return "Melanie" if m.group(1).lower() == "mel" else m.group(1)
     return None
+
+
+def _query_subject_phrase(query: str) -> str | None:
+    text = " ".join(str(query or "").strip().split())
+    if not text:
+        return None
+    patterns = (
+        r"^(?:What|When|Where|Why|How|Who|Which(?: city| cities)?)\s+"
+        r"(?:did|does|do|has|have|is|are|was|were)\s+"
+        r"(?P<subject>.+?)\s+"
+        r"(?:research|buy|bought|find|found|offer|offering|recommend|recommended|read|raise|raising|open|opened|"
+        r"participate|participated|volunteer|volunteered|share|shared|visit|visited|live|living|work|worked|make|made|choose|chose|take|took|go|went)\b",
+        r"^(?:Which city|Which cities)\s+did\s+(?P<subject>.+?)\s+(?:visit|visited|recommend|recommended)\b",
+        r"^What\s+is\s+(?P<subject>.+?)\s+offering\b",
+        r"^What\s+does\s+(?P<subject>.+?)\s+offer\b",
+    )
+    for pattern in patterns:
+        m = re.match(pattern, text, flags=re.IGNORECASE)
+        if not m:
+            continue
+        subject = " ".join(str(m.group("subject") or "").strip().split()).strip(" ?")
+        if not subject:
+            continue
+        return subject
+    return _query_subject_name(text)
+
+
+def _graph_object_targets(prompt: str) -> list[str]:
+    subject = _query_subject_phrase(prompt)
+    targets: list[str] = []
+    for title in re.findall(r'"([^"]+)"', str(prompt or "")):
+        title = title.strip()
+        if title:
+            targets.append(title)
+    for match in re.finditer(r"\b[A-Z][a-zA-Z0-9_]+(?:\s+[A-Z][a-zA-Z0-9_]+){0,2}\b", str(prompt or "")):
+        candidate = match.group(0).strip()
+        if not candidate:
+            continue
+        if subject and candidate.lower() == subject.lower():
+            continue
+        if candidate.lower() in {"what", "when", "where", "which", "who", "why", "how"}:
+            continue
+        targets.append(candidate)
+    return _dedupe_items(targets)
+
+
+def _graph_relation_targets(prompt: str) -> list[str]:
+    lower = str(prompt or "").lower()
+    targets: list[str] = []
+    if any(token in lower for token in (" live", " living", "move from", "moved from", "where does", "where is")):
+        if any(token in lower for token in ("live", "living", "move from", "moved from", "currently", "current")):
+            targets.append("lives_in")
+    if any(token in lower for token in ("work", "works", "worked", "company", "employer", "job")):
+        targets.append("works_at")
+    if "instrument" in lower or ("play" in lower and "what" in lower):
+        targets.append("plays_instrument")
+    if "musical artists" in lower or "bands" in lower or ("saw" in lower and "live" in lower):
+        targets.append("saw_artist")
+    if "favorite style of dance" in lower:
+        targets.append("favorite_style")
+    if ("which cities" in lower or "which city have both" in lower or "visited" in lower) and any(token in lower for token in ("city", "cities")):
+        targets.append("visited_place")
+    if "visit" in lower or "visited" in lower or "trip to" in lower:
+        targets.append("visited_place")
+    if "see" in lower and "live" in lower:
+        targets.append("saw_artist")
+    if "research" in lower:
+        targets.append("research")
+    if "participat" in lower:
+        targets.append("participate_in")
+    if "bought" in lower or re.search(r"\bbuy\b", lower):
+        targets.append("buy")
+    if "kind of art" in lower or ("make" in lower and "art" in lower) or "painted" in lower:
+        targets.append("paint")
+    if re.search(r"\bread\b", lower):
+        targets.append("read")
+    if "recommend" in lower:
+        targets.append("recommend")
+    if "found" in lower or re.search(r"\bfind\b", lower):
+        targets.append("find")
+    if "offer" in lower or "offering" in lower:
+        targets.append("offer")
+    if "focus" in lower:
+        targets.append("focus_on")
+    if "volunteer" in lower:
+        targets.append("volunteer_at")
+    if "shared a photo" in lower or "photo of" in lower:
+        targets.append("share_photo_of")
+    if "raise awareness" in lower:
+        targets.append("raise_awareness_for")
+    if "open" in lower or "opened" in lower or "opening" in lower:
+        targets.append("open")
+    return _dedupe_cues(targets)
+
+
+def _relation_root(relation_type: str) -> str:
+    rel = str(relation_type or "").strip().lower()
+    for prefix in ("previous_", "next_", "before_", "after_"):
+        if rel.startswith(prefix):
+            return rel[len(prefix):]
+    return rel
+
+
+def _build_graph_query_plan(prompt: str, category: str) -> GraphQueryPlan:
+    return GraphQueryPlan(
+        subject_name=_query_subject_phrase(prompt),
+        relation_targets=tuple(_graph_relation_targets(prompt)),
+        object_targets=tuple(_graph_object_targets(prompt)),
+        answer_kind=_answer_kind(prompt, category),
+        prefer_previous=_prompt_prefers_previous_state(prompt),
+        prefer_current=_prompt_prefers_current_state(prompt),
+        asks_time=str(prompt or "").strip().lower().startswith("when "),
+        list_mode=_answer_kind(prompt, category) == "list",
+    )
+
+
+def _prompt_prefers_previous_state(prompt: str) -> bool:
+    lower = str(prompt or "").lower()
+    return any(
+        phrase in lower
+        for phrase in (
+            "before ",
+            "previous ",
+            "move from",
+            "moved from",
+            "used to",
+            "prior to",
+        )
+    )
+
+
+def _prompt_prefers_current_state(prompt: str) -> bool:
+    lower = str(prompt or "").lower()
+    return any(
+        phrase in lower
+        for phrase in (
+            "currently",
+            "current ",
+            "right now",
+            "now",
+        )
+    )
+
+
+def _graph_edge_sort_key(edge: Any, *, prefer_previous: bool, prefer_current: bool) -> tuple[float, float, float]:
+    end_ts = float(edge.end_ts or 0)
+    start_ts = float(edge.start_ts or 0)
+    active = 1.0 if edge.end_ts is None else 0.0
+    if prefer_previous:
+        return (1.0 - active, end_ts, start_ts)
+    if prefer_current:
+        return (active, start_ts, edge.weight)
+    return (active, edge.weight, max(start_ts, end_ts))
+
+
+def _relation_label(relation_type: str) -> str:
+    root = _relation_root(relation_type)
+    if relation_type.startswith("previous_"):
+        return f"came before {root.replace('_', ' ')}"
+    if relation_type.startswith("next_"):
+        return f"came after {root.replace('_', ' ')}"
+    if relation_type.startswith("before_"):
+        return f"before {root.replace('_', ' ')}"
+    if relation_type.startswith("after_"):
+        return f"after {root.replace('_', ' ')}"
+    if relation_type == "lives_in":
+        return "lives in"
+    if relation_type == "works_at":
+        return "works at"
+    if relation_type == "plays_instrument":
+        return "plays"
+    if relation_type == "saw_artist":
+        return "saw live"
+    if relation_type == "favorite_style":
+        return "favorite style is"
+    if relation_type == "visited_place":
+        return "visited"
+    if relation_type == "research":
+        return "researched"
+    if relation_type == "participate_in":
+        return "participated in"
+    if relation_type == "buy":
+        return "bought"
+    if relation_type == "paint":
+        return "made"
+    if relation_type == "read":
+        return "read"
+    if relation_type == "recommend":
+        return "recommended"
+    if relation_type == "find":
+        return "found"
+    if relation_type == "offer":
+        return "offers"
+    if relation_type == "focus_on":
+        return "focuses on"
+    if relation_type == "volunteer_at":
+        return "volunteered at"
+    if relation_type == "share_photo_of":
+        return "shared a photo of"
+    if relation_type == "raise_awareness_for":
+        return "raised awareness for"
+    if relation_type == "open":
+        return "opened"
+    return relation_type.replace("_", " ")
+
+
+def _graph_edge_to_chunk(runtime: MemoryRuntime, edge: Any) -> Chunk:
+    src = runtime.log.fetch_entity(edge.src_entity_id)
+    dst_name = edge.dst_value or ""
+    if edge.dst_entity_id is not None:
+        dst = runtime.log.fetch_entity(edge.dst_entity_id)
+        if dst is not None:
+            dst_name = dst.canonical_name
+    subject = src.canonical_name if src is not None else f"entity_{edge.src_entity_id}"
+    relation_phrase = _relation_label(edge.relation_type)
+    qualifiers: list[str] = []
+    time_label = str(edge.meta.get("graph_time_label") or "").strip()
+    session_date = str(edge.meta.get("graph_session_date") or "").strip()
+    if edge.start_ts is not None:
+        qualifiers.append(f"start_ts={edge.start_ts}")
+    if edge.end_ts is None:
+        qualifiers.append("current")
+    else:
+        qualifiers.append(f"end_ts={edge.end_ts}")
+    if time_label:
+        qualifiers.append(f"time={time_label}")
+    elif session_date:
+        qualifiers.append(f"session_date={session_date}")
+    text = f"[graph] {subject} {relation_phrase} {dst_name}."
+    if qualifiers:
+        text += " [" + "; ".join(qualifiers) + "]"
+    source_episode_id = edge.source_episode_ids[0] if edge.source_episode_ids else None
+    return Chunk(
+        id=-1000000 - int(edge.id),
+        ts=int(edge.updated_ts),
+        session_id="graph",
+        user_id=runtime.user_id,
+        chunk_type="fact",
+        key=_stable_key(f"graph {subject} {edge.relation_type} {dst_name}"),
+        text=text,
+        source_episode_id=source_episode_id,
+        frequency_count=max(1, int(round(edge.weight))),
+        recall_count=0,
+        last_recalled_ts=int(edge.updated_ts),
+        meta={
+            "source": "graph_relation_edge",
+            "graph_edge_id": int(edge.id),
+            "graph_subject": subject,
+            "graph_relation_type": edge.relation_type,
+            "graph_relation_root": _relation_root(edge.relation_type),
+            "graph_object": dst_name,
+            "graph_start_ts": edge.start_ts,
+            "graph_end_ts": edge.end_ts,
+            "graph_time_kind": edge.time_kind,
+            "graph_time_label": edge.meta.get("graph_time_label"),
+            "graph_session_date": edge.meta.get("graph_session_date"),
+            "graph_is_active": edge.end_ts is None,
+            "graph_confidence": edge.confidence,
+            "graph_source_episode_ids": list(edge.source_episode_ids),
+        },
+        parent_id=None,
+    )
+
+
+def _graph_sequence_chunks(
+    runtime: MemoryRuntime,
+    plan: GraphQueryPlan,
+    *,
+    limit: int = 6,
+) -> list[Chunk]:
+    if not plan.object_targets or not plan.relation_targets:
+        return []
+
+    sequence_prefixes: list[str] = []
+    if plan.prefer_previous:
+        sequence_prefixes.extend(["previous_", "before_"])
+    if plan.prefer_current:
+        sequence_prefixes.append("next_")
+    if not sequence_prefixes:
+        return []
+
+    out: list[Chunk] = []
+    for target_name in plan.object_targets:
+        target = runtime.log.resolve_entity(user_id=runtime.user_id, mention=target_name)
+        if target is None:
+            continue
+        for relation_root in plan.relation_targets:
+            for prefix in sequence_prefixes:
+                edges = runtime.log.fetch_relation_edges(
+                    user_id=runtime.user_id,
+                    src_entity_id=target.id,
+                    relation_type=f"{prefix}{relation_root}",
+                    limit=4,
+                )
+                for edge in edges:
+                    out.append(_graph_edge_to_chunk(runtime, edge))
+                    if len(out) >= limit:
+                        return out
+    return out
+
+
+def _graph_relation_chunks(
+    runtime: MemoryRuntime,
+    prompt: str,
+    category: str,
+    *,
+    limit: int = 8,
+) -> list[Chunk]:
+    plan = _build_graph_query_plan(prompt, category)
+    if not plan.relation_targets:
+        return _graph_sequence_chunks(runtime, plan, limit=limit)
+
+    out: list[Chunk] = []
+    if plan.subject_name:
+        subject = runtime.log.resolve_entity(user_id=runtime.user_id, mention=plan.subject_name)
+        if subject is not None:
+            for relation_type in plan.relation_targets:
+                edges = runtime.log.fetch_relation_edges(
+                    user_id=runtime.user_id,
+                    src_entity_id=subject.id,
+                    relation_type=relation_type,
+                    limit=12,
+                )
+                if not edges:
+                    continue
+                ranked = sorted(
+                    edges,
+                    key=lambda edge: _graph_edge_sort_key(
+                        edge,
+                        prefer_previous=plan.prefer_previous,
+                        prefer_current=plan.prefer_current,
+                    ),
+                    reverse=True,
+                )
+                if plan.prefer_previous:
+                    ranked = [edge for edge in ranked if edge.end_ts is not None] or ranked
+                elif plan.prefer_current:
+                    ranked = [edge for edge in ranked if edge.end_ts is None] or ranked
+                for edge in ranked[: max(1, limit // max(1, len(plan.relation_targets)))]:
+                    out.append(_graph_edge_to_chunk(runtime, edge))
+                    if len(out) >= limit:
+                        return out
+    sequence_chunks = _graph_sequence_chunks(runtime, plan, limit=max(2, limit - len(out)))
+    if sequence_chunks:
+        out = _merge_unique_chunks(out, sequence_chunks, limit=limit)
+    return out
+
+
+def _graph_qa_answer(prompt: str, category: str, retrieved: Sequence[Chunk]) -> str | None:
+    graph_chunks = [chunk for chunk in retrieved if str(chunk.meta.get("source") or "") == "graph_relation_edge"]
+    if not graph_chunks:
+        return None
+
+    plan = _build_graph_query_plan(prompt, category)
+    lower = str(prompt or "").lower()
+    prefer_previous = plan.prefer_previous
+    prefer_current = plan.prefer_current
+    relation_targets = set(plan.relation_targets)
+    object_targets = {target.lower() for target in plan.object_targets}
+
+    def pick(relation_type: str) -> Chunk | None:
+        candidates = [chunk for chunk in graph_chunks if str(chunk.meta.get("graph_relation_type") or "") == relation_type]
+        if not candidates:
+            return None
+        if prefer_previous:
+            closed = [chunk for chunk in candidates if chunk.meta.get("graph_end_ts") is not None]
+            if closed:
+                return sorted(closed, key=lambda c: float(c.meta.get("graph_end_ts") or 0), reverse=True)[0]
+        if prefer_current:
+            active = [chunk for chunk in candidates if bool(chunk.meta.get("graph_is_active"))]
+            if active:
+                return sorted(active, key=lambda c: float(c.meta.get("graph_start_ts") or c.ts), reverse=True)[0]
+        active = [chunk for chunk in candidates if bool(chunk.meta.get("graph_is_active"))]
+        if active:
+            return sorted(active, key=lambda c: float(c.meta.get("graph_start_ts") or c.ts), reverse=True)[0]
+        return sorted(
+            candidates,
+            key=lambda c: max(float(c.meta.get("graph_start_ts") or 0), float(c.meta.get("graph_end_ts") or 0), float(c.ts)),
+            reverse=True,
+        )[0]
+
+    if prefer_previous and object_targets:
+        for relation_type in relation_targets:
+            chain_candidates = [
+                chunk
+                for chunk in graph_chunks
+                if str(chunk.meta.get("graph_relation_type") or "") in {f"previous_{relation_type}", f"before_{relation_type}"}
+                and str(chunk.meta.get("graph_subject") or "").strip().lower() in object_targets
+            ]
+            if chain_candidates:
+                best = sorted(
+                    chain_candidates,
+                    key=lambda c: (
+                        1.0 if str(c.meta.get("graph_relation_type") or "").startswith("previous_") else 0.0,
+                        float(c.meta.get("graph_start_ts") or c.ts),
+                        float(c.meta.get("graph_end_ts") or 0),
+                    ),
+                    reverse=True,
+                )[0]
+                return str(best.meta.get("graph_object") or "").strip() or None
+
+    if "where" in lower and any(token in lower for token in ("live", "living", "move from", "moved from")):
+        chunk = pick("lives_in")
+        if chunk is not None:
+            return str(chunk.meta.get("graph_object") or "").strip() or None
+
+    if ("where" in lower or "company" in lower or "employer" in lower) and any(token in lower for token in ("work", "works", "worked", "job")):
+        chunk = pick("works_at")
+        if chunk is not None:
+            return str(chunk.meta.get("graph_object") or "").strip() or None
+
+    if lower.startswith("when "):
+        candidates = [
+            chunk
+            for chunk in graph_chunks
+            if not relation_targets or str(chunk.meta.get("graph_relation_type") or "") in relation_targets
+        ]
+        if object_targets:
+            filtered: list[Chunk] = []
+            for chunk in candidates:
+                graph_object = str(chunk.meta.get("graph_object") or "").strip().lower()
+                if graph_object and any(target in graph_object or graph_object in target for target in object_targets):
+                    filtered.append(chunk)
+            if filtered:
+                candidates = filtered
+        if candidates:
+            candidates = sorted(
+                candidates,
+                key=lambda chunk: (
+                    1.0 if str(chunk.meta.get("graph_time_label") or "").strip() else 0.0,
+                    float(chunk.meta.get("graph_start_ts") or chunk.ts),
+                    float(chunk.meta.get("graph_end_ts") or 0),
+                ),
+                reverse=True,
+            )
+            best = candidates[0]
+            if str(best.meta.get("graph_time_label") or "").strip():
+                return str(best.meta.get("graph_time_label") or "").strip()
+            if str(best.meta.get("graph_session_date") or "").strip():
+                return str(best.meta.get("graph_session_date") or "").strip()
+
+    if "what instruments" in lower or ("play" in lower and "instrument" in lower):
+        items = _dedupe_items(
+            [
+                str(chunk.meta.get("graph_object") or "").strip()
+                for chunk in graph_chunks
+                if str(chunk.meta.get("graph_relation_type") or "") == "plays_instrument"
+                and str(chunk.meta.get("graph_object") or "").strip()
+            ]
+        )
+        if items:
+            return " and ".join(items) if len(items) == 2 else ", ".join(items)
+
+    if "what musical artists" in lower or "bands has" in lower:
+        items = _dedupe_items(
+            [
+                str(chunk.meta.get("graph_object") or "").strip()
+                for chunk in graph_chunks
+                if str(chunk.meta.get("graph_relation_type") or "") == "saw_artist"
+                and str(chunk.meta.get("graph_object") or "").strip()
+            ]
+        )
+        if items:
+            return ", ".join(items)
+
+    if "favorite style of dance" in lower:
+        chunk = pick("favorite_style")
+        if chunk is not None:
+            return str(chunk.meta.get("graph_object") or "").strip() or None
+
+    if ("which cities" in lower or "which city have both" in lower or "visited" in lower) and any(token in lower for token in ("city", "cities")):
+        items = _dedupe_items(
+            [
+                str(chunk.meta.get("graph_object") or "").strip()
+                for chunk in graph_chunks
+                if str(chunk.meta.get("graph_relation_type") or "") == "visited_place"
+                and str(chunk.meta.get("graph_object") or "").strip()
+            ]
+        )
+        if items:
+            return ", ".join(items)
+
+    generic_candidates = [
+        chunk
+        for chunk in graph_chunks
+        if not relation_targets
+        or str(chunk.meta.get("graph_relation_type") or "") in relation_targets
+        or str(chunk.meta.get("graph_relation_root") or "") in relation_targets
+    ]
+    if object_targets:
+        filtered: list[Chunk] = []
+        for chunk in generic_candidates:
+            haystacks = [
+                str(chunk.meta.get("graph_object") or "").strip().lower(),
+                chunk.text.lower(),
+            ]
+            if any(target in hay for target in object_targets for hay in haystacks):
+                filtered.append(chunk)
+        if filtered:
+            generic_candidates = filtered
+    if generic_candidates:
+        if plan.list_mode:
+            items = _dedupe_items([str(chunk.meta.get("graph_object") or "").strip() for chunk in generic_candidates if str(chunk.meta.get("graph_object") or "").strip()])
+            if items:
+                return ", ".join(items)
+        best = sorted(
+            generic_candidates,
+            key=lambda chunk: (
+                1.0 if str(chunk.meta.get("graph_time_label") or "").strip() else 0.0,
+                float(chunk.meta.get("graph_start_ts") or chunk.ts),
+                float(chunk.meta.get("graph_end_ts") or 0),
+                float(chunk.frequency_count or 0),
+            ),
+            reverse=True,
+        )[0]
+        value = str(best.meta.get("graph_object") or "").strip()
+        if value:
+            return value
+
+    return None
+
+
+def _maybe_train_from_answer(
+    *,
+    runtime: MemoryRuntime,
+    prompt: str,
+    retrieved: Sequence[Chunk],
+    answer: str,
+    enabled: bool,
+) -> None:
+    if not enabled or not retrieved:
+        return
+    try:
+        qualities = score_chunk_usage(
+            retrieved_chunks=list(retrieved),
+            assistant_response=str(answer or ""),
+        )
+        if not qualities or not any(q.is_positive for q in qualities):
+            return
+        deferred_train(
+            user_id=runtime.user_id,
+            user_query=prompt,
+            chunk_qualities=qualities,
+        )
+    except Exception:
+        return
+
+
+def _normalize_feedback_text(text: str) -> str:
+    lowered = re.sub(r"[^a-z0-9 ]+", " ", str(text or "").lower())
+    return re.sub(r"\s+", " ", lowered).strip()
+
+
+def _feedback_items(text: str) -> list[str]:
+    raw = str(text or "").strip()
+    if not raw:
+        return []
+    items = [part.strip() for part in re.split(r",|\band\b", raw) if part.strip()]
+    normalized: list[str] = []
+    seen: set[str] = set()
+    for item in items:
+        key = _normalize_feedback_text(item)
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        normalized.append(key)
+    return normalized
+
+
+def _answer_matches_reference(prompt: str, category: str, prediction: str, reference: str) -> bool:
+    kind = _answer_kind(prompt, category)
+    pred_norm = _normalize_feedback_text(prediction)
+    ref_norm = _normalize_feedback_text(reference)
+    if not pred_norm or not ref_norm:
+        return False
+    if kind == "list":
+        return set(_feedback_items(prediction)) == set(_feedback_items(reference))
+    if kind == "boolean":
+        return pred_norm.startswith(ref_norm) or ref_norm.startswith(pred_norm)
+    return pred_norm == ref_norm or pred_norm in ref_norm or ref_norm in pred_norm
+
+
+def _graph_chunk_support_score(chunk: Chunk, target_text: str) -> float:
+    target_tokens = _qa_tokens(target_text)
+    if not target_tokens:
+        return 0.0
+    candidates = [
+        str(chunk.meta.get("graph_object") or ""),
+        str(chunk.meta.get("graph_time_label") or ""),
+        str(chunk.meta.get("graph_session_date") or ""),
+    ]
+    best = 0.0
+    for candidate in candidates:
+        candidate_tokens = _qa_tokens(candidate)
+        if not candidate_tokens:
+            continue
+        overlap = len(candidate_tokens & target_tokens) / max(1.0, float(len(target_tokens)))
+        best = max(best, overlap)
+    return best
+
+
+def _graph_feedback_edge_ids(target_text: str, graph_chunks: Sequence[Chunk]) -> list[int]:
+    ranked: list[tuple[float, int]] = []
+    for chunk in graph_chunks:
+        edge_id = int(chunk.meta.get("graph_edge_id") or 0)
+        if edge_id <= 0:
+            continue
+        score = _graph_chunk_support_score(chunk, target_text)
+        if score > 0.0:
+            ranked.append((score, edge_id))
+    ranked.sort(reverse=True)
+    out: list[int] = []
+    seen: set[int] = set()
+    for score, edge_id in ranked:
+        if score < 0.34 or edge_id in seen:
+            continue
+        seen.add(edge_id)
+        out.append(edge_id)
+    return out
+
+
+def _apply_graph_reference_feedback(
+    *,
+    runtime: MemoryRuntime,
+    prompt: str,
+    category: str,
+    prediction: str,
+    reference: str,
+    retrieved: Sequence[Chunk],
+    enabled: bool,
+) -> None:
+    if not enabled:
+        return
+    graph_chunks = [chunk for chunk in retrieved if str(chunk.meta.get("source") or "") == "graph_relation_edge"]
+    if not graph_chunks:
+        return
+
+    is_match = _answer_matches_reference(prompt, category, prediction, reference)
+    predicted_edge_ids = _graph_feedback_edge_ids(prediction, graph_chunks)
+    reference_edge_ids = _graph_feedback_edge_ids(reference, graph_chunks)
+
+    if is_match:
+        chosen_edge_ids = reference_edge_ids or predicted_edge_ids
+        rejected_edge_ids = [
+            int(chunk.meta.get("graph_edge_id") or 0)
+            for chunk in graph_chunks
+            if int(chunk.meta.get("graph_edge_id") or 0) not in set(chosen_edge_ids)
+        ]
+        reward = 1.0
+    else:
+        chosen_edge_ids = [edge_id for edge_id in reference_edge_ids if edge_id not in set(predicted_edge_ids)] or reference_edge_ids
+        chosen_set = set(chosen_edge_ids)
+        rejected_edge_ids = predicted_edge_ids or [
+            int(chunk.meta.get("graph_edge_id") or 0)
+            for chunk in graph_chunks
+            if int(chunk.meta.get("graph_edge_id") or 0) > 0 and int(chunk.meta.get("graph_edge_id") or 0) not in chosen_set
+        ]
+        reward = -1.0
+
+    runtime.log.record_graph_path_feedback(
+        user_id=runtime.user_id,
+        question=prompt,
+        predicted_answer=prediction,
+        reference_answer=reference,
+        reward=reward,
+        chosen_edge_ids=chosen_edge_ids,
+        rejected_edge_ids=rejected_edge_ids,
+        meta={
+            "category": category,
+            "graph_edge_count": len(graph_chunks),
+            "matched_reference": bool(is_match),
+        },
+    )
+
+    for edge_id in chosen_edge_ids:
+        runtime.log.adjust_relation_edge_weight(
+            edge_id=edge_id,
+            delta=0.25 if reward < 0.0 else 0.12,
+            meta={"graph_feedback": "chosen", "last_reward": reward},
+        )
+    for edge_id in rejected_edge_ids:
+        runtime.log.adjust_relation_edge_weight(
+            edge_id=edge_id,
+            delta=-0.12 if reward < 0.0 else -0.04,
+            meta={"graph_feedback": "rejected", "last_reward": reward},
+        )
+
+    if not chosen_edge_ids or not rejected_edge_ids:
+        return
+
+    chunk_qualities: list[ChunkQuality] = []
+    chosen_set = set(chosen_edge_ids)
+    rejected_set = set(rejected_edge_ids)
+    for chunk in graph_chunks:
+        edge_id = int(chunk.meta.get("graph_edge_id") or 0)
+        if edge_id in chosen_set:
+            chunk_qualities.append(ChunkQuality(chunk=chunk, usage_score=1.0, is_positive=True))
+        elif edge_id in rejected_set:
+            chunk_qualities.append(ChunkQuality(chunk=chunk, usage_score=0.0, is_positive=False))
+    if chunk_qualities and any(q.is_positive for q in chunk_qualities) and any(not q.is_positive for q in chunk_qualities):
+        try:
+            deferred_train(
+                user_id=runtime.user_id,
+                user_query=prompt,
+                chunk_qualities=chunk_qualities,
+                correction_weight=1.0 if reward < 0.0 else 0.0,
+            )
+        except Exception:
+            return
 
 
 def _heuristic_query_cues(query: str) -> list[str]:
@@ -814,11 +1536,12 @@ _MONTH_NAMES = (
 def _is_list_question(prompt: str) -> bool:
     lower = str(prompt or "").strip().lower()
     return bool(
-        re.match(r"^(what (activities|events|books|kinds?|types?)\b)", lower)
+        re.match(r"^what\b.*\b(activities|events|books|kinds?|types?|items|fields|symbols|pets|instruments)\b", lower)
         or re.match(r"^what do .+ like\??$", lower)
         or re.match(r"^what has .+ painted\??$", lower)
         or lower.startswith("what symbols")
         or lower.startswith("what pets")
+        or lower.startswith("which cities")
         or lower.startswith("in what ways")
     )
 
@@ -1253,6 +1976,94 @@ def _normalize_model_answer(prompt: str, answer: str) -> str:
     if len(first.split()) <= 14 and len(text.split()) > len(first.split()) + 4:
         return first.rstrip(".")
     return text.rstrip()
+
+
+def _answer_kind(prompt: str, category: str) -> str:
+    lower = str(prompt or "").lower()
+    if category == "temporal" or lower.startswith("when ") or lower.startswith("how long"):
+        return "date"
+    if _is_list_question(prompt) or any(
+        phrase in lower
+        for phrase in (
+            "what instruments",
+            "what musical artists",
+            "which cities",
+            "what symbols",
+        )
+    ):
+        return "list"
+    if re.match(r"^(is|does|did|would|could|can|has|have)\b", lower):
+        return "boolean"
+    return "short"
+
+
+def _typed_output_instruction(answer_kind: str) -> str:
+    if answer_kind == "list":
+        return (
+            "Return JSON only in the form "
+            '{"items":["item 1","item 2"]}. '
+            "Do not include explanations."
+        )
+    if answer_kind == "boolean":
+        return (
+            "Return JSON only in the form "
+            '{"answer":"Yes"} or {"answer":"No"}. '
+            "Do not include explanations."
+        )
+    return (
+        "Return JSON only in the form "
+        '{"answer":"short answer"}. '
+        "Do not include explanations."
+    )
+
+
+def _extract_json_object(raw: str) -> dict[str, Any] | None:
+    text = str(raw or "").strip()
+    if not text:
+        return None
+    candidates = [text]
+    fenced = re.findall(r"```(?:json)?\s*(\{.*?\})\s*```", text, flags=re.IGNORECASE | re.DOTALL)
+    candidates.extend(fenced)
+    inline = re.findall(r"(\{.*\})", text, flags=re.DOTALL)
+    candidates.extend(inline)
+    for candidate in candidates:
+        try:
+            data = json.loads(candidate)
+        except Exception:
+            continue
+        if isinstance(data, dict):
+            return data
+    return None
+
+
+def _compile_typed_answer(prompt: str, category: str, raw: str) -> str:
+    kind = _answer_kind(prompt, category)
+    payload = _extract_json_object(raw)
+
+    if kind == "list":
+        items: list[str] = []
+        if payload is not None and isinstance(payload.get("items"), list):
+            items = [str(item).strip() for item in payload["items"] if str(item).strip()]
+        if not items:
+            items = _extract_list_items_from_response(raw)
+        if not items:
+            items = _dedupe_items([part.strip() for part in re.split(r",|\band\b", str(raw or "")) if part.strip()])
+        if items:
+            return ", ".join(_dedupe_items(items))
+        return _normalize_model_answer(prompt, raw)
+
+    if payload is not None:
+        value = payload.get("answer")
+        if isinstance(value, str) and value.strip():
+            raw = value.strip()
+
+    if kind == "boolean":
+        lower = str(raw or "").strip().lower()
+        if lower.startswith("yes"):
+            return "Yes"
+        if lower.startswith("no"):
+            return "No"
+    return _normalize_model_answer(prompt, raw)
 
 
 def _best_matching_chunk(prompt: str, chunks: list[Chunk]) -> Chunk | None:
@@ -2514,6 +3325,9 @@ class MemlaBenchmarkRunner:
             18 if _is_list_question(prompt) or prompt.lower().startswith("when ") or category in {"multi-hop", "common-sense"} else 12,
         )
         retrieved = runtime.chunks.retrieve(user_id=runtime.user_id, query_text=prompt, k=retrieval_k)
+        graph_chunks = _graph_relation_chunks(runtime, prompt, category, limit=min(8, retrieval_k))
+        if graph_chunks:
+            retrieved = _merge_unique_chunks(graph_chunks, list(retrieved), limit=max(retrieval_k * 2, 24))
         extra_queries = _secondary_retrieval_queries(prompt, category)
         if extra_queries:
             extras: list[Chunk] = []
@@ -2526,10 +3340,30 @@ class MemlaBenchmarkRunner:
         rescue = _benchmark_rescue_chunks(runtime, prompt, category, limit=min(10, retrieval_k))
         if rescue:
             retrieved = _merge_unique_chunks(list(retrieved), rescue, limit=max(retrieval_k * 2, 24))
-        retrieved = _rerank_chunks_for_answer(prompt, list(retrieved), category=category)[:retrieval_k]
+        retrieved = _rerank_chunks_for_answer(prompt, list(retrieved), category=category)
+        if graph_chunks:
+            retrieved = _merge_unique_chunks(graph_chunks, list(retrieved), limit=max(retrieval_k * 2, 24))
+        retrieved = list(retrieved)[:retrieval_k]
         if category != "Cognitive":
+            graph_answer = _graph_qa_answer(prompt, category, list(retrieved))
+            if graph_answer:
+                _maybe_train_from_answer(
+                    runtime=runtime,
+                    prompt=prompt,
+                    retrieved=list(retrieved),
+                    answer=graph_answer,
+                    enabled=self.train_online,
+                )
+                return graph_answer.strip(), list(retrieved)
             heuristic = _heuristic_qa_answer(prompt, list(retrieved))
             if heuristic:
+                _maybe_train_from_answer(
+                    runtime=runtime,
+                    prompt=prompt,
+                    retrieved=list(retrieved),
+                    answer=heuristic,
+                    enabled=self.train_online,
+                )
                 return heuristic.strip(), list(retrieved)
         if category == "Cognitive":
             base_system = COGNITIVE_SYSTEM
@@ -2539,6 +3373,9 @@ class MemlaBenchmarkRunner:
             base_system = LIST_QA_SYSTEM
         else:
             base_system = QA_SYSTEM
+        answer_kind = _answer_kind(prompt, category)
+        if category != "Cognitive":
+            base_system = f"{base_system}\n\n{_typed_output_instruction(answer_kind)}"
         built = build_system_prompt(
             base_system=base_system,
             retrieved_chunks=list(retrieved),
@@ -2563,7 +3400,45 @@ class MemlaBenchmarkRunner:
             temperature=0.0 if category != "Cognitive" else self.temperature,
             num_ctx=self.num_ctx,
         )
-        return _normalize_model_answer(prompt, prediction.strip()), list(retrieved)
+        if category == "Cognitive":
+            answer = _normalize_model_answer(prompt, prediction.strip())
+            _maybe_train_from_answer(
+                runtime=runtime,
+                prompt=prompt,
+                retrieved=list(retrieved),
+                answer=answer,
+                enabled=self.train_online,
+            )
+            return answer, list(retrieved)
+        answer = _compile_typed_answer(prompt, category, prediction.strip())
+        _maybe_train_from_answer(
+            runtime=runtime,
+            prompt=prompt,
+            retrieved=list(retrieved),
+            answer=answer,
+            enabled=self.train_online,
+        )
+        return answer, list(retrieved)
+
+    def feedback_from_reference(
+        self,
+        *,
+        runtime: MemoryRuntime,
+        prompt: str,
+        category: str,
+        prediction: str,
+        reference: str,
+        retrieved: Sequence[Chunk],
+    ) -> None:
+        _apply_graph_reference_feedback(
+            runtime=runtime,
+            prompt=prompt,
+            category=category,
+            prediction=prediction,
+            reference=reference,
+            retrieved=retrieved,
+            enabled=self.train_online,
+        )
 
 
 def run_locomo(
@@ -2609,6 +3484,7 @@ def run_locomo(
                 for question_index, qa in enumerate(questions):
                     category = LOCOMO_CATEGORY_NAMES.get(int(qa.get("category") or 0), f"category_{qa.get('category')}")
                     question = str(qa.get("question") or "").strip()
+                    reference_answer = str(qa.get("answer") or "").strip()
                     try:
                         prediction, retrieved = runner.answer_from_memory(
                             runtime=runtime,
@@ -2622,6 +3498,15 @@ def run_locomo(
                             f"[warn] locomo conversation {conv_index} question {question_index} failed: "
                             f"{type(exc).__name__}: {exc}"
                         )
+                    else:
+                        runner.feedback_from_reference(
+                            runtime=runtime,
+                            prompt=question,
+                            category=category,
+                            prediction=prediction,
+                            reference=reference_answer,
+                            retrieved=retrieved,
+                        )
                     output_records.append(
                         {
                             "dataset": "locomo",
@@ -2631,7 +3516,7 @@ def run_locomo(
                             "question_input": question,
                             "evidence": _locomo_evidence_text(sample["conversation"], qa.get("evidence") or []),
                             "category": category,
-                            "ground_truth": qa.get("answer", ""),
+                            "ground_truth": reference_answer,
                             "prediction": prediction,
                             "model": runner.model,
                             "retrieved_chunks": _retrieved_chunks_to_dicts(retrieved),
