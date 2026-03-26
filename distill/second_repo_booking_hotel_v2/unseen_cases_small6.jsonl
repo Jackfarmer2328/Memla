@@ -1,0 +1,6 @@
+{"prompt": "How do I configure the frontend to serve a single-page application correctly on Vercel?", "expected_files": ["vercel.json"], "expected_commands": ["npm run build"]}
+{"prompt": "Refactor the booking completion handler to pass real PMS confirmation codes and guest data.", "expected_files": ["src/App.jsx", "src/CheckoutReturnPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Refactor the booking confirmation flow to remove Stripe Elements and update the checkout return page logic.", "expected_files": ["src/App.jsx", "src/CheckoutReturnPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Fix the broken Stripe integration and remove the temporary loading screen logic.", "expected_files": ["src/App.jsx", "src/CheckoutReturnPage.jsx", "src/main.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Fix the reservation code state initialization to persist sessionStorage data correctly.", "expected_files": ["src/App.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Fix the hotel booking frontend to handle empty search results gracefully.", "expected_files": ["src/App.jsx"], "expected_commands": ["npm run build", "npm run lint"]}

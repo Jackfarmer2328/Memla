@@ -1,0 +1,4 @@
+{"prompt": "Increase the height of the main container from 90px to 95px for better visibility.", "expected_files": ["src/index.css"], "expected_commands": ["npm run build"]}
+{"prompt": "Remove the Hotjar tracking script from the HTML file.", "expected_files": ["index.html"], "expected_commands": ["npm run build"]}
+{"prompt": "Refactor the nightly rate calculation logic to remove the temporary deployment comment.", "expected_files": ["src/App.jsx", "src/CheckoutReturnPage.jsx", "src/main.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Update React and React Router dependencies to their latest versions.", "expected_files": ["package.json"], "expected_commands": ["npm run build"]}

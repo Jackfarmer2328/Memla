@@ -1,0 +1,20 @@
+{"prompt": "Update the test amount calculation in the guest info page to use the actual subtotal instead of a hardcoded value.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Remove the hardcoded test amount variable from the guest information page.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Remove the hardcoded test amount variable from the guest information page.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Update the test amount calculation to use the actual booking subtotal instead of a hardcoded value.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Fix the amount calculation in the guest info page to use the correct subtotal value.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Fix the hotel booking split logic to calculate half the subtotal instead of a fixed amount.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Update the guest info page to use a $50 amount instead of $100.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Calculate the guest's share of the booking subtotal in dollars instead of a fixed amount.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Fix the booking fee calculation to use half the subtotal instead of a fixed amount.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Update the loading message to inform users about checking wallet availability instead of just checking guest info.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Refactor the GuestInfoPage to manage checkout steps and fix inconsistent state initialization.", "expected_files": ["src/GuestInfoPage.jsx", "src/index.css"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Remove the Stripe badge image and its alt text from the Guest Info page.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Fix guest info validation and remove the HelpWidget from the booking flow.", "expected_files": ["src/App.jsx", "src/GuestInfoPage.jsx", "src/index.css"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Fix validation logic to use state variables instead of direct function returns and alerts.", "expected_files": ["src/GuestInfoPage.jsx", "src/index.css"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Fix the Stripe integration error caused by removing the useStripe hook from the guest info page.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Refactor the checkout form to use Stripe Elements and handle payment requests via the Payment Request API.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Refactor the guest info page to display only Stripe elements and manage the multi-step flow state.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Fix the payment intent fetch to use the correct apiBaseUrl prop instead of apiBase.url.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "How do I change the pill shape border radius to a different value?", "expected_files": ["src/index.css"], "expected_commands": ["npm run build"]}
+{"prompt": "Remove the bottom padding and border from the footer while adjusting its vertical position.", "expected_files": ["src/index.css"], "expected_commands": ["npm run build"]}

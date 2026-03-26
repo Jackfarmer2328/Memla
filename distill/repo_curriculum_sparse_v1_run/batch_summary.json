@@ -1,0 +1,87 @@
+{
+  "generated_ts": 1774553729,
+  "teacher_model": "qwen3.5:9b",
+  "case_model": "qwen3.5:4b",
+  "config_path": "C:\\Users\\samat\\Project Memory\\Project-Memory\\distill\\repo_curriculum_sparse_v1.json",
+  "out_dir": "C:\\Users\\samat\\Project Memory\\Project-Memory\\distill\\repo_curriculum_sparse_v1_run",
+  "repos_attempted": 2,
+  "repos_with_holdouts": 2,
+  "min_seed_accept": 4,
+  "default_seed_count": 6,
+  "results": [
+    {
+      "id": "stripe_nextjs_supabase",
+      "repo_label": "launch mvp stripe nextjs supabase",
+      "tier": "sparse",
+      "framework": "typescript / next.js / stripe / supabase",
+      "notes": "Tiny public web-app repo with only 9 useful commits; give it a final 4+4 path.",
+      "repo_family": "ts_web_app",
+      "status": "completed",
+      "seed_cases": 4,
+      "seed_accepted": 2,
+      "seed_required_accept": 2,
+      "seed_gate_mode": "tiny_ratio",
+      "seed_avg_file_recall": 0.2773,
+      "seed_avg_role_recall": 0.475,
+      "seed_avg_command_recall": 0.0,
+      "avg_raw_file_recall": 0.0,
+      "avg_raw_command_recall": 0.0,
+      "avg_memla_combined_file_recall": 0.5167,
+      "avg_memla_combined_command_recall": 1.0,
+      "repo_dir": "..\\external\\launch-mvp-stripe-nextjs-supabase",
+      "unseen_cases": 4
+    },
+    {
+      "id": "guardian_cli",
+      "repo_label": "guardian cli",
+      "tier": "sparse",
+      "framework": "python / cli / ai orchestration",
+      "notes": "Sparse CLI repo that only gets one more ratio-aware pass.",
+      "repo_family": "python_cli",
+      "status": "completed",
+      "seed_cases": 6,
+      "seed_accepted": 2,
+      "seed_required_accept": 2,
+      "seed_gate_mode": "tiny_ratio",
+      "seed_avg_file_recall": 0.223,
+      "seed_avg_role_recall": 0.5833,
+      "seed_avg_command_recall": 0.0,
+      "avg_raw_file_recall": 0.1667,
+      "avg_raw_command_recall": 0.1667,
+      "avg_memla_combined_file_recall": 0.6728,
+      "avg_memla_combined_command_recall": 0.8333,
+      "repo_dir": "..\\external\\guardian-cli",
+      "unseen_cases": 6
+    }
+  ],
+  "top_transmutations": [
+    {
+      "text": "Trade shell flexibility for a repeatable command-line workflow.",
+      "count": 5
+    },
+    {
+      "text": "Trade strict server routing for client-side SPA fallback.",
+      "count": 3
+    },
+    {
+      "text": "Trade local implementation freedom for a preserved external contract.",
+      "count": 3
+    },
+    {
+      "text": "Trade loose input handling for stricter schema-driven validation.",
+      "count": 2
+    },
+    {
+      "text": "Trade embedded payment state for redirect-safe confirmation recovery.",
+      "count": 1
+    },
+    {
+      "text": "Trade permissive request flow for stricter authentication and session integrity.",
+      "count": 1
+    },
+    {
+      "text": "Trade visual compactness for clearer interaction space.",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,310 @@
+{
+  "repo_root": "C:\\Users\\samat\\BOOKING\\hotel-booking-app",
+  "cases_path": ".\\distill\\second_repo_booking_hotel_v2\\unseen_cases_small6.jsonl",
+  "cases": 6,
+  "avg_baseline_file_recall": 0.6111,
+  "avg_baseline_command_recall": 0.0,
+  "avg_memla_file_recall": 0.6111,
+  "avg_memla_command_recall": 0.0,
+  "avg_delta_file_recall": 0.0,
+  "avg_delta_command_recall": 0.0,
+  "positive_file_transfer_cases": 0,
+  "positive_command_transfer_cases": 0,
+  "rows": [
+    {
+      "prompt": "How do I configure the frontend to serve a single-page application correctly on Vercel?",
+      "expected_files": [
+        "vercel.json"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "baseline_files": [
+        "vercel.json"
+      ],
+      "baseline_commands": [],
+      "baseline_transmutations": [
+        "Trade strict server routing for client-side SPA fallback."
+      ],
+      "baseline_roles": [
+        "routing_surface"
+      ],
+      "baseline_file_recall": 1.0,
+      "baseline_command_recall": 0.0,
+      "memla_files": [
+        "vercel.json"
+      ],
+      "memla_commands": [],
+      "memla_transmutations": [
+        "Trade strict server routing for client-side SPA fallback."
+      ],
+      "memla_roles": [
+        "routing_surface"
+      ],
+      "memla_source_trace_ids": [
+        8,
+        7,
+        13,
+        12
+      ],
+      "memla_file_recall": 1.0,
+      "memla_command_recall": 0.0,
+      "delta_file_recall": 0.0,
+      "delta_command_recall": 0.0
+    },
+    {
+      "prompt": "Refactor the booking completion handler to pass real PMS confirmation codes and guest data.",
+      "expected_files": [
+        "src/App.jsx",
+        "src/CheckoutReturnPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "baseline_files": [
+        "public/testimonials/confirmation-ve.png",
+        "public/testimonials/confirmation-kenneth.png",
+        "src/GuestInfoPage.jsx",
+        "public/stripe-checkout.png",
+        "public/stripe.svg",
+        "src/hotelData.js"
+      ],
+      "baseline_commands": [],
+      "baseline_transmutations": [
+        "Trade one implementation constraint for a more stable verified constraint."
+      ],
+      "baseline_roles": [
+        "booking_flow",
+        "payment_boundary"
+      ],
+      "baseline_file_recall": 0.0,
+      "baseline_command_recall": 0.0,
+      "memla_files": [
+        "public/testimonials/confirmation-ve.png",
+        "public/testimonials/confirmation-kenneth.png",
+        "src/GuestInfoPage.jsx",
+        "public/stripe-checkout.png",
+        "public/stripe.svg",
+        "src/hotelData.js"
+      ],
+      "memla_commands": [],
+      "memla_transmutations": [
+        "Trade one implementation constraint for a more stable verified constraint."
+      ],
+      "memla_roles": [
+        "booking_flow",
+        "payment_boundary"
+      ],
+      "memla_source_trace_ids": [
+        8,
+        7,
+        13,
+        12
+      ],
+      "memla_file_recall": 0.0,
+      "memla_command_recall": 0.0,
+      "delta_file_recall": 0.0,
+      "delta_command_recall": 0.0
+    },
+    {
+      "prompt": "Refactor the booking confirmation flow to remove Stripe Elements and update the checkout return page logic.",
+      "expected_files": [
+        "src/App.jsx",
+        "src/CheckoutReturnPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "baseline_files": [
+        "public/stripe-checkout.png",
+        "public/stripe.svg",
+        "src/CheckoutReturnPageWrapper.jsx",
+        "src/CheckoutReturnPage.jsx",
+        "src/main.jsx",
+        "src/App.jsx"
+      ],
+      "baseline_commands": [],
+      "baseline_transmutations": [
+        "Trade embedded payment state for redirect-safe confirmation recovery."
+      ],
+      "baseline_roles": [
+        "app_shell",
+        "checkout_return",
+        "payment_boundary",
+        "routing_surface"
+      ],
+      "baseline_file_recall": 1.0,
+      "baseline_command_recall": 0.0,
+      "memla_files": [
+        "public/stripe-checkout.png",
+        "public/stripe.svg",
+        "src/CheckoutReturnPageWrapper.jsx",
+        "src/CheckoutReturnPage.jsx",
+        "src/main.jsx",
+        "src/App.jsx"
+      ],
+      "memla_commands": [],
+      "memla_transmutations": [
+        "Trade embedded payment state for redirect-safe confirmation recovery."
+      ],
+      "memla_roles": [
+        "app_shell",
+        "checkout_return",
+        "payment_boundary",
+        "routing_surface"
+      ],
+      "memla_source_trace_ids": [
+        8,
+        7,
+        13,
+        12
+      ],
+      "memla_file_recall": 1.0,
+      "memla_command_recall": 0.0,
+      "delta_file_recall": 0.0,
+      "delta_command_recall": 0.0
+    },
+    {
+      "prompt": "Fix the broken Stripe integration and remove the temporary loading screen logic.",
+      "expected_files": [
+        "src/App.jsx",
+        "src/CheckoutReturnPage.jsx",
+        "src/main.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "baseline_files": [
+        "public/stripe-checkout.png",
+        "public/stripe.svg",
+        "src/main.jsx",
+        "src/App.jsx",
+        "src/fixFacebookViewport.js",
+        "src/LoadingScreen.jsx"
+      ],
+      "baseline_commands": [],
+      "baseline_transmutations": [
+        "Trade one implementation constraint for a more stable verified constraint."
+      ],
+      "baseline_roles": [
+        "app_shell",
+        "payment_boundary"
+      ],
+      "baseline_file_recall": 0.6667,
+      "baseline_command_recall": 0.0,
+      "memla_files": [
+        "public/stripe-checkout.png",
+        "public/stripe.svg",
+        "src/main.jsx",
+        "src/App.jsx",
+        "src/fixFacebookViewport.js",
+        "src/LoadingScreen.jsx"
+      ],
+      "memla_commands": [],
+      "memla_transmutations": [
+        "Trade one implementation constraint for a more stable verified constraint."
+      ],
+      "memla_roles": [
+        "app_shell",
+        "payment_boundary"
+      ],
+      "memla_source_trace_ids": [
+        8,
+        7,
+        13,
+        12
+      ],
+      "memla_file_recall": 0.6667,
+      "memla_command_recall": 0.0,
+      "delta_file_recall": 0.0,
+      "delta_command_recall": 0.0
+    },
+    {
+      "prompt": "Fix the reservation code state initialization to persist sessionStorage data correctly.",
+      "expected_files": [
+        "src/App.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "baseline_files": [
+        "src/main.jsx",
+        "src/GuestInfoPage.jsx",
+        "src/App.jsx",
+        "src/hotelData.js",
+        "src/fixFacebookViewport.js"
+      ],
+      "baseline_commands": [],
+      "baseline_transmutations": [
+        "Trade transient UI state for recoverable session-backed booking state."
+      ],
+      "baseline_roles": [
+        "app_shell",
+        "booking_flow",
+        "state_holder"
+      ],
+      "baseline_file_recall": 1.0,
+      "baseline_command_recall": 0.0,
+      "memla_files": [
+        "src/main.jsx",
+        "src/GuestInfoPage.jsx",
+        "src/App.jsx",
+        "src/hotelData.js",
+        "src/fixFacebookViewport.js"
+      ],
+      "memla_commands": [],
+      "memla_transmutations": [
+        "Trade transient UI state for recoverable session-backed booking state."
+      ],
+      "memla_roles": [
+        "app_shell",
+        "booking_flow",
+        "state_holder"
+      ],
+      "memla_source_trace_ids": [
+        8,
+        7,
+        13,
+        12
+      ],
+      "memla_file_recall": 1.0,
+      "memla_command_recall": 0.0,
+      "delta_file_recall": 0.0,
+      "delta_command_recall": 0.0
+    },
+    {
+      "prompt": "Fix the hotel booking frontend to handle empty search results gracefully.",
+      "expected_files": [
+        "src/App.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "baseline_files": [],
+      "baseline_commands": [],
+      "baseline_transmutations": [],
+      "baseline_roles": [],
+      "baseline_file_recall": 0.0,
+      "baseline_command_recall": 0.0,
+      "memla_files": [],
+      "memla_commands": [],
+      "memla_transmutations": [],
+      "memla_roles": [],
+      "memla_source_trace_ids": [
+        8,
+        7,
+        13,
+        12
+      ],
+      "memla_file_recall": 0.0,
+      "memla_command_recall": 0.0,
+      "delta_file_recall": 0.0,
+      "delta_command_recall": 0.0
+    }
+  ]
+}

@@ -1,0 +1,411 @@
+{
+  "repo_root": "..\\external\\guardian-cli",
+  "repo_subpath": ".",
+  "repo_label": "guardian cli",
+  "manifest_path": "C:\\Users\\samat\\Project Memory\\external\\guardian-cli\\pyproject.toml",
+  "local_model": "qwen3.5:4b",
+  "ollama_base_url": "http://127.0.0.1:11435",
+  "seed_count": 6,
+  "unseen_count": 6,
+  "seed_cases": [
+    {
+      "prompt": "Create a .env.example file with placeholder values for the Gemini API key and optional LangSmith tracing settings.",
+      "expected_files": [
+        "ai/__init__.py",
+        "ai/gemini_client.py",
+        "ai/prompt_templates/__init__.py",
+        "ai/prompt_templates/analyst.py",
+        "ai/prompt_templates/planner.py",
+        "ai/prompt_templates/reporter.py",
+        "ai/prompt_templates/tool_selector.py",
+        "cli/__init__.py",
+        "cli/commands/__init__.py",
+        "cli/commands/ai_explain.py",
+        "cli/commands/analyze.py",
+        "cli/commands/init.py",
+        "cli/commands/recon.py",
+        "cli/commands/report.py",
+        "cli/commands/scan.py",
+        "cli/commands/workflow.py",
+        "cli/main.py",
+        "core/__init__.py",
+        "core/agent.py",
+        "core/analyst_agent.py",
+        "core/memory.py",
+        "core/planner.py",
+        "core/reporter_agent.py",
+        "core/tool_agent.py",
+        "core/workflow.py",
+        "pyproject.toml",
+        "reports/__init__.py",
+        "tools/__init__.py",
+        "tools/base_tool.py",
+        "tools/gobuster.py",
+        "tools/httpx.py",
+        "tools/nikto.py",
+        "tools/nmap.py",
+        "tools/nuclei.py",
+        "tools/subfinder.py",
+        "tools/testssl.py",
+        "tools/wafw00f.py",
+        "tools/whatweb.py",
+        "utils/__init__.py",
+        "utils/helpers.py",
+        "utils/logger.py",
+        "utils/scope_validator.py",
+        "workflows/__init__.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "22e327af460ec6ae067bb19b413707af641596d8",
+      "commit_subject": "feat: Implement initial Guardian CLI structure with agents, tools, workflows, and prompt templates.",
+      "changed_files": [
+        "ai/__init__.py",
+        "ai/gemini_client.py",
+        "ai/prompt_templates/__init__.py",
+        "ai/prompt_templates/analyst.py",
+        "ai/prompt_templates/planner.py",
+        "ai/prompt_templates/reporter.py",
+        "ai/prompt_templates/tool_selector.py",
+        "cli/__init__.py",
+        "cli/commands/__init__.py",
+        "cli/commands/ai_explain.py",
+        "cli/commands/analyze.py",
+        "cli/commands/init.py",
+        "cli/commands/recon.py",
+        "cli/commands/report.py",
+        "cli/commands/scan.py",
+        "cli/commands/workflow.py",
+        "cli/main.py",
+        "core/__init__.py",
+        "core/agent.py",
+        "core/analyst_agent.py",
+        "core/memory.py",
+        "core/planner.py",
+        "core/reporter_agent.py",
+        "core/tool_agent.py",
+        "core/workflow.py",
+        "pyproject.toml",
+        "reports/__init__.py",
+        "tools/__init__.py",
+        "tools/base_tool.py",
+        "tools/gobuster.py",
+        "tools/httpx.py",
+        "tools/nikto.py",
+        "tools/nmap.py",
+        "tools/nuclei.py",
+        "tools/subfinder.py",
+        "tools/testssl.py",
+        "tools/wafw00f.py",
+        "tools/whatweb.py",
+        "utils/__init__.py",
+        "utils/helpers.py",
+        "utils/logger.py",
+        "utils/scope_validator.py",
+        "workflows/__init__.py"
+      ]
+    },
+    {
+      "prompt": "Implement Docker support for the security tool wrappers in the CLI.",
+      "expected_files": [
+        "core/tool_agent.py",
+        "tools/__init__.py",
+        "tools/amass.py",
+        "tools/ffuf.py",
+        "tools/masscan.py",
+        "tools/sqlmap.py",
+        "tools/sslyze.py",
+        "tools/wpscan.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "39579cfba88fa3867d67d4f4eee3b273b0745556",
+      "commit_subject": "feat: Introduce various security tool wrappers and add comprehensive Docker support.",
+      "changed_files": [
+        "core/tool_agent.py",
+        "tools/__init__.py",
+        "tools/amass.py",
+        "tools/ffuf.py",
+        "tools/masscan.py",
+        "tools/sqlmap.py",
+        "tools/sslyze.py",
+        "tools/wpscan.py"
+      ]
+    },
+    {
+      "prompt": "Implement Docker integration for Arjun, XSStrike, Gitleaks, CMSeek, and DnsRecon tools in the Guardian CLI.",
+      "expected_files": [
+        "core/tool_agent.py",
+        "tools/__init__.py",
+        "tools/arjun.py",
+        "tools/cmseek.py",
+        "tools/dnsrecon.py",
+        "tools/gitleaks.py",
+        "tools/xsstrike.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "9395297ec566ecdf96b667195eaf539c488ad9ec",
+      "commit_subject": "feat: Add Arjun, XSStrike, Gitleaks, CMSeek, and DnsRecon tools with Docker integration and a new tool agent.",
+      "changed_files": [
+        "core/tool_agent.py",
+        "tools/__init__.py",
+        "tools/arjun.py",
+        "tools/cmseek.py",
+        "tools/dnsrecon.py",
+        "tools/gitleaks.py",
+        "tools/xsstrike.py"
+      ]
+    },
+    {
+      "prompt": "Update the Dockerfile to use Go 1.25 and add Gemini rate limit handling.",
+      "expected_files": [
+        "ai/gemini_client.py",
+        "tools/httpx.py",
+        "tools/nuclei.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "48b6884f56d08e088488dd8e5d055b638da6e185",
+      "commit_subject": "fix(dockerfile,-gemini-limit): fix dockerfile build, add gemini rate limit, update tools command",
+      "changed_files": [
+        "ai/gemini_client.py",
+        "tools/httpx.py",
+        "tools/nuclei.py"
+      ]
+    },
+    {
+      "prompt": "Refactor the Gemini client to use Antigravity Auth instead of LangChain.",
+      "expected_files": [
+        "ai/gemini_client.py",
+        "cli/commands/recon.py",
+        "cli/commands/scan.py",
+        "cli/commands/workflow.py",
+        "cli/main.py",
+        "pyproject.toml"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "594368ae91f000eeff68226d4f74c293ad5187fd",
+      "commit_subject": "Update: Implement antigravity-auth",
+      "changed_files": [
+        "ai/gemini_client.py",
+        "cli/commands/recon.py",
+        "cli/commands/scan.py",
+        "cli/commands/workflow.py",
+        "cli/main.py",
+        "pyproject.toml"
+      ]
+    },
+    {
+      "prompt": "Add a check to warn users if no Antigravity accounts are found before running the CLI.",
+      "expected_files": [
+        "cli/main.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "b1d595a036bc03e586a769efaaa91dda2aa6f1a2",
+      "commit_subject": "Update: Validation for Antigravity accounts",
+      "changed_files": [
+        "cli/main.py"
+      ]
+    }
+  ],
+  "unseen_cases": [
+    {
+      "prompt": "Update the README to document the new models command for listing available AI models.",
+      "expected_files": [
+        "cli/commands/models.py",
+        "cli/main.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "21c7018d5e7c927e12b1e6bb0574d1ab9e75a2a9",
+      "commit_subject": "docs: Add models command to README",
+      "changed_files": [
+        "cli/commands/models.py",
+        "cli/main.py"
+      ]
+    },
+    {
+      "prompt": "Implement dual authentication support for the CLI using Antigravity and API keys.",
+      "expected_files": [
+        "ai/gemini_client.py",
+        "cli/main.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "bf3bb08d501923853803295ad0d4d9d95213954f",
+      "commit_subject": "feat: Implement dual authentication support (Antigravity & API Key)",
+      "changed_files": [
+        "ai/gemini_client.py",
+        "cli/main.py"
+      ]
+    },
+    {
+      "prompt": "Create a guide for writing high-quality Nuclei security templates.",
+      "expected_files": [
+        "ai/ai_client.py",
+        "ai/gemini_client.py",
+        "ai/providers/__init__.py",
+        "ai/providers/base_provider.py",
+        "ai/providers/claude_provider.py",
+        "ai/providers/gemini_provider.py",
+        "ai/providers/openai_provider.py",
+        "ai/providers/openrouter_provider.py",
+        "cli/commands/init.py",
+        "cli/commands/models.py",
+        "cli/commands/workflow.py",
+        "cli/main.py",
+        "core/analyst_agent.py",
+        "core/memory.py",
+        "core/workflow.py",
+        "pyproject.toml",
+        "tools/ffuf.py",
+        "tools/gobuster.py",
+        "tools/httpx.py",
+        "tools/masscan.py",
+        "tools/nikto.py",
+        "tools/nmap.py",
+        "tools/nuclei.py",
+        "tools/sqlmap.py",
+        "tools/subfinder.py",
+        "tools/wafw00f.py",
+        "tools/whatweb.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "b2ae50a16b75be456cb6cd9c1a08b17a78752716",
+      "commit_subject": "feat: Introduce AI provider integration, security tool wrappers, core agent workflows, and a suite of Nuclei templates with accompanying documentation.",
+      "changed_files": [
+        "ai/ai_client.py",
+        "ai/gemini_client.py",
+        "ai/providers/__init__.py",
+        "ai/providers/base_provider.py",
+        "ai/providers/claude_provider.py",
+        "ai/providers/gemini_provider.py",
+        "ai/providers/openai_provider.py",
+        "ai/providers/openrouter_provider.py",
+        "cli/commands/init.py",
+        "cli/commands/models.py",
+        "cli/commands/workflow.py",
+        "cli/main.py",
+        "core/analyst_agent.py",
+        "core/memory.py",
+        "core/workflow.py",
+        "pyproject.toml",
+        "tools/ffuf.py",
+        "tools/gobuster.py",
+        "tools/httpx.py",
+        "tools/masscan.py",
+        "tools/nikto.py",
+        "tools/nmap.py",
+        "tools/nuclei.py",
+        "tools/sqlmap.py",
+        "tools/subfinder.py",
+        "tools/wafw00f.py",
+        "tools/whatweb.py"
+      ]
+    },
+    {
+      "prompt": "Update the Guardian CLI documentation to reflect the new multi-provider AI intelligence feature.",
+      "expected_files": [
+        "cli/main.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "a6ffb4dbc8db2211455e29028b6026442a4692af",
+      "commit_subject": "Update ascii",
+      "changed_files": [
+        "cli/main.py"
+      ]
+    },
+    {
+      "prompt": "Refactor the Dockerfile to use official Go images and create a Makefile for development and Docker automation.",
+      "expected_files": [
+        "Makefile"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "87229e220668b79fdd40fb3acd7a5ded18f68733",
+      "commit_subject": "build: Refactor Dockerfile to utilize official images for most Go tools and add a Makefile for development and Docker automation.",
+      "changed_files": [
+        "Makefile"
+      ]
+    },
+    {
+      "prompt": "Add a provider option to the recon, scan, and workflow commands to override the AI backend.",
+      "expected_files": [
+        "cli/commands/recon.py",
+        "cli/commands/scan.py",
+        "cli/commands/workflow.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "49a336142b76d2c987e99c676e66c1dc0ff3a756",
+      "commit_subject": "feat: Add provider option to recon, scan, and workflow commands",
+      "changed_files": [
+        "cli/commands/recon.py",
+        "cli/commands/scan.py",
+        "cli/commands/workflow.py"
+      ]
+    }
+  ]
+}

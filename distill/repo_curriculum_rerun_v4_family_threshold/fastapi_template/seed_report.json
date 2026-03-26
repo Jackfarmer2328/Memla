@@ -1,0 +1,303 @@
+{
+  "cases": 8,
+  "accepted": 3,
+  "accept_rate": 0.375,
+  "avg_file_recall": 0.1013,
+  "avg_role_recall": 0.5417,
+  "avg_command_recall": 0.25,
+  "rows": [
+    {
+      "prompt": "Generate a .gitignore file for a FastAPI project with Python virtual environments and cache directories.",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "src/services/file_service.py",
+        "src/utils/cache.py",
+        "src/repositories/file_mapping.py",
+        ".gitignore",
+        "tests/test_database_cache.py",
+        "pyproject.toml",
+        ".dmypy.json"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        ".dmypy.json"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0323,
+      "role_recall": 0.5,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants a `.gitignore` file tailored for a FastAPI project. Based on the retrieved memory, the user specifically wants to include Python virtual environments (`venv`, `.venv`) and cache directories. I will generate a comprehensive `.gitignore` file that covers st"
+    },
+    {
+      "prompt": "Update the super admin default password to a simple test password in the initialization script.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "tests/test_simple_jwt.py",
+        "tests/conftest_simple.py",
+        "tests/test_auth_api.py",
+        "tests/test_jwt_auth.py",
+        "tests/test_permissions.py",
+        "tests/test_health_endpoints.py",
+        "init_db.py",
+        "setup.py",
+        "main.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "init_db.py",
+        "setup.py",
+        "main.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update the super admin default password in the initialization script to a simple test password. Based on the retrieved memory, this is a specific decision the user has made before. I need to locate the initialization script (likely `init_db.py`, `setup"
+    },
+    {
+      "prompt": "Improve error handling for missing resources by adding environment-specific messages.",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "utils.py",
+        "config.py",
+        "init_db.py",
+        "main.py"
+      ],
+      "suggested_commands": [
+        "python -m init_db"
+      ],
+      "answer_files": [
+        "utils.py",
+        "config.py",
+        "init_db.py",
+        "main.py"
+      ],
+      "answer_commands": [
+        "python -m init_db"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to improve error handling for missing resources by adding environment-specific messages. Based on the retrieved memory, this is a specific decision the user has made before. I need to identify where resource loading happens (e.g., loading config files, st"
+    },
+    {
+      "prompt": "Implement rate limiting and password strength validation for the login endpoint.",
+      "trace_id": 4,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "main.py",
+        "utils.py",
+        "config.py",
+        "requirements.txt",
+        "routers/auth.py"
+      ],
+      "suggested_commands": [
+        "pip install slowapi zxcvbn"
+      ],
+      "answer_files": [
+        "main.py",
+        "utils.py",
+        "config.py",
+        "requirements.txt",
+        "routers/auth.py"
+      ],
+      "answer_commands": [
+        "pip install slowapi zxcvbn"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.3333,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to implement rate limiting and password strength validation for the login endpoint. Based on the retrieved memory, this is a specific decision the user has made before. I need to: 1. **Rate Limiting**: Use a library like `slowapi` (standard for FastAPI) t"
+    },
+    {
+      "prompt": "Update Redis dependency and refactor login authentication logic for performance and security.",
+      "trace_id": 5,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "src/schemas/login.py",
+        "src/core/dependency.py",
+        "pyproject.toml",
+        "tests/test_auth_api.py",
+        "tests/test_jwt_auth.py",
+        "requirements.txt",
+        "src/routers/auth.py",
+        "src/api/auth.py",
+        "auth.py",
+        "redis_config.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "pyproject.toml",
+        "requirements.txt",
+        "src/routers/auth.py",
+        "src/api/auth.py",
+        "auth.py",
+        "redis_config.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.25,
+      "role_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the Redis dependency and refactor the login authentication logic. Based on the retrieved memory, this is a high-priority decision aimed at improving performance and security. 1. **Redis Update**: I need to identify the current Redis version in `"
+    },
+    {
+      "prompt": "Update ruff configuration and fix linting/formatting issues in the FastAPI project.",
+      "trace_id": 6,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "tests/test_auth_api.py",
+        "tests/test_jwt_auth.py",
+        "tests/test_simple_jwt.py",
+        "tests/test_permissions.py",
+        "tests/test_health_endpoints.py",
+        "tests/test_database_cache.py",
+        "pyproject.toml",
+        "__init__.py"
+      ],
+      "suggested_commands": [
+        "Add `ruff` to your `.pre-commit-config.yaml` to ensure code quality before commits:",
+        "ruff",
+        "[tool.ruff]",
+        "ruff check",
+        "ruff format"
+      ],
+      "answer_files": [
+        "pyproject.toml",
+        "__init__.py"
+      ],
+      "answer_commands": [
+        "Add `ruff` to your `.pre-commit-config.yaml` to ensure code quality before commits:",
+        "ruff",
+        "[tool.ruff]",
+        "ruff check",
+        "ruff format"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0278,
+      "role_recall": 0.5,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update the `ruff` configuration and fix linting/formatting issues. Based on the retrieved memory, this is a specific decision the user has made before. I need to: 1. **Update `pyproject.toml`**: Add or update the `ruff` dependency and configuration sec"
+    },
+    {
+      "prompt": "Generate a minimal test setup for FastAPI using SQLite and JWT with environment variables.",
+      "trace_id": 7,
+      "prior_trace_ids": [
+        5
+      ],
+      "suggested_files": [
+        "tests/test_simple_jwt.py",
+        "tests/test_jwt_auth.py",
+        "src/utils/jwt.py",
+        "tests/test_auth_api.py",
+        "tests/test_permissions.py",
+        "tests/test_health_endpoints.py",
+        "pyproject.toml",
+        "conftest.py",
+        "test_login.py",
+        "tests/conftest.py",
+        "tests/test_login.py"
+      ],
+      "suggested_commands": [
+        "pytest",
+        "ruff check .",
+        "pytest.ini",
+        "pytest-asyncio",
+        "to configure pytest with"
+      ],
+      "answer_files": [
+        "pyproject.toml",
+        "conftest.py",
+        "test_login.py",
+        "tests/conftest.py",
+        "tests/test_login.py"
+      ],
+      "answer_commands": [
+        "pytest.ini",
+        "pytest-asyncio",
+        "to configure pytest with"
+      ],
+      "likely_tests": [
+        "pytest"
+      ],
+      "patch_steps": [
+        "is the updated Redis dependency and the refactored login authentication logic for improved performance and security",
+        "Update Redis Dependency",
+        "Update your `pyproject",
+        "toml` or `requirements"
+      ],
+      "file_recall": 0.5,
+      "role_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants a minimal test setup for a FastAPI project. Based on the retrieved memory, the project uses SQLite and JWT with environment variables. I need to provide: 1. **`pytest.ini` or `pyproject.toml`**: Configure pytest with `pytest-asyncio` for async tests. 2. *"
+    },
+    {
+      "prompt": "Fix hardcoded test credentials and improve environment variable handling in the FastAPI template.",
+      "trace_id": 8,
+      "prior_trace_ids": [
+        5
+      ],
+      "suggested_files": [
+        "tests/test_auth_api.py",
+        "tests/test_jwt_auth.py",
+        "tests/test_simple_jwt.py",
+        "tests/test_permissions.py",
+        "tests/test_health_endpoints.py",
+        "tests/test_database_cache.py",
+        "conftest.py",
+        "test_login.py",
+        "generate_env.py",
+        "README.md",
+        "tests/conftest.py",
+        "tests/test_login.py"
+      ],
+      "suggested_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "answer_files": [
+        "conftest.py",
+        "test_login.py",
+        "generate_env.py",
+        "README.md",
+        "tests/conftest.py",
+        "tests/test_login.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "pytest"
+      ],
+      "patch_steps": [
+        "is the updated Redis dependency and the refactored login authentication logic for improved performance and security",
+        "Update Redis Dependency",
+        "Update your `pyproject",
+        "toml` or `requirements"
+      ],
+      "file_recall": 0.0,
+      "role_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to fix hardcoded test credentials and improve environment variable handling. Based on the retrieved memory, this is a specific decision for the FastAPI template. I need to: 1. **Remove hardcoded credentials**: Ensure no test emails/passwords are hardcoded"
+    }
+  ]
+}

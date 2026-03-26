@@ -3,7 +3,13 @@ from __future__ import annotations
 import unittest
 from unittest.mock import patch
 
-from benchmarks.locomo.run_memla_benchmark import MemlaBenchmarkRunner, _compile_typed_answer, _new_runtime
+from benchmarks.locomo.run_memla_benchmark import (
+    MemlaBenchmarkRunner,
+    _compile_typed_answer,
+    _graph_object_targets,
+    _graph_relation_targets,
+    _new_runtime,
+)
 from memory_system.memory.episode_log import Chunk
 from memory_system.middleware.quality import ChunkQuality
 
@@ -178,12 +184,12 @@ class TestStep5LocomoGraphBridge(unittest.TestCase):
 
             answer_events, _ = runner.answer_from_memory(
                 runtime=runtime,
-                prompt="What LGBTQ+ events has Caroline participated in?",
+                prompt="What events has Caroline participated in?",
                 category="multi-hop",
             )
             self.assertEqual("pride parade, school speech, support group", answer_events)
 
-            answer_items, _ = runner.answer_from_memory(
+            answer_items, retrieved_items = runner.answer_from_memory(
                 runtime=runtime,
                 prompt="What items has Melanie bought?",
                 category="multi-hop",
@@ -216,6 +222,19 @@ class TestStep5LocomoGraphBridge(unittest.TestCase):
                 '{"answer":"Yes"}',
             ),
         )
+
+    def test_graph_target_parsing_avoids_likely_false_positive_and_keeps_phrase_target(self) -> None:
+        self.assertNotIn(
+            "like",
+            _graph_relation_targets("What fields would Caroline be likely to pursue in her educaton?"),
+        )
+        self.assertNotIn(
+            "plays_instrument",
+            _graph_relation_targets("What games has John played with his friends at charity tournaments?"),
+        )
+        targets = _graph_object_targets("When did Caroline go to the LGBTQ support group?")
+        self.assertIn("the LGBTQ support group", targets)
+        self.assertNotIn("LGBTQ", targets)
 
     def test_graph_temporal_answer_uses_resolved_time_label(self) -> None:
         runtime = _new_runtime(
@@ -255,6 +274,150 @@ class TestStep5LocomoGraphBridge(unittest.TestCase):
                 category="temporal",
             )
             self.assertEqual("the week before 27 June 2023", answer)
+        finally:
+            runtime.close()
+
+    def test_answer_from_memory_uses_graph_for_event_and_history_questions(self) -> None:
+        runtime = _new_runtime(
+            user_id="u_graph_bridge_events",
+            extractor="heuristic",
+            model="mock-model",
+            num_ctx=None,
+        )
+        runner = MemlaBenchmarkRunner(
+            model="mock-model",
+            backend="mock",
+            top_k=12,
+            temperature=0.0,
+            num_ctx=None,
+            extractor="heuristic",
+            train_online=False,
+            max_turns=None,
+            train_steps=1,
+        )
+        try:
+            runtime.chunks.persist_message(
+                session_id="sess_graph_events",
+                user_id=runtime.user_id,
+                role="user",
+                text="I went to a LGBTQ support group yesterday. I applied to adoption agencies yesterday.",
+                ts=100,
+                meta={
+                    "speaker": "Caroline",
+                    "session_date_text": "10:37 am on 8 May, 2023",
+                    "resolved_time_hints": ["yesterday = 7 May 2023"],
+                },
+            )
+            runtime.chunks.persist_message(
+                session_id="sess_graph_events",
+                user_id=runtime.user_id,
+                role="user",
+                text="I went to a LGBTQ conference two days ago. I attended a LGBTQ+ pride parade last week.",
+                ts=140,
+                meta={
+                    "speaker": "Caroline",
+                    "session_date_text": "10:37 am on 12 July, 2023",
+                    "resolved_time_hints": [
+                        "two days ago = 10 July 2023",
+                        "last week = the week before 12 July 2023",
+                    ],
+                },
+            )
+            runtime.chunks.persist_message(
+                session_id="sess_graph_events",
+                user_id=runtime.user_id,
+                role="user",
+                text="I signed with the Falcons. I had dinner with my mother.",
+                ts=200,
+                meta={"speaker": "John", "session_date_text": "10:37 am on 21 May, 2023"},
+            )
+
+            answer_group, retrieved_group = runner.answer_from_memory(
+                runtime=runtime,
+                prompt="When did Caroline go to the LGBTQ support group?",
+                category="temporal",
+            )
+            self.assertEqual("7 May 2023", answer_group)
+            self.assertTrue(any(str(chunk.text).startswith("[graph]") for chunk in retrieved_group))
+
+            answer_apply, _ = runner.answer_from_memory(
+                runtime=runtime,
+                prompt="When did Caroline apply to adoption agencies?",
+                category="temporal",
+            )
+            self.assertEqual("7 May 2023", answer_apply)
+
+            answer_team, _ = runner.answer_from_memory(
+                runtime=runtime,
+                prompt="Which team did John sign with on 21 May, 2023?",
+                category="single-hop",
+            )
+            self.assertEqual("Falcons", answer_team)
+
+            answer_dinner, _ = runner.answer_from_memory(
+                runtime=runtime,
+                prompt="Who did John have dinner with on 21 May, 2023?",
+                category="single-hop",
+            )
+            self.assertEqual("my mother", answer_dinner)
+        finally:
+            runtime.close()
+
+    def test_answer_from_memory_uses_graph_for_inventory_questions(self) -> None:
+        runtime = _new_runtime(
+            user_id="u_graph_bridge_inventory",
+            extractor="heuristic",
+            model="mock-model",
+            num_ctx=None,
+        )
+        runner = MemlaBenchmarkRunner(
+            model="mock-model",
+            backend="mock",
+            top_k=12,
+            temperature=0.0,
+            num_ctx=None,
+            extractor="heuristic",
+            train_online=False,
+            max_turns=None,
+            train_steps=1,
+        )
+        try:
+            runtime.chunks.persist_message(
+                session_id="sess_graph_inventory",
+                user_id=runtime.user_id,
+                role="user",
+                text="I have turtles and a dog. I have done karate and judo. I love The Lord of the Rings and Harry Potter. I cooked pasta and curry.",
+                ts=100,
+                meta={"speaker": "Nate"},
+            )
+
+            answer_pets, _ = runner.answer_from_memory(
+                runtime=runtime,
+                prompt="What pets does Nate have?",
+                category="single-hop",
+            )
+            self.assertEqual("turtles, dog", answer_pets)
+
+            answer_martial, _ = runner.answer_from_memory(
+                runtime=runtime,
+                prompt="What martial arts has Nate done?",
+                category="single-hop",
+            )
+            self.assertEqual("karate, judo", answer_martial)
+
+            answer_movies, retrieved_movies = runner.answer_from_memory(
+                runtime=runtime,
+                prompt="What movies does Nate like?",
+                category="single-hop",
+            )
+            self.assertEqual("The Lord of the Rings, Harry Potter", answer_movies)
+
+            answer_cooked, _ = runner.answer_from_memory(
+                runtime=runtime,
+                prompt="What has Nate cooked?",
+                category="single-hop",
+            )
+            self.assertEqual("pasta, curry", answer_cooked)
         finally:
             runtime.close()
 

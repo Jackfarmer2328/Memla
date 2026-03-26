@@ -1,0 +1,10 @@
+{"prompt": "Refactor the express checkout confirmation function to remove duplicate variable declarations and simplify the logic flow.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Update the checkout form to accept a clientSecret prop and initialize a Stripe payment request.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Update the guest info page to use the new Payment Request ButtonElement for Apple and Google Pay.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Refactor the authentication link to use a tabs layout for a sleeker UI.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Implement explicit PaymentIntent confirmation and handle 3D Secure authentication in the guest payment flow.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Update payment UI to hide all wallet options and set explicit locale for iOS stability.", "expected_files": ["src/GuestInfoPage.jsx", "src/index.css"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Configure the payment element to disable all wallet options and show only card payments.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Remove the unused payment gateway configuration options from the guest info page.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Update the test amount calculation in the guest info page to use the actual subtotal instead of a hardcoded value.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Update the test amount calculation to use the actual booking subtotal instead of a hardcoded value.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}

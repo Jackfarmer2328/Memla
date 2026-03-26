@@ -1,0 +1,394 @@
+{
+  "repo_root": "..\\external\\express-rate-limit",
+  "repo_subpath": ".",
+  "repo_label": "express rate limit",
+  "manifest_path": "C:\\Users\\samat\\Project Memory\\external\\express-rate-limit\\package.json",
+  "local_model": "qwen3.5:4b",
+  "ollama_base_url": "http://127.0.0.1:11435",
+  "seed_count": 8,
+  "unseen_count": 12,
+  "seed_cases": [
+    {
+      "prompt": "Update the package version from 2.4.0 to 2.5.0 in package.json.",
+      "expected_files": [
+        "package.json"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "4a47beddb0874babcbcc5b25a113224c48474272",
+      "commit_subject": "2.5.0",
+      "changed_files": [
+        "package.json"
+      ]
+    },
+    {
+      "prompt": "Update the grunt-mocha-cli dependency in package.json to version 3.0.0.",
+      "expected_files": [
+        "package.json"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "c1c5a308ff616ef29caa6bd230c2ab91aa52a179",
+      "commit_subject": "chore(package): update grunt-mocha-cli to version 3.0.0 (#34)",
+      "changed_files": [
+        "package.json"
+      ]
+    },
+    {
+      "prompt": "How do I implement a custom function to skip rate limiting for specific requests?",
+      "expected_files": [
+        "lib/express-rate-limit.js",
+        "test/express-rate-limit.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "53f858c6536dd07d1df61da0f2022dd053c68e04",
+      "commit_subject": "Add in the ability to skip rate limiting with a custom function (#35)",
+      "changed_files": [
+        "lib/express-rate-limit.js",
+        "test/express-rate-limit.js"
+      ]
+    },
+    {
+      "prompt": "How do I include the current rate limit value in the rateLimit response payload?",
+      "expected_files": [
+        "lib/express-rate-limit.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "9f06718f9c2c0158f6ed2b45b51bcef72c0f6fd1",
+      "commit_subject": "Passing current limit as part of rateLimit payload (#44)",
+      "changed_files": [
+        "lib/express-rate-limit.js"
+      ]
+    },
+    {
+      "prompt": "How do I implement the onLimitReached callback to log when the rate limit is hit?",
+      "expected_files": [
+        "lib/express-rate-limit.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "fdd258aa9a2e3bf00899a67904c19d2df5905231",
+      "commit_subject": "Feature events (#45)",
+      "changed_files": [
+        "lib/express-rate-limit.js"
+      ]
+    },
+    {
+      "prompt": "Fix setInterval behavior in Electron where it returns a number instead of a Timeout object.",
+      "expected_files": [
+        "lib/memory-store.js",
+        "test/memory-store.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "965e127962f95ad17e0b9d19e1f24b8ea570cab9",
+      "commit_subject": "Runs in electron where setInterval() returns only a number (#48)",
+      "changed_files": [
+        "lib/memory-store.js",
+        "test/memory-store.js"
+      ]
+    },
+    {
+      "prompt": "Implement a Retry-After header in rate limit responses and add corresponding test coverage.",
+      "expected_files": [
+        "lib/express-rate-limit.js",
+        "test/express-rate-limit.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "e5fea7799e60bf661cfd402f3db04729c550a8b5",
+      "commit_subject": "Retry-After header (#49)",
+      "changed_files": [
+        "lib/express-rate-limit.js",
+        "test/express-rate-limit.js"
+      ]
+    },
+    {
+      "prompt": "Fix the comment position to correctly describe the API for resetting rate limit hits.",
+      "expected_files": [
+        "lib/memory-store.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "cb979827d97cd970a37d9e7aee62f012c16c8968",
+      "commit_subject": "Fix clarification comment position (#52)",
+      "changed_files": [
+        "lib/memory-store.js"
+      ]
+    }
+  ],
+  "unseen_cases": [
+    {
+      "prompt": "How do I configure the rate limiter to skip counting failed requests?",
+      "expected_files": [
+        "lib/express-rate-limit.js",
+        "lib/memory-store.js",
+        "test/memory-store.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "c9194780b6826d9cdb14b3395907cf7fb93e59f6",
+      "commit_subject": "Added ability to skip failed requests",
+      "changed_files": [
+        "lib/express-rate-limit.js",
+        "lib/memory-store.js",
+        "test/memory-store.js"
+      ]
+    },
+    {
+      "prompt": "Update the test to use a valid status code instead of 123 to comply with RFC 2616.",
+      "expected_files": [
+        "test/express-rate-limit.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "cc28fb1feeb2ccafe8a15bbc4258da1a6fd84b5d",
+      "commit_subject": "fix RFC 2616 violation in tests section 10.1 states that 1xx status codes cannot include a body, and node.js now enforces this",
+      "changed_files": [
+        "test/express-rate-limit.js"
+      ]
+    },
+    {
+      "prompt": "Refactor the testing setup to use ESLint with stricter rules for test files.",
+      "expected_files": [
+        ".eslintrc.js",
+        "Gruntfile.js",
+        "package.json",
+        "test/express-rate-limit-test.js",
+        "test/express-rate-limit.js",
+        "test/memory-store-test.js",
+        "test/memory-store.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "f2f54167d9c11087ca3cc1b81380aefa5e32da52",
+      "commit_subject": "simplifying testing setup, switching to eslint, improving setTimeout test",
+      "changed_files": [
+        ".eslintrc.js",
+        "Gruntfile.js",
+        "package.json",
+        "test/express-rate-limit-test.js",
+        "test/express-rate-limit.js",
+        "test/memory-store-test.js",
+        "test/memory-store.js"
+      ]
+    },
+    {
+      "prompt": "Configure ESLint to use Prettier for test files.",
+      "expected_files": [
+        ".eslintrc.js",
+        "package.json"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "c31854aaf5904ddc4655e18980a222c07e37d7a5",
+      "commit_subject": "set up prettier",
+      "changed_files": [
+        ".eslintrc.js",
+        "package.json"
+      ]
+    },
+    {
+      "prompt": "Format the codebase with Prettier to standardize quotes and strict mode usage.",
+      "expected_files": [
+        "lib/express-rate-limit.js",
+        "lib/memory-store.js",
+        "test/express-rate-limit-test.js",
+        "test/memory-store-test.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "813c0db34f7fa4aac4972646f5c67058f42bbc4e",
+      "commit_subject": "run prettier",
+      "changed_files": [
+        "lib/express-rate-limit.js",
+        "lib/memory-store.js",
+        "test/express-rate-limit-test.js",
+        "test/memory-store-test.js"
+      ]
+    },
+    {
+      "prompt": "How do I add X-RateLimit-Reset headers to express rate limiting responses?",
+      "expected_files": [
+        "lib/express-rate-limit.js",
+        "lib/memory-store.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "c5b3a9708ec8b35c3cd77e2cfa692041dc93b126",
+      "commit_subject": "Add X-RateLimit-Reset",
+      "changed_files": [
+        "lib/express-rate-limit.js",
+        "lib/memory-store.js"
+      ]
+    },
+    {
+      "prompt": "Add a date header to the X-RateLimit-Reset response to help avoid clock-related issues.",
+      "expected_files": [
+        "lib/express-rate-limit.js",
+        "lib/memory-store.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "598b9b41c47e6530d2020563b6dff9872bb727b6",
+      "commit_subject": "simplify memory store resetTime, add a date header to accopany x-ratelimit-reset",
+      "changed_files": [
+        "lib/express-rate-limit.js",
+        "lib/memory-store.js"
+      ]
+    },
+    {
+      "prompt": "Enable strict mode and configure EditorConfig indentation settings for JavaScript files.",
+      "expected_files": [
+        ".eslintrc.js",
+        "lib/express-rate-limit.js",
+        "lib/memory-store.js",
+        "test/express-rate-limit-test.js",
+        "test/memory-store-test.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "17dbb613d85e49f88bc464e268c4ecbc6697d417",
+      "commit_subject": "const and strict",
+      "changed_files": [
+        ".eslintrc.js",
+        "lib/express-rate-limit.js",
+        "lib/memory-store.js",
+        "test/express-rate-limit-test.js",
+        "test/memory-store-test.js"
+      ]
+    },
+    {
+      "prompt": "Refactor the Express rate limit module to remove timeout options and simplify response formatting.",
+      "expected_files": [
+        "lib/express-rate-limit.js",
+        "test/express-rate-limit-test.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "68df371c7555ce2916cf15ab7656fe66a238cca2",
+      "commit_subject": "removing features - no timeout options - simpler response formatting",
+      "changed_files": [
+        "lib/express-rate-limit.js",
+        "test/express-rate-limit-test.js"
+      ]
+    },
+    {
+      "prompt": "Fix the onLimitReached logic and add a max configuration option to the rate limiter.",
+      "expected_files": [
+        "lib/express-rate-limit.js",
+        "test/express-rate-limit-test.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "40ed765c3d3738abab5c49e55f4cd43ae24700b2",
+      "commit_subject": "fix onLimitReached, enable max function",
+      "changed_files": [
+        "lib/express-rate-limit.js",
+        "test/express-rate-limit-test.js"
+      ]
+    },
+    {
+      "prompt": "Add tests to verify rate limit headers are correctly converted to strings when limits are zero.",
+      "expected_files": [
+        "test/express-rate-limit-test.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "98091990650d2cd34ef5fbd3a5dca47c49d5ec26",
+      "commit_subject": "add test to check headers (and, by extension, req.rateLimit values) with max function. Part of #102",
+      "changed_files": [
+        "test/express-rate-limit-test.js"
+      ]
+    },
+    {
+      "prompt": "Update the package version from 2.5.0 to 2.6.0 in package.json.",
+      "expected_files": [
+        "package.json"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "9e2f76407c9ce5bcd401a52634fecdfaa49ba3d4",
+      "commit_subject": "2.6.0",
+      "changed_files": [
+        "package.json"
+      ]
+    }
+  ]
+}

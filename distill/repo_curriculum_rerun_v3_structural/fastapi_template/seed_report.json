@@ -1,0 +1,300 @@
+{
+  "cases": 8,
+  "accepted": 3,
+  "accept_rate": 0.375,
+  "avg_file_recall": 0.1722,
+  "avg_role_recall": 0.4688,
+  "avg_command_recall": 0.25,
+  "rows": [
+    {
+      "prompt": "Generate a .gitignore file for a FastAPI project with Python virtual environments and cache directories.",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "src/services/file_service.py",
+        "src/utils/cache.py",
+        "src/repositories/file_mapping.py",
+        ".gitignore",
+        "tests/test_database_cache.py",
+        "pyproject.toml"
+      ],
+      "suggested_commands": [
+        ".pytest_cache"
+      ],
+      "answer_files": [],
+      "answer_commands": [
+        ".pytest_cache"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0323,
+      "role_recall": 0.5,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants a `.gitignore` file tailored for a FastAPI project. Based on the retrieved memory, the user specifically wants to include Python virtual environments (`venv`, `.venv`) and cache directories (like `__pycache__`, `.pytest_cache`, etc.). I will generate a co"
+    },
+    {
+      "prompt": "Update the super admin default password to a simple test password.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "tests/test_simple_jwt.py",
+        "tests/conftest_simple.py",
+        "tests/test_auth_api.py",
+        "tests/test_jwt_auth.py",
+        "tests/test_permissions.py",
+        "tests/test_health_endpoints.py",
+        "settings.py",
+        "config.py",
+        "seed.py",
+        "init_db.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "settings.py",
+        "config.py",
+        "seed.py",
+        "init_db.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update the super admin default password to a simple test password. Based on the retrieved memory, this is a specific decision the user has made before. I need to identify where the super admin password is typically configured in a FastAPI project. Comm"
+    },
+    {
+      "prompt": "Improve error handling for missing resources by adding environment-specific messages.",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "app.py",
+        "exception_handlers.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "app.py",
+        "exception_handlers.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to improve error handling for missing resources by adding environment-specific messages. Based on the retrieved memory, this is a specific decision the user has made before. I need to identify where error handling for missing resources typically occurs in"
+    },
+    {
+      "prompt": "Implement rate limiting and password strength validation for the login endpoint.",
+      "trace_id": 4,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "app.py",
+        "config.py",
+        "validators.py",
+        "routes.py"
+      ],
+      "suggested_commands": [
+        "pip install slowapi passlib[bcrypt]"
+      ],
+      "answer_files": [
+        "app.py",
+        "config.py",
+        "validators.py",
+        "routes.py"
+      ],
+      "answer_commands": [
+        "pip install slowapi passlib[bcrypt]"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to implement rate limiting and password strength validation for the login endpoint. Based on the retrieved memory, this is a specific decision the user has made before. I need to provide a comprehensive solution that covers: 1. Rate limiting (using FastAP"
+    },
+    {
+      "prompt": "Update Redis dependency and refactor login authentication logic for performance and security.",
+      "trace_id": 5,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "src/schemas/login.py",
+        "src/core/dependency.py",
+        "pyproject.toml",
+        "tests/test_auth_api.py",
+        "tests/test_jwt_auth.py",
+        "requirements.txt",
+        "setup.py",
+        "redis_config.py",
+        "auth_service.py"
+      ],
+      "suggested_commands": [
+        "pip install --upgrade redis>=4.5.0"
+      ],
+      "answer_files": [
+        "requirements.txt",
+        "setup.py",
+        "redis_config.py",
+        "auth_service.py"
+      ],
+      "answer_commands": [
+        "pip install --upgrade redis>=4.5.0"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.25,
+      "role_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the Redis dependency and refactor the login authentication logic for performance and security. Based on the retrieved memory, this is a specific decision the user has made before. I need to provide a comprehensive solution that covers: 1. Updati"
+    },
+    {
+      "prompt": "Update ruff configuration and fix linting/formatting issues in the FastAPI project.",
+      "trace_id": 6,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "tests/test_auth_api.py",
+        "tests/test_jwt_auth.py",
+        "tests/test_simple_jwt.py",
+        "tests/test_permissions.py",
+        "tests/test_health_endpoints.py",
+        "tests/test_database_cache.py",
+        "ruff.toml"
+      ],
+      "suggested_commands": [
+        "ruff.toml"
+      ],
+      "answer_files": [
+        "ruff.toml"
+      ],
+      "answer_commands": [
+        "ruff.toml"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.25,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update the ruff configuration and fix linting/formatting issues in the FastAPI project. Based on the retrieved memory, this is a specific decision the user has made before. I need to provide a comprehensive solution that covers: 1. Creating/updating ru"
+    },
+    {
+      "prompt": "Generate a minimal test setup for FastAPI using SQLite and JWT with environment variables.",
+      "trace_id": 7,
+      "prior_trace_ids": [
+        5
+      ],
+      "suggested_files": [
+        "tests/test_simple_jwt.py",
+        "tests/test_jwt_auth.py",
+        "src/utils/jwt.py",
+        "setup.py",
+        "tests/test_auth_api.py",
+        "tests/test_permissions.py",
+        "pyproject.toml",
+        "__init__.py",
+        "main.py",
+        "login.py",
+        "jwt.py",
+        "cache.py",
+        "user_service.py",
+        "conftest.py",
+        "test_simple_jwt.py",
+        "src/main.py",
+        "src/schemas/login.py",
+        "src/settings/config.py",
+        "src/services/user_service.py",
+        "tests/conftest.py"
+      ],
+      "suggested_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "answer_files": [
+        "pyproject.toml",
+        "__init__.py",
+        "main.py",
+        "login.py",
+        "jwt.py",
+        "cache.py",
+        "user_service.py",
+        "conftest.py",
+        "test_simple_jwt.py",
+        "src/main.py",
+        "src/schemas/login.py",
+        "src/utils/jwt.py",
+        "src/settings/config.py",
+        "src/services/user_service.py",
+        "tests/conftest.py",
+        "tests/test_simple_jwt.py",
+        "tests/test_auth_api.py",
+        "tests/test_permissions.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "pytest"
+      ],
+      "patch_steps": [
+        "Here's how to update Redis dependency and refactor login authentication logic for performance and security:",
+        "Update Redis Dependency",
+        "### Current Setup (if using older version)",
+        "# Check current version"
+      ],
+      "file_recall": 0.4286,
+      "role_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants a minimal FastAPI test setup using SQLite and JWT with environment variables. Based on the retrieved memory, the user has previously decided to update Redis dependency and refactor login authentication logic, and has a preference for minimal setups using "
+    },
+    {
+      "prompt": "Fix test environment configuration and correct import order in base service and cache utilities.",
+      "trace_id": 8,
+      "prior_trace_ids": [
+        5
+      ],
+      "suggested_files": [
+        "src/services/base_service.py",
+        "tests/test_database_cache.py",
+        "src/utils/cache.py",
+        "src/services/user_service.py",
+        "src/api/v1/base/base.py",
+        "auth_service.py",
+        "tests/conftest.py",
+        "base_service.py",
+        "cache.py",
+        "conftest.py"
+      ],
+      "suggested_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "answer_files": [
+        "src/services/base_service.py",
+        "src/utils/cache.py",
+        "tests/conftest.py",
+        "base_service.py",
+        "cache.py",
+        "conftest.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "pytest"
+      ],
+      "patch_steps": [
+        "Here's how to update Redis dependency and refactor login authentication logic for performance and security:",
+        "Update Redis Dependency",
+        "### Current Setup (if using older version)",
+        "# Check current version"
+      ],
+      "file_recall": 0.6667,
+      "role_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants me to fix test environment configuration and correct import order in base service and cache utilities. Based on the retrieved memory, I need to: 1. Check the current test environment configuration 2. Review the base service and cache utilities for import "
+    }
+  ]
+}

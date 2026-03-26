@@ -1,0 +1,211 @@
+{
+  "cases": 8,
+  "accepted": 3,
+  "accept_rate": 0.375,
+  "avg_file_recall": 0.125,
+  "avg_role_recall": 0.5,
+  "avg_command_recall": 0.375,
+  "rows": [
+    {
+      "prompt": "How do I allow non-YAML $refs inside scalar values in OpenAPI definitions?",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "packages/core/src/__tests__/fixtures/sibling-refs/openapi-non-summary-desc-ref.yaml",
+        "tests/e2e/lint-config/config-with-refs/theme-openapi.yaml",
+        "tests/e2e/lint-config/config-with-refs-extended/theme-openapi.yaml",
+        "packages/core/src/decorators/oas3/__tests__/fixtures/handle-invalid-ref/openapi.yaml",
+        "tests/e2e/miscellaneous/resolve-refs-in-preprocessors/openapi.yaml",
+        "tests/e2e/lint/spec-strict-refs/openapi.yaml"
+      ],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user is asking about allowing non-YAML `$refs` inside scalar values in OpenAPI definitions. This relates to the constraint `schema_validation` and the specific memory note: \"Allow non-YAML $refs inside scalar values in OpenAPI definitions.\" I need to understand what"
+    },
+    {
+      "prompt": "Update the Redocly CLI version from 0.6.0 to 0.7.0 in the package configuration.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "packages/cli/src/utils/update-version-notifier.ts",
+        "packages/cli/package.json",
+        "packages/cli/src/utils/package.ts",
+        "packages/cli/src/utils/assert-node-version.ts",
+        "packages/cli/src/__tests__/fixtures/redocly.yaml",
+        "packages/cli/src/commands/scorecard-classic/auth/login-handler.ts",
+        "package.json"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "package.json",
+        "packages/cli/package.json"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "role_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the Redocly CLI version from 0.6.0 to 0.7.0. Based on the memory note, this is a decision that has been made before. I need to identify the package.json file for the CLI and update the version field. [Action] I'll locate the CLI package.json fil"
+    },
+    {
+      "prompt": "How do I add a type check to ensure the property is a string?",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to add a type check to ensure a property is a string. Based on the memory note \"Method to add a type check ensuring a property is a string,\" this likely refers to adding a runtime check or a schema validation rule in the OpenAPI linter codebase. I need to"
+    },
+    {
+      "prompt": "Refactor the default definitions loading to use direct imports instead of readdir.",
+      "trace_id": 4,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "packages/cli/src/commands/scorecard-classic/auth/login-handler.ts",
+        "packages/cli/src/auth/oauth-client.ts",
+        "packages/cli/src/reunite/api/types.ts",
+        "packages/cli/src/reunite/api/index.ts",
+        "packages/cli/src/reunite/api/domains.ts",
+        "packages/cli/src/reunite/api/api-keys.ts"
+      ],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to refactor the default definitions loading to use direct imports instead of `readdir`. This is a decision noted in the memory. I need to: 1. Find where default definitions are currently loaded using `readdir` 2. Identify the files that need to be modifie"
+    },
+    {
+      "prompt": "Implement vendor extension support for x-code-samples in OpenAPIOperation types.",
+      "trace_id": 5,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to implement vendor extension support for `x-code-samples` in `OpenAPIOperation` types. This is a decision noted in the memory. I need to: 1. Understand the current implementation of `x-code-samples` handling 2. Identify where vendor extensions are proces"
+    },
+    {
+      "prompt": "Add a --force flag to the bundle command to ignore validation errors.",
+      "trace_id": 6,
+      "prior_trace_ids": [
+        2
+      ],
+      "suggested_files": [
+        "packages/cli/src/commands/join/helpers/add-security-prefix.ts",
+        "packages/cli/src/commands/respect/har-logs/helpers/add-headers.ts",
+        "packages/cli/src/commands/join/helpers/add-prefix.ts",
+        "packages/cli/src/commands/join/helpers/add-info-section.ts",
+        "packages/cli/src/commands/scorecard-classic/validation/validate-scorecard.ts",
+        "packages/cli/src/commands/scorecard-classic/validation/project-url.ts",
+        "packages/cli/src/commands/bundle/index.ts",
+        "packages/cli/src/commands/bundle/flags.ts",
+        "packages/cli/src/commands/bundle/validate.ts"
+      ],
+      "suggested_commands": [
+        "npm run lint"
+      ],
+      "answer_files": [
+        "packages/cli/src/commands/bundle/index.ts",
+        "packages/cli/src/commands/bundle/flags.ts",
+        "packages/cli/src/commands/bundle/validate.ts"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "npm run lint"
+      ],
+      "patch_steps": [
+        "To update the Redocly CLI version from 0",
+        "0, you need to modify the `packages/cli/package",
+        "**File to modify:** `packages/cli/package",
+        "\"dependencies\": {"
+      ],
+      "file_recall": 0.0,
+      "role_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to add a `--force` flag to the `bundle` command to ignore validation errors. This is a decision noted in the memory. I need to: 1. Find the `bundle` command implementation 2. Add the `--force` flag parsing 3. Modify the command logic to skip validation wh"
+    },
+    {
+      "prompt": "Update the CLI configuration format to use the new .redocly.yaml structure and adjust build scripts accordingly.",
+      "trace_id": 7,
+      "prior_trace_ids": [
+        2
+      ],
+      "suggested_files": [
+        "packages/respect-core/src/modules/__tests__/flow-runner/inputs/format-cli-inputs.test.ts",
+        "packages/cli/src/__tests__/fixtures/redocly.yaml",
+        "packages/cli/src/utils/update-version-notifier.ts",
+        "packages/cli/src/__tests__/commands/respect/har-logs/helpers/build-response-cookies.test.ts",
+        "packages/cli/src/__tests__/commands/respect/har-logs/helpers/build-request-cookies.test.ts",
+        "packages/cli/src/__tests__/commands/respect/har-logs/helpers/build-headers.test.ts",
+        "packages/cli/package.json",
+        "packages/cli/README.md"
+      ],
+      "suggested_commands": [
+        "npm run lint"
+      ],
+      "answer_files": [
+        "packages/cli/package.json",
+        "packages/cli/README.md"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "npm run lint"
+      ],
+      "patch_steps": [
+        "To update the Redocly CLI version from 0",
+        "0, you need to modify the `packages/cli/package",
+        "**File to modify:** `packages/cli/package",
+        "\"dependencies\": {"
+      ],
+      "file_recall": 0.0,
+      "role_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the CLI configuration format to use the new `.redocly.yaml` structure and adjust build scripts accordingly. This is a decision noted in the memory. I need to: 1. Find where the current CLI configuration is defined 2. Update it to use the new `.r"
+    },
+    {
+      "prompt": "Fix discriminator mapping traversal to correctly handle custom resolve fields and path context.",
+      "trace_id": 8,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to fix discriminator mapping traversal to correctly handle custom resolve fields and path context. This is a decision noted in the memory. I need to: 1. Find where discriminator mapping traversal is implemented 2. Identify issues with custom resolve field"
+    }
+  ]
+}

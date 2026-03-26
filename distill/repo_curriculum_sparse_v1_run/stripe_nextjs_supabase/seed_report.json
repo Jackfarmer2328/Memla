@@ -1,0 +1,144 @@
+{
+  "cases": 4,
+  "accepted": 2,
+  "accept_rate": 0.5,
+  "avg_file_recall": 0.2773,
+  "avg_role_recall": 0.475,
+  "avg_command_recall": 0.0,
+  "rows": [
+    {
+      "prompt": "Set up environment variables for Stripe, Supabase, and OpenAI in the Next.js project.",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "types/stripe.d.ts",
+        "next.config.ts",
+        "app/api/stripe/webhook/route.ts",
+        "app/api/stripe/sync/route.ts",
+        "app/api/stripe/reactivate/route.ts",
+        "app/api/stripe/cancel/route.ts",
+        "Next.js"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "Next.js",
+        "next.config.ts"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.1091,
+      "role_recall": 0.4,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to set up environment variables for Stripe, Supabase, and OpenAI in a Next.js project. Based on the retrieved memory, this is a decision that has been made before (freq=1), suggesting this is a standard setup for this project. I need to identify the likel"
+    },
+    {
+      "prompt": "Remove unused WebSocket context imports and provider from the layout.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "app/layout.tsx",
+        "emails/templates/components/EmailLayout.tsx",
+        "app/api/stripe/webhook/route.ts",
+        "app/api/stripe/sync/route.ts",
+        "app/api/stripe/reactivate/route.ts",
+        "app/api/stripe/cancel/route.ts",
+        "Next.js"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "app/layout.tsx",
+        "Next.js"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.3333,
+      "role_recall": 0.5,
+      "command_recall": 0.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to remove unused WebSocket context imports and providers from the layout. Based on the retrieved memory, this is a decision that has been made before (freq=1), suggesting this is a cleanup task to simplify the codebase. I need to identify the likely files"
+    },
+    {
+      "prompt": "Update the Buy Me a Coffee link to use the new Stripe payment URL.",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "types/stripe.d.ts",
+        "app/api/stripe/webhook/route.ts",
+        "app/api/stripe/sync/route.ts",
+        "app/api/stripe/reactivate/route.ts",
+        "app/api/stripe/cancel/route.ts",
+        "app/api/stripe/test/route.ts",
+        "app/page.tsx",
+        "app/globals.css",
+        "Next.js",
+        "app/components/DonateButton.tsx",
+        "app/layout.tsx"
+      ],
+      "suggested_commands": [
+        "- Restart your development server (`npm run dev` or `yarn dev`)."
+      ],
+      "answer_files": [
+        "app/page.tsx",
+        "app/globals.css",
+        "Next.js",
+        "app/components/DonateButton.tsx",
+        "app/layout.tsx"
+      ],
+      "answer_commands": [
+        "- Restart your development server (`npm run dev` or `yarn dev`)."
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update a \"Buy Me a Coffee\" link to use a new Stripe payment URL. Based on the retrieved memory, this is a decision that has been made before (freq=1), suggesting this is a specific update to the project's payment flow. I need to identify the likely fil"
+    },
+    {
+      "prompt": "Integrate Stripe and Supabase MCP servers into the project configuration.",
+      "trace_id": 4,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "types/stripe.d.ts",
+        "initial_supabase_table_schema.sql",
+        "app/api/stripe/webhook/route.ts",
+        "app/api/stripe/sync/route.ts",
+        "app/api/stripe/reactivate/route.ts",
+        "app/api/stripe/cancel/route.ts",
+        "package.json",
+        "next.config.ts",
+        "mcp.json",
+        "Next.js",
+        "README.md"
+      ],
+      "suggested_commands": [
+        "npm install @modelcontextprotocol/sdk",
+        "npm install <your-mcp-package>",
+        "- Restart your development server (`npm run dev` or `yarn dev`)."
+      ],
+      "answer_files": [
+        "package.json",
+        "next.config.ts",
+        "mcp.json",
+        "Next.js",
+        "README.md"
+      ],
+      "answer_commands": [
+        "npm install @modelcontextprotocol/sdk",
+        "npm install <your-mcp-package>",
+        "- Restart your development server (`npm run dev` or `yarn dev`)."
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.6667,
+      "role_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to integrate Stripe and Supabase MCP servers into the project configuration. Based on the retrieved memory, this is a decision that has been made before (freq=1), suggesting this is a standard setup for this project. I need to identify the likely files in"
+    }
+  ]
+}

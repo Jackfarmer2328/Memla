@@ -1,0 +1,162 @@
+{
+  "cases": 6,
+  "accepted": 2,
+  "accept_rate": 0.3333,
+  "avg_file_recall": 0.2022,
+  "avg_role_recall": 0.375,
+  "avg_command_recall": 0.0,
+  "rows": [
+    {
+      "prompt": "Create a .env.example file with placeholder values for the Gemini API key and optional LangSmith tracing settings.",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        ".env.example",
+        "ai/gemini_client.py",
+        "ai/providers/gemini_provider.py",
+        "cli/main.py",
+        "cli/commands/models.py",
+        "ai/ai_client.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0465,
+      "role_recall": 0.75,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants a `.env.example` file created with placeholders for the Gemini API key and optional LangSmith tracing settings. Based on the retrieved memory, this file should include: 1. `GEMINI_API_KEY` placeholder 2. Optional `LANGSMITH_TRACING_ENABLED` or similar for"
+    },
+    {
+      "prompt": "Implement Docker support for the security tool wrappers in the CLI.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "cli/main.py",
+        "cli/commands/models.py",
+        "cli/commands/workflow.py",
+        "cli/commands/scan.py",
+        "cli/commands/report.py",
+        "cli/commands/recon.py",
+        "list.txt"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "list.txt"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to implement Docker support for security tool wrappers in the CLI. Based on the retrieved memory, this is a specific decision to implement Docker support for security tool wrappers. I need to: 1. Identify the CLI structure (likely `cli/commands/` based on"
+    },
+    {
+      "prompt": "Integrate Arjun, XSStrike, Gitleaks, CMSeek, and DnsRecon tools into the CLI with Docker support.",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "cli/main.py",
+        "cli/commands/models.py",
+        "cli/commands/workflow.py",
+        "cli/commands/scan.py",
+        "cli/commands/report.py",
+        "cli/commands/recon.py",
+        "cli/commands/fix.py",
+        "cli/commands/audit.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "cli/commands/models.py",
+        "cli/commands/workflow.py",
+        "cli/commands/scan.py",
+        "cli/commands/report.py",
+        "cli/commands/fix.py",
+        "cli/commands/audit.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to integrate five specific security tools (Arjun, XSStrike, Gitleaks, CMSeek, DnsRecon) into the CLI with Docker support. Based on the retrieved memory, the user has previously decided to integrate these tools and add Docker support for security tool wrap"
+    },
+    {
+      "prompt": "Update the Dockerfile to use Go 1.25 and add the Gemini rate limit check.",
+      "trace_id": 4,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update the Dockerfile to use Go 1.25 and add a Gemini rate limit check. Based on the retrieved memory, these are specific decisions already made for this project. I need to locate the existing Dockerfile and modify it accordingly. [Action] I'll search "
+    },
+    {
+      "prompt": "Refactor the Gemini client to use Antigravity Auth instead of LangChain.",
+      "trace_id": 5,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "ai/gemini_client.py",
+        "ai/ai_client.py",
+        "ai/providers/gemini_provider.py",
+        "requirements.txt",
+        "package.json"
+      ],
+      "suggested_commands": [
+        "pip install antigravity-auth"
+      ],
+      "answer_files": [
+        "requirements.txt",
+        "package.json"
+      ],
+      "answer_commands": [
+        "pip install antigravity-auth"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.1667,
+      "role_recall": 0.5,
+      "command_recall": 0.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to refactor the Gemini client to use Antigravity Auth instead of LangChain. I need to check the current implementation of the Gemini client to understand how LangChain is currently being used and then determine the steps to switch to Antigravity Auth. I w"
+    },
+    {
+      "prompt": "Add a check to warn users if no Antigravity accounts are found before running the CLI.",
+      "trace_id": 6,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "cli/main.py",
+        "cli/commands/models.py",
+        "cli/commands/workflow.py",
+        "cli/commands/scan.py",
+        "cli/commands/report.py",
+        "cli/commands/recon.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "cli/main.py",
+        "cli/commands/models.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "role_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to add a check to warn users if no Antigravity accounts are found before running the CLI. Based on the retrieved memory, this is a specific decision already made for this project. I need to locate the CLI entry point (likely `cli/main.py` or similar) and "
+    }
+  ]
+}

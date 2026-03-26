@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import time
 from dataclasses import dataclass
 from typing import Any, Optional
 
@@ -170,9 +171,30 @@ class UniversalLLMClient:
         if system:
             payload["system"] = system
 
-        resp = requests.post(url, json=payload, timeout=600, headers=hdrs)
-        resp.raise_for_status()
-        data = resp.json()
+        data: dict[str, Any] | None = None
+        last_error: Exception | None = None
+        retry_delays = (1.0, 2.5, 5.0)
+        for attempt in range(len(retry_delays) + 1):
+            try:
+                resp = requests.post(url, json=payload, timeout=600, headers=hdrs)
+                resp.raise_for_status()
+                data = resp.json()
+                break
+            except requests.exceptions.HTTPError as exc:
+                status = exc.response.status_code if exc.response is not None else None
+                if status not in {429, 500, 502, 503, 504, 529} or attempt >= len(retry_delays):
+                    raise
+                last_error = exc
+            except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as exc:
+                if attempt >= len(retry_delays):
+                    raise
+                last_error = exc
+            time.sleep(retry_delays[attempt])
+
+        if data is None:
+            if last_error is not None:
+                raise last_error
+            raise RuntimeError("Anthropic chat failed without a response payload.")
 
         # Response content is a list of blocks.
         content = data.get("content")

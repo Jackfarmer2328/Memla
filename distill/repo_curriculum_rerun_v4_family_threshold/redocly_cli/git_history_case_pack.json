@@ -1,0 +1,390 @@
+{
+  "repo_root": "..\\external\\redocly-cli",
+  "repo_subpath": ".",
+  "repo_label": "redocly cli",
+  "manifest_path": "C:\\Users\\samat\\Project Memory\\external\\redocly-cli\\package.json",
+  "local_model": "qwen3.5:4b",
+  "ollama_base_url": "http://127.0.0.1:11435",
+  "seed_count": 8,
+  "unseen_count": 8,
+  "seed_cases": [
+    {
+      "prompt": "How do I allow non-YAML $refs inside scalar values in OpenAPI definitions?",
+      "expected_files": [
+        "src/__tests__/validate.test.js",
+        "src/error/__tests__/default.test.js",
+        "src/scalarsResolver.js",
+        "src/traverse.js",
+        "src/types/OpenAPIExample.js",
+        "src/types/OpenAPIExternalDocumentation.js",
+        "src/types/OpenAPIHeader.js",
+        "src/types/OpenAPIInfo.js",
+        "src/types/OpenAPILink.js",
+        "src/types/OpenAPIOperation.js",
+        "src/types/OpenAPIParameter.js",
+        "src/types/OpenAPIPath.js",
+        "src/types/OpenAPIRequestBody.js",
+        "src/types/OpenAPIResponse.js",
+        "src/types/OpenAPISchema.js",
+        "src/types/OpenAPISecuritySchema.js",
+        "src/types/OpenAPIServer.js",
+        "src/types/OpenAPIServerVariable.js",
+        "src/types/OpenAPITag.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "2318d9973d26fb5b18f4a5b4e64419e481d4fbce",
+      "commit_subject": "feat: allow non-yaml $refs in scalars. (#83)",
+      "changed_files": [
+        "src/__tests__/validate.test.js",
+        "src/error/__tests__/default.test.js",
+        "src/scalarsResolver.js",
+        "src/traverse.js",
+        "src/types/OpenAPIExample.js",
+        "src/types/OpenAPIExternalDocumentation.js",
+        "src/types/OpenAPIHeader.js",
+        "src/types/OpenAPIInfo.js",
+        "src/types/OpenAPILink.js",
+        "src/types/OpenAPIOperation.js",
+        "src/types/OpenAPIParameter.js",
+        "src/types/OpenAPIPath.js",
+        "src/types/OpenAPIRequestBody.js",
+        "src/types/OpenAPIResponse.js",
+        "src/types/OpenAPISchema.js",
+        "src/types/OpenAPISecuritySchema.js",
+        "src/types/OpenAPIServer.js",
+        "src/types/OpenAPIServerVariable.js",
+        "src/types/OpenAPITag.js"
+      ]
+    },
+    {
+      "prompt": "Update the Redocly CLI version from 0.6.0 to 0.7.0 in the package configuration.",
+      "expected_files": [
+        "package.json"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "9ca1f5a24e61e3733a2874c8ec9ce18822da781b",
+      "commit_subject": "version: v0.7.0",
+      "changed_files": [
+        "package.json"
+      ]
+    },
+    {
+      "prompt": "How do I add a type check to ensure the property is a string?",
+      "expected_files": [
+        "src/visitors/rules/structural/validateOpenAPISchema.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "819dc64b9e11073782fa7b7263023092f891063a",
+      "commit_subject": "fix: add type check for  property",
+      "changed_files": [
+        "src/visitors/rules/structural/validateOpenAPISchema.js"
+      ]
+    },
+    {
+      "prompt": "Refactor the default definitions loading to use direct imports instead of readdir.",
+      "expected_files": [
+        "src/bundle.js",
+        "src/resolveDefinition/index.js",
+        "src/types/index.js",
+        "src/validate.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "8b45239811caf1e4dfe80f6efe97552715acb5bc",
+      "commit_subject": "refactor: import type definitions directly vs readdir",
+      "changed_files": [
+        "src/bundle.js",
+        "src/resolveDefinition/index.js",
+        "src/types/index.js",
+        "src/validate.js"
+      ]
+    },
+    {
+      "prompt": "Implement vendor extension support for x-code-samples in OpenAPIOperation types.",
+      "expected_files": [
+        "src/types/OpenAPIOperation.js",
+        "src/types/index.js",
+        "src/types/vendor/XRedocCodeSample.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "2c92c886a29aea9e4bed885bb657d5494340d6d8",
+      "commit_subject": "feat: add support for x-code-samples vendor extension",
+      "changed_files": [
+        "src/types/OpenAPIOperation.js",
+        "src/types/index.js",
+        "src/types/vendor/XRedocCodeSample.js"
+      ]
+    },
+    {
+      "prompt": "Add a --force flag to the bundle command to ignore validation errors.",
+      "expected_files": [
+        "src/bundle.js",
+        "src/cli/index.js",
+        "src/visitors/bundler.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "01276601ea5f486174be857e71c48babacef5953",
+      "commit_subject": "feat: add --force to bundle command",
+      "changed_files": [
+        "src/bundle.js",
+        "src/cli/index.js",
+        "src/visitors/bundler.js"
+      ]
+    },
+    {
+      "prompt": "Update the CLI configuration format to use the new .redocly.yaml structure and adjust build scripts accordingly.",
+      "expected_files": [
+        "package.json",
+        "src/__tests__/resolver.test.js",
+        "src/bundle.js",
+        "src/cli/index.js",
+        "src/config.js",
+        "src/validate.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "5c695044737b3b4e7eabc1a74f388d770a931177",
+      "commit_subject": "feat: new config format (#87)",
+      "changed_files": [
+        "package.json",
+        "src/__tests__/resolver.test.js",
+        "src/bundle.js",
+        "src/cli/index.js",
+        "src/config.js",
+        "src/validate.js"
+      ]
+    },
+    {
+      "prompt": "Fix discriminator mapping traversal to correctly handle custom resolve fields and path context.",
+      "expected_files": [
+        "src/traverse.js",
+        "src/types/OpenAPIDiscriminator.js",
+        "src/visitors/bundler.js",
+        "src/visitors/rules/structural/noRefSiblings.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "43a92bd0df69c9a9aff1837373f8d6113f4666a3",
+      "commit_subject": "fix: visit and bundle discriminator mappings (#90)",
+      "changed_files": [
+        "src/traverse.js",
+        "src/types/OpenAPIDiscriminator.js",
+        "src/visitors/bundler.js",
+        "src/visitors/rules/structural/noRefSiblings.js"
+      ]
+    }
+  ],
+  "unseen_cases": [
+    {
+      "prompt": "Implement a basic preview-docs command to generate and serve documentation previews.",
+      "expected_files": [
+        "package.json",
+        "src/bundle.js",
+        "src/cli/index.js",
+        "src/config.js",
+        "src/context.js",
+        "src/preview-docs/hot.js",
+        "src/preview-docs/index.js",
+        "src/preview-docs/server.js",
+        "src/resolver.js",
+        "src/scalarsResolver.js",
+        "src/traverse.js",
+        "src/utils/index.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "e8c2c2944391d879ee7562fe0b37b3236f627500",
+      "commit_subject": "feat: add basic preview-docs command (#91)",
+      "changed_files": [
+        "package.json",
+        "src/bundle.js",
+        "src/cli/index.js",
+        "src/config.js",
+        "src/context.js",
+        "src/preview-docs/hot.js",
+        "src/preview-docs/index.js",
+        "src/preview-docs/server.js",
+        "src/resolver.js",
+        "src/scalarsResolver.js",
+        "src/traverse.js",
+        "src/utils/index.js"
+      ]
+    },
+    {
+      "prompt": "Update the Redocly CLI version from 0.7.0 to 0.8.0 in the package configuration.",
+      "expected_files": [
+        "package.json"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "daf15fb61d0d2b6dc7f77a432d76972cd74e00f1",
+      "commit_subject": "version: v0.8.0",
+      "changed_files": [
+        "package.json"
+      ]
+    },
+    {
+      "prompt": "Fix the typo in the error message about referenced schemas.",
+      "expected_files": [
+        "src/visitors/bundler.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "1235ee20d5b98d343c1966e44301ead81f320f7d",
+      "commit_subject": "fix: typo in error message (#93)",
+      "changed_files": [
+        "src/visitors/bundler.js"
+      ]
+    },
+    {
+      "prompt": "Improve error messages for invalid YAML files to display user-friendly details and file paths.",
+      "expected_files": [
+        "src/error/index.js",
+        "src/resolver.js",
+        "src/validate.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "1740b20b99b71c38a7dafb0f25816fb4877e63be",
+      "commit_subject": "feat(error handling): user friendly error for incorrect YAML files",
+      "changed_files": [
+        "src/error/index.js",
+        "src/resolver.js",
+        "src/validate.js"
+      ]
+    },
+    {
+      "prompt": "Add codeframes to YAML parsing error messages to help users locate issues.",
+      "expected_files": [
+        "src/cli/outputMessages.js",
+        "src/error/index.js",
+        "src/validate.js",
+        "src/yaml/index.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "178f3726d9ac3c014c95ff3440edf3f6c4ea5f99",
+      "commit_subject": "feat: add codeframes for the yaml parsing errors",
+      "changed_files": [
+        "src/cli/outputMessages.js",
+        "src/error/index.js",
+        "src/validate.js",
+        "src/yaml/index.js"
+      ]
+    },
+    {
+      "prompt": "Update all Open API references to use the correct OpenAPI spelling without spaces.",
+      "expected_files": [
+        "src/cli/index.js",
+        "src/visitors/rules/structural/validateAuthorizationCodeOpenAPIFlow.js",
+        "src/visitors/rules/structural/validateClientCredentialsOpenAPIFlow.js",
+        "src/visitors/rules/structural/validateImplicitOpenAPIFlow.js",
+        "src/visitors/rules/structural/validateOpenAPIOperation.js",
+        "src/visitors/rules/structural/validatePasswordOpenAPIFlow.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "9ce9ef34b362f89fa3cd64b4a72a118d8df80c4b",
+      "commit_subject": "Rename Open API to proper OpenAPI without space",
+      "changed_files": [
+        "src/cli/index.js",
+        "src/visitors/rules/structural/validateAuthorizationCodeOpenAPIFlow.js",
+        "src/visitors/rules/structural/validateClientCredentialsOpenAPIFlow.js",
+        "src/visitors/rules/structural/validateImplicitOpenAPIFlow.js",
+        "src/visitors/rules/structural/validateOpenAPIOperation.js",
+        "src/visitors/rules/structural/validatePasswordOpenAPIFlow.js"
+      ]
+    },
+    {
+      "prompt": "Fix the inconsistent spacing in error messages by removing the extra space after the colon.",
+      "expected_files": [
+        "src/error/index.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "8811b6defc6d92142066c614fe62e5e7fbb412d7",
+      "commit_subject": "Update src/error/index.js",
+      "changed_files": [
+        "src/error/index.js"
+      ]
+    },
+    {
+      "prompt": "Remove the debug console log statement from the resolver file.",
+      "expected_files": [
+        "src/resolver.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "3105b927d3b693e46b6673adf822cf822259b1dc",
+      "commit_subject": "Update src/resolver.js",
+      "changed_files": [
+        "src/resolver.js"
+      ]
+    }
+  ]
+}

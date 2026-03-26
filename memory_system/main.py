@@ -11,6 +11,8 @@ from .memory.chunk_manager import ChunkManager
 from .memory.llm_extractor import LLMChunkExtractor
 from .middleware.ttt_layer import TTTLayer
 from .ollama_client import ChatMessage, UniversalLLMClient
+from .distillation.coding_log import CodingTraceLog
+from .distillation.workspace_capture import capture_workspace_state
 
 
 BASE_SYSTEM = """
@@ -44,10 +46,12 @@ def run_chat(
     extractor = LLMChunkExtractor(client=client, model=model, temperature=0.0, num_ctx=num_ctx)
     cm = ChunkManager(log, llm_extractor=extractor.extract)
     ttt = TTTLayer(episode_log=log, chunk_manager=cm)
+    coding_log = CodingTraceLog(log._conn)
 
     session_id = _new_session_id()
     conversation_history: list[ChatMessage] = []
     max_history_turns = 20
+    last_coding_trace_id: int | None = None
 
     print(f"[memory_system] user_id={user_id} session_id={session_id} model={model}")
     print("[memory_system] Commands: /new_session, /recall, /good, /bad, /merge_adapters, /exit\n")
@@ -72,12 +76,44 @@ def run_chat(
                 continue
             if user_text.strip() == "/good":
                 if ttt.explicit_feedback(is_positive=True):
+                    if last_coding_trace_id is not None:
+                        try:
+                            snapshot = capture_workspace_state(os.getcwd())
+                            coding_log.update_trace_artifacts(
+                                trace_id=last_coding_trace_id,
+                                touched_files=snapshot["touched_files"],
+                                patch_text=snapshot["patch_text"],
+                                meta={"workspace_vcs": snapshot["vcs"]},
+                            )
+                            coding_log.mark_feedback(
+                                trace_id=last_coding_trace_id,
+                                is_positive=True,
+                                meta={"surface": "cli"},
+                            )
+                        except Exception:
+                            pass
                     print("[memory_system] positive feedback recorded — retrieval adapter reinforced.")
                 else:
                     print("[memory_system] no previous turn to give feedback on.")
                 continue
             if user_text.strip() == "/bad":
                 if ttt.explicit_feedback(is_positive=False):
+                    if last_coding_trace_id is not None:
+                        try:
+                            snapshot = capture_workspace_state(os.getcwd())
+                            coding_log.update_trace_artifacts(
+                                trace_id=last_coding_trace_id,
+                                touched_files=snapshot["touched_files"],
+                                patch_text=snapshot["patch_text"],
+                                meta={"workspace_vcs": snapshot["vcs"]},
+                            )
+                            coding_log.mark_feedback(
+                                trace_id=last_coding_trace_id,
+                                is_positive=False,
+                                meta={"surface": "cli"},
+                            )
+                        except Exception:
+                            pass
                     print("[memory_system] negative feedback recorded — retrieval adapter corrected.")
                 else:
                     print("[memory_system] no previous turn to give feedback on.")
@@ -168,6 +204,22 @@ def run_chat(
                 assistant_text=assistant_text,
                 meta={"retrieved_chunk_ids": [c.id for c in artifacts.retrieved]},
             )
+            try:
+                last_coding_trace_id = coding_log.save_trace(
+                    session_id=session_id,
+                    user_id=user_id,
+                    provider=client.provider,
+                    model=model,
+                    repo_root=os.getcwd(),
+                    task_text=user_text,
+                    system_prompt=artifacts.built.system_prompt,
+                    messages=[{"role": m.role, "content": m.content} for m in messages],
+                    retrieved_chunk_ids=[c.id for c in artifacts.retrieved],
+                    assistant_text=assistant_text.strip(),
+                    meta={"surface": "cli"},
+                )
+            except Exception:
+                last_coding_trace_id = None
 
             conversation_history.append(ChatMessage(role="user", content=user_text))
             conversation_history.append(ChatMessage(role="assistant", content=assistant_text.strip()))

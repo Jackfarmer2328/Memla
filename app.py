@@ -32,6 +32,8 @@ from memory_system.memory.llm_extractor import LLMChunkExtractor
 from memory_system.memory.lazy_import import LazyImporter
 from memory_system.middleware.ttt_layer import TTTLayer
 from memory_system.ollama_client import ChatMessage, UniversalLLMClient
+from memory_system.distillation.coding_log import CodingTraceLog
+from memory_system.distillation.workspace_capture import capture_workspace_state
 from memory_system.sync import pull_if_enabled, push_if_enabled
 from memory_system.reasoning.trajectory import (
     TrajectoryLog, Trajectory, TrajectoryStep,
@@ -86,6 +88,8 @@ class State:
         self.traj_log: Optional[TrajectoryLog] = None
         self.lazy: Optional[LazyImporter] = None
         self.last_trajectory_id: Optional[int] = None
+        self.coding_log: Optional[CodingTraceLog] = None
+        self.last_coding_trace_id: Optional[int] = None
 
     def init(self, *, model: str, db: str, user_id: str, ollama_url: str) -> None:
         self.model = model
@@ -111,6 +115,7 @@ class State:
         self.log._conn.execute(_USER_LINKS_DDL)
         self.log._conn.commit()
         self.traj_log = TrajectoryLog(self.log._conn)
+        self.coding_log = CodingTraceLog(self.log._conn)
         self.lazy = LazyImporter(self.log)
 
     def set_model(self, model: str) -> None:
@@ -157,6 +162,13 @@ class FeedbackReq(BaseModel):
 class LinkReq(BaseModel):
     chunk_a: int
     chunk_b: int
+
+
+class TraceTestReq(BaseModel):
+    trace_id: int
+    command: str = ""
+    status: str
+    summary: str = ""
 
 
 # ── FastAPI ──────────────────────────────────────────────────────
@@ -309,6 +321,25 @@ def chat(req: ChatReq):
         done_payload = {"type": "done"}
         if traj_data:
             done_payload["trajectory"] = traj_data
+        if S.coding_log and S.client:
+            try:
+                S.last_coding_trace_id = S.coding_log.save_trace(
+                    session_id=S.session_id,
+                    user_id=S.user_id,
+                    provider=S.client.provider,
+                    model=S.model,
+                    repo_root=str(Path.cwd()),
+                    task_text=msg,
+                    system_prompt=system_prompt,
+                    messages=[{"role": m.role, "content": m.content} for m in messages],
+                    retrieved_chunk_ids=[c.id for c in artifacts.retrieved],
+                    trajectory_id=S.last_trajectory_id,
+                    assistant_text=full.strip(),
+                    meta={"surface": "web_app"},
+                )
+                done_payload["coding_trace_id"] = S.last_coding_trace_id
+            except Exception:
+                pass
         yield f"data: {json.dumps(done_payload)}\n\n"
 
     return StreamingResponse(generate(), media_type="text/event-stream")
@@ -318,7 +349,69 @@ def chat(req: ChatReq):
 def feedback(req: FeedbackReq):
     if not S.ttt:
         return {"ok": False}
-    return {"ok": S.ttt.explicit_feedback(is_positive=req.is_positive)}
+    ok = S.ttt.explicit_feedback(is_positive=req.is_positive)
+    if ok and S.coding_log and S.last_coding_trace_id is not None:
+        try:
+            snapshot = capture_workspace_state(Path.cwd())
+            S.coding_log.update_trace_artifacts(
+                trace_id=S.last_coding_trace_id,
+                touched_files=snapshot["touched_files"],
+                patch_text=snapshot["patch_text"],
+                meta={"workspace_vcs": snapshot["vcs"]},
+            )
+            S.coding_log.mark_feedback(
+                trace_id=S.last_coding_trace_id,
+                is_positive=req.is_positive,
+                meta={"surface": "web_app"},
+            )
+        except Exception:
+            pass
+    return {"ok": ok}
+
+
+@app.get("/api/coding_traces/candidates")
+def coding_trace_candidates():
+    if not S.coding_log:
+        return {"traces": []}
+    traces = S.coding_log.fetch_training_candidates(user_id=S.user_id, limit=50)
+    return {
+        "traces": [
+            {
+                "id": trace.id,
+                "task_text": trace.task_text,
+                "provider": trace.provider,
+                "model": trace.model,
+                "repo_root": trace.repo_root,
+                "status": trace.status,
+                "acceptance_score": trace.acceptance_score,
+                "touched_files": trace.touched_files,
+                "tests": trace.tests,
+                "trajectory_id": trace.trajectory_id,
+            }
+            for trace in traces
+        ]
+    }
+
+
+@app.post("/api/coding_traces/test_result")
+def attach_trace_test_result(req: TraceTestReq):
+    if not S.coding_log:
+        return JSONResponse({"error": "Not initialized"}, 500)
+    traces = S.coding_log.fetch_recent(user_id=S.user_id, limit=200)
+    trace = next((item for item in traces if item.id == req.trace_id), None)
+    if trace is None:
+        return JSONResponse({"error": "Trace not found"}, 404)
+    tests = list(trace.tests)
+    tests.append(
+        {
+            "command": req.command.strip(),
+            "status": req.status.strip(),
+            "summary": req.summary.strip(),
+            "ts": int(time.time()),
+        }
+    )
+    S.coding_log.update_trace_artifacts(trace_id=req.trace_id, tests=tests)
+    return {"ok": True, "trace_id": req.trace_id, "tests_count": len(tests)}
 
 
 @app.post("/api/link")

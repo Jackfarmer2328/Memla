@@ -1,0 +1,186 @@
+{
+  "cases": 8,
+  "accepted": 2,
+  "accept_rate": 0.25,
+  "avg_file_recall": 0.25,
+  "avg_command_recall": 0.25,
+  "rows": [
+    {
+      "prompt": "How do I implement support for aliases in the entryPoints argument?",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        ".github/workflows/main-version-release-guard.yaml",
+        "tests/e2e/miscellaneous/apply-per-api-decorators/nested/openapi/main.yaml",
+        "tests/e2e/build-docs/build-docs-with-disabled-search/config-with-apis-and-root-option.yaml",
+        "tests/e2e/split/root-endpoint/snapshot.txt",
+        "tests/e2e/split/root-endpoint/openapi.yaml",
+        "tests/e2e/bundle/tag-description-override/main.yaml"
+      ],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to implement support for aliases in the `entryPoints` argument. Based on the retrieved memory, this is a specific feature request. I need to understand the current structure of `entryPoints` and how aliases would fit in. Since I don't have direct access t"
+    },
+    {
+      "prompt": "Fix the duplicate parameters rule to correctly handle both array and object parameter formats.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to fix a \"duplicate parameters rule\" to handle both array and object formats. Based on the retrieved memory, this is a specific decision that has been made before. I need to understand the current implementation of this rule and how it currently handles p"
+    },
+    {
+      "prompt": "Fix the encoding type handling in OpenAPI media objects to prevent circular imports.",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "packages/core/src/decorators/common/media-type-examples-override.ts",
+        "docs/@v2/decorators/media-type-examples-override.md",
+        "docs/@v1/decorators/media-type-examples-override.md",
+        "packages/core/src/decorators/__tests__/media-type-examples-override.test.ts",
+        "tests/e2e/lint/info-contact--lint-in-apis/openapi.yaml",
+        "tests/e2e/bundle/bundle-remove-unused-components-from-api-config/oas3/openapi.yaml"
+      ],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to fix encoding type handling in OpenAPI media objects to prevent circular imports. Based on the retrieved memory, this is a specific decision that has been made before. I need to understand the current implementation of encoding type handling and how it "
+    },
+    {
+      "prompt": "Fix the structural rule visitor to reuse the existing source instead of reading the file again.",
+      "trace_id": 4,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to fix a \"structural rule visitor\" to reuse existing source instead of re-reading the file. Based on the retrieved memory, this is a specific decision that has been made before. I need to understand the current implementation of the structural rule visito"
+    },
+    {
+      "prompt": "Update the Redocly CLI package version from 0.8.1 to 0.8.2 in package.json.",
+      "trace_id": 5,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "packages/cli/package.json",
+        "packages/respect-core/package.json",
+        "packages/core/package.json",
+        "package.json",
+        "package-lock.json",
+        "tests/smoke/plugins/package.json"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "package.json",
+        "packages/cli/package.json",
+        "package-lock.json"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the `redocly-cli` package version from `0.8.1` to `0.8.2` in `package.json`. Based on the retrieved memory, this is a specific decision that has been made before. I need to locate the `package.json` file and update the version field accordingly."
+    },
+    {
+      "prompt": "How do I fix bundling issues when replacing non-idempotent nodes in the visitor?",
+      "trace_id": 6,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "rollup.config.js"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "rollup.config.js"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user is asking about fixing bundling issues when replacing non-idempotent nodes in a visitor. Based on the retrieved memory, this is a specific note about a known issue. I need to understand what \"non-idempotent nodes\" means in this context (likely AST nodes that ch"
+    },
+    {
+      "prompt": "Update the Redocly CLI version in package.json from 0.8.2 to 0.8.3.",
+      "trace_id": 7,
+      "prior_trace_ids": [
+        5
+      ],
+      "suggested_files": [
+        "packages/cli/package.json",
+        "package.json",
+        "packages/respect-core/package.json",
+        "packages/core/package.json",
+        "package-lock.json",
+        "tests/smoke/basic/package.json"
+      ],
+      "suggested_commands": [
+        "npm run lint"
+      ],
+      "answer_files": [
+        "package.json",
+        "packages/cli/package.json",
+        "package-lock.json"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "npm run lint"
+      ],
+      "patch_steps": [
+        "To update the `redocly-cli` package version from `0",
+        "2` in `package",
+        "json`, here's a structured approach:",
+        "**Locate the `package"
+      ],
+      "file_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the `redocly-cli` package version from `0.8.2` to `0.8.3` in `package.json`. Based on the retrieved memory, this is a specific decision that has been made before. I need to locate the `package.json` file and update the version field accordingly."
+    },
+    {
+      "prompt": "How do I ensure the XHR request uses a fully qualified URL instead of a relative file path?",
+      "trace_id": 8,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "config.js",
+        "config.ts"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "config.js",
+        "config.ts"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to ensure an XHR request uses a fully qualified URL instead of a relative file path. Based on the retrieved memory, this is a specific note about a known issue. I need to understand the current implementation of the XHR request and how it constructs the U"
+    }
+  ]
+}

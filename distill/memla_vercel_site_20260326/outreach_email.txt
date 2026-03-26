@@ -1,0 +1,11 @@
+Subject: Memla turns coding-model usage into transferable intelligence
+
+We built a layer called Memla that sits in front of a frontier coding model. Memla turns accepted coding work into transferable intelligence.
+
+In our latest second-repo eval, raw Claude reached 0.1667 file recall on unseen tasks, while Memla in front of the same model reached 0.9167 combined file recall and 1.0 command recall.
+
+The mechanism is not just retrieval. Memla stores role, constraint, and transmutation structure from successful coding work, then maps that onto the next repo's local files and verification rituals.
+
+If this is relevant to your roadmap, I can send a 90-second demo and the underlying reports.
+
+Samat

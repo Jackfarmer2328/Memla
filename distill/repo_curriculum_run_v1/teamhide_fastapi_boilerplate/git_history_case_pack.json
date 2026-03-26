@@ -1,0 +1,404 @@
+{
+  "repo_root": "..\\external\\fastapi-boilerplate",
+  "repo_subpath": ".",
+  "repo_label": "teamhide fastapi boilerplate",
+  "manifest_path": "C:\\Users\\samat\\Project Memory\\external\\fastapi-boilerplate\\pyproject.toml",
+  "local_model": "qwen3.5:4b",
+  "ollama_base_url": "http://127.0.0.1:11435",
+  "seed_count": 8,
+  "unseen_count": 12,
+  "seed_cases": [
+    {
+      "prompt": "Refactor SQLAlchemyMiddleware to use Raw ASGI Middleware instead of BaseHTTPMiddleware.",
+      "expected_files": [
+        "core/fastapi/middlewares/sqlalchemy.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "d532a064506090a30764e31821e8067fc904a1e4",
+      "commit_subject": "Replace SQLAlchemyMiddleware inherit BaseHTTPMiddleware to Raw ASGI Middleware",
+      "changed_files": [
+        "core/fastapi/middlewares/sqlalchemy.py"
+      ]
+    },
+    {
+      "prompt": "Create a generic BaseRepo class to handle common database operations for all models.",
+      "expected_files": [
+        "app/user/repositories/__init__.py",
+        "core/repository/__init__.py",
+        "core/repository/base.py",
+        "core/repository/enum.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "bfdaed42c6907386788bda42517076b3069eb5c9",
+      "commit_subject": "Implement BaseRepo",
+      "changed_files": [
+        "app/user/repositories/__init__.py",
+        "core/repository/__init__.py",
+        "core/repository/base.py",
+        "core/repository/enum.py"
+      ]
+    },
+    {
+      "prompt": "Fix type annotations for CacheManager to accept concrete backend and key maker classes instead of base types.",
+      "expected_files": [
+        "core/helpers/cache/cache_manager.py",
+        "core/helpers/cache/redis_backend.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "40a98d834b0a939d3d3b60f68a6970f5b9bc15fa",
+      "commit_subject": "Fix typing for CacheManager",
+      "changed_files": [
+        "core/helpers/cache/cache_manager.py",
+        "core/helpers/cache/redis_backend.py"
+      ]
+    },
+    {
+      "prompt": "Refactor the create_user query to use a variable for the select statement instead of repeating it.",
+      "expected_files": [
+        "app/user/services/user.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "92f5cfcb7043917518b71f78a49ce20fdfb4ed78",
+      "commit_subject": "Fix create_user() query",
+      "changed_files": [
+        "app/user/services/user.py"
+      ]
+    },
+    {
+      "prompt": "Refactor the middleware initialization to use the Middleware class instead of add_middleware.",
+      "expected_files": [
+        "app/server.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "dd5ed18dd7a2c2621a1ea263e02556ad781d76c2",
+      "commit_subject": "Replace `add_middleware()` to `Middleware` class",
+      "changed_files": [
+        "app/server.py"
+      ]
+    },
+    {
+      "prompt": "Refactor the FastAPI application factory to use a separate `app_` instance for middleware and router registration.",
+      "expected_files": [
+        "app/server.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "5e26084a7348f967b67871241509f0f293c4b5a1",
+      "commit_subject": "Rename `app` to `app_` in `create_app()`",
+      "changed_files": [
+        "app/server.py"
+      ]
+    },
+    {
+      "prompt": "Standardize environment configuration keys to use consistent naming conventions.",
+      "expected_files": [
+        "core/config.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "fa8b8552f41a9fea6e2d4d2004e3b1f6b006a8ea",
+      "commit_subject": "Fix config",
+      "changed_files": [
+        "core/config.py"
+      ]
+    },
+    {
+      "prompt": "Update the session type to AsyncSession for async database operations.",
+      "expected_files": [
+        "app/user/repositories/__init__.py",
+        "core/db/session.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "75c8c82699dd5e3223e8a31fc4fdcbe0f17c5233",
+      "commit_subject": "Change the typing of session from `Session` to `AsyncSession`",
+      "changed_files": [
+        "app/user/repositories/__init__.py",
+        "core/db/session.py"
+      ]
+    }
+  ],
+  "unseen_cases": [
+    {
+      "prompt": "Install pytest and pytest-asyncio with pinned versions and create test templates for the user service.",
+      "expected_files": [
+        "tests/__init__.py",
+        "tests/app/__init__.py",
+        "tests/app/user/__init__.py",
+        "tests/app/user/services/__init__.py",
+        "tests/app/user/services/test_user.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "71193effcb8646658e5e117c88fad92e449bcf0b",
+      "commit_subject": "Install pytest/pytest-asyncio and add test templates",
+      "changed_files": [
+        "tests/__init__.py",
+        "tests/app/__init__.py",
+        "tests/app/user/__init__.py",
+        "tests/app/user/services/__init__.py",
+        "tests/app/user/services/test_user.py"
+      ]
+    },
+    {
+      "prompt": "Implement user login functionality and format the code with black.",
+      "expected_files": [
+        "api/__init__.py",
+        "api/auth/__init__.py",
+        "api/auth/auth.py",
+        "api/home/home.py",
+        "api/user/v1/user.py",
+        "app/auth/__init__.py",
+        "app/auth/services/__init__.py",
+        "app/auth/services/jwt.py",
+        "app/user/schemas/user.py",
+        "app/user/services/user.py",
+        "celery_task/__init__.py",
+        "core/db/session.py",
+        "core/exceptions/__init__.py",
+        "core/exceptions/user.py",
+        "core/repository/base.py",
+        "migrations/env.py",
+        "migrations/versions/005ce6e94401_create_user_table.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "bf46595764cc96b54d2f6bbb0ec5b972f40eddc1",
+      "commit_subject": "Add example of user login and formatting with black",
+      "changed_files": [
+        "api/__init__.py",
+        "api/auth/__init__.py",
+        "api/auth/auth.py",
+        "api/home/home.py",
+        "api/user/v1/user.py",
+        "app/auth/__init__.py",
+        "app/auth/services/__init__.py",
+        "app/auth/services/jwt.py",
+        "app/user/schemas/user.py",
+        "app/user/services/user.py",
+        "celery_task/__init__.py",
+        "core/db/session.py",
+        "core/exceptions/__init__.py",
+        "core/exceptions/user.py",
+        "core/repository/base.py",
+        "migrations/env.py",
+        "migrations/versions/005ce6e94401_create_user_table.py"
+      ]
+    },
+    {
+      "prompt": "Refactor login schemas into separate request and response models.",
+      "expected_files": [
+        "api/user/v1/request/__init__.py",
+        "api/user/v1/request/user.py",
+        "api/user/v1/response/__init__.py",
+        "api/user/v1/response/user.py",
+        "api/user/v1/user.py",
+        "app/user/schemas/user.py",
+        "app/user/services/user.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "2a65cca74f40f2c8bf35e9e77d7b02e9de5c1c1c",
+      "commit_subject": "Move schemas related login to request/response",
+      "changed_files": [
+        "api/user/v1/request/__init__.py",
+        "api/user/v1/request/user.py",
+        "api/user/v1/response/__init__.py",
+        "api/user/v1/response/user.py",
+        "api/user/v1/user.py",
+        "app/user/schemas/user.py",
+        "app/user/services/user.py"
+      ]
+    },
+    {
+      "prompt": "Implement JWT token verification and refresh logic in the FastAPI authentication module.",
+      "expected_files": [
+        "api/auth/auth.py",
+        "api/auth/request/__init__.py",
+        "api/auth/request/auth.py",
+        "api/auth/response/__init__.py",
+        "api/auth/response/auth.py",
+        "app/auth/schemas/__init__.py",
+        "app/auth/schemas/jwt.py",
+        "app/auth/services/jwt.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "a686c4c6a39b5d39cebb9d14acb6524ba141ffe8",
+      "commit_subject": "Implement verify/refresh token",
+      "changed_files": [
+        "api/auth/auth.py",
+        "api/auth/request/__init__.py",
+        "api/auth/request/auth.py",
+        "api/auth/response/__init__.py",
+        "api/auth/response/auth.py",
+        "app/auth/schemas/__init__.py",
+        "app/auth/schemas/jwt.py",
+        "app/auth/services/jwt.py"
+      ]
+    },
+    {
+      "prompt": "Fix type errors by removing NoReturn from function signatures and returning None or RefreshTokenSchema instead.",
+      "expected_files": [
+        "app/auth/services/jwt.py",
+        "app/user/services/user.py",
+        "core/utils/token_helper.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "2848826c2143cfe2d9e62fefcd0b10d6e0493b7c",
+      "commit_subject": "Fix typing related `NoReturn`",
+      "changed_files": [
+        "app/auth/services/jwt.py",
+        "app/user/services/user.py",
+        "core/utils/token_helper.py"
+      ]
+    },
+    {
+      "prompt": "Update the project dependency management tool from pipenv to poetry.",
+      "expected_files": [
+        "pyproject.toml"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "820452a476bcbda20bde50a6e27620c2be1fa41e",
+      "commit_subject": "Replace `pipenv` to `poetry`",
+      "changed_files": [
+        "pyproject.toml"
+      ]
+    },
+    {
+      "prompt": "Update the greenlet dependency to version 1.1.3 in the project configuration.",
+      "expected_files": [
+        "pyproject.toml"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "a055d1c5822a5871ac04f046e22f42c723639a4c",
+      "commit_subject": "Add greenlet==1.1.3",
+      "changed_files": [
+        "pyproject.toml"
+      ]
+    },
+    {
+      "prompt": "Update the Redis client in the core helpers to use the new asyncio module.",
+      "expected_files": [
+        "core/helpers/redis.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "3a7d6cbc415b7185626652bb12565bba2cadb4fe",
+      "commit_subject": "Replace aioredis to redis.asyncio",
+      "changed_files": [
+        "core/helpers/redis.py"
+      ]
+    },
+    {
+      "prompt": "Install the behave behavior-driven development framework as a development dependency.",
+      "expected_files": [
+        "pyproject.toml",
+        "tests/conftest.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "55004ccf632184b019fdf7a2d2e291c6250d80e1",
+      "commit_subject": "Install behave",
+      "changed_files": [
+        "pyproject.toml",
+        "tests/conftest.py"
+      ]
+    },
+    {
+      "prompt": "Create a middleware to log response headers using Pydantic models and Starlette types.",
+      "expected_files": [
+        "app/server.py",
+        "core/fastapi/middlewares/__init__.py",
+        "core/fastapi/middlewares/response_log.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "d1bdf250cbdca9457578c4680c2ce0a043004519",
+      "commit_subject": "Add ResponseLogMiddleware",
+      "changed_files": [
+        "app/server.py",
+        "core/fastapi/middlewares/__init__.py",
+        "core/fastapi/middlewares/response_log.py"
+      ]
+    },
+    {
+      "prompt": "Remove transactional propagation decorators and related imports from the user service and database modules.",
+      "expected_files": [
+        "app/user/services/user.py",
+        "core/db/__init__.py",
+        "core/db/transactional.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "78ff6b56f5f9971d447850df819d517953db2679",
+      "commit_subject": "Remove transactional propagation",
+      "changed_files": [
+        "app/user/services/user.py",
+        "core/db/__init__.py",
+        "core/db/transactional.py"
+      ]
+    },
+    {
+      "prompt": "Simplify the transactional decorator by removing unused type hints and ParamSpec.",
+      "expected_files": [
+        "core/db/transactional.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "21ecdc5267dfdbe52720834b84b74c12a67997e8",
+      "commit_subject": "Remove transactional type hint",
+      "changed_files": [
+        "core/db/transactional.py"
+      ]
+    }
+  ]
+}

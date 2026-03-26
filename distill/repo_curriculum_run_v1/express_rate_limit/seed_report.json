@@ -1,0 +1,189 @@
+{
+  "cases": 8,
+  "accepted": 2,
+  "accept_rate": 0.25,
+  "avg_file_recall": 0.25,
+  "avg_command_recall": 0.25,
+  "rows": [
+    {
+      "prompt": "Update the package version from 2.4.0 to 2.5.0 in package.json.",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "package.json",
+        "test/external/stores/package.json",
+        "test/external/imports/named-import/ts-esm/package.json",
+        "test/external/imports/named-import/ts-cjs/package.json",
+        "test/external/imports/named-import/js-esm/package.json",
+        "test/external/imports/named-import/js-cjs/package.json"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "package.json"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the package version from 2.4.0 to 2.5.0 in package.json. This is a straightforward version bump task. I need to locate the package.json file and update the version field. [Action] None - proceeding with direct implementation based on user reques"
+    },
+    {
+      "prompt": "Update the grunt-mocha-cli dependency in package.json to version 3.0.0.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "package.json",
+        "test/external/stores/package.json",
+        "test/external/imports/named-import/ts-esm/package.json",
+        "test/external/imports/named-import/ts-cjs/package.json",
+        "test/external/imports/named-import/js-esm/package.json",
+        "test/external/imports/named-import/js-cjs/package.json"
+      ],
+      "suggested_commands": [
+        "npm install",
+        "npm test"
+      ],
+      "answer_files": [
+        "package.json"
+      ],
+      "answer_commands": [
+        "npm install",
+        "npm test"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the `grunt-mocha-cli` dependency to version `3.0.0` in `package.json`. This aligns with the retrieved memory decision pattern for dependency upgrades. I need to locate the `grunt-mocha-cli` entry in `package.json` and update its version. [Action"
+    },
+    {
+      "prompt": "How do I implement a custom function to skip rate limiting for specific requests?",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "rateLimitMiddleware.js"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "rateLimitMiddleware.js"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user is asking how to implement a custom function to skip rate limiting for specific requests. This aligns with a retrieved memory note where the user previously asked about this exact topic. I need to provide a clear, implementation-shaped answer that fits typical "
+    },
+    {
+      "prompt": "How do I include the current rate limit value in the rateLimit response payload?",
+      "trace_id": 4,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to include the current rate limit value in the response payload. This aligns with a retrieved memory note that explicitly states: \"Include current rate limit value in the rateLimit response payload.\" I need to provide a concrete implementation example sho"
+    },
+    {
+      "prompt": "How do I implement the onLimitReached callback to log when the rate limit is hit?",
+      "trace_id": 5,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "source/rate-limit.ts"
+      ],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to implement an `onLimitReached` callback to log rate limit hits. This aligns with a retrieved memory note: \"Implement onLimitReached callback to log rate limit hits.\" I need to provide a concrete implementation example showing how to attach a listener to"
+    },
+    {
+      "prompt": "Fix setInterval behavior in Electron where it returns a number instead of a Timeout object.",
+      "trace_id": 6,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "Node.js",
+        "interval.js"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "Node.js",
+        "interval.js"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to fix `setInterval` behavior in Electron where it returns a number instead of a `Timeout` object. This aligns with a retrieved memory note: \"Fix Electron setInterval to return a Timeout object instead of a number.\" I need to provide a concrete implementa"
+    },
+    {
+      "prompt": "Implement a Retry-After header in rate limit responses and add corresponding test coverage.",
+      "trace_id": 7,
+      "prior_trace_ids": [
+        2,
+        1
+      ],
+      "suggested_files": [
+        "test/external/stores/pnpm-lock.yaml",
+        "test/external/stores/package.json",
+        "test/external/imports/named-import/ts-esm/pnpm-lock.yaml",
+        "test/external/imports/named-import/ts-esm/package.json",
+        "test/external/imports/named-import/ts-cjs/pnpm-lock.yaml",
+        "test/external/imports/named-import/ts-cjs/package.json"
+      ],
+      "suggested_commands": [
+        "npm test"
+      ],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [
+        "npm test"
+      ],
+      "patch_steps": [
+        "I'll update the `grunt-mocha-cli` dependency in `package",
+        "json` from its current version to `3",
+        "Please apply this change to your `package",
+        "After updating, you may want to run:"
+      ],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to implement a `Retry-After` header in rate limit responses and add corresponding test coverage. This aligns with a retrieved memory decision: \"Implement Retry-After header in rate limit responses and add corresponding test coverage.\" I need to provide a "
+    },
+    {
+      "prompt": "Fix the comment position to correctly describe the API for resetting rate limit hits.",
+      "trace_id": 8,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "source/rate-limit.ts",
+        "docs/reference/request-api.mdx",
+        "docs/reference/instance-api.mdx",
+        "test/library/middleware-test.ts"
+      ],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to fix a comment position to correctly describe the API for resetting rate limit hits. This aligns with a retrieved memory note: \"Fix comment position to correctly describe the API for resetting rate limit hits.\" I need to provide a concrete implementatio"
+    }
+  ]
+}

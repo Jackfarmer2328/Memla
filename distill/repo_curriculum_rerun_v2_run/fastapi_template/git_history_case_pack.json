@@ -1,0 +1,614 @@
+{
+  "repo_root": "..\\external\\FastAPI-Template",
+  "repo_subpath": ".",
+  "repo_label": "fastapi template",
+  "manifest_path": "C:\\Users\\samat\\Project Memory\\external\\FastAPI-Template\\pyproject.toml",
+  "local_model": "qwen3.5:4b",
+  "ollama_base_url": "http://127.0.0.1:11435",
+  "seed_count": 8,
+  "unseen_count": 8,
+  "seed_cases": [
+    {
+      "prompt": "Implement Initial commit",
+      "expected_files": [
+        "aerich_config.py",
+        "pyproject.toml",
+        "src/__init__.py",
+        "src/api/__init__.py",
+        "src/api/v1/__init__.py",
+        "src/api/v1/apis/__init__.py",
+        "src/api/v1/apis/apis.py",
+        "src/api/v1/auditlog/__init__.py",
+        "src/api/v1/auditlog/auditlog.py",
+        "src/api/v1/base/__init__.py",
+        "src/api/v1/base/base.py",
+        "src/api/v1/depts/__init__.py",
+        "src/api/v1/depts/depts.py",
+        "src/api/v1/files/__init__.py",
+        "src/api/v1/files/files.py",
+        "src/api/v1/menus/__init__.py",
+        "src/api/v1/menus/menus.py",
+        "src/api/v1/roles/__init__.py",
+        "src/api/v1/roles/roles.py",
+        "src/api/v1/users/__init__.py",
+        "src/api/v1/users/users.py",
+        "src/controllers/__init__.py",
+        "src/controllers/api.py",
+        "src/controllers/dept.py",
+        "src/controllers/file_mapping.py",
+        "src/controllers/menu.py",
+        "src/controllers/role.py",
+        "src/controllers/user.py",
+        "src/core/bgtask.py",
+        "src/core/crud.py",
+        "src/core/ctx.py",
+        "src/core/dependency.py",
+        "src/core/exceptions.py",
+        "src/core/init_app.py",
+        "src/core/middlewares.py",
+        "src/handlers/__init__.py",
+        "src/handlers/data_processor.py",
+        "src/handlers/sensitive_filter.py",
+        "src/log/__init__.py",
+        "src/log/context.py",
+        "src/log/log.py",
+        "src/models/__init__.py",
+        "src/models/admin.py",
+        "src/models/base.py",
+        "src/models/enums.py",
+        "src/schemas/__init__.py",
+        "src/schemas/apis.py",
+        "src/schemas/base.py",
+        "src/schemas/depts.py",
+        "src/schemas/login.py",
+        "src/schemas/menus.py",
+        "src/schemas/roles.py",
+        "src/schemas/users.py",
+        "src/services/__init__.py",
+        "src/services/base_service.py",
+        "src/services/file_service.py",
+        "src/services/user_service.py",
+        "src/settings/__init__.py",
+        "src/settings/config.py",
+        "src/utils/jwt.py",
+        "src/utils/password.py",
+        "src/utils/sensitive_word_filter.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "5c2185e5148e7cd5f4d79e96ab6a81479c3a9bfe",
+      "commit_subject": "Initial commit",
+      "changed_files": [
+        "aerich_config.py",
+        "pyproject.toml",
+        "src/__init__.py",
+        "src/api/__init__.py",
+        "src/api/v1/__init__.py",
+        "src/api/v1/apis/__init__.py",
+        "src/api/v1/apis/apis.py",
+        "src/api/v1/auditlog/__init__.py",
+        "src/api/v1/auditlog/auditlog.py",
+        "src/api/v1/base/__init__.py",
+        "src/api/v1/base/base.py",
+        "src/api/v1/depts/__init__.py",
+        "src/api/v1/depts/depts.py",
+        "src/api/v1/files/__init__.py",
+        "src/api/v1/files/files.py",
+        "src/api/v1/menus/__init__.py",
+        "src/api/v1/menus/menus.py",
+        "src/api/v1/roles/__init__.py",
+        "src/api/v1/roles/roles.py",
+        "src/api/v1/users/__init__.py",
+        "src/api/v1/users/users.py",
+        "src/controllers/__init__.py",
+        "src/controllers/api.py",
+        "src/controllers/dept.py",
+        "src/controllers/file_mapping.py",
+        "src/controllers/menu.py",
+        "src/controllers/role.py",
+        "src/controllers/user.py",
+        "src/core/bgtask.py",
+        "src/core/crud.py",
+        "src/core/ctx.py",
+        "src/core/dependency.py",
+        "src/core/exceptions.py",
+        "src/core/init_app.py",
+        "src/core/middlewares.py",
+        "src/handlers/__init__.py",
+        "src/handlers/data_processor.py",
+        "src/handlers/sensitive_filter.py",
+        "src/log/__init__.py",
+        "src/log/context.py",
+        "src/log/log.py",
+        "src/models/__init__.py",
+        "src/models/admin.py",
+        "src/models/base.py",
+        "src/models/enums.py",
+        "src/schemas/__init__.py",
+        "src/schemas/apis.py",
+        "src/schemas/base.py",
+        "src/schemas/depts.py",
+        "src/schemas/login.py",
+        "src/schemas/menus.py",
+        "src/schemas/roles.py",
+        "src/schemas/users.py",
+        "src/services/__init__.py",
+        "src/services/base_service.py",
+        "src/services/file_service.py",
+        "src/services/user_service.py",
+        "src/settings/__init__.py",
+        "src/settings/config.py",
+        "src/utils/jwt.py",
+        "src/utils/password.py",
+        "src/utils/sensitive_word_filter.py"
+      ]
+    },
+    {
+      "prompt": "Fix: 将超级管理员默认密码改为简单密码以便测试",
+      "expected_files": [
+        "src/core/init_app.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "02123257da8bae5268428d5606567febccbce609",
+      "commit_subject": "fix: 将超级管理员默认密码改为简单密码以便测试",
+      "changed_files": [
+        "src/core/init_app.py"
+      ]
+    },
+    {
+      "prompt": "Implement feat(安全配置): 改进JWT和密钥配置并优化错误处理",
+      "expected_files": [
+        "src/core/exceptions.py",
+        "src/settings/config.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "3a778e025ea92abdd2132868b3a8b055af382702",
+      "commit_subject": "feat(安全配置): 改进JWT和密钥配置并优化错误处理",
+      "changed_files": [
+        "src/core/exceptions.py",
+        "src/settings/config.py"
+      ]
+    },
+    {
+      "prompt": "Implement feat(security): 添加速率限制和密码强度验证",
+      "expected_files": [
+        "pyproject.toml",
+        "src/api/v1/base/base.py",
+        "src/core/init_app.py",
+        "src/schemas/users.py",
+        "src/settings/config.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "a3ff4d30a5132de9c7b9b2d60d0795c015e73a69",
+      "commit_subject": "feat(security): 添加速率限制和密码强度验证",
+      "changed_files": [
+        "pyproject.toml",
+        "src/api/v1/base/base.py",
+        "src/core/init_app.py",
+        "src/schemas/users.py",
+        "src/settings/config.py"
+      ]
+    },
+    {
+      "prompt": "Implement feat: 实现企业级性能与安全双重升级 (v1.2.0)",
+      "expected_files": [
+        "pyproject.toml",
+        "src/api/v1/base/base.py",
+        "src/core/init_app.py",
+        "src/schemas/login.py",
+        "src/services/user_service.py",
+        "src/settings/config.py",
+        "src/utils/cache.py",
+        "src/utils/jwt.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "582fde3ab9c117e66b01688607141fddc3fd31fe",
+      "commit_subject": "feat: 实现企业级性能与安全双重升级 (v1.2.0)",
+      "changed_files": [
+        "pyproject.toml",
+        "src/api/v1/base/base.py",
+        "src/core/init_app.py",
+        "src/schemas/login.py",
+        "src/services/user_service.py",
+        "src/settings/config.py",
+        "src/utils/cache.py",
+        "src/utils/jwt.py"
+      ]
+    },
+    {
+      "prompt": "Fix(ci): 修复CI/CD中ruff代码检查配置",
+      "expected_files": [
+        "pyproject.toml",
+        "src/api/v1/__init__.py",
+        "src/api/v1/auditlog/auditlog.py",
+        "src/api/v1/base/base.py",
+        "src/api/v1/files/files.py",
+        "src/api/v1/menus/menus.py",
+        "src/api/v1/roles/roles.py",
+        "src/api/v1/users/users.py",
+        "src/controllers/api.py",
+        "src/controllers/file_mapping.py",
+        "src/controllers/role.py",
+        "src/controllers/user.py",
+        "src/core/crud.py",
+        "src/core/ctx.py",
+        "src/core/dependency.py",
+        "src/core/exceptions.py",
+        "src/core/init_app.py",
+        "src/core/middlewares.py",
+        "src/handlers/data_processor.py",
+        "src/handlers/sensitive_filter.py",
+        "src/log/context.py",
+        "src/log/log.py",
+        "src/models/admin.py",
+        "src/models/base.py",
+        "src/schemas/base.py",
+        "src/schemas/login.py",
+        "src/schemas/menus.py",
+        "src/schemas/roles.py",
+        "src/schemas/users.py",
+        "src/services/base_service.py",
+        "src/services/file_service.py",
+        "src/services/user_service.py",
+        "src/settings/config.py",
+        "src/utils/cache.py",
+        "src/utils/jwt.py",
+        "src/utils/sensitive_word_filter.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "13a3be3a140f9258479916c53437d66c37b82f6e",
+      "commit_subject": "fix(ci): 修复CI/CD中ruff代码检查配置",
+      "changed_files": [
+        "pyproject.toml",
+        "src/api/v1/__init__.py",
+        "src/api/v1/auditlog/auditlog.py",
+        "src/api/v1/base/base.py",
+        "src/api/v1/files/files.py",
+        "src/api/v1/menus/menus.py",
+        "src/api/v1/roles/roles.py",
+        "src/api/v1/users/users.py",
+        "src/controllers/api.py",
+        "src/controllers/file_mapping.py",
+        "src/controllers/role.py",
+        "src/controllers/user.py",
+        "src/core/crud.py",
+        "src/core/ctx.py",
+        "src/core/dependency.py",
+        "src/core/exceptions.py",
+        "src/core/init_app.py",
+        "src/core/middlewares.py",
+        "src/handlers/data_processor.py",
+        "src/handlers/sensitive_filter.py",
+        "src/log/context.py",
+        "src/log/log.py",
+        "src/models/admin.py",
+        "src/models/base.py",
+        "src/schemas/base.py",
+        "src/schemas/login.py",
+        "src/schemas/menus.py",
+        "src/schemas/roles.py",
+        "src/schemas/users.py",
+        "src/services/base_service.py",
+        "src/services/file_service.py",
+        "src/services/user_service.py",
+        "src/settings/config.py",
+        "src/utils/cache.py",
+        "src/utils/jwt.py",
+        "src/utils/sensitive_word_filter.py"
+      ]
+    },
+    {
+      "prompt": "Implement feat: 实现最小可行测试方案 (MVP Testing)",
+      "expected_files": [
+        "pyproject.toml",
+        "src/services/base_service.py",
+        "src/utils/cache.py",
+        "tests/__init__.py",
+        "tests/conftest.py",
+        "tests/conftest_simple.py",
+        "tests/test_auth_api.py",
+        "tests/test_core_functionality.py",
+        "tests/test_crud_operations.py",
+        "tests/test_database_cache.py",
+        "tests/test_health_endpoints.py",
+        "tests/test_jwt_auth.py",
+        "tests/test_permissions.py",
+        "tests/test_simple_jwt.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "4b559ab016a5b5a13c58c3dd1f16fc4579e5aef8",
+      "commit_subject": "feat: 实现最小可行测试方案 (MVP Testing)",
+      "changed_files": [
+        "pyproject.toml",
+        "src/services/base_service.py",
+        "src/utils/cache.py",
+        "tests/__init__.py",
+        "tests/conftest.py",
+        "tests/conftest_simple.py",
+        "tests/test_auth_api.py",
+        "tests/test_core_functionality.py",
+        "tests/test_crud_operations.py",
+        "tests/test_database_cache.py",
+        "tests/test_health_endpoints.py",
+        "tests/test_jwt_auth.py",
+        "tests/test_permissions.py",
+        "tests/test_simple_jwt.py"
+      ]
+    },
+    {
+      "prompt": "Fix(ci): 修复GitHub Actions测试环境配置",
+      "expected_files": [
+        "src/services/base_service.py",
+        "src/settings/config.py",
+        "src/utils/cache.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "1cc968bd40cb02fae67eaad5e1dde5aea13f1685",
+      "commit_subject": "fix(ci): 修复GitHub Actions测试环境配置",
+      "changed_files": [
+        "src/services/base_service.py",
+        "src/settings/config.py",
+        "src/utils/cache.py"
+      ]
+    }
+  ],
+  "unseen_cases": [
+    {
+      "prompt": "Refactor: 更新类型注解使用现代语法并优化测试客户端",
+      "expected_files": [
+        "src/services/base_service.py",
+        "src/utils/cache.py",
+        "tests/conftest.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "28b7f16695f332d674d4fe8e36392ca26942ea45",
+      "commit_subject": "refactor: 更新类型注解使用现代语法并优化测试客户端",
+      "changed_files": [
+        "src/services/base_service.py",
+        "src/utils/cache.py",
+        "tests/conftest.py"
+      ]
+    },
+    {
+      "prompt": "Refactor: 重构项目结构，将controllers目录重命名为repositories",
+      "expected_files": [
+        "src/api/v1/__init__.py",
+        "src/api/v1/apis/apis.py",
+        "src/api/v1/base/base.py",
+        "src/api/v1/depts/depts.py",
+        "src/api/v1/menus/menus.py",
+        "src/api/v1/roles/roles.py",
+        "src/controllers/__init__.py",
+        "src/controllers/api.py",
+        "src/controllers/dept.py",
+        "src/controllers/file_mapping.py",
+        "src/controllers/menu.py",
+        "src/controllers/role.py",
+        "src/controllers/user.py",
+        "src/core/dependency.py",
+        "src/core/init_app.py",
+        "src/repositories/__init__.py",
+        "src/repositories/api.py",
+        "src/repositories/dept.py",
+        "src/repositories/file_mapping.py",
+        "src/repositories/menu.py",
+        "src/repositories/role.py",
+        "src/repositories/user.py",
+        "src/services/base_service.py",
+        "src/services/file_service.py",
+        "src/services/user_service.py",
+        "tests/conftest.py",
+        "tests/test_auth_api.py",
+        "tests/test_crud_operations.py",
+        "tests/test_database_cache.py",
+        "tests/test_health_endpoints.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "455b0ac1c00a8591f4b78269e5814ea6ca70a79b",
+      "commit_subject": "refactor: 重构项目结构，将controllers目录重命名为repositories",
+      "changed_files": [
+        "src/api/v1/__init__.py",
+        "src/api/v1/apis/apis.py",
+        "src/api/v1/base/base.py",
+        "src/api/v1/depts/depts.py",
+        "src/api/v1/menus/menus.py",
+        "src/api/v1/roles/roles.py",
+        "src/controllers/__init__.py",
+        "src/controllers/api.py",
+        "src/controllers/dept.py",
+        "src/controllers/file_mapping.py",
+        "src/controllers/menu.py",
+        "src/controllers/role.py",
+        "src/controllers/user.py",
+        "src/core/dependency.py",
+        "src/core/init_app.py",
+        "src/repositories/__init__.py",
+        "src/repositories/api.py",
+        "src/repositories/dept.py",
+        "src/repositories/file_mapping.py",
+        "src/repositories/menu.py",
+        "src/repositories/role.py",
+        "src/repositories/user.py",
+        "src/services/base_service.py",
+        "src/services/file_service.py",
+        "src/services/user_service.py",
+        "tests/conftest.py",
+        "tests/test_auth_api.py",
+        "tests/test_crud_operations.py",
+        "tests/test_database_cache.py",
+        "tests/test_health_endpoints.py"
+      ]
+    },
+    {
+      "prompt": "Implement docs: 统一文档中的Repository模式术语",
+      "expected_files": [
+        "pyproject.toml"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "086459b53405a3af0f5d8acf6c8c2dbe77051287",
+      "commit_subject": "docs: 统一文档中的Repository模式术语",
+      "changed_files": [
+        "pyproject.toml"
+      ]
+    },
+    {
+      "prompt": "Implement docs: 更新默认密码并移除敏感词过滤配置",
+      "expected_files": [
+        "src/api/v1/__init__.py",
+        "src/core/init_app.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "7266dbfa6010905955d8d1936d1da41e1accba2e",
+      "commit_subject": "docs: 更新默认密码并移除敏感词过滤配置",
+      "changed_files": [
+        "src/api/v1/__init__.py",
+        "src/core/init_app.py"
+      ]
+    },
+    {
+      "prompt": "Refactor(auth): 使用 HTTPBearer 简化认证逻辑并优化 OpenAPI 响应",
+      "expected_files": [
+        "src/__init__.py",
+        "src/core/dependency.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "0cb90002893443380cb817d6f52910178a88e864",
+      "commit_subject": "refactor(auth): 使用 HTTPBearer 简化认证逻辑并优化 OpenAPI 响应",
+      "changed_files": [
+        "src/__init__.py",
+        "src/core/dependency.py"
+      ]
+    },
+    {
+      "prompt": "Implement docs: 添加MkDocs文档系统及自动API文档生成功能",
+      "expected_files": [
+        "docs/gen_pages.py",
+        "pyproject.toml"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "8e49276cc4015112702cbe3674d0ff68721494af",
+      "commit_subject": "docs: 添加MkDocs文档系统及自动API文档生成功能",
+      "changed_files": [
+        "docs/gen_pages.py",
+        "pyproject.toml"
+      ]
+    },
+    {
+      "prompt": "Implement docs: 更新文档中的官网链接并移除邮箱联系方式",
+      "expected_files": [
+        "pyproject.toml"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "01fd6302437b3c0580b038047012f48149710727",
+      "commit_subject": "docs: 更新文档中的官网链接并移除邮箱联系方式",
+      "changed_files": [
+        "pyproject.toml"
+      ]
+    },
+    {
+      "prompt": "Implement test: add properly formatted test file",
+      "expected_files": [
+        "test_formatting.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "37c9af85d000ce9210dcc608d1ff4b57ed7ba557",
+      "commit_subject": "test: add properly formatted test file",
+      "changed_files": [
+        "test_formatting.py"
+      ]
+    }
+  ]
+}

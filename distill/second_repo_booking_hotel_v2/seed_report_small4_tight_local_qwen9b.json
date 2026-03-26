@@ -1,0 +1,89 @@
+{
+  "cases": 4,
+  "accepted": 0,
+  "accept_rate": 0.0,
+  "avg_file_recall": 0.25,
+  "avg_command_recall": 0.0,
+  "rows": [
+    {
+      "prompt": "Increase the height of the main container from 90px to 95px for better visibility.",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "styles.css"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "styles.css"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to increase the height of the main container from 90px to 95px. Based on the retrieved memory, this is a specific decision and fact that has been previously noted. I need to locate the CSS file where the main container's height is defined and make the cha"
+    },
+    {
+      "prompt": "Remove the Hotjar tracking script from the HTML file.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to remove the Hotjar tracking script from the HTML file. Based on the retrieved memory, this is a specific decision that has been previously noted. I need to locate the HTML file where the Hotjar script is included and remove it. Since I don't have direct"
+    },
+    {
+      "prompt": "Refactor the nightly rate calculation logic to remove the temporary deployment comment.",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "nightlyRate.js",
+        "rateCalculation.js",
+        "app.js",
+        "server.js",
+        "Node.js"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "nightlyRate.js",
+        "rateCalculation.js",
+        "app.js",
+        "server.js",
+        "Node.js"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to refactor the nightly rate calculation logic to remove a temporary deployment comment. Based on the retrieved memory, this is a specific decision that has been previously noted. I need to locate the file containing the nightly rate calculation logic (li"
+    },
+    {
+      "prompt": "Update React and React Router dependencies to their latest versions.",
+      "trace_id": 4,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "package.json"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "package.json"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update React and React Router dependencies to their latest versions. Based on the retrieved memory, this is a specific decision that has been previously noted. I need to locate the `package.json` file in the project root and update the version numbers "
+    }
+  ]
+}

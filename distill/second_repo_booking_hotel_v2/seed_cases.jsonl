@@ -1,0 +1,10 @@
+{"prompt": "Increase the height of the main container from 90px to 95px for better visibility.", "expected_files": ["src/index.css"], "expected_commands": ["npm run build"]}
+{"prompt": "Remove the Hotjar tracking script from the HTML file.", "expected_files": ["index.html"], "expected_commands": ["npm run build"]}
+{"prompt": "Refactor the nightly rate calculation logic to remove the temporary deployment comment.", "expected_files": ["src/App.jsx", "src/CheckoutReturnPage.jsx", "src/main.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Update React and React Router dependencies to their latest versions.", "expected_files": ["package.json"], "expected_commands": ["npm run build"]}
+{"prompt": "Fix duplicate state initialization logic for booking data in the guest info page.", "expected_files": ["src/App.jsx", "src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Fix the booking API request to send the correct subtotal amount and improve error handling.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Fix the broken reservation code generation logic and ensure it updates the state correctly.", "expected_files": ["src/App.jsx", "src/GuestInfoPage.jsx", "src/hotelData.js"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Fix the Express checkout payment success logic to properly handle non-redirect card payments.", "expected_files": ["src/GuestInfoPage.jsx"], "expected_commands": ["npm run build", "npm run lint"]}
+{"prompt": "Increase the height of the hotel booking header from 25px to 95px for better visibility.", "expected_files": ["src/index.css"], "expected_commands": ["npm run build"]}
+{"prompt": "Update the GuestInfoPage to integrate Express Checkout and wrap payment elements in a secure frame.", "expected_files": ["src/GuestInfoPage.jsx", "src/index.css"], "expected_commands": ["npm run build", "npm run lint"]}

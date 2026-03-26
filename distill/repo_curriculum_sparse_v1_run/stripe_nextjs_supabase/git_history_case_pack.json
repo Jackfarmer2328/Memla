@@ -1,0 +1,310 @@
+{
+  "repo_root": "..\\external\\launch-mvp-stripe-nextjs-supabase",
+  "repo_subpath": ".",
+  "repo_label": "launch mvp stripe nextjs supabase",
+  "manifest_path": "C:\\Users\\samat\\Project Memory\\external\\launch-mvp-stripe-nextjs-supabase\\package.json",
+  "local_model": "qwen3.5:4b",
+  "ollama_base_url": "http://127.0.0.1:11435",
+  "seed_count": 4,
+  "unseen_count": 4,
+  "seed_cases": [
+    {
+      "prompt": "Set up environment variables for Stripe, Supabase, and OpenAI in the Next.js project.",
+      "expected_files": [
+        ".eslintrc.json",
+        "app/api/stripe/cancel/route.ts",
+        "app/api/stripe/reactivate/route.ts",
+        "app/api/stripe/sync/route.ts",
+        "app/api/stripe/test/route.ts",
+        "app/api/stripe/webhook/route.ts",
+        "app/api/user/delete/route.ts",
+        "app/auth/callback/route.ts",
+        "app/dashboard/page.tsx",
+        "app/globals.css",
+        "app/layout.tsx",
+        "app/login/page.tsx",
+        "app/metadata.ts",
+        "app/page.tsx",
+        "app/pay/page.tsx",
+        "app/profile/page.tsx",
+        "app/reset-password/page.tsx",
+        "app/update-password/page.tsx",
+        "app/verify-email/page.tsx",
+        "components/AccountManagement.tsx",
+        "components/DemoWidget.tsx",
+        "components/ForgotPasswordModal.tsx",
+        "components/LoadingSpinner.tsx",
+        "components/LoginForm.tsx",
+        "components/MetricCard.tsx",
+        "components/OnboardingTour.tsx",
+        "components/PostHogErrorBoundary.tsx",
+        "components/PostHogPageView.tsx",
+        "components/PricingSection.tsx",
+        "components/StripeBuyButton.tsx",
+        "components/SubscriptionStatus.tsx",
+        "components/TopBar.tsx",
+        "components/TypewriterEffect.tsx",
+        "components/VideoModal.tsx",
+        "config/api.ts",
+        "contexts/AuthContext.tsx",
+        "contexts/PostHogContext.tsx",
+        "contexts/ProtectedRoute.tsx",
+        "contexts/WebSocketContext.tsx",
+        "hooks/useSubscription.ts",
+        "hooks/useTrialStatus.ts",
+        "next.config.js",
+        "next.config.ts",
+        "package.json",
+        "tailwind.config.ts",
+        "tsconfig.json",
+        "types/ValidateEntryTypes.ts",
+        "types/stripe.d.ts",
+        "types/websocket.ts",
+        "utils/analytics.ts",
+        "utils/cors.ts",
+        "utils/env.ts",
+        "utils/posthog.ts",
+        "utils/supabase-admin.ts",
+        "utils/supabase.ts"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "d37ae77e4821d2ba61f379bb209fe266d046e418",
+      "commit_subject": "Initial commit",
+      "changed_files": [
+        ".eslintrc.json",
+        "app/api/stripe/cancel/route.ts",
+        "app/api/stripe/reactivate/route.ts",
+        "app/api/stripe/sync/route.ts",
+        "app/api/stripe/test/route.ts",
+        "app/api/stripe/webhook/route.ts",
+        "app/api/user/delete/route.ts",
+        "app/auth/callback/route.ts",
+        "app/dashboard/page.tsx",
+        "app/globals.css",
+        "app/layout.tsx",
+        "app/login/page.tsx",
+        "app/metadata.ts",
+        "app/page.tsx",
+        "app/pay/page.tsx",
+        "app/profile/page.tsx",
+        "app/reset-password/page.tsx",
+        "app/update-password/page.tsx",
+        "app/verify-email/page.tsx",
+        "components/AccountManagement.tsx",
+        "components/DemoWidget.tsx",
+        "components/ForgotPasswordModal.tsx",
+        "components/LoadingSpinner.tsx",
+        "components/LoginForm.tsx",
+        "components/MetricCard.tsx",
+        "components/OnboardingTour.tsx",
+        "components/PostHogErrorBoundary.tsx",
+        "components/PostHogPageView.tsx",
+        "components/PricingSection.tsx",
+        "components/StripeBuyButton.tsx",
+        "components/SubscriptionStatus.tsx",
+        "components/TopBar.tsx",
+        "components/TypewriterEffect.tsx",
+        "components/VideoModal.tsx",
+        "config/api.ts",
+        "contexts/AuthContext.tsx",
+        "contexts/PostHogContext.tsx",
+        "contexts/ProtectedRoute.tsx",
+        "contexts/WebSocketContext.tsx",
+        "hooks/useSubscription.ts",
+        "hooks/useTrialStatus.ts",
+        "next.config.js",
+        "next.config.ts",
+        "package.json",
+        "tailwind.config.ts",
+        "tsconfig.json",
+        "types/ValidateEntryTypes.ts",
+        "types/stripe.d.ts",
+        "types/websocket.ts",
+        "utils/analytics.ts",
+        "utils/cors.ts",
+        "utils/env.ts",
+        "utils/posthog.ts",
+        "utils/supabase-admin.ts",
+        "utils/supabase.ts"
+      ]
+    },
+    {
+      "prompt": "Remove unused WebSocket context imports and provider from the layout.",
+      "expected_files": [
+        "app/layout.tsx",
+        "contexts/WebSocketContext.tsx",
+        "types/websocket.ts"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "1d7983dfabec36b461271061225f63642de4b473",
+      "commit_subject": "remove unnecessary code",
+      "changed_files": [
+        "app/layout.tsx",
+        "contexts/WebSocketContext.tsx",
+        "types/websocket.ts"
+      ]
+    },
+    {
+      "prompt": "Update the Buy Me a Coffee link to use the new Stripe payment URL.",
+      "expected_files": [
+        "components/BuyMeCoffee.tsx",
+        "components/TopBar.tsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "cec4a60faee73db14d7603b0db9a20618295b434",
+      "commit_subject": "Buy Me A Coffee",
+      "changed_files": [
+        "components/BuyMeCoffee.tsx",
+        "components/TopBar.tsx"
+      ]
+    },
+    {
+      "prompt": "Integrate Stripe and Supabase MCP servers into the project configuration.",
+      "expected_files": [
+        "app/api/stripe/webhook/route.ts",
+        "package.json",
+        "settings.json"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "a8b59c9c795ad0ee15784b94a7d23c5da35f379d",
+      "commit_subject": "adding mcp",
+      "changed_files": [
+        "app/api/stripe/webhook/route.ts",
+        "package.json",
+        "settings.json"
+      ]
+    }
+  ],
+  "unseen_cases": [
+    {
+      "prompt": "Implement automated email workflows using Resend API and Supabase Edge Functions.",
+      "expected_files": [
+        "app/api/email/send/route.ts",
+        "app/preview-email/page.tsx",
+        "emails/templates/BillingConfirmationEmail.tsx",
+        "emails/templates/CancellationConfirmationEmail.tsx",
+        "emails/templates/WelcomeEmail.tsx",
+        "emails/templates/components/Button.tsx",
+        "emails/templates/components/EmailLayout.tsx",
+        "emails/templates/components/index.ts",
+        "emails/templates/index.ts",
+        "package.json",
+        "services/emailService.ts",
+        "supabase/functions/send-billing-email/index.ts",
+        "supabase/functions/send-cancellation-email/index.ts",
+        "supabase/functions/send-welcome-email/index.ts",
+        "tsconfig.json"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "067204913f179e8e195900a166498e2d417e6441",
+      "commit_subject": "Add email automation with Resend, Supabase Edge Functions, and triggers",
+      "changed_files": [
+        "app/api/email/send/route.ts",
+        "app/preview-email/page.tsx",
+        "emails/templates/BillingConfirmationEmail.tsx",
+        "emails/templates/CancellationConfirmationEmail.tsx",
+        "emails/templates/WelcomeEmail.tsx",
+        "emails/templates/components/Button.tsx",
+        "emails/templates/components/EmailLayout.tsx",
+        "emails/templates/components/index.ts",
+        "emails/templates/index.ts",
+        "package.json",
+        "services/emailService.ts",
+        "supabase/functions/send-billing-email/index.ts",
+        "supabase/functions/send-cancellation-email/index.ts",
+        "supabase/functions/send-welcome-email/index.ts",
+        "tsconfig.json"
+      ]
+    },
+    {
+      "prompt": "Fix TypeScript errors in Supabase Edge Functions by properly typing the Request object and handling errors.",
+      "expected_files": [
+        "supabase/functions/send-billing-email/index.ts",
+        "supabase/functions/send-cancellation-email/index.ts",
+        "supabase/functions/send-welcome-email/index.ts"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "8f054b25d677b12c1ac3fb53bcd2f7fe38e71dc9",
+      "commit_subject": "Fix TypeScript errors in Edge Functions",
+      "changed_files": [
+        "supabase/functions/send-billing-email/index.ts",
+        "supabase/functions/send-cancellation-email/index.ts",
+        "supabase/functions/send-welcome-email/index.ts"
+      ]
+    },
+    {
+      "prompt": "Update the Supabase client in the auth callback to use the new SSR package.",
+      "expected_files": [
+        "app/auth/callback/route.ts",
+        "package.json"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "546a5adaf140d9aef32bb5e5737dbb7631b5aa6e",
+      "commit_subject": "Update dependencies for security and compatibility",
+      "changed_files": [
+        "app/auth/callback/route.ts",
+        "package.json"
+      ]
+    },
+    {
+      "prompt": "Update the email layout component to use generic placeholder text instead of hardcoded examples.",
+      "expected_files": [
+        "emails/templates/components/EmailLayout.tsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "b87fe521e70fee3cc79be8d3de4a61ecca85c1f2",
+      "commit_subject": "Use generic example placeholders in SQL scripts",
+      "changed_files": [
+        "emails/templates/components/EmailLayout.tsx"
+      ]
+    }
+  ]
+}

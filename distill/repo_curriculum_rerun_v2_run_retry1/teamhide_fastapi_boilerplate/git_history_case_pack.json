@@ -1,0 +1,340 @@
+{
+  "repo_root": "..\\external\\fastapi-boilerplate",
+  "repo_subpath": ".",
+  "repo_label": "teamhide fastapi boilerplate",
+  "manifest_path": "C:\\Users\\samat\\Project Memory\\external\\fastapi-boilerplate\\pyproject.toml",
+  "local_model": "qwen3.5:4b",
+  "ollama_base_url": "http://127.0.0.1:11435",
+  "seed_count": 8,
+  "unseen_count": 8,
+  "seed_cases": [
+    {
+      "prompt": "Add Field validation with descriptions to all schema models.",
+      "expected_files": [
+        "app/schemas/user.py",
+        "app/views/v1/user.py",
+        "core/fastapi/schemas/current_user.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "8a065e6c29501cb0243e6d6ce93c1129de80d67b",
+      "commit_subject": "Add `Field` to all of schemas",
+      "changed_files": [
+        "app/schemas/user.py",
+        "app/views/v1/user.py",
+        "core/fastapi/schemas/current_user.py"
+      ]
+    },
+    {
+      "prompt": "Refactor the FastAPI boilerplate to organize code into separate app and api folders with proper router configuration.",
+      "expected_files": [
+        "api/__init__.py",
+        "api/home/__init__.py",
+        "api/home/home.py",
+        "api/user/__init__.py",
+        "api/user/v1/__init__.py",
+        "api/user/v1/user.py",
+        "app/__init__.py",
+        "app/enums/__init__.py",
+        "app/enums/user.py",
+        "app/models/__init__.py",
+        "app/models/user.py",
+        "app/schemas/__init__.py",
+        "app/schemas/user.py",
+        "app/server.py",
+        "app/services/__init__.py",
+        "app/services/user.py",
+        "app/user/__init__.py",
+        "app/user/enums/__init__.py",
+        "app/user/enums/user.py",
+        "app/user/models/__init__.py",
+        "app/user/models/user.py",
+        "app/user/schemas/__init__.py",
+        "app/user/schemas/user.py",
+        "app/user/services/__init__.py",
+        "app/user/services/user.py",
+        "app/views/__init__.py",
+        "app/views/home.py",
+        "app/views/v1/__init__.py",
+        "app/views/v1/user.py",
+        "core/fastapi/dependencies/permission.py",
+        "main.py",
+        "migrations/env.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "83985269738943f0fa06aaf20de85705e70ccda8",
+      "commit_subject": "Restructure the folder structure with `app` and `api`",
+      "changed_files": [
+        "api/__init__.py",
+        "api/home/__init__.py",
+        "api/home/home.py",
+        "api/user/__init__.py",
+        "api/user/v1/__init__.py",
+        "api/user/v1/user.py",
+        "app/__init__.py",
+        "app/enums/__init__.py",
+        "app/enums/user.py",
+        "app/models/__init__.py",
+        "app/models/user.py",
+        "app/schemas/__init__.py",
+        "app/schemas/user.py",
+        "app/server.py",
+        "app/services/__init__.py",
+        "app/services/user.py",
+        "app/user/__init__.py",
+        "app/user/enums/__init__.py",
+        "app/user/enums/user.py",
+        "app/user/models/__init__.py",
+        "app/user/models/user.py",
+        "app/user/schemas/__init__.py",
+        "app/user/schemas/user.py",
+        "app/user/services/__init__.py",
+        "app/user/services/user.py",
+        "app/views/__init__.py",
+        "app/views/home.py",
+        "app/views/v1/__init__.py",
+        "app/views/v1/user.py",
+        "core/fastapi/dependencies/permission.py",
+        "main.py",
+        "migrations/env.py"
+      ]
+    },
+    {
+      "prompt": "Update the Alembic environment to use an async engine for database migrations.",
+      "expected_files": [
+        "migrations/env.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "9c7b8036d1ea66bf53a3d527532dce89bb07fa94",
+      "commit_subject": "Fix alembic env.py for async engine",
+      "changed_files": [
+        "migrations/env.py"
+      ]
+    },
+    {
+      "prompt": "Fix the transactional logic to properly handle propagation modes and commit the session.",
+      "expected_files": [
+        "core/db/transactional.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "21fe680b044e2d02af3e4899fcdd93828be7f653",
+      "commit_subject": "Fix `Transactional`",
+      "changed_files": [
+        "core/db/transactional.py"
+      ]
+    },
+    {
+      "prompt": "Fix the Create user endpoint to return the new user ID instead of None.",
+      "expected_files": [
+        "api/user/v1/user.py",
+        "app/user/schemas/user.py",
+        "app/user/services/user.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "8f669073b233f3b7a165e7f8d23c1f34c64945c2",
+      "commit_subject": "Fix Create user",
+      "changed_files": [
+        "api/user/v1/user.py",
+        "app/user/schemas/user.py",
+        "app/user/services/user.py"
+      ]
+    },
+    {
+      "prompt": "Update the FastAPI boilerplate to install and configure the click dependency.",
+      "expected_files": [
+        "main.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "0ea1a9e443459b2d33aea5243d444b55c8858898",
+      "commit_subject": "Install click",
+      "changed_files": [
+        "main.py"
+      ]
+    },
+    {
+      "prompt": "Update SQLAlchemy and other dependencies in the Docker compose configuration.",
+      "expected_files": [
+        "core/config.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "6ef7671bf47f30d81b04bd8d2f24424b76a1fb7c",
+      "commit_subject": "Add redis config to docker-compsose",
+      "changed_files": [
+        "core/config.py"
+      ]
+    },
+    {
+      "prompt": "Rename the create_session decorator to standalone_session and update all imports accordingly.",
+      "expected_files": [
+        "core/db/__init__.py",
+        "core/db/create_session.py",
+        "core/db/standalone_session.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "b334b18c651ba552ca5aaf12cb977f8f0d2e8bd1",
+      "commit_subject": "Rename `create_session` to `standalone_session`",
+      "changed_files": [
+        "core/db/__init__.py",
+        "core/db/create_session.py",
+        "core/db/standalone_session.py"
+      ]
+    }
+  ],
+  "unseen_cases": [
+    {
+      "prompt": "Update the CLI to use an environment flag instead of a stage flag and add a debug option.",
+      "expected_files": [
+        "main.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "f8fef3c435248579faf31ee9a22561036cc33877",
+      "commit_subject": "- Add debug flag - Rename `stage` to `env`",
+      "changed_files": [
+        "main.py"
+      ]
+    },
+    {
+      "prompt": "How do I configure the AllowAll permission dependency in FastAPI?",
+      "expected_files": [
+        "api/home/home.py",
+        "core/fastapi/dependencies/__init__.py",
+        "core/fastapi/dependencies/permission.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "191aa72a3e56a8e8ad15cbdba0abae010bade335",
+      "commit_subject": "Implement AllowAll for permission dependency",
+      "changed_files": [
+        "api/home/home.py",
+        "core/fastapi/dependencies/__init__.py",
+        "core/fastapi/dependencies/permission.py"
+      ]
+    },
+    {
+      "prompt": "Refactor the permission dependency to use proper type hints for better code clarity.",
+      "expected_files": [
+        "core/fastapi/dependencies/permission.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "ea92cce7f3801dacae6e09ad09d686dd057bd36b",
+      "commit_subject": "Add typing to permissions",
+      "changed_files": [
+        "core/fastapi/dependencies/permission.py"
+      ]
+    },
+    {
+      "prompt": "Refactor SQLAlchemyMiddleware to inherit from Raw ASGI Middleware instead of BaseHTTPMiddleware.",
+      "expected_files": [
+        "core/fastapi/middlewares/sqlalchemy.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "d532a064506090a30764e31821e8067fc904a1e4",
+      "commit_subject": "Replace SQLAlchemyMiddleware inherit BaseHTTPMiddleware to Raw ASGI Middleware",
+      "changed_files": [
+        "core/fastapi/middlewares/sqlalchemy.py"
+      ]
+    },
+    {
+      "prompt": "Create a generic BaseRepo class to handle common database operations for all models.",
+      "expected_files": [
+        "app/user/repositories/__init__.py",
+        "core/repository/__init__.py",
+        "core/repository/base.py",
+        "core/repository/enum.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "bfdaed42c6907386788bda42517076b3069eb5c9",
+      "commit_subject": "Implement BaseRepo",
+      "changed_files": [
+        "app/user/repositories/__init__.py",
+        "core/repository/__init__.py",
+        "core/repository/base.py",
+        "core/repository/enum.py"
+      ]
+    },
+    {
+      "prompt": "Fix type annotations for CacheManager to accept concrete backend classes instead of base types.",
+      "expected_files": [
+        "core/helpers/cache/cache_manager.py",
+        "core/helpers/cache/redis_backend.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "40a98d834b0a939d3d3b60f68a6970f5b9bc15fa",
+      "commit_subject": "Fix typing for CacheManager",
+      "changed_files": [
+        "core/helpers/cache/cache_manager.py",
+        "core/helpers/cache/redis_backend.py"
+      ]
+    },
+    {
+      "prompt": "Refactor the create_user query to use a variable for the select statement instead of repeating the code.",
+      "expected_files": [
+        "app/user/services/user.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "92f5cfcb7043917518b71f78a49ce20fdfb4ed78",
+      "commit_subject": "Fix create_user() query",
+      "changed_files": [
+        "app/user/services/user.py"
+      ]
+    },
+    {
+      "prompt": "Refactor the middleware initialization to use the Middleware class instead of add_middleware.",
+      "expected_files": [
+        "app/server.py"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "dd5ed18dd7a2c2621a1ea263e02556ad781d76c2",
+      "commit_subject": "Replace `add_middleware()` to `Middleware` class",
+      "changed_files": [
+        "app/server.py"
+      ]
+    }
+  ]
+}

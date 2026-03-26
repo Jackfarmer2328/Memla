@@ -1,0 +1,648 @@
+{
+  "repo_root": "..\\external\\cadwyn",
+  "repo_subpath": ".",
+  "repo_label": "cadwyn",
+  "manifest_path": "C:\\Users\\samat\\Project Memory\\external\\cadwyn\\pyproject.toml",
+  "local_model": "qwen3.5:4b",
+  "ollama_base_url": "http://127.0.0.1:11435",
+  "seed_count": 8,
+  "unseen_count": 12,
+  "seed_cases": [
+    {
+      "prompt": "Fix FastAPI custom body fields causing exceptions by ignoring them in the CLI.",
+      "expected_files": [
+        "cadwyn/_utils.py",
+        "cadwyn/routing.py",
+        "pyproject.toml"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "aee665fce65013e7ef11bd22db44597a1fd92611",
+      "commit_subject": "Fix fastapi custom body fields",
+      "changed_files": [
+        "cadwyn/_utils.py",
+        "cadwyn/routing.py",
+        "pyproject.toml"
+      ]
+    },
+    {
+      "prompt": "Improve test coverage for routing.py by adding tests for the pydantic module check.",
+      "expected_files": [
+        "cadwyn/routing.py",
+        "pyproject.toml",
+        "tests/test_routing.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "018b1c69a3a89fe3c906341d9bdded2dcad104de",
+      "commit_subject": "Improve test coverage",
+      "changed_files": [
+        "cadwyn/routing.py",
+        "pyproject.toml",
+        "tests/test_routing.py"
+      ]
+    },
+    {
+      "prompt": "Fix the type incompatibility between ContextVar and VersionBundle for datetime.date.",
+      "expected_files": [
+        "cadwyn/header.py",
+        "cadwyn/structure/versions.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "2f912aced22abd9544912cc82f3e14742287ae13",
+      "commit_subject": "Fix VersionBundle ContextVar[date] incompatibility",
+      "changed_files": [
+        "cadwyn/header.py",
+        "cadwyn/structure/versions.py"
+      ]
+    },
+    {
+      "prompt": "Update the project version from 2.0.3 to 2.0.4 in the configuration file.",
+      "expected_files": [
+        "pyproject.toml"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "e2dffdac48240d0f4a080859e617183f802dc3e2",
+      "commit_subject": "2.0.4",
+      "changed_files": [
+        "pyproject.toml"
+      ]
+    },
+    {
+      "prompt": "Fix UploadFile and form handling exceptions during request migration by checking for single body fields.",
+      "expected_files": [
+        "cadwyn/structure/versions.py",
+        "pyproject.toml",
+        "tests/test_data_migrations.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "dcaa4980b381ef4100e22631b5a73917adc963c7",
+      "commit_subject": "Fix UploadFile and form handling",
+      "changed_files": [
+        "cadwyn/structure/versions.py",
+        "pyproject.toml",
+        "tests/test_data_migrations.py"
+      ]
+    },
+    {
+      "prompt": "Generate a prompt to implement AST-based code generation that preserves field and annotation structures.",
+      "expected_files": [
+        "cadwyn/codegen.py",
+        "pyproject.toml",
+        "tests/_data/latest/__init__.py",
+        "tests/test_codegen.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "bcf4c87b752261562babc1aa71bcada6894d8d56",
+      "commit_subject": "Add ast-based codegen (#80)",
+      "changed_files": [
+        "cadwyn/codegen.py",
+        "pyproject.toml",
+        "tests/_data/latest/__init__.py",
+        "tests/test_codegen.py"
+      ]
+    },
+    {
+      "prompt": "Add validation to reject invalid HTTP method strings in the endpoint function.",
+      "expected_files": [
+        "cadwyn/structure/endpoints.py",
+        "tests/test_structure.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "7ee51ae603f9ba8c697500874b3417e313e06425",
+      "commit_subject": "Validate HTTP method strings in `cadwyn.structure.endpoint(...)` (#79)",
+      "changed_files": [
+        "cadwyn/structure/endpoints.py",
+        "tests/test_structure.py"
+      ]
+    },
+    {
+      "prompt": "Update the project version from 2.1.0 to 2.2.0 in the configuration file.",
+      "expected_files": [
+        "pyproject.toml"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "276afc8bed2d5ef1de389f3e87fdba7a49bb5e1f",
+      "commit_subject": "2.2.0",
+      "changed_files": [
+        "pyproject.toml"
+      ]
+    }
+  ],
+  "unseen_cases": [
+    {
+      "prompt": "Update the documentation links in the header to point to local markdown files instead of external URLs.",
+      "expected_files": [
+        "cadwyn/__init__.py",
+        "cadwyn/codegen.py",
+        "cadwyn/header.py",
+        "cadwyn/main.py",
+        "cadwyn/routing.py",
+        "cadwyn/structure/versions.py",
+        "pyproject.toml",
+        "tests/conftest.py",
+        "tests/test_data_migrations.py",
+        "tests/test_header.py",
+        "tests/test_routing.py",
+        "tests/test_structure.py",
+        "tests/test_tutorial/test_users_example002/routes.py",
+        "tests/test_tutorial/test_users_example002/run.py",
+        "tests/test_tutorial/test_users_example002/test_example.py",
+        "tests/test_tutorial/test_users_example002/versions/__init__.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "c72302d00175f26d6d964603fd7777cc9d154a2e",
+      "commit_subject": "Move to verselect (#81)",
+      "changed_files": [
+        "cadwyn/__init__.py",
+        "cadwyn/codegen.py",
+        "cadwyn/header.py",
+        "cadwyn/main.py",
+        "cadwyn/routing.py",
+        "cadwyn/structure/versions.py",
+        "pyproject.toml",
+        "tests/conftest.py",
+        "tests/test_data_migrations.py",
+        "tests/test_header.py",
+        "tests/test_routing.py",
+        "tests/test_structure.py",
+        "tests/test_tutorial/test_users_example002/routes.py",
+        "tests/test_tutorial/test_users_example002/run.py",
+        "tests/test_tutorial/test_users_example002/test_example.py",
+        "tests/test_tutorial/test_users_example002/versions/__init__.py"
+      ]
+    },
+    {
+      "prompt": "Fix route generation to prevent unnecessary decorator wrapping on callables.",
+      "expected_files": [
+        "cadwyn/exceptions.py",
+        "cadwyn/routing.py",
+        "cadwyn/structure/versions.py",
+        "pyproject.toml",
+        "tests/conftest.py",
+        "tests/test_data_migrations.py",
+        "tests/test_routing.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "8d688602d4f8b3e19f5f5bda02478d3aca90c879",
+      "commit_subject": "Prevent re wrapping of callables in router generation (#82)",
+      "changed_files": [
+        "cadwyn/exceptions.py",
+        "cadwyn/routing.py",
+        "cadwyn/structure/versions.py",
+        "pyproject.toml",
+        "tests/conftest.py",
+        "tests/test_data_migrations.py",
+        "tests/test_routing.py"
+      ]
+    },
+    {
+      "prompt": "Update the codebase to import AppCreationError from verselect instead of the local exceptions module.",
+      "expected_files": [
+        "cadwyn/exceptions.py",
+        "pyproject.toml"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "b9e70a790b6870e803f0cb7d02894552a2039e3d",
+      "commit_subject": "Migrate to verselect",
+      "changed_files": [
+        "cadwyn/exceptions.py",
+        "pyproject.toml"
+      ]
+    },
+    {
+      "prompt": "Fix the bug where parent schema fields incorrectly appear in child schemas during code generation.",
+      "expected_files": [
+        "cadwyn/codegen.py",
+        "pyproject.toml",
+        "tests/_data/latest/__init__.py",
+        "tests/test_codegen.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "d9d5a35a542a8337e404804a615aae1e97e1028e",
+      "commit_subject": "Fix field inheritance (#86)",
+      "changed_files": [
+        "cadwyn/codegen.py",
+        "pyproject.toml",
+        "tests/_data/latest/__init__.py",
+        "tests/test_codegen.py"
+      ]
+    },
+    {
+      "prompt": "Fix codegen to preserve field AST structure when constrained fields are modified.",
+      "expected_files": [
+        "cadwyn/codegen.py",
+        "tests/_data/latest/__init__.py",
+        "tests/test_codegen.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "9eeb62b05a3f813e71ddf089ccd43f0304d347d4",
+      "commit_subject": "Handle edge cases in ast-based  codegen (#88)",
+      "changed_files": [
+        "cadwyn/codegen.py",
+        "tests/_data/latest/__init__.py",
+        "tests/test_codegen.py"
+      ]
+    },
+    {
+      "prompt": "How do I add support for synchronous routes while enforcing async requirements?",
+      "expected_files": [
+        "cadwyn/routing.py",
+        "cadwyn/structure/common.py",
+        "cadwyn/structure/versions.py",
+        "tests/test_data_migrations.py",
+        "tests/test_routing.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "859a45e89879dd8d599ef5c63268817efff33655",
+      "commit_subject": "Add synchronous route support (#90)",
+      "changed_files": [
+        "cadwyn/routing.py",
+        "cadwyn/structure/common.py",
+        "cadwyn/structure/versions.py",
+        "tests/test_data_migrations.py",
+        "tests/test_routing.py"
+      ]
+    },
+    {
+      "prompt": "Fix AttributeError when generating code for union fields with had(ge=...) constraints.",
+      "expected_files": [
+        "cadwyn/codegen.py",
+        "pyproject.toml"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "fae02958bbedc89eda897c6e0d06686d2af6002b",
+      "commit_subject": "2.3.4 Release",
+      "changed_files": [
+        "cadwyn/codegen.py",
+        "pyproject.toml"
+      ]
+    },
+    {
+      "prompt": "Update the codebase to support Pydantic 2 and fix related compatibility issues.",
+      "expected_files": [
+        "Makefile",
+        "cadwyn/__init__.py",
+        "cadwyn/_compat.py",
+        "cadwyn/codegen.py",
+        "cadwyn/main.py",
+        "cadwyn/routing.py",
+        "cadwyn/structure/__init__.py",
+        "cadwyn/structure/data.py",
+        "cadwyn/structure/schemas.py",
+        "cadwyn/structure/versions.py",
+        "pyproject.toml",
+        "tests/_data/cli_utils.py",
+        "tests/_data/latest/__init__.py",
+        "tests/_data/latest/json_files/foo.json",
+        "tests/_data/latest/some_schema.py",
+        "tests/_data/latest/weird_schemas.py",
+        "tests/_data/unversioned_schemas.py",
+        "tests/codegen/__init__.py",
+        "tests/codegen/test_cli.py",
+        "tests/codegen/test_enum.py",
+        "tests/codegen/test_interactions.py",
+        "tests/codegen/test_schema_field.py",
+        "tests/conftest.py",
+        "tests/test_cli.py",
+        "tests/test_codegen.py",
+        "tests/test_data_migrations.py",
+        "tests/test_routing.py",
+        "tests/test_structure.py",
+        "tests/test_tutorial/__init__.py",
+        "tests/test_tutorial/test_users_example002/__init__.py",
+        "tests/test_tutorial/test_users_example002/data/__init__.py",
+        "tests/test_tutorial/test_users_example002/data/latest/__init__.py",
+        "tests/test_tutorial/test_users_example002/data/latest/users.py",
+        "tests/test_tutorial/test_users_example002/data/unversioned.py",
+        "tests/test_tutorial/test_users_example002/routes.py",
+        "tests/test_tutorial/test_users_example002/run.py",
+        "tests/test_tutorial/test_users_example002/test_example.py",
+        "tests/test_tutorial/test_users_example002/versions/__init__.py",
+        "tests/test_tutorial/test_users_example002/versions/v2001_1_1.py",
+        "tests/test_tutorial/test_users_example002/versions/v2002_1_1.py",
+        "tests/test_tutorial/utils.py",
+        "tests/tutorial/__init__.py",
+        "tests/tutorial/data/__init__.py",
+        "tests/tutorial/data/latest/__init__.py",
+        "tests/tutorial/data/latest/users.py",
+        "tests/tutorial/data/unversioned.py",
+        "tests/tutorial/generate_schemas.py",
+        "tests/tutorial/routes.py",
+        "tests/tutorial/run.py",
+        "tests/tutorial/test_example.py",
+        "tests/tutorial/utils.py",
+        "tests/tutorial/versions/__init__.py",
+        "tests/tutorial/versions/v2001_1_1.py",
+        "tests/tutorial/versions/v2002_1_1.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "147205875816994e92adaf805a0cfbbba5b3dff1",
+      "commit_subject": "Integrate pydantic 2 and improve the docs (#92)",
+      "changed_files": [
+        "Makefile",
+        "cadwyn/__init__.py",
+        "cadwyn/_compat.py",
+        "cadwyn/codegen.py",
+        "cadwyn/main.py",
+        "cadwyn/routing.py",
+        "cadwyn/structure/__init__.py",
+        "cadwyn/structure/data.py",
+        "cadwyn/structure/schemas.py",
+        "cadwyn/structure/versions.py",
+        "pyproject.toml",
+        "tests/_data/cli_utils.py",
+        "tests/_data/latest/__init__.py",
+        "tests/_data/latest/json_files/foo.json",
+        "tests/_data/latest/some_schema.py",
+        "tests/_data/latest/weird_schemas.py",
+        "tests/_data/unversioned_schemas.py",
+        "tests/codegen/__init__.py",
+        "tests/codegen/test_cli.py",
+        "tests/codegen/test_enum.py",
+        "tests/codegen/test_interactions.py",
+        "tests/codegen/test_schema_field.py",
+        "tests/conftest.py",
+        "tests/test_cli.py",
+        "tests/test_codegen.py",
+        "tests/test_data_migrations.py",
+        "tests/test_routing.py",
+        "tests/test_structure.py",
+        "tests/test_tutorial/__init__.py",
+        "tests/test_tutorial/test_users_example002/__init__.py",
+        "tests/test_tutorial/test_users_example002/data/__init__.py",
+        "tests/test_tutorial/test_users_example002/data/latest/__init__.py",
+        "tests/test_tutorial/test_users_example002/data/latest/users.py",
+        "tests/test_tutorial/test_users_example002/data/unversioned.py",
+        "tests/test_tutorial/test_users_example002/routes.py",
+        "tests/test_tutorial/test_users_example002/run.py",
+        "tests/test_tutorial/test_users_example002/test_example.py",
+        "tests/test_tutorial/test_users_example002/versions/__init__.py",
+        "tests/test_tutorial/test_users_example002/versions/v2001_1_1.py",
+        "tests/test_tutorial/test_users_example002/versions/v2002_1_1.py",
+        "tests/test_tutorial/utils.py",
+        "tests/tutorial/__init__.py",
+        "tests/tutorial/data/__init__.py",
+        "tests/tutorial/data/latest/__init__.py",
+        "tests/tutorial/data/latest/users.py",
+        "tests/tutorial/data/unversioned.py",
+        "tests/tutorial/generate_schemas.py",
+        "tests/tutorial/routes.py",
+        "tests/tutorial/run.py",
+        "tests/tutorial/test_example.py",
+        "tests/tutorial/utils.py",
+        "tests/tutorial/versions/__init__.py",
+        "tests/tutorial/versions/v2001_1_1.py",
+        "tests/tutorial/versions/v2002_1_1.py"
+      ]
+    },
+    {
+      "prompt": "Fix the issue where empty response bodies were incorrectly serialized to \"null\" instead of remaining empty.",
+      "expected_files": [
+        "cadwyn/structure/versions.py",
+        "pyproject.toml",
+        "tests/test_data_migrations.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "bc6e1889082a78eeb487f5b9a07e3ab13de40a7d",
+      "commit_subject": "Fix response body dump (#106)",
+      "changed_files": [
+        "cadwyn/structure/versions.py",
+        "pyproject.toml",
+        "tests/test_data_migrations.py"
+      ]
+    },
+    {
+      "prompt": "Refactor codegen to use a plugin system and remove internal_representation_of.",
+      "expected_files": [
+        "cadwyn/__main__.py",
+        "cadwyn/_compat.py",
+        "cadwyn/_package_utils.py",
+        "cadwyn/_utils.py",
+        "cadwyn/codegen.py",
+        "cadwyn/codegen/__init__.py",
+        "cadwyn/codegen/_asts.py",
+        "cadwyn/codegen/_common.py",
+        "cadwyn/codegen/_main.py",
+        "cadwyn/codegen/_plugins/__init__.py",
+        "cadwyn/codegen/_plugins/class_migrations.py",
+        "cadwyn/codegen/_plugins/class_rebuilding.py",
+        "cadwyn/codegen/_plugins/class_renaming.py",
+        "cadwyn/codegen/_plugins/import_auto_adding.py",
+        "cadwyn/codegen/_plugins/latest_version_aliasing.py",
+        "cadwyn/codegen/_plugins/module_migrations.py",
+        "cadwyn/exceptions.py",
+        "cadwyn/routing.py",
+        "cadwyn/structure/__init__.py",
+        "cadwyn/structure/modules.py",
+        "cadwyn/structure/schemas.py",
+        "cadwyn/structure/versions.py",
+        "pyproject.toml",
+        "tests/codegen/test_custom_plugins.py",
+        "tests/codegen/test_enum.py",
+        "tests/codegen/test_interactions.py",
+        "tests/codegen/test_module.py",
+        "tests/codegen/test_schema_field.py",
+        "tests/conftest.py",
+        "tests/test_data_migrations.py",
+        "tests/test_routing.py",
+        "tests/test_structure.py",
+        "tests/tutorial/generate_schemas.py",
+        "tests/tutorial/test_example.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "2837ae6bd00ee5b05289a62070f34f77db88bf54",
+      "commit_subject": "Refactor codegen structure (#107)",
+      "changed_files": [
+        "cadwyn/__main__.py",
+        "cadwyn/_compat.py",
+        "cadwyn/_package_utils.py",
+        "cadwyn/_utils.py",
+        "cadwyn/codegen.py",
+        "cadwyn/codegen/__init__.py",
+        "cadwyn/codegen/_asts.py",
+        "cadwyn/codegen/_common.py",
+        "cadwyn/codegen/_main.py",
+        "cadwyn/codegen/_plugins/__init__.py",
+        "cadwyn/codegen/_plugins/class_migrations.py",
+        "cadwyn/codegen/_plugins/class_rebuilding.py",
+        "cadwyn/codegen/_plugins/class_renaming.py",
+        "cadwyn/codegen/_plugins/import_auto_adding.py",
+        "cadwyn/codegen/_plugins/latest_version_aliasing.py",
+        "cadwyn/codegen/_plugins/module_migrations.py",
+        "cadwyn/exceptions.py",
+        "cadwyn/routing.py",
+        "cadwyn/structure/__init__.py",
+        "cadwyn/structure/modules.py",
+        "cadwyn/structure/schemas.py",
+        "cadwyn/structure/versions.py",
+        "pyproject.toml",
+        "tests/codegen/test_custom_plugins.py",
+        "tests/codegen/test_enum.py",
+        "tests/codegen/test_interactions.py",
+        "tests/codegen/test_module.py",
+        "tests/codegen/test_schema_field.py",
+        "tests/conftest.py",
+        "tests/test_data_migrations.py",
+        "tests/test_routing.py",
+        "tests/test_structure.py",
+        "tests/tutorial/generate_schemas.py",
+        "tests/tutorial/test_example.py"
+      ]
+    },
+    {
+      "prompt": "Update the GitHub Actions workflow to use Ubuntu 22.04 and cache Python dependencies.",
+      "expected_files": [
+        "cadwyn/_compat.py",
+        "cadwyn/codegen/_asts.py",
+        "cadwyn/routing.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "d39d9e290ff59285d8b6b65f27ab0c77eee6d5d0",
+      "commit_subject": "Try alternative docs publishing approach",
+      "changed_files": [
+        "cadwyn/_compat.py",
+        "cadwyn/codegen/_asts.py",
+        "cadwyn/routing.py"
+      ]
+    },
+    {
+      "prompt": "Refactor TODO comments into actionable tasks and optimize the latest schema index logic.",
+      "expected_files": [
+        "cadwyn/_package_utils.py",
+        "cadwyn/codegen/_asts.py",
+        "cadwyn/codegen/_common.py",
+        "cadwyn/codegen/_main.py",
+        "cadwyn/codegen/_plugins/class_migrations.py",
+        "cadwyn/codegen/_plugins/class_rebuilding.py",
+        "cadwyn/codegen/_plugins/latest_version_aliasing.py",
+        "cadwyn/routing.py",
+        "cadwyn/structure/data.py",
+        "cadwyn/structure/schemas.py",
+        "cadwyn/structure/versions.py",
+        "pyproject.toml",
+        "tests/codegen/test_schema_field.py",
+        "tests/test_data_migrations.py",
+        "tests/test_routing.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "667d72aa7c77906a32cdaaeceb55a2658bc75043",
+      "commit_subject": "Resolved/Taskified all TODO comments (#115)",
+      "changed_files": [
+        "cadwyn/_package_utils.py",
+        "cadwyn/codegen/_asts.py",
+        "cadwyn/codegen/_common.py",
+        "cadwyn/codegen/_main.py",
+        "cadwyn/codegen/_plugins/class_migrations.py",
+        "cadwyn/codegen/_plugins/class_rebuilding.py",
+        "cadwyn/codegen/_plugins/latest_version_aliasing.py",
+        "cadwyn/routing.py",
+        "cadwyn/structure/data.py",
+        "cadwyn/structure/schemas.py",
+        "cadwyn/structure/versions.py",
+        "pyproject.toml",
+        "tests/codegen/test_schema_field.py",
+        "tests/test_data_migrations.py",
+        "tests/test_routing.py"
+      ]
+    }
+  ]
+}

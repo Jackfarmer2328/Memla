@@ -1,0 +1,472 @@
+{
+  "repo_root": "C:\\Users\\samat\\BOOKING",
+  "repo_subpath": "hotel-booking-app",
+  "repo_label": "hotel booking frontend",
+  "package_json_path": "C:\\Users\\samat\\BOOKING\\hotel-booking-app\\package.json",
+  "local_model": "qwen3.5:4b",
+  "ollama_base_url": "http://127.0.0.1:11435",
+  "seed_count": 10,
+  "unseen_count": 20,
+  "seed_cases": [
+    {
+      "prompt": "Refactor the express checkout confirmation function to remove duplicate variable declarations and simplify the logic flow.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "ceaa738a5d8965a67985194ae3189c4915c7d510",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Update the checkout form to accept a clientSecret prop and initialize a Stripe payment request.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "26a57477d3c8936b94e6aabc9373c80f81fc4c85",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Update the guest info page to use the new Payment Request ButtonElement for Apple and Google Pay.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "377a81652b20c4da4150bee11a3e9a1fb412c237",
+      "commit_subject": "change",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Refactor the authentication link to use a tabs layout for a sleeker UI.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "29424b2d9ab0e17773352773e806e69725ec54af",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Implement explicit PaymentIntent confirmation and handle 3D Secure authentication in the guest payment flow.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "6401a1c428e74c9d5d797bd0ba09539ee78f695f",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Update payment UI to hide all wallet options and set explicit locale for iOS stability.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx",
+        "src/index.css"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "7bd746a4f21fbe14f916c1872894ace53024c73b",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx",
+        "src/index.css"
+      ]
+    },
+    {
+      "prompt": "Configure the payment element to disable all wallet options and show only card payments.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "f60ed6913ab80fb7d0d5f0e21054746e9a2e0bcf",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Remove the unused payment gateway configuration options from the guest info page.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "904cc63ee500ef9e0cd9bbe06ba418ce72c731a5",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Update the test amount calculation in the guest info page to use the actual subtotal instead of a hardcoded value.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "07e93dcd2dcd172f6ae7d769af82944ece91cde8",
+      "commit_subject": "change",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Update the test amount calculation to use the actual booking subtotal instead of a hardcoded value.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "2d51d69d5351ae8ee032e5908752a536990d9a5d",
+      "commit_subject": "change",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    }
+  ],
+  "unseen_cases": [
+    {
+      "prompt": "Update the test amount calculation in the guest info page to use the actual subtotal instead of a hardcoded value.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "c8113d17d76e6c78c72b753a3530f66ed20a5439",
+      "commit_subject": "change",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Remove the hardcoded test amount variable from the guest information page.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "aeff6b6bb2e584ca23d1a8c1527372d33150087a",
+      "commit_subject": "change",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Remove the hardcoded test amount variable from the guest information page.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "5a3ac6bfd7d277edeac5f2b5073591143299cf08",
+      "commit_subject": "change",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Update the test amount calculation to use the actual booking subtotal instead of a hardcoded value.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "c1d85c9ebf4a34dcc31257dc9795e2967152f50b",
+      "commit_subject": "change",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Fix the amount calculation in the guest info page to use the correct subtotal value.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "98117c4c65caae27da6379bb882d9c3cc96d25bd",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Fix the hotel booking split logic to calculate half the subtotal instead of a fixed amount.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "a86f839893a8b863113e313b7ae4360e5cd2f803",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Update the guest info page to use a $50 amount instead of $100.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "972946849e78f38bab6c916cc4da10a62816a720",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Calculate the guest's share of the booking subtotal in dollars instead of a fixed amount.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "be5372e5ae78e5f38b5a8786bbcb941731f5c1e4",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Fix the booking fee calculation to use half the subtotal instead of a fixed amount.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "ea2cd1a899a1ef6c84676cae3f46a60343783ced",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Update the loading message to inform users about checking wallet availability instead of just checking guest info.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "4cf6715d419ff210fe974135254efbc4d8d105f5",
+      "commit_subject": "changed loading message",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Refactor the GuestInfoPage to manage checkout steps and fix inconsistent state initialization.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx",
+        "src/index.css"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "46d6d286f07eb2955086e1a0cbcc940e052f7f67",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx",
+        "src/index.css"
+      ]
+    },
+    {
+      "prompt": "Remove the Stripe badge image and its alt text from the Guest Info page.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "70aba3994a40ac6536a49108cec319f87d3416ca",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Fix guest info validation and remove the HelpWidget from the booking flow.",
+      "expected_files": [
+        "src/App.jsx",
+        "src/GuestInfoPage.jsx",
+        "src/index.css"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "c65671af645d4ecdf6e6018ddb6cbfa84ab7d239",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/App.jsx",
+        "src/GuestInfoPage.jsx",
+        "src/index.css"
+      ]
+    },
+    {
+      "prompt": "Fix validation logic to use state variables instead of direct function returns and alerts.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx",
+        "src/index.css"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "cd425ef38571fc10e226dee1c01ad6d614633531",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx",
+        "src/index.css"
+      ]
+    },
+    {
+      "prompt": "Fix the Stripe integration error caused by removing the useStripe hook from the guest info page.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "dc3e23a28d32b4eb4eb073cf83e3b34ae034ef16",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Refactor the checkout form to use Stripe Elements and handle payment requests via the Payment Request API.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "8b8b163e7501307343d2a1dda9fe9c7f898463d1",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Refactor the guest info page to display only Stripe elements and manage the multi-step flow state.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "d39e64f774ba3bdc2d164589844667ae9b271bc5",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Fix the payment intent fetch to use the correct apiBaseUrl prop instead of apiBase.url.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "ac3c1036be07dafccc543f4237a68f61257a13c6",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "How do I change the pill shape border radius to a different value?",
+      "expected_files": [
+        "src/index.css"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "commit_sha": "bda3cc2faa76af81c42352ae7c2622e8f69528b1",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/index.css"
+      ]
+    },
+    {
+      "prompt": "Remove the bottom padding and border from the footer while adjusting its vertical position.",
+      "expected_files": [
+        "src/index.css"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "commit_sha": "ce2eb9553aa8b8287786b931b8dc245e72ded057",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/index.css"
+      ]
+    }
+  ]
+}

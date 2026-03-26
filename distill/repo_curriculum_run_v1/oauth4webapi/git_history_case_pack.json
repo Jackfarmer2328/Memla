@@ -1,0 +1,486 @@
+{
+  "repo_root": "..\\external\\oauth4webapi",
+  "repo_subpath": ".",
+  "repo_label": "oauth4webapi",
+  "manifest_path": "C:\\Users\\samat\\Project Memory\\external\\oauth4webapi\\package.json",
+  "local_model": "qwen3.5:4b",
+  "ollama_base_url": "http://127.0.0.1:11435",
+  "seed_count": 8,
+  "unseen_count": 12,
+  "seed_cases": [
+    {
+      "prompt": "Update client authentication interfaces to accept CryptoKey instances alongside PrivateKey and PublicKey types.",
+      "expected_files": [
+        "src/index.ts",
+        "test/client_auth.test.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "f40571911856ffed541503d16d95fd724a980639",
+      "commit_subject": "feat: allow all key inputs to be CryptoKey instances",
+      "changed_files": [
+        "src/index.ts",
+        "test/client_auth.test.ts"
+      ]
+    },
+    {
+      "prompt": "Refactor the code to use string literals instead of constants for the authorization header value.",
+      "expected_files": [
+        "src/index.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "c73ab4abf8525ea68569b34d8c339651d8f6fc60",
+      "commit_subject": "refactor: less consts",
+      "changed_files": [
+        "src/index.ts"
+      ]
+    },
+    {
+      "prompt": "Refactor DPOP JWT proof logic to remove redundant private key and public key validation checks.",
+      "expected_files": [
+        "src/index.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "23ac21750970138cee618bc81cd5911f2858bf4d",
+      "commit_subject": "refactor: dpopProofJwt",
+      "changed_files": [
+        "src/index.ts"
+      ]
+    },
+    {
+      "prompt": "Update the library version to 0.3.2 and allow CryptoKey instances as input.",
+      "expected_files": [
+        "package.json",
+        "src/index.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "fbbeb4ca02916d53fd0c7b9f70b68c4db7c469b9",
+      "commit_subject": "chore(release): 0.3.2",
+      "changed_files": [
+        "package.json",
+        "src/index.ts"
+      ]
+    },
+    {
+      "prompt": "Refactor the codebase to enforce stricter TypeScript compile checks by enabling noImplicitAny.",
+      "expected_files": [
+        "src/index.ts",
+        "test/_setup.ts",
+        "tsconfig.json"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "2163b2898a1040629d5d9901cf3a16ad6541c0d5",
+      "commit_subject": "refactor: stricter compile checks",
+      "changed_files": [
+        "src/index.ts",
+        "test/_setup.ts",
+        "tsconfig.json"
+      ]
+    },
+    {
+      "prompt": "Refactor nonce validation errors to use a consistent OPE error type instead of mixed errors.",
+      "expected_files": [
+        "src/index.ts",
+        "test/authorization_code.test.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "a0d6ff6c1ccdcdf43b9a7cfb5484222265ecfea7",
+      "commit_subject": "refactor: nonce check errors, messages, tests",
+      "changed_files": [
+        "src/index.ts",
+        "test/authorization_code.test.ts"
+      ]
+    },
+    {
+      "prompt": "Update the OAuth2 library version from 0.3.2 to 0.3.3 in package.json and source code.",
+      "expected_files": [
+        "package.json",
+        "src/index.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "1f8efc9eb7465723f960b5aed9bbd348168817e4",
+      "commit_subject": "chore(release): 0.3.3",
+      "changed_files": [
+        "package.json",
+        "src/index.ts"
+      ]
+    },
+    {
+      "prompt": "Refactor the codebase to remove support for legacy HMAC algorithms and update related type definitions.",
+      "expected_files": [
+        "src/index.ts",
+        "test/authorization_code.test.ts",
+        "test/client_auth.test.ts",
+        "test/request_object.test.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "3a9e9a57a6b752c9789792364baf22e577377c5c",
+      "commit_subject": "refactor!: trim down the supported JOSE algorithms",
+      "changed_files": [
+        "src/index.ts",
+        "test/authorization_code.test.ts",
+        "test/client_auth.test.ts",
+        "test/request_object.test.ts"
+      ]
+    }
+  ],
+  "unseen_cases": [
+    {
+      "prompt": "Add an optional headers parameter to HTTP request options across all OAuth functions.",
+      "expected_files": [
+        "src/index.ts",
+        "test/_setup.ts",
+        "test/authorization_code.test.ts",
+        "test/client_credentials.test.ts",
+        "test/device_flow.test.ts",
+        "test/discovery.test.ts",
+        "test/introspection.test.ts",
+        "test/jwks.test.ts",
+        "test/par.test.ts",
+        "test/random.test.ts",
+        "test/refresh_token.test.ts",
+        "test/revocation.test.ts",
+        "test/userinfo.test.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "94a2ecb2a5f7c17c84ff3fa39bc855e2c48466d6",
+      "commit_subject": "feat: option to add headers to http requests",
+      "changed_files": [
+        "src/index.ts",
+        "test/_setup.ts",
+        "test/authorization_code.test.ts",
+        "test/client_credentials.test.ts",
+        "test/device_flow.test.ts",
+        "test/discovery.test.ts",
+        "test/introspection.test.ts",
+        "test/jwks.test.ts",
+        "test/par.test.ts",
+        "test/random.test.ts",
+        "test/refresh_token.test.ts",
+        "test/revocation.test.ts",
+        "test/userinfo.test.ts"
+      ]
+    },
+    {
+      "prompt": "Update the JWKS refetch interval to 10 minutes and adjust the test accordingly.",
+      "expected_files": [
+        "package.json",
+        "src/index.ts",
+        "test/jwks_lifecycle.test.ts",
+        "tsconfig.json"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "ae35bae4e84a66c606eb6b40f2588a1aa1955b77",
+      "commit_subject": "feat: force jwks refetch every 10 minutes",
+      "changed_files": [
+        "package.json",
+        "src/index.ts",
+        "test/jwks_lifecycle.test.ts",
+        "tsconfig.json"
+      ]
+    },
+    {
+      "prompt": "Remove all JWE encrypted response support and related key management algorithms from the codebase.",
+      "expected_files": [
+        "src/index.ts",
+        "test/request_object.test.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "435204953f80567f8b1711cb5796d1c1dd8f8d40",
+      "commit_subject": "refactor!: remove encrypted JAR support",
+      "changed_files": [
+        "src/index.ts",
+        "test/request_object.test.ts"
+      ]
+    },
+    {
+      "prompt": "Remove the sub field from the request object to match the client's client_id.",
+      "expected_files": [
+        "src/index.ts",
+        "test/request_object.test.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "41d49fa71707c9467219670b52d44d1e1e331870",
+      "commit_subject": "fix: remove sub from request object",
+      "changed_files": [
+        "src/index.ts",
+        "test/request_object.test.ts"
+      ]
+    },
+    {
+      "prompt": "Update the CI workflow to run OAuth2 conformance checks automatically on Mondays at noon.",
+      "expected_files": [
+        "conformance/api.ts",
+        "conformance/ava.config.ts",
+        "conformance/env.ts",
+        "conformance/oidc/oidcc-client-test-aggregated-claims.ts",
+        "conformance/oidc/oidcc-client-test-client-secret-basic.ts",
+        "conformance/oidc/oidcc-client-test-discovery-issuer-mismatch.ts",
+        "conformance/oidc/oidcc-client-test-discovery-jwks-uri-keys.ts",
+        "conformance/oidc/oidcc-client-test-discovery-openid-config.ts",
+        "conformance/oidc/oidcc-client-test-discovery-webfinger-acct.ts",
+        "conformance/oidc/oidcc-client-test-discovery-webfinger-url.ts",
+        "conformance/oidc/oidcc-client-test-distributed-claims.ts",
+        "conformance/oidc/oidcc-client-test-dynamic-registration.ts",
+        "conformance/oidc/oidcc-client-test-idtoken-sig-none.ts",
+        "conformance/oidc/oidcc-client-test-idtoken-sig-rs256.ts",
+        "conformance/oidc/oidcc-client-test-invalid-aud.ts",
+        "conformance/oidc/oidcc-client-test-invalid-iss.ts",
+        "conformance/oidc/oidcc-client-test-invalid-sig-es256.ts",
+        "conformance/oidc/oidcc-client-test-invalid-sig-hs256.ts",
+        "conformance/oidc/oidcc-client-test-invalid-sig-rs256.ts",
+        "conformance/oidc/oidcc-client-test-kid-absent-multiple-jwks.ts",
+        "conformance/oidc/oidcc-client-test-kid-absent-single-jwks.ts",
+        "conformance/oidc/oidcc-client-test-missing-aud.ts",
+        "conformance/oidc/oidcc-client-test-missing-iat.ts",
+        "conformance/oidc/oidcc-client-test-missing-sub.ts",
+        "conformance/oidc/oidcc-client-test-nonce-invalid.ts",
+        "conformance/oidc/oidcc-client-test-request-uri-signed-none.ts",
+        "conformance/oidc/oidcc-client-test-request-uri-signed-rs256.ts",
+        "conformance/oidc/oidcc-client-test-scope-userinfo-claims.ts",
+        "conformance/oidc/oidcc-client-test-signing-key-rotation-just-before-signing.ts",
+        "conformance/oidc/oidcc-client-test-signing-key-rotation.ts",
+        "conformance/oidc/oidcc-client-test-userinfo-bearer-body.ts",
+        "conformance/oidc/oidcc-client-test-userinfo-bearer-header.ts",
+        "conformance/oidc/oidcc-client-test-userinfo-invalid-sub.ts",
+        "conformance/oidc/oidcc-client-test-userinfo-signed.ts",
+        "conformance/oidc/oidcc-client-test.ts",
+        "conformance/oidc/runner.ts",
+        "conformance/tsconfig.json",
+        "package.json"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "b8d53da3544b4363ec08a0531229c00affd17d83",
+      "commit_subject": "ci: run conformance check in CI",
+      "changed_files": [
+        "conformance/api.ts",
+        "conformance/ava.config.ts",
+        "conformance/env.ts",
+        "conformance/oidc/oidcc-client-test-aggregated-claims.ts",
+        "conformance/oidc/oidcc-client-test-client-secret-basic.ts",
+        "conformance/oidc/oidcc-client-test-discovery-issuer-mismatch.ts",
+        "conformance/oidc/oidcc-client-test-discovery-jwks-uri-keys.ts",
+        "conformance/oidc/oidcc-client-test-discovery-openid-config.ts",
+        "conformance/oidc/oidcc-client-test-discovery-webfinger-acct.ts",
+        "conformance/oidc/oidcc-client-test-discovery-webfinger-url.ts",
+        "conformance/oidc/oidcc-client-test-distributed-claims.ts",
+        "conformance/oidc/oidcc-client-test-dynamic-registration.ts",
+        "conformance/oidc/oidcc-client-test-idtoken-sig-none.ts",
+        "conformance/oidc/oidcc-client-test-idtoken-sig-rs256.ts",
+        "conformance/oidc/oidcc-client-test-invalid-aud.ts",
+        "conformance/oidc/oidcc-client-test-invalid-iss.ts",
+        "conformance/oidc/oidcc-client-test-invalid-sig-es256.ts",
+        "conformance/oidc/oidcc-client-test-invalid-sig-hs256.ts",
+        "conformance/oidc/oidcc-client-test-invalid-sig-rs256.ts",
+        "conformance/oidc/oidcc-client-test-kid-absent-multiple-jwks.ts",
+        "conformance/oidc/oidcc-client-test-kid-absent-single-jwks.ts",
+        "conformance/oidc/oidcc-client-test-missing-aud.ts",
+        "conformance/oidc/oidcc-client-test-missing-iat.ts",
+        "conformance/oidc/oidcc-client-test-missing-sub.ts",
+        "conformance/oidc/oidcc-client-test-nonce-invalid.ts",
+        "conformance/oidc/oidcc-client-test-request-uri-signed-none.ts",
+        "conformance/oidc/oidcc-client-test-request-uri-signed-rs256.ts",
+        "conformance/oidc/oidcc-client-test-scope-userinfo-claims.ts",
+        "conformance/oidc/oidcc-client-test-signing-key-rotation-just-before-signing.ts",
+        "conformance/oidc/oidcc-client-test-signing-key-rotation.ts",
+        "conformance/oidc/oidcc-client-test-userinfo-bearer-body.ts",
+        "conformance/oidc/oidcc-client-test-userinfo-bearer-header.ts",
+        "conformance/oidc/oidcc-client-test-userinfo-invalid-sub.ts",
+        "conformance/oidc/oidcc-client-test-userinfo-signed.ts",
+        "conformance/oidc/oidcc-client-test.ts",
+        "conformance/oidc/runner.ts",
+        "conformance/tsconfig.json",
+        "package.json"
+      ]
+    },
+    {
+      "prompt": "Fix the logic that extracts the test ID file name from the conformance log output.",
+      "expected_files": [
+        "conformance/oidc/runner.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "7126836d392a073099c6111783cd3274a92f8c85",
+      "commit_subject": "ci: update conformance log output",
+      "changed_files": [
+        "conformance/oidc/runner.ts"
+      ]
+    },
+    {
+      "prompt": "Refactor how conformance test configuration is loaded and serialized from package.json.",
+      "expected_files": [
+        "conformance/ava.config.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "85722a717fdd9fbca4739f71af33f2e654d80035",
+      "commit_subject": "refactor: conformance/ava.config.ts",
+      "changed_files": [
+        "conformance/ava.config.ts"
+      ]
+    },
+    {
+      "prompt": "Refactor the artifact upload step to handle HTML results errors and fix the zip file writing logic.",
+      "expected_files": [
+        "conformance/api.ts",
+        "conformance/ava.config.ts",
+        "conformance/download_archive.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "ed0ca06853bbaeeb3e81da9547c8e5031d37143b",
+      "commit_subject": "ci: upload certification test artifacts",
+      "changed_files": [
+        "conformance/api.ts",
+        "conformance/ava.config.ts",
+        "conformance/download_archive.ts"
+      ]
+    },
+    {
+      "prompt": "Refactor the nested promise chains in the OIDC runner to use flat async/await patterns.",
+      "expected_files": [
+        "conformance/oidc/runner.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "2170971a351771973f02250273a906bccef9bb2a",
+      "commit_subject": "ci: refactor conformance/oidc/runner.ts",
+      "changed_files": [
+        "conformance/oidc/runner.ts"
+      ]
+    },
+    {
+      "prompt": "Remove unnecessary type casts from structuredClone calls to improve code clarity.",
+      "expected_files": [
+        "conformance/ava.config.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "305c52325b220cada92baa667a979770f6efa271",
+      "commit_subject": "chore: remove useless casts",
+      "changed_files": [
+        "conformance/ava.config.ts"
+      ]
+    },
+    {
+      "prompt": "Update undici to version 5.1.1 and verify no pending interceptors exist.",
+      "expected_files": [
+        "package.json",
+        "test/_setup.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "08afd144a9c881696bb7497ae63a4b68fa91b1a7",
+      "commit_subject": "test: assert no pending interceptors",
+      "changed_files": [
+        "package.json",
+        "test/_setup.ts"
+      ]
+    },
+    {
+      "prompt": "Refactor base64 encoding and decoding functions to use native browser APIs instead of custom implementations.",
+      "expected_files": [
+        "src/index.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "ba7213a93e4c7fc64139439b167bb9085ff8dbb4",
+      "commit_subject": "refactor: base64url",
+      "changed_files": [
+        "src/index.ts"
+      ]
+    }
+  ]
+}

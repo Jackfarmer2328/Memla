@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" rx="28" fill="#10211E"/>
+  <circle cx="140" cy="120" r="180" fill="#0F766E" fill-opacity="0.18"/>
+  <circle cx="1080" cy="110" r="220" fill="#C58C3A" fill-opacity="0.16"/>
+  <rect x="54" y="54" width="1092" height="522" rx="24" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.18)"/>
+  <text x="88" y="122" fill="#C9E9E3" font-family="Segoe UI, Arial, sans-serif" font-size="18" letter-spacing="4">MEMLA / TRANSFERABLE CODING INTELLIGENCE</text>
+  <text x="88" y="212" fill="#FFF7EA" font-family="Georgia, serif" font-size="62" font-weight="700">Same model. New repo.</text>
+  <text x="88" y="282" fill="#FFF7EA" font-family="Georgia, serif" font-size="62" font-weight="700">Much better routing.</text>
+  <text x="88" y="370" fill="#F0D7B0" font-family="Segoe UI, Arial, sans-serif" font-size="24">Second-repo file recall</text>
+  <text x="88" y="448" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="84" font-weight="700">0.1667 -&gt; 0.9167</text>
+  <text x="88" y="520" fill="#C9E9E3" font-family="Segoe UI, Arial, sans-serif" font-size="24">6/7 public repos reached holdout</text>
+</svg>

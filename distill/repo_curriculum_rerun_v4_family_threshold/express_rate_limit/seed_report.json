@@ -1,0 +1,243 @@
+{
+  "cases": 8,
+  "accepted": 2,
+  "accept_rate": 0.25,
+  "avg_file_recall": 0.25,
+  "avg_role_recall": 0.375,
+  "avg_command_recall": 0.375,
+  "rows": [
+    {
+      "prompt": "Update the project dependencies to the latest versions specified in the package.json file.",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "package.json",
+        "test/external/stores/package.json",
+        "test/external/imports/named-import/ts-esm/package.json",
+        "test/external/imports/named-import/ts-cjs/package.json",
+        "test/external/imports/named-import/js-esm/package.json",
+        "test/external/imports/named-import/js-cjs/package.json"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "package.json"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "role_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update project dependencies to the latest versions. Based on the retrieved memory, the likely file involved is `package.json`. The constraint is `dependency_upgrade`. I need to check the current `package.json` to see what dependencies are listed and th"
+    },
+    {
+      "prompt": "Refactor function declarations to use the function keyword instead of expressions for consistency.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "your-file.js"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "your-file.js"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to refactor function declarations to use the `function` keyword instead of arrow functions or expressions for consistency. This aligns with the retrieved memory decision: \"Refactor function declarations to use the function keyword instead of expressions f"
+    },
+    {
+      "prompt": "Update the package version from 2.2.0 to 2.3.0 in package.json.",
+      "trace_id": 3,
+      "prior_trace_ids": [
+        1
+      ],
+      "suggested_files": [
+        "package.json",
+        "test/external/imports/default-import/ts-esm/package.json",
+        "test/external/imports/default-import/ts-cjs/package.json",
+        "test/external/stores/package.json",
+        "test/external/imports/named-import/ts-esm/package.json",
+        "test/external/imports/named-import/ts-cjs/package.json"
+      ],
+      "suggested_commands": [
+        "npm run lint"
+      ],
+      "answer_files": [
+        "package.json"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "npm run lint"
+      ],
+      "patch_steps": [
+        "To update your project dependencies to the latest versions, you can use the following command in your terminal:",
+        "Or, if you are using `yarn`:",
+        "yarn upgrade",
+        "This will update all dependencies listed in your `package"
+      ],
+      "file_recall": 1.0,
+      "role_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the project's version field in `package.json` from `2.2.0` to `2.3.0`. This is a specific metadata change. I need to locate the `package.json` file and modify the `\"version\"` property. Since I cannot directly edit files, I will provide the exact"
+    },
+    {
+      "prompt": "How do I configure the test reporter to use 'spec' in CI environments?",
+      "trace_id": 4,
+      "prior_trace_ids": [
+        1
+      ],
+      "suggested_files": [
+        "test/external/stores/pnpm-lock.yaml",
+        "test/external/stores/package.json",
+        "test/external/imports/named-import/ts-esm/pnpm-lock.yaml",
+        "test/external/imports/named-import/ts-esm/package.json",
+        "test/external/imports/named-import/ts-cjs/pnpm-lock.yaml",
+        "test/external/imports/named-import/ts-cjs/package.json",
+        "package.json",
+        "jest.config.js",
+        "vitest.config.js"
+      ],
+      "suggested_commands": [
+        "npm run lint",
+        "Then, in your CI pipeline (e.g., GitHub Actions, GitLab CI), run `npm run test:ci`.",
+        "Then, in your CI pipeline, run `npm run test:ci`."
+      ],
+      "answer_files": [
+        "package.json",
+        "jest.config.js",
+        "vitest.config.js"
+      ],
+      "answer_commands": [
+        "Then, in your CI pipeline (e.g., GitHub Actions, GitLab CI), run `npm run test:ci`.",
+        "Then, in your CI pipeline, run `npm run test:ci`."
+      ],
+      "likely_tests": [
+        "npm run lint"
+      ],
+      "patch_steps": [
+        "To update your project dependencies to the latest versions, you can use the following command in your terminal:",
+        "Or, if you are using `yarn`:",
+        "yarn upgrade",
+        "This will update all dependencies listed in your `package"
+      ],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 1.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to configure the test reporter to 'spec' for CI environments. Based on the retrieved memory, the convention is to set the reporter to 'spec' specifically for CI. I need to identify where the test configuration is located (likely in `package.json` under `s"
+    },
+    {
+      "prompt": "Add strict mode to the memory store implementation to catch syntax errors early.",
+      "trace_id": 5,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "package.json",
+        "tsconfig.json",
+        "babel.config.js",
+        "Node.js",
+        "your-memory-store.js"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "package.json",
+        "tsconfig.json",
+        "babel.config.js",
+        "Node.js",
+        "your-memory-store.js"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to enable strict mode in the memory store implementation. Based on the retrieved memory, this is a specific decision: \"Enable strict mode in memory store implementation to catch syntax errors early.\" Since I don't have direct access to the memory store co"
+    },
+    {
+      "prompt": "Enable custom headers to display request limits and remaining usage in Express rate limiting.",
+      "trace_id": 6,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "app.js",
+        "server.js"
+      ],
+      "suggested_commands": [
+        "npm install express-rate-limit"
+      ],
+      "answer_files": [
+        "app.js",
+        "server.js"
+      ],
+      "answer_commands": [
+        "npm install express-rate-limit"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to enable custom headers for request limits and remaining usage in Express rate limiting. Based on the retrieved memory, this is a specific decision: \"Enable custom headers to display request limits and remaining usage in Express rate limiting.\" I need to"
+    },
+    {
+      "prompt": "Fix the rate limiter logic to properly handle errors and enforce rate limits.",
+      "trace_id": 7,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "app.js",
+        "server.js"
+      ],
+      "suggested_commands": [
+        "npm install express-rate-limit"
+      ],
+      "answer_files": [
+        "app.js",
+        "server.js"
+      ],
+      "answer_commands": [
+        "npm install express-rate-limit"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to fix the rate limiter logic to properly handle errors and enforce limits. Based on the retrieved memory, there was a specific decision: \"Fix rate limiter logic to handle errors and enforce limits.\" I need to ensure the rate limiter configuration include"
+    },
+    {
+      "prompt": "Fix the logic error where rate limit headers are set before the limit is checked.",
+      "trace_id": 8,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "app.js",
+        "server.js"
+      ],
+      "suggested_commands": [
+        "npm install express-rate-limit"
+      ],
+      "answer_files": [
+        "app.js",
+        "server.js"
+      ],
+      "answer_commands": [
+        "npm install express-rate-limit"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user is pointing out a specific logic error: setting rate limit headers before the limit is checked. This is a critical issue because it can lead to incorrect behavior, such as allowing requests that exceed the limit or providing misleading headers. Based on the ret"
+    }
+  ]
+}

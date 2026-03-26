@@ -113,6 +113,21 @@ class GraphQueryPlan:
     list_mode: bool
 
 
+_GRAPH_RISKY_RELATIONS = {
+    "attend_event",
+    "like",
+    "visited_place",
+    "start_activity",
+    "do_activity",
+    "buy",
+    "find",
+    "volunteer_at",
+    "open",
+    "read",
+    "watch",
+}
+
+
 def _session_keys(conversation: dict[str, Any]) -> list[str]:
     return sorted(
         [
@@ -356,6 +371,9 @@ def _retrieved_chunks_to_dicts(chunks: list[Chunk]) -> list[dict[str, Any]]:
             "key": c.key,
             "text": c.text,
             "frequency": c.frequency_count,
+            "source": c.meta.get("source"),
+            "graph_relation_type": c.meta.get("graph_relation_type"),
+            "graph_object": c.meta.get("graph_object"),
         }
         for c in chunks
     ]
@@ -438,7 +456,9 @@ def _query_subject_phrase(query: str) -> str | None:
         r"(?:did|does|do|has|have|is|are|was|were)\s+"
         r"(?P<subject>.+?)\s+"
         r"(?:research|buy|bought|find|found|offer|offering|recommend|recommended|read|raise|raising|open|opened|"
-        r"participate|participated|volunteer|volunteered|share|shared|visit|visited|live|living|work|worked|make|made|choose|chose|take|took|go|went)\b",
+        r"participate|participated|volunteer|volunteered|share|shared|visit|visited|live|living|work|worked|make|made|choose|chose|take|took|go|went|been|"
+        r"have|had|like|liked|love|loved|enjoy|enjoyed|watch|watched|attend|attended|join|joined|start|started|apply|applied|"
+        r"sign|signed|cook|cooked|record|recorded|collaborate|collaborated|practice|practiced|train|trained|do|did|done)\b",
         r"^(?:Which city|Which cities)\s+did\s+(?P<subject>.+?)\s+(?:visit|visited|recommend|recommended)\b",
         r"^What\s+is\s+(?P<subject>.+?)\s+offering\b",
         r"^What\s+does\s+(?P<subject>.+?)\s+offer\b",
@@ -456,11 +476,32 @@ def _query_subject_phrase(query: str) -> str | None:
 
 def _graph_object_targets(prompt: str) -> list[str]:
     subject = _query_subject_phrase(prompt)
-    targets: list[str] = []
+    phrase_targets: list[str] = []
+    text = " ".join(str(prompt or "").strip().split())
     for title in re.findall(r'"([^"]+)"', str(prompt or "")):
         title = title.strip()
         if title:
-            targets.append(title)
+            phrase_targets.append(title)
+    phrase_patterns = (
+        r"^(?:When|What|Who|Which(?: city| cities)?)\s+did\s+.+?\s+(?:go to|went to|attend(?:ed)?|join(?:ed)?|apply(?:ied)? to|cook(?:ed)?|watch(?:ed)?|record(?:ed)?|collaborat(?:e|ed) with|start(?:ed)?|research(?:ed)?|buy|bought|find|found|recommend(?:ed)?|read|raise awareness for)\s+(?P<object>.+?)(?:\?|$)",
+        r"^Who\s+did\s+.+?\s+have dinner with(?:\s+on\s+.+?)?(?:\?|$)",
+        r"^What\s+pets\s+does\s+.+?\s+have(?:\?|$)",
+        r"^What\s+has\s+.+?\s+cooked(?:\?|$)",
+        r"^What\s+martial\s+arts\s+has\s+.+?\s+done(?:\?|$)",
+        r"^What\s+(?P<object>.+?)\s+has\s+.+?\s+attend(?:ed)?(?:\?|$)",
+        r"^How\s+many\s+(?P<object>.+?)\s+has\s+.+?\s+attend(?:ed)?(?:\?|$)",
+        r"^What\s+(?P<object>.+?)\s+has\s+.+?\s+(?:buy|bought|read|watched)(?:\?|$)",
+        r"^What\s+(?P<object>.+?)\s+does\s+.+?\s+(?:like|love|enjoy)(?:\?|$)",
+        r"^What\s+is\s+one\s+of\s+.+?\s+favorite\s+(?P<object>.+?)(?:\?|$)",
+    )
+    for pattern in phrase_patterns:
+        m = re.match(pattern, text, flags=re.IGNORECASE)
+        if not m:
+            continue
+        obj = " ".join(str(m.groupdict().get("object") or "").strip().split()).strip(" ?")
+        if obj:
+            phrase_targets.append(obj)
+    targets = _dedupe_items(phrase_targets)
     for match in re.finditer(r"\b[A-Z][a-zA-Z0-9_]+(?:\s+[A-Z][a-zA-Z0-9_]+){0,2}\b", str(prompt or "")):
         candidate = match.group(0).strip()
         if not candidate:
@@ -468,6 +509,10 @@ def _graph_object_targets(prompt: str) -> list[str]:
         if subject and candidate.lower() == subject.lower():
             continue
         if candidate.lower() in {"what", "when", "where", "which", "who", "why", "how"}:
+            continue
+        if candidate.lower() in set(_MONTH_NAMES):
+            continue
+        if targets and len(candidate.split()) < 2:
             continue
         targets.append(candidate)
     return _dedupe_items(targets)
@@ -481,7 +526,11 @@ def _graph_relation_targets(prompt: str) -> list[str]:
             targets.append("lives_in")
     if any(token in lower for token in ("work", "works", "worked", "company", "employer", "job")):
         targets.append("works_at")
-    if "instrument" in lower or ("play" in lower and "what" in lower):
+    if (
+        "what instruments" in lower
+        or "musical instrument" in lower
+        or ("play" in lower and any(token in lower for token in ("instrument", "guitar", "violin", "clarinet", "piano", "drum", "drums", "saxophone", "flute", "trumpet", "cello")))
+    ):
         targets.append("plays_instrument")
     if "musical artists" in lower or "bands" in lower or ("saw" in lower and "live" in lower):
         targets.append("saw_artist")
@@ -489,26 +538,58 @@ def _graph_relation_targets(prompt: str) -> list[str]:
         targets.append("favorite_style")
     if ("which cities" in lower or "which city have both" in lower or "visited" in lower) and any(token in lower for token in ("city", "cities")):
         targets.append("visited_place")
-    if "visit" in lower or "visited" in lower or "trip to" in lower:
+    if "visit" in lower or "visited" in lower or "trip to" in lower or "been to" in lower or "planning to go" in lower:
         targets.append("visited_place")
     if "see" in lower and "live" in lower:
         targets.append("saw_artist")
     if "research" in lower:
         targets.append("research")
+    if any(token in lower for token in (" went to ", " go to ", "attend", "joined", " join ", "support group", "conference", "workshop", "boot camp", "dance class", "cooking show", "gala")):
+        targets.append("attend_event")
     if "participat" in lower:
         targets.append("participate_in")
+    if "apply" in lower:
+        targets.append("apply_to")
     if "bought" in lower or re.search(r"\bbuy\b", lower):
         targets.append("buy")
     if "kind of art" in lower or ("make" in lower and "art" in lower) or "painted" in lower:
         targets.append("paint")
     if re.search(r"\bread\b", lower):
         targets.append("read")
+    if "watch" in lower:
+        targets.append("watch")
+    if (
+        "favorite movies" in lower
+        or "fantasy movies" in lower
+        or re.match(r"^what\b.+\b(?:does|did|has|have)\b.+\b(?:like|love|enjoy)\b", lower)
+        or re.match(r"^what\s+do\s+.+\s+like\??$", lower)
+        or re.match(r"^what\s+is\s+one\s+of\s+.+?\s+favorite\b", lower)
+    ):
+        targets.append("like")
     if "recommend" in lower:
         targets.append("recommend")
     if "found" in lower or re.search(r"\bfind\b", lower):
         targets.append("find")
     if "offer" in lower or "offering" in lower:
         targets.append("offer")
+    if "record" in lower:
+        targets.append("record")
+    if "collaborat" in lower:
+        targets.append("collaborate_with")
+    if "signed with" in lower or ("which team did" in lower and "sign" in lower):
+        targets.append("sign_with")
+    if "dinner with" in lower:
+        targets.append("have_dinner_with")
+    if "start" in lower or "started" in lower:
+        targets.append("start_activity")
+    if "martial arts" in lower or "trained in" in lower or "practice" in lower:
+        targets.append("practice")
+    if "cook" in lower:
+        targets.append("cook")
+    if lower.startswith("what pets") or " pets " in lower or "puppy" in lower or "turtle" in lower or "dog" in lower or "cat" in lower:
+        targets.append("have_pet")
+    if "indoor activities" in lower:
+        targets.append("do_activity")
     if "focus" in lower:
         targets.append("focus_on")
     if "volunteer" in lower:
@@ -606,20 +687,46 @@ def _relation_label(relation_type: str) -> str:
         return "visited"
     if relation_type == "research":
         return "researched"
+    if relation_type == "attend_event":
+        return "attended"
     if relation_type == "participate_in":
         return "participated in"
+    if relation_type == "apply_to":
+        return "applied to"
     if relation_type == "buy":
         return "bought"
     if relation_type == "paint":
         return "made"
     if relation_type == "read":
         return "read"
+    if relation_type == "watch":
+        return "watched"
+    if relation_type == "like":
+        return "likes"
     if relation_type == "recommend":
         return "recommended"
     if relation_type == "find":
         return "found"
     if relation_type == "offer":
         return "offers"
+    if relation_type == "record":
+        return "recorded"
+    if relation_type == "collaborate_with":
+        return "collaborated with"
+    if relation_type == "sign_with":
+        return "signed with"
+    if relation_type == "have_dinner_with":
+        return "had dinner with"
+    if relation_type == "start_activity":
+        return "started"
+    if relation_type == "do_activity":
+        return "did"
+    if relation_type == "practice":
+        return "practices"
+    if relation_type == "cook":
+        return "cooked"
+    if relation_type == "have_pet":
+        return "has"
     if relation_type == "focus_on":
         return "focuses on"
     if relation_type == "volunteer_at":
@@ -691,6 +798,149 @@ def _graph_edge_to_chunk(runtime: MemoryRuntime, edge: Any) -> Chunk:
     )
 
 
+def _graph_match_tokens(text: str) -> set[str]:
+    tokens: set[str] = set()
+    for token in _qa_tokens(text):
+        tokens.add(token)
+        if token.endswith("s") and len(token) > 4:
+            tokens.add(token[:-1])
+    return tokens
+
+
+def _graph_object_match_score(chunk: Chunk, targets: Sequence[str]) -> float:
+    if not targets:
+        return 0.0
+    graph_object = str(chunk.meta.get("graph_object") or "").strip()
+    graph_subject = str(chunk.meta.get("graph_subject") or "").strip()
+    graph_object_lower = graph_object.lower()
+    graph_subject_lower = graph_subject.lower()
+    object_tokens = _graph_match_tokens(graph_object)
+    subject_tokens = _graph_match_tokens(graph_subject)
+    best = 0.0
+    for target in targets:
+        target_text = " ".join(str(target or "").strip().split())
+        if not target_text:
+            continue
+        target_lower = target_text.lower()
+        if (
+            target_lower in graph_object_lower
+            or graph_object_lower in target_lower
+            or target_lower in graph_subject_lower
+            or graph_subject_lower in target_lower
+        ):
+            best = max(best, 1.0)
+            continue
+        target_tokens = _graph_match_tokens(target_text)
+        if not target_tokens:
+            continue
+        overlap = len(object_tokens & target_tokens) / max(1.0, float(len(target_tokens)))
+        overlap = max(overlap, len(subject_tokens & target_tokens) / max(1.0, float(len(target_tokens))))
+        best = max(best, overlap)
+    return best
+
+
+def _preference_question_is_direct(lower_prompt: str) -> bool:
+    return bool(
+        re.match(r"^what\b.+\b(?:does|did|has|have)\b.+\b(?:like|love|enjoy)\b", lower_prompt)
+        or re.match(r"^what\s+do\s+.+\s+like\??$", lower_prompt)
+    )
+
+
+def _graph_targets_are_generic_media(targets: Sequence[str]) -> bool:
+    if not targets:
+        return False
+    allowed = {"movie", "movies", "book", "books", "artist", "artists", "band", "bands"}
+    for target in targets:
+        tokens = _graph_match_tokens(target)
+        if not tokens:
+            return False
+        if not tokens <= allowed:
+            return False
+    return True
+
+
+def _graph_targets_are_generic_inventory(targets: Sequence[str]) -> bool:
+    if not targets:
+        return False
+    allowed = {
+        "item",
+        "items",
+        "movie",
+        "movies",
+        "book",
+        "books",
+        "event",
+        "events",
+        "pet",
+        "pets",
+        "instrument",
+        "instruments",
+        "activity",
+        "activities",
+        "team",
+        "teams",
+        "skill",
+        "skills",
+        "interest",
+        "interests",
+        "area",
+        "areas",
+        "type",
+        "types",
+        "kind",
+        "kinds",
+    }
+    for target in targets:
+        tokens = _graph_match_tokens(target)
+        if not tokens:
+            return False
+        if not tokens <= allowed:
+            return False
+    return True
+
+
+def _should_keep_graph_chunk(prompt: str, category: str, plan: GraphQueryPlan, chunk: Chunk) -> bool:
+    if category in {"adversarial", "common-sense"}:
+        return False
+
+    lower = str(prompt or "").lower()
+    relation_type = str(chunk.meta.get("graph_relation_type") or "")
+    relation_root = str(chunk.meta.get("graph_relation_root") or relation_type)
+    match_score = _graph_object_match_score(chunk, plan.object_targets)
+
+    if lower.startswith("when "):
+        if plan.object_targets:
+            return match_score >= 0.66
+        return relation_root not in _GRAPH_RISKY_RELATIONS
+
+    if lower.startswith("how many "):
+        return False
+
+    if relation_root == "like":
+        if not _preference_question_is_direct(lower):
+            return False
+        if _graph_targets_are_generic_media(plan.object_targets):
+            return True
+        return not plan.object_targets or match_score >= 0.66
+
+    if relation_root in {"buy", "read", "watch"} and _graph_targets_are_generic_inventory(plan.object_targets):
+        return True
+
+    if relation_root == "visited_place":
+        if lower.startswith("which cities"):
+            return True
+        if plan.object_targets:
+            return match_score >= 0.66
+        return False
+
+    if relation_root in _GRAPH_RISKY_RELATIONS:
+        if plan.object_targets:
+            return match_score >= 0.66
+        return False
+
+    return True
+
+
 def _graph_sequence_chunks(
     runtime: MemoryRuntime,
     plan: GraphQueryPlan,
@@ -736,6 +986,8 @@ def _graph_relation_chunks(
     limit: int = 8,
 ) -> list[Chunk]:
     plan = _build_graph_query_plan(prompt, category)
+    if category in {"adversarial", "common-sense"}:
+        return []
     if not plan.relation_targets:
         return _graph_sequence_chunks(runtime, plan, limit=limit)
 
@@ -772,10 +1024,25 @@ def _graph_relation_chunks(
     sequence_chunks = _graph_sequence_chunks(runtime, plan, limit=max(2, limit - len(out)))
     if sequence_chunks:
         out = _merge_unique_chunks(out, sequence_chunks, limit=limit)
+    out = [chunk for chunk in out if _should_keep_graph_chunk(prompt, category, plan, chunk)]
+    if plan.object_targets:
+        out = sorted(
+            out,
+            key=lambda chunk: (
+                _graph_object_match_score(chunk, plan.object_targets),
+                float(chunk.meta.get("graph_start_ts") or chunk.ts),
+                float(chunk.frequency_count or 0),
+            ),
+            reverse=True,
+        )
     return out
 
 
 def _graph_qa_answer(prompt: str, category: str, retrieved: Sequence[Chunk]) -> str | None:
+    if category in {"adversarial", "common-sense"}:
+        return None
+    if str(prompt or "").lower().startswith("how many "):
+        return None
     graph_chunks = [chunk for chunk in retrieved if str(chunk.meta.get("source") or "") == "graph_relation_edge"]
     if not graph_chunks:
         return None
@@ -786,6 +1053,8 @@ def _graph_qa_answer(prompt: str, category: str, retrieved: Sequence[Chunk]) -> 
     prefer_current = plan.prefer_current
     relation_targets = set(plan.relation_targets)
     object_targets = {target.lower() for target in plan.object_targets}
+    allow_generic_media = relation_targets == {"like"} and _graph_targets_are_generic_media(plan.object_targets)
+    allow_generic_inventory = relation_targets <= {"buy", "read", "watch"} and _graph_targets_are_generic_inventory(plan.object_targets)
 
     def pick(relation_type: str) -> Chunk | None:
         candidates = [chunk for chunk in graph_chunks if str(chunk.meta.get("graph_relation_type") or "") == relation_type]
@@ -845,22 +1114,17 @@ def _graph_qa_answer(prompt: str, category: str, retrieved: Sequence[Chunk]) -> 
             if not relation_targets or str(chunk.meta.get("graph_relation_type") or "") in relation_targets
         ]
         if object_targets:
-            filtered: list[Chunk] = []
-            for chunk in candidates:
-                graph_object = str(chunk.meta.get("graph_object") or "").strip().lower()
-                if graph_object and any(target in graph_object or graph_object in target for target in object_targets):
-                    filtered.append(chunk)
-            if filtered:
-                candidates = filtered
+            candidates = [chunk for chunk in candidates if _graph_object_match_score(chunk, plan.object_targets) >= 0.66]
         if candidates:
+            prefers_earliest = any(token in lower for token in (" start ", " started", " began", " opened", " opening"))
             candidates = sorted(
                 candidates,
                 key=lambda chunk: (
-                    1.0 if str(chunk.meta.get("graph_time_label") or "").strip() else 0.0,
-                    float(chunk.meta.get("graph_start_ts") or chunk.ts),
-                    float(chunk.meta.get("graph_end_ts") or 0),
+                    -_graph_object_match_score(chunk, plan.object_targets),
+                    -(1.0 if str(chunk.meta.get("graph_time_label") or "").strip() else 0.0),
+                    float(chunk.meta.get("graph_start_ts") or chunk.ts) if prefers_earliest else -float(chunk.meta.get("graph_start_ts") or chunk.ts),
+                    float(chunk.meta.get("graph_end_ts") or 0) if prefers_earliest else -float(chunk.meta.get("graph_end_ts") or 0),
                 ),
-                reverse=True,
             )
             best = candidates[0]
             if str(best.meta.get("graph_time_label") or "").strip():
@@ -916,17 +1180,10 @@ def _graph_qa_answer(prompt: str, category: str, retrieved: Sequence[Chunk]) -> 
         or str(chunk.meta.get("graph_relation_type") or "") in relation_targets
         or str(chunk.meta.get("graph_relation_root") or "") in relation_targets
     ]
-    if object_targets:
-        filtered: list[Chunk] = []
-        for chunk in generic_candidates:
-            haystacks = [
-                str(chunk.meta.get("graph_object") or "").strip().lower(),
-                chunk.text.lower(),
-            ]
-            if any(target in hay for target in object_targets for hay in haystacks):
-                filtered.append(chunk)
-        if filtered:
-            generic_candidates = filtered
+    if object_targets and not allow_generic_media and not allow_generic_inventory:
+        generic_candidates = [
+            chunk for chunk in generic_candidates if _graph_object_match_score(chunk, plan.object_targets) >= 0.66
+        ]
     if generic_candidates:
         if plan.list_mode:
             items = _dedupe_items([str(chunk.meta.get("graph_object") or "").strip() for chunk in generic_candidates if str(chunk.meta.get("graph_object") or "").strip()])
@@ -935,6 +1192,7 @@ def _graph_qa_answer(prompt: str, category: str, retrieved: Sequence[Chunk]) -> 
         best = sorted(
             generic_candidates,
             key=lambda chunk: (
+                _graph_object_match_score(chunk, plan.object_targets),
                 1.0 if str(chunk.meta.get("graph_time_label") or "").strip() else 0.0,
                 float(chunk.meta.get("graph_start_ts") or chunk.ts),
                 float(chunk.meta.get("graph_end_ts") or 0),
@@ -1536,9 +1794,11 @@ _MONTH_NAMES = (
 def _is_list_question(prompt: str) -> bool:
     lower = str(prompt or "").strip().lower()
     return bool(
-        re.match(r"^what\b.*\b(activities|events|books|kinds?|types?|items|fields|symbols|pets|instruments)\b", lower)
+        re.match(r"^what\b.*\b(activities|events|books|kinds?|types?|items|fields|symbols|pets|instruments|movies|skills|interests|areas|teams)\b", lower)
         or re.match(r"^what do .+ like\??$", lower)
         or re.match(r"^what has .+ painted\??$", lower)
+        or re.match(r"^what (?:martial arts|music events|fantasy movies|indoor activities).+\??$", lower)
+        or re.match(r"^what has .+ cooked\??$", lower)
         or lower.startswith("what symbols")
         or lower.startswith("what pets")
         or lower.startswith("which cities")

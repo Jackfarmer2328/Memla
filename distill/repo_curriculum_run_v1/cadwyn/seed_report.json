@@ -1,0 +1,232 @@
+{
+  "cases": 8,
+  "accepted": 4,
+  "accept_rate": 0.5,
+  "avg_file_recall": 0.375,
+  "avg_command_recall": 0.5,
+  "rows": [
+    {
+      "prompt": "Fix FastAPI custom body fields causing exceptions by ignoring them in the CLI.",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to fix an issue where custom body fields in FastAPI cause exceptions when using the CLI. Based on the retrieved memory, the solution is to ignore custom body fields in the FastAPI CLI. I need to identify the relevant files in the repository that handle Fa"
+    },
+    {
+      "prompt": "Improve test coverage for routing.py by adding tests for the pydantic module check.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "tests/_resources/app_for_testing_routing.py",
+        "tests/test_routing.py",
+        "tests/test_schema_generation/test_schema_with_generic.py",
+        "tests/test_schema_generation/test_schema_with_future_annotations.py",
+        "tests/test_schema_generation/test_schema_validator.py",
+        "tests/test_schema_generation/test_schema_field.py",
+        "routing.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "routing.py",
+        "tests/test_routing.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.3333,
+      "command_recall": 0.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to improve test coverage for `routing.py` by adding tests for the pydantic module check. Based on the retrieved memory, this is a specific decision to improve test coverage. I need to: 1. Locate the `routing.py` file 2. Identify where the pydantic module "
+    },
+    {
+      "prompt": "Fix the type incompatibility between ContextVar and VersionBundle for datetime.date.",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to fix a type incompatibility between `ContextVar` and `VersionBundle` specifically for `datetime.date`. Based on the retrieved memory, this is a known decision/fix pattern. I need to: 1. Locate where `ContextVar` and `VersionBundle` are used together 2. "
+    },
+    {
+      "prompt": "Update the project version from 2.0.3 to 2.0.4 in the configuration file.",
+      "trace_id": 4,
+      "prior_trace_ids": [
+        2
+      ],
+      "suggested_files": [
+        "tests/versioning_styles/test_versioning_formats.py",
+        "tests/_resources/render/versions.py",
+        "tests/_resources/versioned_app/app.py",
+        "tests/versioning_styles/__init__.py",
+        "tests/_resources/versioned_app/webhooks.py",
+        "tests/_resources/versioned_app/v2022_01_02.py",
+        "pyproject.toml",
+        "setup.py",
+        "package.json"
+      ],
+      "suggested_commands": [
+        "pytest"
+      ],
+      "answer_files": [
+        "pyproject.toml",
+        "setup.py",
+        "package.json"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "pytest"
+      ],
+      "patch_steps": [
+        "To improve test coverage for `routing",
+        "py` by adding tests for the pydantic module check, I'll need to:",
+        "**Locate the file**: Find `routing",
+        "py` in the repository"
+      ],
+      "file_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the project version from 2.0.3 to 2.0.4 in the configuration file. Based on the retrieved memory, this is a known decision/fix pattern. I need to: 1. Identify the configuration file(s) used for version management (e.g., `pyproject.toml`, `setup."
+    },
+    {
+      "prompt": "Fix UploadFile and form handling exceptions during request migration by checking for single body fields.",
+      "trace_id": 5,
+      "prior_trace_ids": [
+        2
+      ],
+      "suggested_files": [
+        "tests/test_data_migrations.py",
+        "tests/test_schema_generation/test_schema_field.py",
+        "uv.lock",
+        "pyproject.toml",
+        "cadwyn/routing.py",
+        "tests/tutorial/main.py"
+      ],
+      "suggested_commands": [
+        "pytest"
+      ],
+      "answer_files": [
+        "cadwyn/routing.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "pytest"
+      ],
+      "patch_steps": [
+        "To improve test coverage for `routing",
+        "py` by adding tests for the pydantic module check, I'll need to:",
+        "**Locate the file**: Find `routing",
+        "py` in the repository"
+      ],
+      "file_recall": 0.6667,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to fix exceptions occurring during request migration related to `UploadFile` and form handling. The retrieved memory indicates the solution involves checking for single body fields. I need to: 1. Locate the code handling request bodies, `UploadFile`, and "
+    },
+    {
+      "prompt": "Generate a prompt to implement AST-based code generation that preserves field and annotation structures.",
+      "trace_id": 6,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants a prompt to implement AST-based code generation that preserves field and annotation structures. Based on the retrieved memory, this is a specific implementation pattern the user prefers. I need to craft a prompt that instructs an AI or developer to: 1. Pa"
+    },
+    {
+      "prompt": "Add validation to reject invalid HTTP method strings in the endpoint function.",
+      "trace_id": 7,
+      "prior_trace_ids": [
+        2
+      ],
+      "suggested_files": [
+        "docs_src/how_to/change_openapi_schemas/change_schema_without_endpoint/tests/test_block002.py",
+        "docs_src/how_to/change_openapi_schemas/change_schema_without_endpoint/tests/test_block001.py",
+        "docs_src/how_to/change_openapi_schemas/change_schema_without_endpoint/tests/__init__.py",
+        "uv.lock",
+        "pyproject.toml",
+        "cadwyn/routing.py"
+      ],
+      "suggested_commands": [
+        "pytest"
+      ],
+      "answer_files": [
+        "cadwyn/routing.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "pytest"
+      ],
+      "patch_steps": [
+        "To improve test coverage for `routing",
+        "py` by adding tests for the pydantic module check, I'll need to:",
+        "**Locate the file**: Find `routing",
+        "py` in the repository"
+      ],
+      "file_recall": 0.0,
+      "command_recall": 1.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to add validation to reject invalid HTTP method strings in the endpoint function. Based on the retrieved memory, this is a specific decision/fix pattern. I need to: 1. Locate the endpoint function definition (likely in `cadwyn/routing.py` or similar). 2. "
+    },
+    {
+      "prompt": "Update the project version from 2.1.0 to 2.2.0 in the configuration file.",
+      "trace_id": 8,
+      "prior_trace_ids": [
+        4,
+        5,
+        2
+      ],
+      "suggested_files": [
+        "cadwyn/structure/versions.py",
+        "tests/_resources/render/versions.py",
+        "tests/versioning_styles/test_versioning_formats.py",
+        "tests/_resources/versioned_app/v2021_01_01.py",
+        "tests/_resources/versioned_app/__init__.py",
+        "tests/versioning_styles/__init__.py",
+        "pyproject.toml",
+        "setup.py",
+        "package.json"
+      ],
+      "suggested_commands": [
+        "pytest"
+      ],
+      "answer_files": [
+        "pyproject.toml",
+        "setup.py",
+        "package.json"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "pytest"
+      ],
+      "patch_steps": [
+        "To update the project version from 2",
+        "4, I'll need to:",
+        "**Locate the configuration file**: Find the file that stores the project version (e",
+        ", `pyproject"
+      ],
+      "file_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the project version from 2.1.0 to 2.2.0 in the configuration file. Based on the retrieved memory, this is a known decision/fix pattern. I need to: 1. Identify the configuration file(s) used for version management (e.g., `pyproject.toml`, `setup."
+    }
+  ]
+}

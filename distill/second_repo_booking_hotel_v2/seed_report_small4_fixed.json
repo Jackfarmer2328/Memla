@@ -1,0 +1,129 @@
+{
+  "cases": 4,
+  "accepted": 2,
+  "accept_rate": 0.5,
+  "avg_file_recall": 0.5,
+  "avg_command_recall": 0.25,
+  "rows": [
+    {
+      "prompt": "Increase the height of the main container from 90px to 95px for better visibility.",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "src/styles/main.css",
+        "src/styles/global.css",
+        "src/components/Layout/Layout.css",
+        "src/App.css"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "src/styles/main.css",
+        "src/styles/global.css",
+        "src/components/Layout/Layout.css",
+        "src/App.css"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to increase the main container height from 90px to 95px. I need to identify which file contains the main container styling and make this specific change. Based on the retrieved memory, this appears to be a decision that was made before, so I should look f"
+    },
+    {
+      "prompt": "Remove the Hotjar tracking script from the HTML file.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "index.html",
+        "public/index.html",
+        "src/index.html"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "index.html",
+        "public/index.html",
+        "src/index.html"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to remove the Hotjar tracking script from an HTML file. Based on the retrieved memory, this is a decision that was made before. I need to identify which HTML file contains the Hotjar script and provide specific guidance on removing it. [Action] I need to "
+    },
+    {
+      "prompt": "Refactor the nightly rate calculation logic to remove the temporary deployment comment.",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "src/utils/pricing.js",
+        "src/utils/calculations.js",
+        "src/services/rateCalculation.js",
+        "src/hooks/useRateCalculation.js"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "src/utils/pricing.js",
+        "src/utils/calculations.js",
+        "src/services/rateCalculation.js",
+        "src/hooks/useRateCalculation.js"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to refactor nightly rate calculation logic to remove a temporary deployment comment. Based on the retrieved memory, this is a decision that was made before. I need to identify where the nightly rate calculation logic is located and find the temporary depl"
+    },
+    {
+      "prompt": "Update React and React Router dependencies to their latest versions.",
+      "trace_id": 4,
+      "prior_trace_ids": [
+        2
+      ],
+      "suggested_files": [
+        "index.html",
+        "src/index.html",
+        "public/index.html",
+        "hotel-booking-app/calendar_changes.txt",
+        "package.json",
+        "package-lock.json",
+        "src/index.js",
+        "src/main.jsx"
+      ],
+      "suggested_commands": [
+        "npm run build",
+        "npm install react@latest react-dom@latest react-router-dom@latest",
+        "npm install",
+        "npm test"
+      ],
+      "answer_files": [
+        "package.json",
+        "package-lock.json",
+        "src/index.js",
+        "src/main.jsx"
+      ],
+      "answer_commands": [
+        "npm install react@latest react-dom@latest react-router-dom@latest",
+        "npm install",
+        "npm test"
+      ],
+      "likely_tests": [
+        "npm run build"
+      ],
+      "patch_steps": [
+        "To remove the Hotjar tracking script, you'll need to locate and delete it from your HTML file",
+        "Here's what to look for:",
+        "**Most likely file location:**",
+        "- `public/index"
+      ],
+      "file_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update React and React Router dependencies to their latest versions. Based on the retrieved memory, this is a decision that was made before. I need to provide guidance on how to safely update these dependencies to their latest versions. [Action] I need"
+    }
+  ]
+}

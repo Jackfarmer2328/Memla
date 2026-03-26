@@ -1,0 +1,74 @@
+{
+  "cases": 5,
+  "accepted": 0,
+  "accept_rate": 0.0,
+  "avg_file_recall": 0.0,
+  "avg_command_recall": 0.0,
+  "rows": [
+    {
+      "prompt": "Add a structured workflow planner built from accepted repo-specific coding wins so Memla can predict likely files, commands, tests, and patch steps before the teacher answers.",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to add a structured workflow planner to Memla that can predict coding workflow steps before the teacher provides answers. This aligns with the retrieved memory about building this from accepted repo-specific coding wins. I need to understand the current M"
+    },
+    {
+      "prompt": "Export accepted coding traces and workflow events to JSONL so they can become a real distillation dataset.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to export accepted coding traces and workflow events to JSONL format for creating a distillation dataset. This aligns with the retrieved memory about exporting to JSONL format. I need to design a system that can extract successful coding sessions, workflo"
+    },
+    {
+      "prompt": "Log real shell commands inside the coding proxy and persist a post-command workspace snapshot on the current trace.",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to implement shell command logging and workspace state persistence in the coding proxy. This aligns with the retrieved memory about logging real shell commands and persisting post-command workspace snapshots. I need to design a system that captures actual"
+    },
+    {
+      "prompt": "Reuse accepted prior coding traces as repo-specific priors before the teacher model responds, including similar files and passed commands.",
+      "trace_id": 4,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to implement a system that reuses accepted prior coding traces as repo-specific priors before the teacher model responds. This aligns with the retrieved memory about reusing accepted prior coding traces and using similar files and passed commands as conte"
+    },
+    {
+      "prompt": "Add a repo-local evaluation harness that scores likely files and commands against expected outcomes for coding tasks.",
+      "trace_id": 5,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to add a repo-local evaluation harness that can score predicted files and commands against expected outcomes for coding tasks. This aligns with the retrieved memory about adding a repo-local evaluation harness. I need to design a system that can evaluate "
+    }
+  ]
+}

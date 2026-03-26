@@ -1,0 +1,293 @@
+{
+  "cases": 8,
+  "accepted": 4,
+  "accept_rate": 0.5,
+  "avg_file_recall": 0.4583,
+  "avg_command_recall": 0.5625,
+  "rows": [
+    {
+      "prompt": "Disable strict null checks in the TypeScript configuration to support Node version 12.x.",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "pnpm-lock.yaml",
+        "package.json",
+        "tsconfig.json"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "tsconfig.json"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to disable strict null checks in the TypeScript configuration to support Node version 12.x. Based on the retrieved memory, this is a specific decision made previously. I need to locate the `tsconfig.json` file (or similar) in the repository and modify the"
+    },
+    {
+      "prompt": "Update all tRPC packages from version 9.1.0 to 9.2.0.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "src/pages/api/trpc/[trpc].ts",
+        "src/utils/trpc.ts",
+        "src/server/trpc.ts",
+        "pnpm-lock.yaml",
+        "package.json"
+      ],
+      "suggested_commands": [
+        "pnpm install",
+        "npm install"
+      ],
+      "answer_files": [
+        "package.json"
+      ],
+      "answer_commands": [
+        "pnpm install",
+        "npm install"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to upgrade all tRPC packages from version 9.1.0 to 9.2.0. Based on the retrieved memory, this is a specific decision made previously. I need to: 1. Identify the tRPC packages currently installed (likely `@trpc/server`, `@trpc/client`, `@trpc/react-query`,"
+    },
+    {
+      "prompt": "Update React and TypeScript dependencies to their latest compatible versions.",
+      "trace_id": 3,
+      "prior_trace_ids": [
+        1
+      ],
+      "suggested_files": [
+        "pnpm-lock.yaml",
+        "package.json",
+        "tsconfig.json"
+      ],
+      "suggested_commands": [
+        "npm run build",
+        "pnpm install"
+      ],
+      "answer_files": [
+        "package.json"
+      ],
+      "answer_commands": [
+        "pnpm install"
+      ],
+      "likely_tests": [
+        "npm run build"
+      ],
+      "patch_steps": [
+        "To support Node version 12",
+        "x, I will disable strict null checks in the TypeScript configuration",
+        "I will update `tsconfig",
+        "\"compilerOptions\": {"
+      ],
+      "file_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update React and TypeScript dependencies to their latest compatible versions. Based on the retrieved memory, there is a decision to update these dependencies. I need to: 1. Check the current versions of React and TypeScript in `package.json`. 2. Identi"
+    },
+    {
+      "prompt": "Comment out the queryClientConfig defaultOptions to disable the staleTime setting.",
+      "trace_id": 4,
+      "prior_trace_ids": [
+        1
+      ],
+      "suggested_files": [
+        "tsconfig.json",
+        "trpc.ts",
+        "queryClient.ts",
+        "setup.ts",
+        "src/trpc/queryClient.ts",
+        "src/trpc.ts"
+      ],
+      "suggested_commands": [
+        "npm run build"
+      ],
+      "answer_files": [
+        "trpc.ts",
+        "queryClient.ts",
+        "setup.ts",
+        "src/trpc/queryClient.ts",
+        "src/trpc.ts"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "npm run build"
+      ],
+      "patch_steps": [
+        "To support Node version 12",
+        "x, I will disable strict null checks in the TypeScript configuration",
+        "I will update `tsconfig",
+        "\"compilerOptions\": {"
+      ],
+      "file_recall": 0.0,
+      "command_recall": 0.5,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to comment out the `queryClientConfig.defaultOptions` to disable the `staleTime` setting. Based on the retrieved memory, this is a specific decision made previously. I need to: 1. Locate the file where `queryClientConfig` is defined (likely a tRPC or Reac"
+    },
+    {
+      "prompt": "Refactor the tRPC setup to separate router creation from context definition in the examples.",
+      "trace_id": 5,
+      "prior_trace_ids": [
+        2,
+        3,
+        1
+      ],
+      "suggested_files": [
+        "src/server/context.ts",
+        "src/utils/trpc.ts",
+        "src/server/trpc.ts",
+        "src/pages/api/trpc/[trpc].ts",
+        "src/server/routers/post.ts",
+        "src/server/routers/_app.ts",
+        "examples/src/server.ts",
+        "examples/src/context.ts"
+      ],
+      "suggested_commands": [
+        "npm run build"
+      ],
+      "answer_files": [
+        "examples/src/server.ts",
+        "examples/src/context.ts"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "npm run build"
+      ],
+      "patch_steps": [
+        "To update all tRPC packages from version 9",
+        "0, I will modify `package",
+        "json` and then run `pnpm install`",
+        "is the updated `package"
+      ],
+      "file_recall": 0.6667,
+      "command_recall": 0.5,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to refactor the tRPC setup to separate router creation from context definition in the examples. Based on the retrieved memory, this is a specific decision made previously. I need to: 1. Locate the example files where tRPC is set up (likely in `examples/` "
+    },
+    {
+      "prompt": "Add error status codes to NextError components and handle loading states for tRPC queries.",
+      "trace_id": 6,
+      "prior_trace_ids": [
+        2
+      ],
+      "suggested_files": [
+        "src/utils/trpc.ts",
+        "src/server/trpc.ts",
+        "src/pages/api/trpc/[trpc].ts",
+        "src/components/DefaultLayout.tsx",
+        "pnpm-lock.yaml",
+        "package.json",
+        "src/components/NextError.tsx",
+        "NextError.tsx",
+        "trpc.ts"
+      ],
+      "suggested_commands": [
+        "npm run build"
+      ],
+      "answer_files": [
+        "src/components/NextError.tsx",
+        "src/utils/trpc.ts",
+        "NextError.tsx",
+        "trpc.ts"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "npm run build"
+      ],
+      "patch_steps": [
+        "To update all tRPC packages from version 9",
+        "0, I will modify `package",
+        "json` and then run `pnpm install`",
+        "is the updated `package"
+      ],
+      "file_recall": 0.0,
+      "command_recall": 0.5,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to: 1. Add error status codes to NextError components. 2. Handle loading states for tRPC queries. Based on the retrieved memory, these are specific decisions made previously. I need to: 1. Locate the NextError components (likely in `src/components/NextErr"
+    },
+    {
+      "prompt": "Update the example code to use invalidateQueries instead of invalidateQuery for the post.all query.",
+      "trace_id": 7,
+      "prior_trace_ids": [
+        5,
+        2
+      ],
+      "suggested_files": [
+        "src/server/routers/post.ts",
+        "src/server/routers/post.test.ts",
+        "pnpm-lock.yaml",
+        ".github/workflows/main.yml",
+        "src/utils/trpc.ts",
+        "src/server/trpc.ts"
+      ],
+      "suggested_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "answer_files": [
+        "src/server/routers/post.ts"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "patch_steps": [
+        "To refactor the tRPC setup to separate router creation from context definition in the examples, I will modify the relevant example files (likely `examples/src/server",
+        "ts` and `examples/src/context",
+        "is the updated code snippet for `examples/src/server",
+        "```typescript"
+      ],
+      "file_recall": 0.0,
+      "command_recall": 1.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update the example code to use `invalidateQueries` instead of `invalidateQuery` for the `post.all` query. Based on the retrieved memory, this is a specific decision made previously. I need to: 1. Locate the file where the `post.all` query is defined an"
+    },
+    {
+      "prompt": "Update the example to use next/router instead of the default router.",
+      "trace_id": 8,
+      "prior_trace_ids": [
+        5,
+        3,
+        2,
+        1
+      ],
+      "suggested_files": [
+        "src/server/routers/post.ts",
+        "src/server/routers/_app.ts",
+        "src/server/routers/app.ts",
+        "src/server/routers/post.test.ts",
+        "pnpm-lock.yaml",
+        ".github/workflows/main.yml",
+        "examples/src/app.ts"
+      ],
+      "suggested_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "answer_files": [
+        "examples/src/app.ts"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "patch_steps": [
+        "To refactor the tRPC setup to separate router creation from context definition in the examples, I will modify the relevant example files (likely `examples/src/server",
+        "ts` and `examples/src/context",
+        "is the updated code snippet for `examples/src/server",
+        "```typescript"
+      ],
+      "file_recall": 0.0,
+      "command_recall": 1.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update the example code to use `next/router` instead of the default router. Based on the retrieved memory, this is a specific decision made previously. I need to: 1. Locate the example files where the router is currently defined (likely in `examples/` "
+    }
+  ]
+}

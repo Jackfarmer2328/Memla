@@ -630,22 +630,41 @@ class ChunkManager:
                     )
                 )
 
-        list_like_relations = {"participate_in", "buy", "paint", "read"}
+        list_like_relations = {
+            "participate_in",
+            "buy",
+            "paint",
+            "read",
+            "watch",
+            "like",
+            "practice",
+            "cook",
+            "have_pet",
+            "do_activity",
+        }
+        title_like_relations = {"read", "watch", "like"}
         for relation_type, patterns in _generic_action_relation_patterns(list_subject).items():
             for pattern in patterns:
                 for match in re.finditer(pattern, text, flags=re.IGNORECASE):
-                    subject_text = " ".join(str(match.group("subject") or "").strip().split())
+                    subject_text = " ".join(
+                        str(match.groupdict().get("subject") or list_subject).strip().split()
+                    )
                     raw_object = str(match.group("object") or "")
                     if not subject_text or not raw_object.strip():
                         continue
                     object_values = (
-                        _split_relation_values(raw_object)
+                        _split_relation_values(raw_object, prefer_titles=relation_type in title_like_relations)
                         if relation_type in list_like_relations
                         else [_clean_graph_object_text(raw_object)]
                     )
                     for object_text in object_values:
-                        object_text = _clean_graph_object_text(object_text)
+                        object_text = _clean_graph_object_text(
+                            object_text,
+                            preserve_leading_article=relation_type in title_like_relations,
+                        )
                         if not object_text:
+                            continue
+                        if not _is_valid_graph_relation_object(relation_type, object_text):
                             continue
                         out.append(
                             GraphRelationDraft(
@@ -1217,7 +1236,7 @@ def _split_relation_values(raw: str, *, capitalized_only: bool = False, prefer_t
         if capitalized_only:
             if not re.match(r"^[A-Z][A-Za-z0-9_]+(?:\s+[A-Z][A-Za-z0-9_]+)*$", clean):
                 continue
-        elif len(clean.split()) > 4:
+        elif len(clean.split()) > (8 if prefer_titles else 4):
             continue
         values.append(clean)
     deduped: list[str] = []
@@ -1393,16 +1412,104 @@ def _classify_graph_entity_type(text: str, *, fallback: str = "entity") -> str:
     return fallback
 
 
-def _clean_graph_object_text(text: str) -> str:
+def _clean_graph_object_text(text: str, *, preserve_leading_article: bool = False) -> str:
     clean = " ".join(str(text or "").strip().split()).strip(" .,:;-")
     if not clean:
         return ""
-    clean = re.sub(r"^(?:a|an|the)\s+", "", clean, flags=re.IGNORECASE)
+    clean = re.split(
+        r"\s+\b(?:and|but)\s+(?:it|it's|it was|they|that|this|he|she|we|i)\b",
+        clean,
+        maxsplit=1,
+        flags=re.IGNORECASE,
+    )[0].strip(" .,:;-")
+    clean = re.split(
+        r"\s*-\s*(?:it|it's|it was|they|that|this|he|she|we|i)\b",
+        clean,
+        maxsplit=1,
+        flags=re.IGNORECASE,
+    )[0].strip(" .,:;-")
+    if not preserve_leading_article:
+        clean = re.sub(r"^(?:a|an|the)\s+", "", clean, flags=re.IGNORECASE)
+    clean = re.sub(
+        r"^(?:one|two|three|four|five|six|seven|eight|nine|ten|\d+|pair of|couple of)\s+",
+        "",
+        clean,
+        flags=re.IGNORECASE,
+    )
     clean = re.sub(r"\b(?:yesterday|today|tomorrow|last week|last month|next month|this past weekend|past weekend)\b$", "", clean, flags=re.IGNORECASE).strip(" .,:;-")
+    clean = re.sub(
+        r"\b(?:the\s+)?(?:day|week|month|year|night|weekend)\s+before\b$",
+        "",
+        clean,
+        flags=re.IGNORECASE,
+    ).strip(" .,:;-")
+    clean = re.sub(
+        r"\s+with\s+(?:a|an|the)\s+group\s+of\s+friends$",
+        "",
+        clean,
+        flags=re.IGNORECASE,
+    ).strip(" .,:;-")
     clean = re.sub(r"\s{2,}", " ", clean)
     if len(clean.split()) > 12:
         return ""
     return clean
+
+
+def _is_valid_graph_relation_object(relation_type: str, object_text: str) -> bool:
+    lower = " ".join(str(object_text or "").strip().lower().split())
+    if not lower:
+        return False
+    if lower in {"it", "them", "this", "that", "often", "together", "supplies"}:
+        return False
+    if lower.startswith(("it's ", "it is ", "it was ", "it so", "that ", "this ")):
+        return False
+    if relation_type == "attend_event":
+        event_markers = (
+            "group",
+            "conference",
+            "workshop",
+            "parade",
+            "show",
+            "class",
+            "camp",
+            "gala",
+            "party",
+            "event",
+            "program",
+            "meeting",
+            "mtg",
+            "dinner",
+            "support",
+        )
+        if any(marker in lower for marker in event_markers):
+            return True
+        if re.fullmatch(r"[A-Z][A-Za-z0-9_]+(?:\s+[A-Z][A-Za-z0-9_]+){0,5}", str(object_text or "")):
+            return True
+        return False
+    if relation_type == "have_pet":
+        return bool(re.search(r"\b(?:dog|dogs|cat|cats|turtle|turtles|puppy|puppies|pup|pups|pet|pets)\b", lower))
+    if relation_type == "like":
+        if lower.startswith(("it ", "it'", "the color", "all the", "that ", "this ", "by ")):
+            return False
+        if re.search(r"[A-Z]", str(object_text or "")):
+            return True
+        return lower in {
+            "writing",
+            "reading",
+            "painting",
+            "pottery",
+            "basketball",
+            "yoga",
+            "surfing",
+            "photography",
+        }
+    if relation_type == "buy":
+        if bool(re.fullmatch(r"(?:the\s+)?(?:day|week|month|year|night|weekend)\s+before", lower)):
+            return False
+        return not lower.startswith(("it ", "it'", "it was "))
+    if relation_type in {"find", "start_activity", "open", "volunteer_at"}:
+        return not lower.startswith(("it ", "it'", "it was "))
+    return True
 
 
 def _generic_action_relation_patterns(list_subject: str) -> dict[str, tuple[str, ...]]:
@@ -1413,8 +1520,16 @@ def _generic_action_relation_patterns(list_subject: str) -> dict[str, tuple[str,
         "research": (
             rf"\b{self_or_subject}\s+(?:research(?:ed|es|ing)?)\s+(?P<object>[^.?!]+)",
         ),
+        "attend_event": (
+            rf"\b{self_or_subject}\s+(?:went|go(?:es|ing)?)\s+to\s+(?P<object>[^.?!]+)",
+            rf"\b{self_or_subject}\s+(?:attend(?:ed|s|ing)?)\s+(?P<object>[^.?!]+)",
+            rf"\b{self_or_subject}\s+(?:join(?:ed|s|ing)?)\s+(?P<object>[^.?!]+)",
+        ),
         "participate_in": (
             rf"\b{self_or_subject}\s+(?:participat(?:ed|es|ing))\s+in\s+(?P<object>[^.?!]+)",
+        ),
+        "apply_to": (
+            rf"\b{self_or_subject}\s+appl(?:ied|y|ying)\s+to\s+(?P<object>[^.?!]+)",
         ),
         "buy": (
             rf"\b{self_or_subject}\s+(?:bought|buy(?:s|ing)?)\s+(?P<object>[^.?!]+)",
@@ -1426,6 +1541,12 @@ def _generic_action_relation_patterns(list_subject: str) -> dict[str, tuple[str,
         "read": (
             rf"\b{self_or_subject}\s+(?:read|reading)\s+(?P<object>[^.?!]+)",
         ),
+        "watch": (
+            rf"\b{self_or_subject}\s+(?:watch(?:ed|es|ing)?)\s+(?P<object>[^.?!]+)",
+        ),
+        "like": (
+            rf"\b{self_or_subject}\s+(?:like(?:s|d)?|love(?:s|d)?|enjoy(?:s|ed|ing)?)\s+(?P<object>[^.?!]+)",
+        ),
         "recommend": (
             rf"\b{self_or_subject}\s+(?:recommend(?:ed|s|ing)?)\s+(?P<object>[^.?!]+)",
         ),
@@ -1435,6 +1556,31 @@ def _generic_action_relation_patterns(list_subject: str) -> dict[str, tuple[str,
         "offer": (
             rf"\b{self_or_subject}\s+(?:offer(?:ed|s|ing)?)\s+(?P<object>[^.?!]+)",
             rf"\b{self_or_subject}\s+is\s+offering\s+(?P<object>[^.?!]+)",
+        ),
+        "record": (
+            rf"\b{self_or_subject}\s+(?:record(?:ed|s|ing)?)\s+(?P<object>[^.?!]+)",
+        ),
+        "collaborate_with": (
+            rf"\b{self_or_subject}\s+(?:collaborat(?:ed|es|ing))\s+with\s+(?P<object>[^.?!]+)",
+        ),
+        "sign_with": (
+            rf"\b{self_or_subject}\s+signed\s+with\s+(?P<object>[^.?!]+)",
+        ),
+        "have_dinner_with": (
+            rf"\b{self_or_subject}\s+had\s+dinner\s+with\s+(?P<object>[^.?!]+)",
+        ),
+        "start_activity": (
+            rf"\b{self_or_subject}\s+start(?:ed|s|ing)?\s+(?P<object>[^.?!]+)",
+        ),
+        "do_activity": (
+            rf"\b{self_or_subject}\s+(?:did|do(?:es)?|doing)\s+(?P<object>[^.?!]+)",
+        ),
+        "practice": (
+            rf"\b{self_or_subject}\s+(?:practice(?:d|s|ing)?|train(?:ed|s|ing)?\s+in)\s+(?P<object>[^.?!]+)",
+            rf"\b{self_or_subject}\s+(?:has|have|had)\s+done\s+(?P<object>[^.?!]+)",
+        ),
+        "cook": (
+            rf"\b{self_or_subject}\s+(?:cook(?:ed|s|ing)?)\s+(?P<object>[^.?!]+)",
         ),
         "focus_on": (
             rf"\b{self_or_subject}\s+(?:focus(?:ed|es|ing)?)\s+on\s+(?P<object>[^.?!]+)",
@@ -1450,6 +1596,9 @@ def _generic_action_relation_patterns(list_subject: str) -> dict[str, tuple[str,
         ),
         "raise_awareness_for": (
             rf"\b{self_or_subject}\s+raise(?:d|s|ing)?\s+awareness\s+for\s+(?P<object>[^.?!]+)",
+        ),
+        "have_pet": (
+            rf"\b{self_or_subject}\s+(?:have|has|had)\s+(?P<object>[^.?!]*\b(?:dogs?|cats?|turtles?|pupp(?:y|ies)|pups?|pets?)\b[^.?!]*)",
         ),
     }
 

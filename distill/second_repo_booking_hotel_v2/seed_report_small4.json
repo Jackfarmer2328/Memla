@@ -1,0 +1,69 @@
+{
+  "cases": 4,
+  "accepted": 0,
+  "accept_rate": 0.0,
+  "avg_file_recall": 0.0,
+  "avg_command_recall": 0.0,
+  "rows": [
+    {
+      "prompt": "Increase the height of the main container from 90px to 95px for better visibility.",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to increase the main container height from 90px to 95px. I can see from the retrieved memory that this exact change was made before, so this is likely a known good adjustment. I need to identify which file contains the main container styling and make this"
+    },
+    {
+      "prompt": "Remove the Hotjar tracking script from the HTML file.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to remove the Hotjar tracking script from an HTML file. I can see from the retrieved memory that this decision was made before, so this is a known requirement. I need to find the HTML file that contains the Hotjar tracking script and remove it. [Action] I"
+    },
+    {
+      "prompt": "Refactor the nightly rate calculation logic to remove the temporary deployment comment.",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to refactor nightly rate calculation logic to remove a temporary deployment comment. I can see from the retrieved memory that this decision was made before, so there's likely a specific comment in the code that was meant to be temporary and should now be "
+    },
+    {
+      "prompt": "Update React and React Router dependencies to their latest versions.",
+      "trace_id": 4,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update React and React Router dependencies to their latest versions. I can see from the retrieved memory that this decision was made before, so this is a known requirement. I need to check the current package.json file to see the current versions and t"
+    }
+  ]
+}

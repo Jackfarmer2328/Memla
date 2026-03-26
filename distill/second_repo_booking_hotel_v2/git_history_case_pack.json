@@ -1,0 +1,492 @@
+{
+  "repo_root": "C:\\Users\\samat\\BOOKING",
+  "repo_subpath": "hotel-booking-app",
+  "repo_label": "hotel booking frontend",
+  "package_json_path": "C:\\Users\\samat\\BOOKING\\hotel-booking-app\\package.json",
+  "local_model": "qwen3.5:4b",
+  "ollama_base_url": "http://127.0.0.1:11435",
+  "seed_count": 10,
+  "unseen_count": 20,
+  "seed_cases": [
+    {
+      "prompt": "Increase the height of the main container from 90px to 95px for better visibility.",
+      "expected_files": [
+        "src/index.css"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "commit_sha": "885897dad9d883a6f35fdb85f6be7ee651b0732f",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/index.css"
+      ]
+    },
+    {
+      "prompt": "Remove the Hotjar tracking script from the HTML file.",
+      "expected_files": [
+        "index.html"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "commit_sha": "709c21ee56f4ca5276b8989bcdcfec880670bf7b",
+      "commit_subject": "hotjar",
+      "changed_files": [
+        "index.html"
+      ]
+    },
+    {
+      "prompt": "Refactor the nightly rate calculation logic to remove the temporary deployment comment.",
+      "expected_files": [
+        "src/App.jsx",
+        "src/CheckoutReturnPage.jsx",
+        "src/main.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "1971cecd653ba62802bd4bdc6c4208ec17d7fae6",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/App.jsx",
+        "src/CheckoutReturnPage.jsx",
+        "src/main.jsx"
+      ]
+    },
+    {
+      "prompt": "Update React and React Router dependencies to their latest versions.",
+      "expected_files": [
+        "package.json"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "commit_sha": "61b834f79ed50a387f8cccc44a251eff9bc94454",
+      "commit_subject": "changes",
+      "changed_files": [
+        "package.json"
+      ]
+    },
+    {
+      "prompt": "Fix duplicate state initialization logic for booking data in the guest info page.",
+      "expected_files": [
+        "src/App.jsx",
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "df0201386cb4b4005b5b0f56c88287b11b73fa59",
+      "commit_subject": "tons of changes",
+      "changed_files": [
+        "src/App.jsx",
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Fix the booking API request to send the correct subtotal amount and improve error handling.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "bf0da04a3f1caa6161d6e32cf85ed979d4fb63b5",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Fix the broken reservation code generation logic and ensure it updates the state correctly.",
+      "expected_files": [
+        "src/App.jsx",
+        "src/GuestInfoPage.jsx",
+        "src/hotelData.js"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "fd139a820f6af5e70d514416b6dd1e8518203710",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/App.jsx",
+        "src/GuestInfoPage.jsx",
+        "src/hotelData.js"
+      ]
+    },
+    {
+      "prompt": "Fix the Express checkout payment success logic to properly handle non-redirect card payments.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "3e960da90e2a9d520875e56fdcdde25ecb32c684",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Increase the height of the hotel booking header from 25px to 95px for better visibility.",
+      "expected_files": [
+        "src/index.css"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "commit_sha": "f1cc3866a946d3bb98120697d448ee6ddd0dcf92",
+      "commit_subject": "size",
+      "changed_files": [
+        "src/index.css"
+      ]
+    },
+    {
+      "prompt": "Update the GuestInfoPage to integrate Express Checkout and wrap payment elements in a secure frame.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx",
+        "src/index.css"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "a5a95241b4b2af07e30b24f4b6305342e05b8316",
+      "commit_subject": "ui changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx",
+        "src/index.css"
+      ]
+    }
+  ],
+  "unseen_cases": [
+    {
+      "prompt": "How do I configure the frontend to serve a single-page application correctly on Vercel?",
+      "expected_files": [
+        "vercel.json"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "commit_sha": "1717382f25de642a364dbe2d824fcf97dd4b31f8",
+      "commit_subject": "vercel",
+      "changed_files": [
+        "vercel.json"
+      ]
+    },
+    {
+      "prompt": "Refactor the booking completion handler to pass real PMS confirmation codes and guest data.",
+      "expected_files": [
+        "src/App.jsx",
+        "src/CheckoutReturnPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "60b3c534a4981dcc2c646acf3bc452b20f9d6d8c",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/App.jsx",
+        "src/CheckoutReturnPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Refactor the booking confirmation flow to remove Stripe Elements and update the checkout return page logic.",
+      "expected_files": [
+        "src/App.jsx",
+        "src/CheckoutReturnPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "4f3f35246a909b174f2c741f78246ded6bf61270",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/App.jsx",
+        "src/CheckoutReturnPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Fix the broken Stripe integration and remove the temporary loading screen logic.",
+      "expected_files": [
+        "src/App.jsx",
+        "src/CheckoutReturnPage.jsx",
+        "src/main.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "4b28df9e5ece8a4051f8f606061b2d6c4bcc845d",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/App.jsx",
+        "src/CheckoutReturnPage.jsx",
+        "src/main.jsx"
+      ]
+    },
+    {
+      "prompt": "Fix the reservation code state initialization to persist sessionStorage data correctly.",
+      "expected_files": [
+        "src/App.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "6f3fd2e92e394d625cb875d4fe25c96d6e2c84e0",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/App.jsx"
+      ]
+    },
+    {
+      "prompt": "Fix the hotel booking frontend to handle empty search results gracefully.",
+      "expected_files": [
+        "src/App.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "e6450662ad4c85b9516a6f05a36523835bdabbc8",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/App.jsx"
+      ]
+    },
+    {
+      "prompt": "Update the booking confirmation code to use the server's reservation code instead of the ID.",
+      "expected_files": [
+        "src/App.jsx",
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "7e714db227eea92d64383005fb169288dfc6f6a5",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/App.jsx",
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Fix the Express Checkout fallback logic to properly extract and assign guest name data.",
+      "expected_files": [
+        "src/CheckoutReturnPage.jsx",
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "136c4eeb22761da7cd626fee17ec95b8bd5de851",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/CheckoutReturnPage.jsx",
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Refactor guest checkout to extract reliable payment data and clear session storage for fresh bookings.",
+      "expected_files": [
+        "src/CheckoutReturnPage.jsx",
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "5a6e84a6bdc1faeef6371ba74071f40f440177b7",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/CheckoutReturnPage.jsx",
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Update payment UI to hide all wallet options and set explicit locale for iOS stability.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx",
+        "src/index.css"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "7bd746a4f21fbe14f916c1872894ace53024c73b",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx",
+        "src/index.css"
+      ]
+    },
+    {
+      "prompt": "Fix the billing address validation and update the help widget logic to show only when needed.",
+      "expected_files": [
+        "src/App.jsx",
+        "src/GuestInfoPage.jsx",
+        "src/index.css"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "c65671af645d4ecdf6e6018ddb6cbfa84ab7d239",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/App.jsx",
+        "src/GuestInfoPage.jsx",
+        "src/index.css"
+      ]
+    },
+    {
+      "prompt": "Increase the height of the header to 95px for better visibility.",
+      "expected_files": [
+        "src/index.css"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "commit_sha": "0d49051916aba86c4ae4253677866788ae8372c5",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/index.css"
+      ]
+    },
+    {
+      "prompt": "Refactor the checkout page to handle Stripe loading and redirect to a final confirmation screen.",
+      "expected_files": [
+        "src/App.jsx",
+        "src/CheckoutReturnPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "17667b550597e04814b5e3be26016ce0995cb642",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/App.jsx",
+        "src/CheckoutReturnPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Remove the currency setting from the Stripe payment configuration options.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "829c0ca4427d362f101b1987810c461e9d21c24d",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Fix the duplicate ExpressCheckoutElement and remove the unused expressConfirmParams variable.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "7d28da6d9aa1b93031f870c601fcad1678ff325c",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Update payment configuration to use paymentMethodPreference with link settings for Express Checkout.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "d43ae11c14f042704e081334b6d8e9a87343435b",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Fix the Stripe Express Checkout redirect by passing confirmation parameters to the element.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "2866e908103c9de392153831cbedc71fe8f864af",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Fix the form submission to pass confirmation parameters while removing the redundant prop.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "b9d55b3373932abe8479e7fd71f73e4d7c15900f",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Fix the Express Checkout form to properly handle the redirect action and method.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "d2bd49f2e5f0c0e68a6555bf3eb8be4fbee645f9",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    },
+    {
+      "prompt": "Fix duplicate sessionStorage assignment and remove redundant event handling in guest info submission.",
+      "expected_files": [
+        "src/GuestInfoPage.jsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "commit_sha": "bfc5251b15b3beecdee880753f74865688b0eda3",
+      "commit_subject": "changes",
+      "changed_files": [
+        "src/GuestInfoPage.jsx"
+      ]
+    }
+  ]
+}

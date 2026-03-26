@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Memla Diligence Packet</title>
+  <style>
+    :root {
+      --bg: #f5f1ea;
+      --ink: #1f1b17;
+      --muted: #6c635a;
+      --line: #dacdbe;
+      --card: rgba(255,255,255,.78);
+      --accent: #176f5e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(23,111,94,.10), transparent 28%),
+        radial-gradient(circle at top right, rgba(18,76,124,.08), transparent 30%),
+        linear-gradient(180deg, #fcfaf7, var(--bg));
+    }
+    .wrap { width: min(1120px, calc(100vw - 32px)); margin: 0 auto; padding: 28px 0 56px; }
+    .hero, .section {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 36px rgba(46,36,28,.08);
+    }
+    .hero { padding: 28px; display: grid; gap: 14px; }
+    .section { margin-top: 18px; padding: 22px; }
+    .eyebrow { color: var(--accent); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; }
+    h1 { margin: 0; font-size: clamp(32px, 6vw, 56px); line-height: 1.03; max-width: 920px; }
+    h2 { margin-top: 0; }
+    .sub { color: var(--muted); font-size: 18px; line-height: 1.55; max-width: 860px; }
+    .metrics, .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .metric, .proof {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      background: rgba(255,255,255,.7);
+    }
+    .metric .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+    .metric .value { font-size: 28px; font-weight: 700; margin-top: 8px; }
+    .metric .note, .proof div, li { color: var(--muted); line-height: 1.5; }
+    ul { padding-left: 20px; }
+    .proof strong { display: block; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Memla Diligence Packet</div>
+      <h1>Async proof for transferable coding intelligence.</h1>
+      <div class="sub">Use the second-repo same-model result as the headline. Use the public seeded <code>trpc</code> run as supporting evidence that the bootstrap path works outside the internal repo cluster.</div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="label">Home Repo</div>
+          <div class="value">1.0 / 1.0</div>
+          <div class="note">Seeded internal coding holdout.</div>
+        </div>
+        <div class="metric">
+          <div class="label">Transfer Eval</div>
+          <div class="value">0.6111 → 0.8611</div>
+          <div class="note">Planner-only second-repo transfer.</div>
+        </div>
+        <div class="metric">
+          <div class="label">Same-Model H2H</div>
+          <div class="value">0.1667 → 0.9167</div>
+          <div class="note">Headline proof on the second repo.</div>
+        </div>
+        <div class="metric">
+          <div class="label">Public Seeded</div>
+          <div class="value">0.2653 → 0.4597</div>
+          <div class="note">`trpc examples next prisma starter`, local `qwen3.5:9b`.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Claim Boundary</h2>
+      <ul>
+        <li>Supported: Memla improves coding-task routing and verification for the same model by reusing accepted coding structure.</li>
+        <li>Supported: that structure can transfer across repos once there is enough foothold.</li>
+        <li>Not supported: universal coding superiority or instant cold-start dominance on arbitrary repos.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Proof Stack</h2>
+      <div class="proof-grid">
+        <div class="proof">
+          <strong>Home repo holdout</strong>
+          <div>Repo-local compounding: 1.0 file recall and 1.0 command recall.</div>
+        </div>
+        <div class="proof">
+          <strong>Second-repo transfer</strong>
+          <div>Empty-memory vs Memla planner: 0.6111 → 0.8611 file recall and 0.0 → 1.0 command recall.</div>
+        </div>
+        <div class="proof">
+          <strong>Second-repo same-model head-to-head</strong>
+          <div>Raw model vs Memla in front: 0.1667 → 0.9167 file recall and 0.0 → 1.0 command recall.</div>
+        </div>
+        <div class="proof">
+          <strong>Public seeded support</strong>
+          <div>`trpc examples next prisma starter` local run: 0.2653 → 0.4597 file recall and 0.0 → 0.5833 command recall after accepting 4/8 seed cases.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

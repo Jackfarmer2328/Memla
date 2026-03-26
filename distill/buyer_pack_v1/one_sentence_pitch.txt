@@ -1,0 +1,1 @@
+Memla turns frontier-model coding usage into owned repo-specific intelligence, with current internal coding recall at 1.0/1.0, a live raw-teacher versus Memla swing from 0.0 to 1.0 on seen buyer-demo tasks, and 0.9/1.0 on a second unseen validation set.

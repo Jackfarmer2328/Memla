@@ -1,0 +1,750 @@
+{
+  "repo_root": "C:\\Users\\samat\\Project Memory\\external\\fastapi-guard",
+  "repo_subpath": ".",
+  "repo_label": "fastapi-guard",
+  "manifest_path": "C:\\Users\\samat\\Project Memory\\external\\fastapi-guard\\pyproject.toml",
+  "local_model": "qwen3.5:4b",
+  "ollama_base_url": "http://127.0.0.1:11435",
+  "seed_count": 8,
+  "unseen_count": 12,
+  "seed_cases": [
+    {
+      "prompt": "Update the project to use uv instead of poetry for dependency management and installation.",
+      "expected_files": [
+        "Makefile",
+        "pyproject.toml"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "cab16f78e0eb3c89a039b49617365bcf50fef812",
+      "commit_subject": "Switch from Poetry to Uv (#49)",
+      "changed_files": [
+        "Makefile",
+        "pyproject.toml"
+      ]
+    },
+    {
+      "prompt": "Update package versions and documentation to reflect the switch from Poetry to uv.",
+      "expected_files": [
+        "docs/versions/versions.json",
+        "pyproject.toml",
+        "setup.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "aec260d5e52d907bb39e4882d60c22cdc38ab550",
+      "commit_subject": "Bumping versions",
+      "changed_files": [
+        "docs/versions/versions.json",
+        "pyproject.toml",
+        "setup.py"
+      ]
+    },
+    {
+      "prompt": "Fix the SecurityMiddleware to correctly parse IPv6 addresses using the ip_address() function.",
+      "expected_files": [
+        "Makefile",
+        "docs/versions/versions.json",
+        "examples/main.py",
+        "guard/handlers/cloud_handler.py",
+        "guard/middleware.py",
+        "guard/models.py",
+        "guard/utils.py",
+        "pyproject.toml",
+        "setup.py",
+        "tests/conftest.py",
+        "tests/test_cloud_ips/test_cloud_ips.py",
+        "tests/test_middleware/test_security_middleware.py",
+        "tests/test_utils/test_proxy_handling.py",
+        "tests/test_utils/test_request_checks.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "b5f0df8fbe8a1e134d64bd6ddb82a5063454b39d",
+      "commit_subject": "fix: support IPv6 addresses in SecurityMiddleware using ip_address() (#51)",
+      "changed_files": [
+        "Makefile",
+        "docs/versions/versions.json",
+        "examples/main.py",
+        "guard/handlers/cloud_handler.py",
+        "guard/middleware.py",
+        "guard/models.py",
+        "guard/utils.py",
+        "pyproject.toml",
+        "setup.py",
+        "tests/conftest.py",
+        "tests/test_cloud_ips/test_cloud_ips.py",
+        "tests/test_middleware/test_security_middleware.py",
+        "tests/test_utils/test_proxy_handling.py",
+        "tests/test_utils/test_request_checks.py"
+      ]
+    },
+    {
+      "prompt": "Update the Makefile to include the .github directory in the markdown linting scan.",
+      "expected_files": [
+        "Makefile"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "f232c317289eb591858080b60c9198ee34c06319",
+      "commit_subject": "Hotfix for Markdown linting and formatting",
+      "changed_files": [
+        "Makefile"
+      ]
+    },
+    {
+      "prompt": "Implement granular control for security decorators in FastAPI Guard.",
+      "expected_files": [
+        "docs/versions/versions.json",
+        "guard/__init__.py",
+        "guard/decorators/__init__.py",
+        "guard/decorators/access_control.py",
+        "guard/decorators/advanced.py",
+        "guard/decorators/authentication.py",
+        "guard/decorators/base.py",
+        "guard/decorators/behavioral.py",
+        "guard/decorators/content_filtering.py",
+        "guard/decorators/rate_limiting.py",
+        "guard/handlers/behavior_handler.py",
+        "guard/middleware.py",
+        "pyproject.toml",
+        "setup.py",
+        "tests/test_decorators/__init__.py",
+        "tests/test_decorators/test_access_control.py",
+        "tests/test_decorators/test_advanced.py",
+        "tests/test_decorators/test_authentication.py",
+        "tests/test_decorators/test_base.py",
+        "tests/test_decorators/test_behavior_handler.py",
+        "tests/test_decorators/test_behavioral.py",
+        "tests/test_decorators/test_content_filtering.py",
+        "tests/test_decorators/test_middleware_integration.py",
+        "tests/test_decorators/test_rate_limiting.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "c08070a701349665b0c5f35b1f57d0e530a561e4",
+      "commit_subject": "New Feature: Guard Decorators - Granular control (#52)",
+      "changed_files": [
+        "docs/versions/versions.json",
+        "guard/__init__.py",
+        "guard/decorators/__init__.py",
+        "guard/decorators/access_control.py",
+        "guard/decorators/advanced.py",
+        "guard/decorators/authentication.py",
+        "guard/decorators/base.py",
+        "guard/decorators/behavioral.py",
+        "guard/decorators/content_filtering.py",
+        "guard/decorators/rate_limiting.py",
+        "guard/handlers/behavior_handler.py",
+        "guard/middleware.py",
+        "pyproject.toml",
+        "setup.py",
+        "tests/test_decorators/__init__.py",
+        "tests/test_decorators/test_access_control.py",
+        "tests/test_decorators/test_advanced.py",
+        "tests/test_decorators/test_authentication.py",
+        "tests/test_decorators/test_base.py",
+        "tests/test_decorators/test_behavior_handler.py",
+        "tests/test_decorators/test_behavioral.py",
+        "tests/test_decorators/test_content_filtering.py",
+        "tests/test_decorators/test_middleware_integration.py",
+        "tests/test_decorators/test_rate_limiting.py"
+      ]
+    },
+    {
+      "prompt": "Update the project configuration to include the new MIT license and GitHub homepage details.",
+      "expected_files": [
+        "pyproject.toml",
+        "setup.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "df9e352b1ca356834607af7c66afdf9ff4e91506",
+      "commit_subject": "Updates to pyproject.toml and setup.py",
+      "changed_files": [
+        "pyproject.toml",
+        "setup.py"
+      ]
+    },
+    {
+      "prompt": "Fix the ReDoS vulnerability by replacing unbounded regex quantifiers with bounded ones.",
+      "expected_files": [
+        "docs/versions/versions.json",
+        "guard/handlers/cloud_handler.py",
+        "guard/handlers/ipinfo_handler.py",
+        "guard/handlers/suspatterns_handler.py",
+        "pyproject.toml",
+        "tests/test_ipinfo/test_ipinfo.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "d9d50e8130b7b434cdc1b001b8cfd03a06729f7f",
+      "commit_subject": "Merge commit from fork",
+      "changed_files": [
+        "docs/versions/versions.json",
+        "guard/handlers/cloud_handler.py",
+        "guard/handlers/ipinfo_handler.py",
+        "guard/handlers/suspatterns_handler.py",
+        "pyproject.toml",
+        "tests/test_ipinfo/test_ipinfo.py"
+      ]
+    },
+    {
+      "prompt": "Update the project homepage URL in pyproject.toml to match the new GitHub link format.",
+      "expected_files": [
+        "pyproject.toml"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "783c8fafd1dd4fb2f30c7f1a296a386b1dee638b",
+      "commit_subject": "Update pyproject.toml",
+      "changed_files": [
+        "pyproject.toml"
+      ]
+    }
+  ],
+  "unseen_cases": [
+    {
+      "prompt": "Update FastAPI Guard documentation and code to reflect the new 3.0.2 release version.",
+      "expected_files": [
+        "docs/versions/versions.json",
+        "guard/handlers/suspatterns_handler.py",
+        "guard/middleware.py",
+        "guard/models.py",
+        "guard/utils.py",
+        "pyproject.toml",
+        "tests/test_middleware/test_security_middleware.py",
+        "tests/test_utils/test_request_checks.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "0829292c322d33dc14ab00c5451c5c138148035a",
+      "commit_subject": "Merge commit from fork",
+      "changed_files": [
+        "docs/versions/versions.json",
+        "guard/handlers/suspatterns_handler.py",
+        "guard/middleware.py",
+        "guard/models.py",
+        "guard/utils.py",
+        "pyproject.toml",
+        "tests/test_middleware/test_security_middleware.py",
+        "tests/test_utils/test_request_checks.py"
+      ]
+    },
+    {
+      "prompt": "Update the project version to 4.0.0 and remove the commented-out Discord notification configuration.",
+      "expected_files": [
+        "Makefile",
+        "docs/versions/versions.json",
+        "examples/main.py",
+        "guard/decorators/access_control.py",
+        "guard/decorators/base.py",
+        "guard/detection_engine/__init__.py",
+        "guard/detection_engine/compiler.py",
+        "guard/detection_engine/monitor.py",
+        "guard/detection_engine/preprocessor.py",
+        "guard/detection_engine/semantic.py",
+        "guard/handlers/__init__.py",
+        "guard/handlers/behavior_handler.py",
+        "guard/handlers/cloud_handler.py",
+        "guard/handlers/dynamic_rule_handler.py",
+        "guard/handlers/ipban_handler.py",
+        "guard/handlers/ipinfo_handler.py",
+        "guard/handlers/ratelimit_handler.py",
+        "guard/handlers/redis_handler.py",
+        "guard/handlers/suspatterns_handler.py",
+        "guard/middleware.py",
+        "guard/models.py",
+        "guard/protocols/__init__.py",
+        "guard/protocols/agent_protocol.py",
+        "guard/protocols/geo_ip_protocol.py",
+        "guard/protocols/redis_protocol.py",
+        "guard/utils.py",
+        "pyproject.toml",
+        "tests/conftest.py",
+        "tests/test_agent/__init__.py",
+        "tests/test_agent/conftest.py",
+        "tests/test_agent/test_behavior_agent_integration.py",
+        "tests/test_agent/test_cloud_agent_integration.py",
+        "tests/test_agent/test_decorator_agent_integration.py",
+        "tests/test_agent/test_drh_agent_integration.py",
+        "tests/test_agent/test_ipban_agent_integration.py",
+        "tests/test_agent/test_ipinfo_agent_integration.py",
+        "tests/test_agent/test_middleware_agent_integration.py",
+        "tests/test_agent/test_models_agent_integration.py",
+        "tests/test_agent/test_ratelimit_agent_integration.py",
+        "tests/test_agent/test_redis_agent_integration.py",
+        "tests/test_agent/test_suspatterns_agent_integration.py",
+        "tests/test_agent/test_utils_agent_integration.py",
+        "tests/test_decorators/test_authentication.py",
+        "tests/test_decorators/test_base.py",
+        "tests/test_decorators/test_behavior_handler.py",
+        "tests/test_decorators/test_middleware_integration.py",
+        "tests/test_middleware/test_security_middleware.py",
+        "tests/test_models/test_models.py",
+        "tests/test_sus_patterns/conftest.py",
+        "tests/test_sus_patterns/test_compiler.py",
+        "tests/test_sus_patterns/test_detection_engine.py",
+        "tests/test_sus_patterns/test_extension_integration.py",
+        "tests/test_sus_patterns/test_monitor.py",
+        "tests/test_sus_patterns/test_preprocessor.py",
+        "tests/test_sus_patterns/test_semantic.py",
+        "tests/test_sus_patterns/test_sus_patterns.py",
+        "tests/test_utils/test_proxy_handling.py",
+        "tests/test_utils/test_request_checks.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "a7192de5b1c9e47132c008bf8d662896eac22845",
+      "commit_subject": "Feature: Agent Integration + SusPatterns Overhaul",
+      "changed_files": [
+        "Makefile",
+        "docs/versions/versions.json",
+        "examples/main.py",
+        "guard/decorators/access_control.py",
+        "guard/decorators/base.py",
+        "guard/detection_engine/__init__.py",
+        "guard/detection_engine/compiler.py",
+        "guard/detection_engine/monitor.py",
+        "guard/detection_engine/preprocessor.py",
+        "guard/detection_engine/semantic.py",
+        "guard/handlers/__init__.py",
+        "guard/handlers/behavior_handler.py",
+        "guard/handlers/cloud_handler.py",
+        "guard/handlers/dynamic_rule_handler.py",
+        "guard/handlers/ipban_handler.py",
+        "guard/handlers/ipinfo_handler.py",
+        "guard/handlers/ratelimit_handler.py",
+        "guard/handlers/redis_handler.py",
+        "guard/handlers/suspatterns_handler.py",
+        "guard/middleware.py",
+        "guard/models.py",
+        "guard/protocols/__init__.py",
+        "guard/protocols/agent_protocol.py",
+        "guard/protocols/geo_ip_protocol.py",
+        "guard/protocols/redis_protocol.py",
+        "guard/utils.py",
+        "pyproject.toml",
+        "tests/conftest.py",
+        "tests/test_agent/__init__.py",
+        "tests/test_agent/conftest.py",
+        "tests/test_agent/test_behavior_agent_integration.py",
+        "tests/test_agent/test_cloud_agent_integration.py",
+        "tests/test_agent/test_decorator_agent_integration.py",
+        "tests/test_agent/test_drh_agent_integration.py",
+        "tests/test_agent/test_ipban_agent_integration.py",
+        "tests/test_agent/test_ipinfo_agent_integration.py",
+        "tests/test_agent/test_middleware_agent_integration.py",
+        "tests/test_agent/test_models_agent_integration.py",
+        "tests/test_agent/test_ratelimit_agent_integration.py",
+        "tests/test_agent/test_redis_agent_integration.py",
+        "tests/test_agent/test_suspatterns_agent_integration.py",
+        "tests/test_agent/test_utils_agent_integration.py",
+        "tests/test_decorators/test_authentication.py",
+        "tests/test_decorators/test_base.py",
+        "tests/test_decorators/test_behavior_handler.py",
+        "tests/test_decorators/test_middleware_integration.py",
+        "tests/test_middleware/test_security_middleware.py",
+        "tests/test_models/test_models.py",
+        "tests/test_sus_patterns/conftest.py",
+        "tests/test_sus_patterns/test_compiler.py",
+        "tests/test_sus_patterns/test_detection_engine.py",
+        "tests/test_sus_patterns/test_extension_integration.py",
+        "tests/test_sus_patterns/test_monitor.py",
+        "tests/test_sus_patterns/test_preprocessor.py",
+        "tests/test_sus_patterns/test_semantic.py",
+        "tests/test_sus_patterns/test_sus_patterns.py",
+        "tests/test_utils/test_proxy_handling.py",
+        "tests/test_utils/test_request_checks.py"
+      ]
+    },
+    {
+      "prompt": "Fix the formatting of the geo_rate_limit decorator in the example code.",
+      "expected_files": [
+        "examples/main.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "bc237d99769cc7c1598399ba3980a595c99d07db",
+      "commit_subject": "Fixing formatting issue",
+      "changed_files": [
+        "examples/main.py"
+      ]
+    },
+    {
+      "prompt": "Fix import issues by replacing the guard variable with guard_decorator across all decorators.",
+      "expected_files": [
+        "examples/main.py",
+        "guard/models.py",
+        "tests/test_agent/test_models_agent_integration.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "00a6b92b7a0e851c10705087b1a2bcd1d1f34f08",
+      "commit_subject": "Hotfix due to import issues",
+      "changed_files": [
+        "examples/main.py",
+        "guard/models.py",
+        "tests/test_agent/test_models_agent_integration.py"
+      ]
+    },
+    {
+      "prompt": "Refactor the 404 ban configuration to use a single consolidated parameter object.",
+      "expected_files": [
+        "examples/main.py",
+        "guard/models.py",
+        "tests/test_agent/test_models_agent_integration.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "be3fa61a228862274d4117e301fa9992653e741c",
+      "commit_subject": "Linting, Formatting, Typing",
+      "changed_files": [
+        "examples/main.py",
+        "guard/models.py",
+        "tests/test_agent/test_models_agent_integration.py"
+      ]
+    },
+    {
+      "prompt": "Update the FastAPI Guard version to 4.0.1 in configuration files to fix PyPI distribution issues.",
+      "expected_files": [
+        "docs/versions/versions.json",
+        "pyproject.toml"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "0160caf3b287969c2dbafa1693c3212e5e7d16b1",
+      "commit_subject": "Bumping version to fix Pypi dist issue",
+      "changed_files": [
+        "docs/versions/versions.json",
+        "pyproject.toml"
+      ]
+    },
+    {
+      "prompt": "Fix the bugged Agent integration by updating version files and handler logic.",
+      "expected_files": [
+        "docs/versions/versions.json",
+        "guard/decorators/base.py",
+        "guard/handlers/behavior_handler.py",
+        "guard/handlers/cloud_handler.py",
+        "guard/handlers/dynamic_rule_handler.py",
+        "guard/handlers/ipban_handler.py",
+        "guard/handlers/ipinfo_handler.py",
+        "guard/handlers/ratelimit_handler.py",
+        "guard/handlers/redis_handler.py",
+        "guard/handlers/suspatterns_handler.py",
+        "guard/middleware.py",
+        "guard/utils.py",
+        "pyproject.toml",
+        "tests/test_agent/conftest.py",
+        "tests/test_agent/test_middleware_agent_integration.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "20d7858f588cd4c4701a5f2b0efa7c74c7a1dd8a",
+      "commit_subject": "Fix bugged Agent Integration (#54)",
+      "changed_files": [
+        "docs/versions/versions.json",
+        "guard/decorators/base.py",
+        "guard/handlers/behavior_handler.py",
+        "guard/handlers/cloud_handler.py",
+        "guard/handlers/dynamic_rule_handler.py",
+        "guard/handlers/ipban_handler.py",
+        "guard/handlers/ipinfo_handler.py",
+        "guard/handlers/ratelimit_handler.py",
+        "guard/handlers/redis_handler.py",
+        "guard/handlers/suspatterns_handler.py",
+        "guard/middleware.py",
+        "guard/utils.py",
+        "pyproject.toml",
+        "tests/test_agent/conftest.py",
+        "tests/test_agent/test_middleware_agent_integration.py"
+      ]
+    },
+    {
+      "prompt": "Fix the custom_log_file configuration so file logging works correctly and is only enabled when explicitly set.",
+      "expected_files": [
+        "docs/versions/versions.json",
+        "examples/main.py",
+        "guard/decorators/base.py",
+        "guard/detection_engine/preprocessor.py",
+        "guard/handlers/behavior_handler.py",
+        "guard/handlers/cloud_handler.py",
+        "guard/handlers/dynamic_rule_handler.py",
+        "guard/handlers/ipban_handler.py",
+        "guard/handlers/ipinfo_handler.py",
+        "guard/handlers/ratelimit_handler.py",
+        "guard/handlers/redis_handler.py",
+        "guard/handlers/suspatterns_handler.py",
+        "guard/middleware.py",
+        "guard/utils.py",
+        "pyproject.toml",
+        "tests/conftest.py",
+        "tests/test_agent/test_middleware_agent_integration.py",
+        "tests/test_agent/test_redis_agent_integration.py",
+        "tests/test_agent/test_suspatterns_agent_integration.py",
+        "tests/test_middleware/test_security_middleware.py",
+        "tests/test_utils/test_logging.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "d2b045d75bc4677744296aaa2c06831971ec298a",
+      "commit_subject": "Fixed logging flow + Passive Mode (#56)",
+      "changed_files": [
+        "docs/versions/versions.json",
+        "examples/main.py",
+        "guard/decorators/base.py",
+        "guard/detection_engine/preprocessor.py",
+        "guard/handlers/behavior_handler.py",
+        "guard/handlers/cloud_handler.py",
+        "guard/handlers/dynamic_rule_handler.py",
+        "guard/handlers/ipban_handler.py",
+        "guard/handlers/ipinfo_handler.py",
+        "guard/handlers/ratelimit_handler.py",
+        "guard/handlers/redis_handler.py",
+        "guard/handlers/suspatterns_handler.py",
+        "guard/middleware.py",
+        "guard/utils.py",
+        "pyproject.toml",
+        "tests/conftest.py",
+        "tests/test_agent/test_middleware_agent_integration.py",
+        "tests/test_agent/test_redis_agent_integration.py",
+        "tests/test_agent/test_suspatterns_agent_integration.py",
+        "tests/test_middleware/test_security_middleware.py",
+        "tests/test_utils/test_logging.py"
+      ]
+    },
+    {
+      "prompt": "Fix flaky test assertion by making it more resilient to log message variations.",
+      "expected_files": [
+        "tests/test_utils/test_logging.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "101c92c47eabf88ce590e8ce1d0f2e3957f237a8",
+      "commit_subject": "Hotfix on test_logging.py",
+      "changed_files": [
+        "tests/test_utils/test_logging.py"
+      ]
+    },
+    {
+      "prompt": "Fix the formatting issue in the logging test assertion.",
+      "expected_files": [
+        "tests/test_utils/test_logging.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "81537b4764e16f8d1f3becd97201ae1f7c432333",
+      "commit_subject": "Formatting issue hotifx",
+      "changed_files": [
+        "tests/test_utils/test_logging.py"
+      ]
+    },
+    {
+      "prompt": "Implement HTTP security headers in the FastAPI Guard library.",
+      "expected_files": [
+        "docs/versions/versions.json",
+        "examples/main.py",
+        "guard/__init__.py",
+        "guard/decorators/__init__.py",
+        "guard/decorators/access_control.py",
+        "guard/decorators/advanced.py",
+        "guard/decorators/authentication.py",
+        "guard/decorators/base.py",
+        "guard/decorators/behavioral.py",
+        "guard/decorators/content_filtering.py",
+        "guard/decorators/rate_limiting.py",
+        "guard/detection_engine/__init__.py",
+        "guard/detection_engine/compiler.py",
+        "guard/detection_engine/monitor.py",
+        "guard/detection_engine/preprocessor.py",
+        "guard/detection_engine/semantic.py",
+        "guard/handlers/__init__.py",
+        "guard/handlers/behavior_handler.py",
+        "guard/handlers/cloud_handler.py",
+        "guard/handlers/dynamic_rule_handler.py",
+        "guard/handlers/ipban_handler.py",
+        "guard/handlers/ipinfo_handler.py",
+        "guard/handlers/ratelimit_handler.py",
+        "guard/handlers/redis_handler.py",
+        "guard/handlers/security_headers_handler.py",
+        "guard/handlers/suspatterns_handler.py",
+        "guard/middleware.py",
+        "guard/models.py",
+        "guard/protocols/__init__.py",
+        "guard/protocols/agent_protocol.py",
+        "guard/protocols/geo_ip_protocol.py",
+        "guard/protocols/redis_protocol.py",
+        "guard/scripts/__init__.py",
+        "guard/scripts/rate_lua.py",
+        "pyproject.toml",
+        "tests/test_security_headers/__init__.py",
+        "tests/test_security_headers/test_agent_integration.py",
+        "tests/test_security_headers/test_cors_integration.py",
+        "tests/test_security_headers/test_csp_validation.py",
+        "tests/test_security_headers/test_edge_cases.py",
+        "tests/test_security_headers/test_headers_core.py",
+        "tests/test_security_headers/test_middleware_integration.py",
+        "tests/test_security_headers/test_redis_integration.py",
+        "tests/test_security_headers/test_security_validation.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "0408597b59d73c7525c2c437c9e77a210d3443e5",
+      "commit_subject": "Feature: HTTP Security Headers (#60)",
+      "changed_files": [
+        "docs/versions/versions.json",
+        "examples/main.py",
+        "guard/__init__.py",
+        "guard/decorators/__init__.py",
+        "guard/decorators/access_control.py",
+        "guard/decorators/advanced.py",
+        "guard/decorators/authentication.py",
+        "guard/decorators/base.py",
+        "guard/decorators/behavioral.py",
+        "guard/decorators/content_filtering.py",
+        "guard/decorators/rate_limiting.py",
+        "guard/detection_engine/__init__.py",
+        "guard/detection_engine/compiler.py",
+        "guard/detection_engine/monitor.py",
+        "guard/detection_engine/preprocessor.py",
+        "guard/detection_engine/semantic.py",
+        "guard/handlers/__init__.py",
+        "guard/handlers/behavior_handler.py",
+        "guard/handlers/cloud_handler.py",
+        "guard/handlers/dynamic_rule_handler.py",
+        "guard/handlers/ipban_handler.py",
+        "guard/handlers/ipinfo_handler.py",
+        "guard/handlers/ratelimit_handler.py",
+        "guard/handlers/redis_handler.py",
+        "guard/handlers/security_headers_handler.py",
+        "guard/handlers/suspatterns_handler.py",
+        "guard/middleware.py",
+        "guard/models.py",
+        "guard/protocols/__init__.py",
+        "guard/protocols/agent_protocol.py",
+        "guard/protocols/geo_ip_protocol.py",
+        "guard/protocols/redis_protocol.py",
+        "guard/scripts/__init__.py",
+        "guard/scripts/rate_lua.py",
+        "pyproject.toml",
+        "tests/test_security_headers/__init__.py",
+        "tests/test_security_headers/test_agent_integration.py",
+        "tests/test_security_headers/test_cors_integration.py",
+        "tests/test_security_headers/test_csp_validation.py",
+        "tests/test_security_headers/test_edge_cases.py",
+        "tests/test_security_headers/test_headers_core.py",
+        "tests/test_security_headers/test_middleware_integration.py",
+        "tests/test_security_headers/test_redis_integration.py",
+        "tests/test_security_headers/test_security_validation.py"
+      ]
+    },
+    {
+      "prompt": "Fix trailing commas in the security headers notes within the example file.",
+      "expected_files": [
+        "examples/main.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "59153e3d6a322cd9dd0425a7e3783dc3b52c743c",
+      "commit_subject": "Fixing minor linting issue",
+      "changed_files": [
+        "examples/main.py"
+      ]
+    }
+  ]
+}

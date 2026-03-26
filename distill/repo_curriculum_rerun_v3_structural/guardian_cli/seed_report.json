@@ -1,0 +1,157 @@
+{
+  "cases": 6,
+  "accepted": 1,
+  "accept_rate": 0.1667,
+  "avg_file_recall": 0.2022,
+  "avg_role_recall": 0.3333,
+  "avg_command_recall": 0.0,
+  "rows": [
+    {
+      "prompt": "Create a .env.example file with placeholder values for the Gemini API key and optional LangSmith tracing settings.",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        ".env.example",
+        "ai/gemini_client.py",
+        "ai/providers/gemini_provider.py",
+        "cli/main.py",
+        "cli/commands/models.py",
+        "ai/ai_client.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0465,
+      "role_recall": 0.75,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants a `.env.example` file created with placeholders for the Gemini API key and optional LangSmith tracing settings. Based on the retrieved memory, this is a specific request to establish environment variable conventions for the project. I will create this fil"
+    },
+    {
+      "prompt": "Implement Docker support for the security tool wrappers in the CLI.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "cli/main.py",
+        "cli/commands/models.py",
+        "cli/commands/workflow.py",
+        "cli/commands/scan.py",
+        "cli/commands/report.py",
+        "cli/commands/recon.py",
+        "requirements.txt"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "requirements.txt"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to implement Docker support for security tool wrappers in the CLI. Based on the retrieved memory, this is a specific decision to implement Docker support for security tool wrappers. I need to: 1. Create a Dockerfile for the CLI application 2. Create a doc"
+    },
+    {
+      "prompt": "Implement Docker integration for Arjun, XSStrike, Gitleaks, CMSeek, and DnsRecon tools in the Guardian CLI.",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "cli/main.py",
+        "cli/commands/models.py",
+        "cli/commands/workflow.py",
+        "cli/commands/scan.py",
+        "cli/commands/report.py",
+        "cli/commands/recon.py",
+        "requirements.txt"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "requirements.txt",
+        "cli/commands/scan.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to implement Docker integration for specific security tools (Arjun, XSStrike, Gitleaks, CMSeek, and DnsRecon) in the Guardian CLI. Based on the retrieved memory, this is a specific decision to implement Docker support for security tool wrappers. I need to"
+    },
+    {
+      "prompt": "Update the Dockerfile to use Go 1.25 and add Gemini rate limit handling.",
+      "trace_id": 4,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "cli/commands/scan.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "cli/commands/scan.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants two specific updates: 1. Update the Dockerfile to use Go 1.25 (based on the retrieved memory decision) 2. Add Gemini rate limit handling logic (based on the retrieved memory decision) I need to: 1. Modify the Dockerfile to use a Go 1.25 base image 2. Add "
+    },
+    {
+      "prompt": "Refactor the Gemini client to use Antigravity Auth instead of LangChain.",
+      "trace_id": 5,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "ai/gemini_client.py",
+        "ai/ai_client.py",
+        "ai/providers/gemini_provider.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "ai/gemini_client.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.1667,
+      "role_recall": 0.25,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to refactor the Gemini client to use Antigravity Auth instead of LangChain. This is a significant change that involves: 1. Removing LangChain dependencies and code 2. Implementing Antigravity Auth for authentication 3. Updating the Gemini client to use th"
+    },
+    {
+      "prompt": "Add a check to warn users if no Antigravity accounts are found before running the CLI.",
+      "trace_id": 6,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "cli/main.py",
+        "cli/commands/models.py",
+        "cli/commands/workflow.py",
+        "cli/commands/scan.py",
+        "cli/commands/report.py",
+        "cli/commands/recon.py",
+        "cli/commands/__init__.py",
+        "cli/client.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "cli/main.py",
+        "cli/commands/__init__.py",
+        "cli/client.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "role_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to add a check to warn users if no Antigravity accounts are found before running the CLI. This is a safety feature to prevent the CLI from running without proper authentication. I need to: 1. Add a validation function to check for Antigravity API keys 2. "
+    }
+  ]
+}

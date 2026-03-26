@@ -1,0 +1,197 @@
+{
+  "cases": 8,
+  "accepted": 2,
+  "accept_rate": 0.25,
+  "avg_file_recall": 0.125,
+  "avg_role_recall": 0.375,
+  "avg_command_recall": 0.125,
+  "rows": [
+    {
+      "prompt": "How do I ensure RSA-OAEP uses 2048-bit keys instead of the default 1024-bit size?",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "Node.js"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "Node.js"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to ensure RSA-OAEP uses 2048-bit keys instead of the default 1024-bit size. Based on the retrieved memory, this is a specific requirement for the user. I need to provide guidance on how to enforce this in common cryptographic libraries or configurations. "
+    },
+    {
+      "prompt": "Update the library version to 0.2.0 and ensure RSA-OAEP uses 2048-bit keys.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "conformance/fapi/ensure-authorization-response-with-invalid-state-fails.ts",
+        "conformance/fapi/ensure-authorization-response-with-invalid-missing-state-fails.ts",
+        "tap/keys.ts",
+        "docs/variables/KEY_SELECTION.md",
+        "package.json",
+        "package-lock.json",
+        "Node.js"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "package.json",
+        "package-lock.json",
+        "Node.js"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.5,
+      "role_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the library version to 0.2.0 and ensure RSA-OAEP uses 2048-bit keys. Based on the retrieved memory, the user has a specific preference for 2048-bit keys. I need to check the current project structure to identify the relevant files (e.g., `packag"
+    },
+    {
+      "prompt": "Refactor the key derivation function to simplify the concatenation logic and remove unnecessary array allocations.",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to refactor a key derivation function (KDF) to simplify concatenation logic and remove unnecessary array allocations. Based on the retrieved memory, this is a specific decision the user has made before. I need to identify the relevant code files (likely i"
+    },
+    {
+      "prompt": "Update the OAuth2 library version from 0.2.0 to 0.2.1 in the package configuration and source code.",
+      "trace_id": 4,
+      "prior_trace_ids": [
+        2
+      ],
+      "suggested_files": [
+        "tap/end2end-device-code.ts",
+        "package.json",
+        "package-lock.json",
+        "docs/functions/validateCodeIdTokenResponse.md",
+        "docs/interfaces/ProcessAuthorizationCodeResponseOptions.md",
+        "docs/interfaces/OAuth2Error.md",
+        "Node.js"
+      ],
+      "suggested_commands": [
+        "npm run build"
+      ],
+      "answer_files": [
+        "package.json",
+        "package-lock.json",
+        "Node.js"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "npm run build"
+      ],
+      "patch_steps": [
+        "To update the library version to 0",
+        "0 and ensure RSA-OAEP uses 2048-bit keys, follow these steps:",
+        "Update the Library Version",
+        "If you are using a Node"
+      ],
+      "file_recall": 0.5,
+      "role_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the OAuth2 library version from 0.2.0 to 0.2.1. Based on the retrieved memory, this is a specific decision the user has made before. I need to identify the relevant files (likely `package.json`, `package-lock.json`, and any source code files tha"
+    },
+    {
+      "prompt": "Update examples to add notes about state and nonce usage when S256 PKCE is unsupported.",
+      "trace_id": 5,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "conformance/fapi/ensure-authorization-response-with-invalid-state-fails.ts",
+        "conformance/fapi/ensure-authorization-response-with-invalid-missing-state-fails.ts",
+        "conformance/oidc/nonce-unless-code-flow.ts",
+        "conformance/oidc/nonce-invalid.ts",
+        "conformance/fapi/invalid-nonce.ts",
+        "docs/variables/skipStateCheck.md"
+      ],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update examples to add notes about state and nonce usage when S256 PKCE is unsupported. Based on the retrieved memory, this is a specific note the user has made before. I need to identify the relevant files (likely in a `docs` or `examples` directory) "
+    },
+    {
+      "prompt": "Fix the PKCE S256 check syntax in all example files.",
+      "trace_id": 6,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "check-examples.sh",
+        "docs/variables/JWT_TIMESTAMP_CHECK.md",
+        "docs/variables/skipStateCheck.md",
+        "docs/variables/skipAuthTimeCheck.md",
+        "docs/variables/skipSubjectCheck.md"
+      ],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to fix the PKCE S256 check syntax in all example files. Based on the retrieved memory, this is a specific fact the user has noted before. I need to identify the relevant example files (likely in an `examples` directory or within the documentation) and pro"
+    },
+    {
+      "prompt": "Update the toWeb function signature to accept a generic Readable stream instead of NodeJS.ReadableStream.",
+      "trace_id": 7,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update the `toWeb` function signature to accept a generic `Readable` stream instead of `NodeJS.ReadableStream`. Based on the retrieved memory, this is a specific decision the user has made before. I need to identify the relevant files (likely in a `str"
+    },
+    {
+      "prompt": "Update the Web API type definitions to lock down the TypeScript DOM types.",
+      "trace_id": 8,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "conformance/api.ts",
+        "docs/type-aliases/ClientAuth.md",
+        "tap/end2end-client-credentials.ts",
+        "conformance/oidc/client-secret-basic.ts",
+        "examples/client_secret_basic.ts",
+        "examples/client_secret_basic.diff"
+      ],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update Web API type definitions to lock down TypeScript DOM types. Based on the retrieved memory, this is a specific decision the user has made before. I need to identify the relevant files (likely in a `types` or `lib` directory) and provide guidance "
+    }
+  ]
+}

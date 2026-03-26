@@ -1,0 +1,89 @@
+{
+  "cases": 4,
+  "accepted": 0,
+  "accept_rate": 0.0,
+  "avg_file_recall": 0.25,
+  "avg_command_recall": 0.0,
+  "rows": [
+    {
+      "prompt": "Increase the height of the main container from 90px to 95px for better visibility.",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to increase the main container height from 90px to 95px. I need to identify which file contains the main container styling and make this specific change. Based on the retrieved memory, this appears to be a decision that was made before, so I should look f"
+    },
+    {
+      "prompt": "Remove the Hotjar tracking script from the HTML file.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to remove the Hotjar tracking script from an HTML file. Based on the retrieved memory, this is a decision that was made before. I need to find the HTML file(s) that contain the Hotjar tracking script and remove it. [Action] I'll search for HTML files and "
+    },
+    {
+      "prompt": "Refactor the nightly rate calculation logic to remove the temporary deployment comment.",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "src/utils/rateCalculation.js",
+        "src/services/pricing.js",
+        "src/components/RateCalculator.jsx"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "src/utils/rateCalculation.js",
+        "src/services/pricing.js",
+        "src/components/RateCalculator.jsx"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to refactor nightly rate calculation logic to remove a temporary deployment comment. Based on the retrieved memory, this is a decision that was made before. I need to find the code that contains nightly rate calculation logic and look for temporary deploy"
+    },
+    {
+      "prompt": "Update React and React Router dependencies to their latest versions.",
+      "trace_id": 4,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "package.json",
+        "package-lock.json"
+      ],
+      "suggested_commands": [
+        "npm install react@latest react-dom@latest react-router-dom@latest",
+        "npm test"
+      ],
+      "answer_files": [
+        "package.json",
+        "package-lock.json"
+      ],
+      "answer_commands": [
+        "npm install react@latest react-dom@latest react-router-dom@latest",
+        "npm test"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update React and React Router dependencies to their latest versions. Based on the retrieved memory, this is a decision that was made before. I need to check the current package.json file to see the current versions and then update them to the latest ve"
+    }
+  ]
+}

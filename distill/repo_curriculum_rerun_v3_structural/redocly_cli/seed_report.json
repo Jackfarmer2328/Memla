@@ -1,0 +1,243 @@
+{
+  "cases": 8,
+  "accepted": 3,
+  "accept_rate": 0.375,
+  "avg_file_recall": 0.1458,
+  "avg_role_recall": 0.5,
+  "avg_command_recall": 0.375,
+  "rows": [
+    {
+      "prompt": "How do I allow non-YAML $refs inside scalar values in OpenAPI definitions?",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "packages/core/src/__tests__/fixtures/sibling-refs/openapi-non-summary-desc-ref.yaml",
+        "tests/e2e/lint-config/config-with-refs/theme-openapi.yaml",
+        "tests/e2e/lint-config/config-with-refs-extended/theme-openapi.yaml",
+        "packages/core/src/decorators/oas3/__tests__/fixtures/handle-invalid-ref/openapi.yaml",
+        "tests/e2e/miscellaneous/resolve-refs-in-preprocessors/openapi.yaml",
+        "tests/e2e/lint/spec-strict-refs/openapi.yaml"
+      ],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user is asking about allowing non-YAML `$refs` inside scalar values in OpenAPI definitions. This relates to the constraint `schema_validation` and the `contract_boundary` role. I need to check the current implementation in the repository to understand how `$refs` ar"
+    },
+    {
+      "prompt": "Update the Redocly CLI version from 0.6.0 to 0.7.0 in the package configuration.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "packages/cli/src/utils/update-version-notifier.ts",
+        "packages/cli/package.json",
+        "packages/cli/src/utils/package.ts",
+        "packages/cli/src/utils/assert-node-version.ts",
+        "packages/cli/src/__tests__/fixtures/redocly.yaml",
+        "packages/cli/src/commands/scorecard-classic/auth/login-handler.ts",
+        "package.json"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "package.json"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "role_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the Redocly CLI version from 0.6.0 to 0.7.0. Based on the retrieved memory, this involves updating the `package.json` file in the `packages/cli` directory. I need to locate this file and update the version field. [Action] I'll search for the `pa"
+    },
+    {
+      "prompt": "How do I add a type check to ensure the property is a string in the OpenAPI schema validator?",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "packages/respect-core/src/utils/check-circular-refs-in-schema.ts",
+        "tests/e2e/lint/required-string-property-missing-min-length/openapi.yaml",
+        "tests/e2e/lint/no-invalid-schema-examples-string-number-error/openapi.yaml",
+        "tests/e2e/lint/no-invalid-media-type-examples-invalid-schema/openapi.yaml",
+        "tests/e2e/lint/assertions-type-integer-in-schema-response/openapi.yaml",
+        "tests/e2e/lint/assertion-string-property-min-length/openapi.yaml"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "packages/respect-core/src/utils/check-circular-refs-in-schema.ts"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to add a type check to ensure a property is a string in the OpenAPI schema validator. Based on the retrieved memory, there's a note that suggests adding 'type: string' to the property definition. I need to check the current implementation of the schema va"
+    },
+    {
+      "prompt": "Refactor the default definitions loading to use direct imports instead of reading the types directory.",
+      "trace_id": 4,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "packages/cli/src/reunite/api/types.ts",
+        "packages/cli/src/commands/scorecard-classic/auth/login-handler.ts",
+        "packages/cli/src/auth/oauth-client.ts",
+        "packages/cli/src/reunite/api/index.ts",
+        "packages/cli/src/reunite/api/domains.ts",
+        "packages/cli/src/reunite/api/api-keys.ts"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "packages/cli/src/reunite/api/types.ts"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to refactor the default definitions loading to use direct imports instead of reading the types directory. Based on the retrieved memory, this involves changing how default definitions are loaded in the codebase. I need to locate the current implementation"
+    },
+    {
+      "prompt": "Implement vendor extension support for x-code-samples in OpenAPIOperation types.",
+      "trace_id": 5,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "packages/cli/src/reunite/api/types.ts",
+        "package.json",
+        "packages/cli/package.json"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "packages/cli/src/reunite/api/types.ts",
+        "package.json",
+        "packages/cli/package.json"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to implement vendor extension support for `x-code-samples` in OpenAPIOperation types. Based on the retrieved memory, this involves: 1. Locating the code in `packages/cli/src/reunite/api/types.ts` that reads from the types directory. 2. Updating the Redocl"
+    },
+    {
+      "prompt": "Add a --force flag to the bundle command to ignore validation errors.",
+      "trace_id": 6,
+      "prior_trace_ids": [
+        2
+      ],
+      "suggested_files": [
+        "packages/cli/src/commands/join/helpers/add-security-prefix.ts",
+        "packages/cli/src/commands/respect/har-logs/helpers/add-headers.ts",
+        "packages/cli/src/commands/join/helpers/add-prefix.ts",
+        "packages/cli/src/commands/join/helpers/add-info-section.ts",
+        "packages/cli/src/commands/scorecard-classic/validation/validate-scorecard.ts",
+        "packages/cli/src/commands/scorecard-classic/validation/project-url.ts",
+        "packages/cli/src/commands/bundle/bundle-command.ts",
+        "packages/cli/package.json",
+        "bundle-command.ts"
+      ],
+      "suggested_commands": [
+        "npm run lint"
+      ],
+      "answer_files": [
+        "packages/cli/src/commands/bundle/bundle-command.ts",
+        "packages/cli/package.json",
+        "bundle-command.ts"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "npm run lint"
+      ],
+      "patch_steps": [
+        "To update the Redocly CLI version from 0",
+        "0, I'll modify the `package",
+        "json` file in the `packages/cli` directory",
+        "Here's the change:"
+      ],
+      "file_recall": 0.0,
+      "role_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to add a `--force` flag to the `bundle` command to ignore validation errors. Based on the retrieved memory, this is a decision that has been made before (freq=1). I need to: 1. Locate the `bundle` command implementation (likely in `packages/cli/src/comman"
+    },
+    {
+      "prompt": "Update the CLI configuration format to use the new .redocly.yaml structure and adjust build scripts accordingly.",
+      "trace_id": 7,
+      "prior_trace_ids": [
+        2
+      ],
+      "suggested_files": [
+        "packages/respect-core/src/modules/__tests__/flow-runner/inputs/format-cli-inputs.test.ts",
+        "packages/cli/src/__tests__/fixtures/redocly.yaml",
+        "packages/cli/src/utils/update-version-notifier.ts",
+        "packages/cli/src/__tests__/commands/respect/har-logs/helpers/build-response-cookies.test.ts",
+        "packages/cli/src/__tests__/commands/respect/har-logs/helpers/build-request-cookies.test.ts",
+        "packages/cli/src/__tests__/commands/respect/har-logs/helpers/build-headers.test.ts",
+        "packages/cli/package.json",
+        "packages/cli/src/config/config.ts",
+        "package.json"
+      ],
+      "suggested_commands": [
+        "npm run lint"
+      ],
+      "answer_files": [
+        "packages/cli/package.json",
+        "packages/cli/src/config/config.ts",
+        "package.json"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "npm run lint"
+      ],
+      "patch_steps": [
+        "To update the Redocly CLI version from 0",
+        "0, I'll modify the `package",
+        "json` file in the `packages/cli` directory",
+        "Here's the change:"
+      ],
+      "file_recall": 0.1667,
+      "role_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the CLI configuration format to use the new `.redocly.yaml` structure and adjust build scripts accordingly. Based on the retrieved memory, this involves: 1. Updating the CLI configuration format to use the new `.redocly.yaml` structure. 2. Adjus"
+    },
+    {
+      "prompt": "Fix discriminator mapping traversal to correctly handle custom resolve fields and path context.",
+      "trace_id": 8,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "packages/cli/src/reunite/api/types.ts",
+        "packages/cli/src/reunite/api/resolve.ts",
+        "packages/cli/package.json",
+        "resolve.ts",
+        "types.ts"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "packages/cli/src/reunite/api/types.ts",
+        "packages/cli/src/reunite/api/resolve.ts",
+        "packages/cli/package.json",
+        "resolve.ts",
+        "types.ts"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to fix discriminator mapping traversal to correctly handle custom resolve fields and path context. Based on the retrieved memory, this is a decision that has been made before (freq=1). I need to: 1. Locate the code responsible for discriminator mapping tr"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "name": "memla_transmutation_curriculum_v1",
+  "description": "Overnight multi-repo curriculum for extracting recurring coding transmutations.",
+  "repos": [
+    {
+      "id": "trpc_next_prisma",
+      "url": "https://github.com/trpc/examples-next-prisma-starter",
+      "repo_label": "trpc examples next prisma starter",
+      "framework": "typescript / next.js / trpc / prisma",
+      "tier": "anchor",
+      "notes": "Known-good public support anchor already proven with Memla.",
+      "enabled": true
+    },
+    {
+      "id": "cadwyn",
+      "url": "https://github.com/zmievsa/cadwyn",
+      "repo_label": "cadwyn",
+      "framework": "python / fastapi / api versioning",
+      "tier": "tier1",
+      "notes": "High transmutation value around API contracts and versioned constraints.",
+      "enabled": true
+    },
+    {
+      "id": "teamhide_fastapi_boilerplate",
+      "url": "https://github.com/teamhide/fastapi-boilerplate",
+      "repo_label": "teamhide fastapi boilerplate",
+      "framework": "python / fastapi / sqlalchemy async",
+      "tier": "tier1",
+      "notes": "Real backend routing, auth, persistence, and async structure.",
+      "enabled": true
+    },
+    {
+      "id": "fastapi_mvc",
+      "url": "https://github.com/fastapi-mvc/fastapi-mvc",
+      "repo_label": "fastapi mvc",
+      "framework": "python / fastapi / mvc / redis",
+      "tier": "tier1",
+      "notes": "Forces role abstraction across controller, service, and cache layers.",
+      "enabled": true
+    },
+    {
+      "id": "stripe_nextjs_supabase",
+      "url": "https://github.com/ShenSeanChen/launch-mvp-stripe-nextjs-supabase",
+      "repo_label": "launch mvp stripe nextjs supabase",
+      "framework": "typescript / next.js / stripe / supabase",
+      "tier": "tier1",
+      "notes": "High-value payment boundary and redirect-flow transmutations.",
+      "enabled": true
+    },
+    {
+      "id": "oauth4webapi",
+      "url": "https://github.com/panva/oauth4webapi",
+      "repo_label": "oauth4webapi",
+      "framework": "typescript / oauth / security middleware",
+      "tier": "tier1",
+      "notes": "Auth and security constraint trades with focused commit history.",
+      "enabled": true
+    },
+    {
+      "id": "fastapi_template",
+      "url": "https://github.com/JiayuXu0/FastAPI-Template",
+      "repo_label": "fastapi template",
+      "framework": "python / fastapi / auth / db",
+      "tier": "tier2",
+      "notes": "Clean architecture backup with broad backend roles.",
+      "enabled": true
+    },
+    {
+      "id": "guardian_cli",
+      "url": "https://github.com/zakirkun/guardian-cli",
+      "repo_label": "guardian cli",
+      "framework": "python / cli / ai orchestration",
+      "tier": "tier2",
+      "notes": "Adds CLI and subprocess transmutations to the bank.",
+      "enabled": true
+    },
+    {
+      "id": "express_rate_limit",
+      "url": "https://github.com/express-rate-limit/express-rate-limit",
+      "repo_label": "express rate limit",
+      "framework": "typescript / express / security middleware",
+      "tier": "tier2",
+      "notes": "Request interception and validation logic in a compact security repo.",
+      "enabled": true
+    },
+    {
+      "id": "redocly_cli",
+      "url": "https://github.com/Redocly/redocly-cli",
+      "repo_label": "redocly cli",
+      "framework": "typescript / cli / openapi tooling",
+      "tier": "tier2",
+      "notes": "Parser and validation transmutations outside app-shaped repos.",
+      "enabled": true
+    },
+    {
+      "id": "fastapi_guard",
+      "url": "https://github.com/rennf93/fastapi-guard",
+      "repo_label": "fastapi guard",
+      "framework": "python / fastapi / security middleware",
+      "tier": "reserve",
+      "notes": "Known supporting repo; keep as reserve if a primary repo under-seeds.",
+      "enabled": false
+    },
+    {
+      "id": "pipx",
+      "url": "https://github.com/pypa/pipx",
+      "repo_label": "pipx",
+      "framework": "python / cli / packaging",
+      "tier": "reserve",
+      "notes": "Useful CLI/system constraint repo, but larger and more packaging-specific.",
+      "enabled": false
+    }
+  ]
+}

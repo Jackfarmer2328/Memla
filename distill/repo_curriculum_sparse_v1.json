@@ -1,0 +1,32 @@
+{
+  "name": "memla_transmutation_sparse_v1",
+  "description": "Last-pass sparse repo rerun using tiny-repo ratio gating and minimal case-pack fallback.",
+  "repos": [
+    {
+      "id": "stripe_nextjs_supabase",
+      "url": "https://github.com/ShenSeanChen/launch-mvp-stripe-nextjs-supabase",
+      "repo_label": "launch mvp stripe nextjs supabase",
+      "framework": "typescript / next.js / stripe / supabase",
+      "tier": "sparse",
+      "notes": "Tiny public web-app repo with only 9 useful commits; give it a final 4+4 path.",
+      "enabled": true,
+      "seed_count": 6,
+      "unseen_count": 6,
+      "recent_window": 30,
+      "scan_limit": 70
+    },
+    {
+      "id": "guardian_cli",
+      "url": "https://github.com/zakirkun/guardian-cli",
+      "repo_label": "guardian cli",
+      "framework": "python / cli / ai orchestration",
+      "tier": "sparse",
+      "notes": "Sparse CLI repo that only gets one more ratio-aware pass.",
+      "enabled": true,
+      "seed_count": 6,
+      "unseen_count": 6,
+      "recent_window": 30,
+      "scan_limit": 70
+    }
+  ]
+}

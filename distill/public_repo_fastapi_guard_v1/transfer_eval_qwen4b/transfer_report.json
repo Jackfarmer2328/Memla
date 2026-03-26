@@ -1,0 +1,673 @@
+{
+  "repo_root": "C:\\Users\\samat\\Project Memory\\external\\fastapi-guard",
+  "cases_path": "C:\\Users\\samat\\Project Memory\\Project-Memory\\distill\\public_repo_fastapi_guard_v1\\unseen_cases.jsonl",
+  "cases": 12,
+  "avg_baseline_file_recall": 0.0848,
+  "avg_baseline_command_recall": 0.0,
+  "avg_memla_file_recall": 0.1209,
+  "avg_memla_command_recall": 0.0,
+  "avg_delta_file_recall": 0.0362,
+  "avg_delta_command_recall": 0.0,
+  "positive_file_transfer_cases": 3,
+  "positive_command_transfer_cases": 0,
+  "rows": [
+    {
+      "prompt": "Update FastAPI Guard to version 3.0.2 and fix security middleware request checks.",
+      "expected_files": [
+        "docs/versions/versions.json",
+        "guard/handlers/suspatterns_handler.py",
+        "guard/middleware.py",
+        "guard/models.py",
+        "guard/utils.py",
+        "pyproject.toml",
+        "tests/test_middleware/test_security_middleware.py",
+        "tests/test_utils/test_request_checks.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "baseline_files": [
+        "docs/api/security-middleware.md",
+        "guard/core/checks/implementations/request_size_content.py",
+        "guard/core/checks/implementations/request_logging.py",
+        "guard/core/checks/implementations/ip_security.py",
+        "guard/core/checks/implementations/custom_request.py",
+        "guard/handlers/security_headers_handler.py"
+      ],
+      "baseline_commands": [],
+      "baseline_transmutations": [
+        "Trade stale dependency stability for updated compatibility plus verification."
+      ],
+      "baseline_roles": [
+        "dependency_manifest"
+      ],
+      "baseline_file_recall": 0.0,
+      "baseline_command_recall": 0.0,
+      "memla_files": [
+        "examples/testing/results/standard/fastapi_guard_standard_20251016_111555_security_analysis.png",
+        "examples/testing/results/high_load/fastapi_guard_high_load_20251016_112311_security_analysis.png",
+        "tests/test_utils/test_request_checks.py",
+        "tests/test_middleware/test_security_middleware.py",
+        "examples/testing/results/standard/fastapi_guard_standard_20251016_111555.json",
+        "examples/testing/results/high_load/fastapi_guard_high_load_20251016_112311.json"
+      ],
+      "memla_commands": [
+        "py -3 -m pytest -q tests/test_step6_coding_distillation.py"
+      ],
+      "memla_transmutations": [
+        "Trade stale dependency stability for updated compatibility plus verification."
+      ],
+      "memla_roles": [
+        "app_shell",
+        "dependency_manifest",
+        "test_surface"
+      ],
+      "memla_source_trace_ids": [
+        21,
+        19
+      ],
+      "memla_file_recall": 0.25,
+      "memla_command_recall": 0.0,
+      "delta_file_recall": 0.25,
+      "delta_command_recall": 0.0
+    },
+    {
+      "prompt": "Update the project version to 4.0.0 and remove the commented-out Discord notification configuration.",
+      "expected_files": [
+        "Makefile",
+        "docs/versions/versions.json",
+        "examples/main.py",
+        "guard/decorators/access_control.py",
+        "guard/decorators/base.py",
+        "guard/detection_engine/__init__.py",
+        "guard/detection_engine/compiler.py",
+        "guard/detection_engine/monitor.py",
+        "guard/detection_engine/preprocessor.py",
+        "guard/detection_engine/semantic.py",
+        "guard/handlers/__init__.py",
+        "guard/handlers/behavior_handler.py",
+        "guard/handlers/cloud_handler.py",
+        "guard/handlers/dynamic_rule_handler.py",
+        "guard/handlers/ipban_handler.py",
+        "guard/handlers/ipinfo_handler.py",
+        "guard/handlers/ratelimit_handler.py",
+        "guard/handlers/redis_handler.py",
+        "guard/handlers/suspatterns_handler.py",
+        "guard/middleware.py",
+        "guard/models.py",
+        "guard/protocols/__init__.py",
+        "guard/protocols/agent_protocol.py",
+        "guard/protocols/geo_ip_protocol.py",
+        "guard/protocols/redis_protocol.py",
+        "guard/utils.py",
+        "pyproject.toml",
+        "tests/conftest.py",
+        "tests/test_agent/__init__.py",
+        "tests/test_agent/conftest.py",
+        "tests/test_agent/test_behavior_agent_integration.py",
+        "tests/test_agent/test_cloud_agent_integration.py",
+        "tests/test_agent/test_decorator_agent_integration.py",
+        "tests/test_agent/test_drh_agent_integration.py",
+        "tests/test_agent/test_ipban_agent_integration.py",
+        "tests/test_agent/test_ipinfo_agent_integration.py",
+        "tests/test_agent/test_middleware_agent_integration.py",
+        "tests/test_agent/test_models_agent_integration.py",
+        "tests/test_agent/test_ratelimit_agent_integration.py",
+        "tests/test_agent/test_redis_agent_integration.py",
+        "tests/test_agent/test_suspatterns_agent_integration.py",
+        "tests/test_agent/test_utils_agent_integration.py",
+        "tests/test_decorators/test_authentication.py",
+        "tests/test_decorators/test_base.py",
+        "tests/test_decorators/test_behavior_handler.py",
+        "tests/test_decorators/test_middleware_integration.py",
+        "tests/test_middleware/test_security_middleware.py",
+        "tests/test_models/test_models.py",
+        "tests/test_sus_patterns/conftest.py",
+        "tests/test_sus_patterns/test_compiler.py",
+        "tests/test_sus_patterns/test_detection_engine.py",
+        "tests/test_sus_patterns/test_extension_integration.py",
+        "tests/test_sus_patterns/test_monitor.py",
+        "tests/test_sus_patterns/test_preprocessor.py",
+        "tests/test_sus_patterns/test_semantic.py",
+        "tests/test_sus_patterns/test_sus_patterns.py",
+        "tests/test_utils/test_proxy_handling.py",
+        "tests/test_utils/test_request_checks.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "baseline_files": [
+        "docs/versions/versions.json",
+        "docs/tutorial/security/detection-engine/configuration.md",
+        "docs/overrides/partials/version-select.html",
+        ".safety-project.ini",
+        ".python-version",
+        "docs/tutorial/configuration/security-config.md"
+      ],
+      "baseline_commands": [],
+      "baseline_transmutations": [
+        "Trade stale dependency stability for updated compatibility plus verification."
+      ],
+      "baseline_roles": [
+        "dependency_manifest"
+      ],
+      "baseline_file_recall": 0.0172,
+      "baseline_command_recall": 0.0,
+      "memla_files": [
+        "examples/simple_app/main.py",
+        "examples/advanced_app/app/main.py",
+        "tests/test_features/test_context_aware_detection.py",
+        "tests/test_decorators/test_behavior_handler_edge_cases.py",
+        "tests/test_decorators/test_behavior_handler.py",
+        "tests/test_core/test_bypass_handler.py"
+      ],
+      "memla_commands": [
+        "py -3 -m pytest -q tests/test_step6_coding_distillation.py"
+      ],
+      "memla_transmutations": [
+        "Trade stale dependency stability for updated compatibility plus verification."
+      ],
+      "memla_roles": [
+        "app_shell",
+        "dependency_manifest",
+        "test_surface"
+      ],
+      "memla_source_trace_ids": [
+        21,
+        19
+      ],
+      "memla_file_recall": 0.0172,
+      "memla_command_recall": 0.0,
+      "delta_file_recall": 0.0,
+      "delta_command_recall": 0.0
+    },
+    {
+      "prompt": "Fix the formatting of the geo rate limit decorator in the example code.",
+      "expected_files": [
+        "examples/main.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "baseline_files": [],
+      "baseline_commands": [],
+      "baseline_transmutations": [],
+      "baseline_roles": [],
+      "baseline_file_recall": 0.0,
+      "baseline_command_recall": 0.0,
+      "memla_files": [],
+      "memla_commands": [],
+      "memla_transmutations": [],
+      "memla_roles": [],
+      "memla_source_trace_ids": [],
+      "memla_file_recall": 0.0,
+      "memla_command_recall": 0.0,
+      "delta_file_recall": 0.0,
+      "delta_command_recall": 0.0
+    },
+    {
+      "prompt": "Fix import issues by renaming the guard variable to guard_decorator to resolve decorator conflicts.",
+      "expected_files": [
+        "examples/main.py",
+        "guard/models.py",
+        "tests/test_agent/test_models_agent_integration.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "baseline_files": [],
+      "baseline_commands": [],
+      "baseline_transmutations": [],
+      "baseline_roles": [],
+      "baseline_file_recall": 0.0,
+      "baseline_command_recall": 0.0,
+      "memla_files": [],
+      "memla_commands": [],
+      "memla_transmutations": [],
+      "memla_roles": [],
+      "memla_source_trace_ids": [],
+      "memla_file_recall": 0.0,
+      "memla_command_recall": 0.0,
+      "delta_file_recall": 0.0,
+      "delta_command_recall": 0.0
+    },
+    {
+      "prompt": "Refactor the guard configuration to consolidate duplicate pattern settings into a single line.",
+      "expected_files": [
+        "examples/main.py",
+        "guard/models.py",
+        "tests/test_agent/test_models_agent_integration.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "baseline_files": [],
+      "baseline_commands": [],
+      "baseline_transmutations": [],
+      "baseline_roles": [],
+      "baseline_file_recall": 0.0,
+      "baseline_command_recall": 0.0,
+      "memla_files": [],
+      "memla_commands": [],
+      "memla_transmutations": [],
+      "memla_roles": [],
+      "memla_source_trace_ids": [],
+      "memla_file_recall": 0.0,
+      "memla_command_recall": 0.0,
+      "delta_file_recall": 0.0,
+      "delta_command_recall": 0.0
+    },
+    {
+      "prompt": "Update the FastAPI Guard version to 4.0.1 in the project configuration and documentation.",
+      "expected_files": [
+        "docs/versions/versions.json",
+        "pyproject.toml"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "baseline_files": [
+        "examples/testing/results/standard/fastapi_guard_standard_20251016_111555.json",
+        "examples/testing/results/high_load/fastapi_guard_high_load_20251016_112311.json",
+        "guard/handlers/suspatterns_handler.py",
+        "guard/handlers/security_headers_handler.py",
+        "guard/handlers/redis_handler.py",
+        "guard/handlers/ratelimit_handler.py"
+      ],
+      "baseline_commands": [],
+      "baseline_transmutations": [
+        "Trade stale dependency stability for updated compatibility plus verification."
+      ],
+      "baseline_roles": [
+        "dependency_manifest"
+      ],
+      "baseline_file_recall": 0.0,
+      "baseline_command_recall": 0.0,
+      "memla_files": [
+        "examples/testing/results/standard/fastapi_guard_standard_20251016_111555.json",
+        "examples/testing/results/high_load/fastapi_guard_high_load_20251016_112311.json",
+        "examples/testing/results/standard/fastapi_guard_standard_20251016_111555_security_analysis.png",
+        "examples/testing/results/high_load/fastapi_guard_high_load_20251016_112311_security_analysis.png",
+        "examples/simple_app/main.py",
+        "examples/advanced_app/app/main.py"
+      ],
+      "memla_commands": [
+        "py -3 -m pytest -q tests/test_step6_coding_distillation.py"
+      ],
+      "memla_transmutations": [
+        "Trade stale dependency stability for updated compatibility plus verification."
+      ],
+      "memla_roles": [
+        "app_shell",
+        "dependency_manifest",
+        "test_surface"
+      ],
+      "memla_source_trace_ids": [
+        21,
+        19
+      ],
+      "memla_file_recall": 0.0,
+      "memla_command_recall": 0.0,
+      "delta_file_recall": 0.0,
+      "delta_command_recall": 0.0
+    },
+    {
+      "prompt": "Fix the bugged Agent integration by updating version files and handler logic.",
+      "expected_files": [
+        "docs/versions/versions.json",
+        "guard/decorators/base.py",
+        "guard/handlers/behavior_handler.py",
+        "guard/handlers/cloud_handler.py",
+        "guard/handlers/dynamic_rule_handler.py",
+        "guard/handlers/ipban_handler.py",
+        "guard/handlers/ipinfo_handler.py",
+        "guard/handlers/ratelimit_handler.py",
+        "guard/handlers/redis_handler.py",
+        "guard/handlers/suspatterns_handler.py",
+        "guard/middleware.py",
+        "guard/utils.py",
+        "pyproject.toml",
+        "tests/test_agent/conftest.py",
+        "tests/test_agent/test_middleware_agent_integration.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "baseline_files": [
+        "tests/test_security_headers/test_agent_integration.py",
+        "tests/test_agent/test_utils_agent_integration.py",
+        "tests/test_agent/test_suspatterns_agent_integration.py",
+        "tests/test_agent/test_redis_agent_integration.py",
+        "tests/test_agent/test_ratelimit_agent_integration.py",
+        "tests/test_agent/test_models_agent_integration.py"
+      ],
+      "baseline_commands": [],
+      "baseline_transmutations": [
+        "Trade stale dependency stability for updated compatibility plus verification."
+      ],
+      "baseline_roles": [
+        "dependency_manifest"
+      ],
+      "baseline_file_recall": 0.0,
+      "baseline_command_recall": 0.0,
+      "memla_files": [
+        "tests/test_security_headers/test_agent_integration.py",
+        "tests/test_agent/test_utils_agent_integration.py",
+        "tests/test_agent/test_suspatterns_agent_integration.py",
+        "tests/test_agent/test_redis_agent_integration.py",
+        "tests/test_agent/test_ratelimit_agent_integration.py",
+        "tests/test_agent/test_models_agent_integration.py"
+      ],
+      "memla_commands": [
+        "py -3 -m pytest -q tests/test_step6_coding_distillation.py"
+      ],
+      "memla_transmutations": [
+        "Trade stale dependency stability for updated compatibility plus verification."
+      ],
+      "memla_roles": [
+        "app_shell",
+        "dependency_manifest",
+        "test_surface"
+      ],
+      "memla_source_trace_ids": [
+        21,
+        19
+      ],
+      "memla_file_recall": 0.0,
+      "memla_command_recall": 0.0,
+      "delta_file_recall": 0.0,
+      "delta_command_recall": 0.0
+    },
+    {
+      "prompt": "Fix the custom_log_file configuration so file logging works correctly and is only enabled when explicitly set.",
+      "expected_files": [
+        "docs/versions/versions.json",
+        "examples/main.py",
+        "guard/decorators/base.py",
+        "guard/detection_engine/preprocessor.py",
+        "guard/handlers/behavior_handler.py",
+        "guard/handlers/cloud_handler.py",
+        "guard/handlers/dynamic_rule_handler.py",
+        "guard/handlers/ipban_handler.py",
+        "guard/handlers/ipinfo_handler.py",
+        "guard/handlers/ratelimit_handler.py",
+        "guard/handlers/redis_handler.py",
+        "guard/handlers/suspatterns_handler.py",
+        "guard/middleware.py",
+        "guard/utils.py",
+        "pyproject.toml",
+        "tests/conftest.py",
+        "tests/test_agent/test_middleware_agent_integration.py",
+        "tests/test_agent/test_redis_agent_integration.py",
+        "tests/test_agent/test_suspatterns_agent_integration.py",
+        "tests/test_middleware/test_security_middleware.py",
+        "tests/test_utils/test_logging.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "baseline_files": [],
+      "baseline_commands": [],
+      "baseline_transmutations": [],
+      "baseline_roles": [],
+      "baseline_file_recall": 0.0,
+      "baseline_command_recall": 0.0,
+      "memla_files": [
+        "docs/tutorial/configuration/logging.md",
+        "tests/test_utils/test_logging.py",
+        "tests/test_features/test_structured_json_logging.py",
+        "examples/simple_app/main.py",
+        "examples/advanced_app/app/main.py",
+        "tests/test_features/test_context_aware_detection.py"
+      ],
+      "memla_commands": [
+        "py -3 -m pytest -q tests/test_step6_coding_distillation.py"
+      ],
+      "memla_transmutations": [
+        "Trade one implementation constraint for a more stable verified constraint."
+      ],
+      "memla_roles": [
+        "app_shell",
+        "test_surface"
+      ],
+      "memla_source_trace_ids": [
+        18,
+        13,
+        8
+      ],
+      "memla_file_recall": 0.0476,
+      "memla_command_recall": 0.0,
+      "delta_file_recall": 0.0476,
+      "delta_command_recall": 0.0
+    },
+    {
+      "prompt": "Fix flaky test assertion by making it more robust against log message variations.",
+      "expected_files": [
+        "tests/test_utils/test_logging.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "baseline_files": [
+        "tests/test_features/test_context_aware_detection.py",
+        "tests/test_decorators/test_behavior_handler_edge_cases.py",
+        "tests/test_decorators/test_behavior_handler.py",
+        "tests/test_core/test_bypass_handler.py",
+        "tests/test_utils/test_utils_edge_cases.py",
+        "tests/test_utils/test_request_checks.py"
+      ],
+      "baseline_commands": [],
+      "baseline_transmutations": [
+        "Trade one implementation constraint for a more stable verified constraint."
+      ],
+      "baseline_roles": [
+        "test_surface"
+      ],
+      "baseline_file_recall": 0.0,
+      "baseline_command_recall": 0.0,
+      "memla_files": [
+        "tests/test_features/test_context_aware_detection.py",
+        "tests/test_decorators/test_behavior_handler_edge_cases.py",
+        "tests/test_decorators/test_behavior_handler.py",
+        "tests/test_core/test_bypass_handler.py",
+        "tests/test_utils/test_utils_edge_cases.py",
+        "tests/test_utils/test_request_checks.py"
+      ],
+      "memla_commands": [
+        "py -3 -m pytest -q tests/test_step6_coding_distillation.py"
+      ],
+      "memla_transmutations": [
+        "Trade one implementation constraint for a more stable verified constraint."
+      ],
+      "memla_roles": [
+        "app_shell",
+        "test_surface"
+      ],
+      "memla_source_trace_ids": [
+        21,
+        20,
+        19,
+        18
+      ],
+      "memla_file_recall": 0.0,
+      "memla_command_recall": 0.0,
+      "delta_file_recall": 0.0,
+      "delta_command_recall": 0.0
+    },
+    {
+      "prompt": "Fix the formatting inconsistency in the logging test assertion.",
+      "expected_files": [
+        "tests/test_utils/test_logging.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "baseline_files": [
+        "tests/test_utils/test_logging.py",
+        "tests/test_features/test_structured_json_logging.py",
+        "tests/test_features/test_context_aware_detection.py",
+        "tests/test_decorators/test_behavior_handler_edge_cases.py",
+        "tests/test_decorators/test_behavior_handler.py",
+        "tests/test_core/test_bypass_handler.py"
+      ],
+      "baseline_commands": [],
+      "baseline_transmutations": [
+        "Trade one implementation constraint for a more stable verified constraint."
+      ],
+      "baseline_roles": [
+        "test_surface"
+      ],
+      "baseline_file_recall": 1.0,
+      "baseline_command_recall": 0.0,
+      "memla_files": [
+        "tests/test_utils/test_logging.py",
+        "tests/test_features/test_structured_json_logging.py",
+        "tests/test_features/test_context_aware_detection.py",
+        "tests/test_decorators/test_behavior_handler_edge_cases.py",
+        "tests/test_decorators/test_behavior_handler.py",
+        "tests/test_core/test_bypass_handler.py"
+      ],
+      "memla_commands": [
+        "py -3 -m pytest -q tests/test_step6_coding_distillation.py"
+      ],
+      "memla_transmutations": [
+        "Trade one implementation constraint for a more stable verified constraint."
+      ],
+      "memla_roles": [
+        "app_shell",
+        "test_surface"
+      ],
+      "memla_source_trace_ids": [
+        18,
+        13,
+        8,
+        21
+      ],
+      "memla_file_recall": 1.0,
+      "memla_command_recall": 0.0,
+      "delta_file_recall": 0.0,
+      "delta_command_recall": 0.0
+    },
+    {
+      "prompt": "Add HTTP security headers to the FastAPI Guard library.",
+      "expected_files": [
+        "docs/versions/versions.json",
+        "examples/main.py",
+        "guard/__init__.py",
+        "guard/decorators/__init__.py",
+        "guard/decorators/access_control.py",
+        "guard/decorators/advanced.py",
+        "guard/decorators/authentication.py",
+        "guard/decorators/base.py",
+        "guard/decorators/behavioral.py",
+        "guard/decorators/content_filtering.py",
+        "guard/decorators/rate_limiting.py",
+        "guard/detection_engine/__init__.py",
+        "guard/detection_engine/compiler.py",
+        "guard/detection_engine/monitor.py",
+        "guard/detection_engine/preprocessor.py",
+        "guard/detection_engine/semantic.py",
+        "guard/handlers/__init__.py",
+        "guard/handlers/behavior_handler.py",
+        "guard/handlers/cloud_handler.py",
+        "guard/handlers/dynamic_rule_handler.py",
+        "guard/handlers/ipban_handler.py",
+        "guard/handlers/ipinfo_handler.py",
+        "guard/handlers/ratelimit_handler.py",
+        "guard/handlers/redis_handler.py",
+        "guard/handlers/security_headers_handler.py",
+        "guard/handlers/suspatterns_handler.py",
+        "guard/middleware.py",
+        "guard/models.py",
+        "guard/protocols/__init__.py",
+        "guard/protocols/agent_protocol.py",
+        "guard/protocols/geo_ip_protocol.py",
+        "guard/protocols/redis_protocol.py",
+        "guard/scripts/__init__.py",
+        "guard/scripts/rate_lua.py",
+        "pyproject.toml",
+        "tests/test_security_headers/__init__.py",
+        "tests/test_security_headers/test_agent_integration.py",
+        "tests/test_security_headers/test_cors_integration.py",
+        "tests/test_security_headers/test_csp_validation.py",
+        "tests/test_security_headers/test_edge_cases.py",
+        "tests/test_security_headers/test_headers_core.py",
+        "tests/test_security_headers/test_middleware_integration.py",
+        "tests/test_security_headers/test_redis_integration.py",
+        "tests/test_security_headers/test_security_validation.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "baseline_files": [],
+      "baseline_commands": [],
+      "baseline_transmutations": [],
+      "baseline_roles": [],
+      "baseline_file_recall": 0.0,
+      "baseline_command_recall": 0.0,
+      "memla_files": [
+        "tests/test_security_headers/test_security_validation.py",
+        "tests/test_security_headers/test_headers_core.py",
+        "tests/test_security_headers/test_redis_integration.py",
+        "tests/test_security_headers/test_middleware_integration.py",
+        "tests/test_security_headers/test_edge_cases.py",
+        "tests/test_security_headers/test_csp_validation.py"
+      ],
+      "memla_commands": [
+        "py -3 -m pytest -q tests/test_step6_coding_distillation.py"
+      ],
+      "memla_transmutations": [
+        "Trade one implementation constraint for a more stable verified constraint."
+      ],
+      "memla_roles": [
+        "app_shell",
+        "test_surface"
+      ],
+      "memla_source_trace_ids": [
+        18,
+        13,
+        8,
+        17
+      ],
+      "memla_file_recall": 0.1364,
+      "memla_command_recall": 0.0,
+      "delta_file_recall": 0.1364,
+      "delta_command_recall": 0.0
+    },
+    {
+      "prompt": "Remove trailing commas from the security headers notes in the example file.",
+      "expected_files": [
+        "examples/main.py"
+      ],
+      "expected_commands": [
+        "pytest",
+        "ruff check ."
+      ],
+      "baseline_files": [],
+      "baseline_commands": [],
+      "baseline_transmutations": [],
+      "baseline_roles": [],
+      "baseline_file_recall": 0.0,
+      "baseline_command_recall": 0.0,
+      "memla_files": [],
+      "memla_commands": [],
+      "memla_transmutations": [],
+      "memla_roles": [],
+      "memla_source_trace_ids": [],
+      "memla_file_recall": 0.0,
+      "memla_command_recall": 0.0,
+      "delta_file_recall": 0.0,
+      "delta_command_recall": 0.0
+    }
+  ]
+}

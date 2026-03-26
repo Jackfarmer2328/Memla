@@ -1,0 +1,270 @@
+{
+  "cases": 8,
+  "accepted": 6,
+  "accept_rate": 0.75,
+  "avg_file_recall": 0.625,
+  "avg_command_recall": 0.375,
+  "rows": [
+    {
+      "prompt": "Update all TrPC dependencies to version 9.0.0 in package.json.",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "package.json",
+        "src/pages/api/trpc/[trpc].ts",
+        "src/utils/trpc.ts",
+        "src/server/trpc.ts",
+        "pnpm-lock.yaml",
+        "package-lock.json"
+      ],
+      "suggested_commands": [
+        "pnpm install",
+        "npm install"
+      ],
+      "answer_files": [
+        "package.json",
+        "package-lock.json"
+      ],
+      "answer_commands": [
+        "pnpm install",
+        "npm install"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update all tRPC dependencies to version 9.0.0. Based on the retrieved memory, this is a known decision and likely involves updating `@trpc/server`, `@trpc/client`, `@trpc/react-query`, and potentially `@trpc/server/adapters` in `package.json`. I need t"
+    },
+    {
+      "prompt": "Update TypeScript version from 4.3.5 to 4.4.2 in the project dependencies.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "pnpm-lock.yaml",
+        "package.json",
+        "package-lock.json"
+      ],
+      "suggested_commands": [
+        "pnpm install",
+        "npm install"
+      ],
+      "answer_files": [
+        "package.json",
+        "package-lock.json"
+      ],
+      "answer_commands": [
+        "pnpm install",
+        "npm install"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the TypeScript version from 4.3.5 to 4.4.2. Based on the retrieved memory, this is a known decision and likely involves updating the `typescript` entry in `package.json`. I need to check the current `package.json` to see the existing TypeScript "
+    },
+    {
+      "prompt": "Disable strict null checks to support Node.js 12.x.",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "Node.js",
+        "tsconfig.json"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "Node.js",
+        "tsconfig.json"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to disable strict null checks to support Node.js 12.x. Based on the retrieved memory, this is a known decision and likely involves modifying the `tsconfig.json` file. I need to check the current `tsconfig.json` to see the existing strict null check settin"
+    },
+    {
+      "prompt": "Comment out the queryClientConfig default options in the Next.js app configuration.",
+      "trace_id": 4,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "Next.js",
+        "app.tsx",
+        "layout.tsx"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "Next.js",
+        "app.tsx",
+        "layout.tsx"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to comment out default options in `queryClientConfig` for a Next.js app. Based on the retrieved memory, this is a known decision and likely involves modifying the `app.tsx` or `layout.tsx` file where the `queryClient` is configured. I need to check the cu"
+    },
+    {
+      "prompt": "Refactor the codebase to separate router creation logic from context handling into distinct modules.",
+      "trace_id": 5,
+      "prior_trace_ids": [
+        2,
+        1
+      ],
+      "suggested_files": [
+        "src/server/context.ts",
+        "src/server/routers/post.ts",
+        "src/server/routers/_app.ts",
+        "src/server/routers/post.test.ts",
+        "pnpm-lock.yaml",
+        "package.json",
+        "src/server/routers/router.ts"
+      ],
+      "suggested_commands": [
+        "npm run build"
+      ],
+      "answer_files": [
+        "src/server/context.ts",
+        "src/server/routers/post.ts",
+        "src/server/routers/_app.ts",
+        "src/server/routers/router.ts"
+      ],
+      "answer_commands": [
+        "npm run build"
+      ],
+      "likely_tests": [
+        "npm run build"
+      ],
+      "patch_steps": [
+        "To update the TypeScript version from 4",
+        "2, I will modify the `package",
+        "Here's the plan:",
+        "**Identify current version**: Check the current version of TypeScript in `package"
+      ],
+      "file_recall": 0.3333,
+      "command_recall": 0.5,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to refactor the codebase to separate router creation logic from context handling into distinct modules. Based on the retrieved memory, this is a known decision and likely involves modifying the `src/server/context.ts`, `src/server/routers/post.ts`, and `s"
+    },
+    {
+      "prompt": "Refactor the Next.js starter to handle loading states and improve error handling for the post router.",
+      "trace_id": 6,
+      "prior_trace_ids": [
+        2,
+        1
+      ],
+      "suggested_files": [
+        "src/server/routers/post.ts",
+        "src/server/routers/post.test.ts",
+        "next.config.ts",
+        "next-env.d.ts",
+        "src/server/routers/_app.ts",
+        "src/pages/post/[id].tsx",
+        "Next.js"
+      ],
+      "suggested_commands": [
+        "npm run build"
+      ],
+      "answer_files": [
+        "Next.js",
+        "src/server/routers/post.ts",
+        "src/server/routers/_app.ts"
+      ],
+      "answer_commands": [
+        "npm run build"
+      ],
+      "likely_tests": [
+        "npm run build"
+      ],
+      "patch_steps": [
+        "To update the TypeScript version from 4",
+        "2, I will modify the `package",
+        "Here's the plan:",
+        "**Identify current version**: Check the current version of TypeScript in `package"
+      ],
+      "file_recall": 0.6667,
+      "command_recall": 0.5,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to refactor the Next.js starter to handle loading states and improve error handling for the post router. Based on the retrieved memory, this is a known decision and likely involves modifying the `src/server/routers/post.ts`, `src/pages/post/[id].tsx`, and"
+    },
+    {
+      "prompt": "Update the invalidateQueries function call to use the new invalidateQueries API instead of invalidateQuery.",
+      "trace_id": 7,
+      "prior_trace_ids": [
+        5
+      ],
+      "suggested_files": [
+        "src/pages/api/trpc/[trpc].ts",
+        "prisma/schema.prisma",
+        ".github/workflows/main.yml",
+        "src/server/routers/post.ts",
+        "src/server/routers/_app.ts",
+        "src/server/context.ts"
+      ],
+      "suggested_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "answer_files": [
+        "src/server/routers/post.ts"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "patch_steps": [
+        "To refactor the codebase to separate router creation logic from context handling into distinct modules, I will modify the `src/server/context",
+        "ts`, `src/server/routers/post",
+        "ts`, and `src/server/routers/_app",
+        "Here's the plan:"
+      ],
+      "file_recall": 0.0,
+      "command_recall": 1.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update the `invalidateQueries` function call to use the new `invalidateQueries` API instead of `invalidateQuery`. Based on the retrieved memory, this is a known decision and likely involves modifying the `src/server/routers/post.ts` or `src/pages/api/t"
+    },
+    {
+      "prompt": "Update the post detail page to use the new router API instead of the old one.",
+      "trace_id": 8,
+      "prior_trace_ids": [
+        5,
+        6,
+        2,
+        1
+      ],
+      "suggested_files": [
+        "src/server/routers/post.ts",
+        "src/server/routers/post.test.ts",
+        "src/server/routers/_app.ts",
+        "src/pages/post/[id].tsx",
+        "src/pages/api/trpc/[trpc].ts",
+        "prisma/schema.prisma"
+      ],
+      "suggested_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "patch_steps": [
+        "To refactor the codebase to separate router creation logic from context handling into distinct modules, I will modify the `src/server/context",
+        "ts`, `src/server/routers/post",
+        "ts`, and `src/server/routers/_app",
+        "Here's the plan:"
+      ],
+      "file_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the post detail page to use the new router API instead of the old one. Based on the retrieved memory, this is a known decision and likely involves modifying the `src/pages/post/[id].tsx` file. I need to check the current implementation to see ho"
+    }
+  ]
+}

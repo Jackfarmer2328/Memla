@@ -1,0 +1,370 @@
+{
+  "repo_root": "..\\external\\fastapi-mvc",
+  "repo_subpath": ".",
+  "repo_label": "fastapi mvc",
+  "manifest_path": "C:\\Users\\samat\\Project Memory\\external\\fastapi-mvc\\pyproject.toml",
+  "local_model": "qwen3.5:4b",
+  "ollama_base_url": "http://127.0.0.1:11435",
+  "seed_count": 8,
+  "unseen_count": 12,
+  "seed_cases": [
+    {
+      "prompt": "Create a Makefile with help target and environment variables for the FastAPI MVC project.",
+      "expected_files": [
+        "Makefile"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "dc357185991e75d792c58cb67c7dd162d694c84d",
+      "commit_subject": "Add Makefile",
+      "changed_files": [
+        "Makefile"
+      ]
+    },
+    {
+      "prompt": "Initialize logging for the fastapi-mvc package root module.",
+      "expected_files": [
+        "fastapi_mvc/__init__.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "dec9076386e7d8e2a7f06b7112f65c80912e571f",
+      "commit_subject": "Add package root init file",
+      "changed_files": [
+        "fastapi_mvc/__init__.py"
+      ]
+    },
+    {
+      "prompt": "Create a CLI entry point file to run the FastAPI application directly.",
+      "expected_files": [
+        "fastapi_mvc/__main__.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "de27f3f7b88fb7472407f533a688c80ce20ab76b",
+      "commit_subject": "Add package __main__ file",
+      "changed_files": [
+        "fastapi_mvc/__main__.py"
+      ]
+    },
+    {
+      "prompt": "Create a unit test for the cookiecutter template functionality.",
+      "expected_files": [
+        "tests/__init__.py",
+        "tests/unit/__init__.py",
+        "tests/unit/template/__init__.py",
+        "tests/unit/template/test_template.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "065449da26a07e7e44e136235a816870933e4188",
+      "commit_subject": "Add tests dir with dummy unit test for now",
+      "changed_files": [
+        "tests/__init__.py",
+        "tests/unit/__init__.py",
+        "tests/unit/template/__init__.py",
+        "tests/unit/template/test_template.py"
+      ]
+    },
+    {
+      "prompt": "Implement the CLI command to generate new FastAPI MVC projects using cookiecutter.",
+      "expected_files": [
+        "fastapi_mvc/cli/cli.py",
+        "fastapi_mvc/cli/commands/new.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "627fe6c05807cba509b44182a62607fb94fd5a65",
+      "commit_subject": "Implement base logic for project generation",
+      "changed_files": [
+        "fastapi_mvc/cli/cli.py",
+        "fastapi_mvc/cli/commands/new.py"
+      ]
+    },
+    {
+      "prompt": "Fix inconsistent code style and duplicate license type definitions in the CLI module.",
+      "expected_files": [
+        "fastapi_mvc/__main__.py",
+        "fastapi_mvc/cli/cli.py",
+        "fastapi_mvc/cli/commands/new.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "2d375ed666586eeaaa61a4ef78c3def45a1ddcd5",
+      "commit_subject": "Fix styleguide",
+      "changed_files": [
+        "fastapi_mvc/__main__.py",
+        "fastapi_mvc/cli/cli.py",
+        "fastapi_mvc/cli/commands/new.py"
+      ]
+    },
+    {
+      "prompt": "Fix Jinja2 template syntax inconsistencies in the cookiecutter template.",
+      "expected_files": [
+        "fastapi_mvc/template/{{cookiecutter.folder_name}}/{{cookiecutter.package_name}}/app/controllers/api/v1/ready.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "f60907680c7c42509c9230f7a6e1210f754bd94d",
+      "commit_subject": "Fix style guide",
+      "changed_files": [
+        "fastapi_mvc/template/{{cookiecutter.folder_name}}/{{cookiecutter.package_name}}/app/controllers/api/v1/ready.py"
+      ]
+    },
+    {
+      "prompt": "Fix the D205 docstring formatting violation in the CLI module.",
+      "expected_files": [
+        "fastapi_mvc/cli/cli.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "0c1fd6a6c2fda50a2415ce92d86034176f822398",
+      "commit_subject": "Fix false D205",
+      "changed_files": [
+        "fastapi_mvc/cli/cli.py"
+      ]
+    }
+  ],
+  "unseen_cases": [
+    {
+      "prompt": "Fix the broken cookiecutter template test by correcting the relative path logic.",
+      "expected_files": [
+        "tests/integration/__init__.py",
+        "tests/integration/test_template.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "65ec63e59320ab0dce3c0525babf17ae0eafb3ad",
+      "commit_subject": "Add integration tests dir, add dumy test",
+      "changed_files": [
+        "tests/integration/__init__.py",
+        "tests/integration/test_template.py"
+      ]
+    },
+    {
+      "prompt": "Update the cookiecutter project description to remove the redundant URL reference.",
+      "expected_files": [
+        "fastapi_mvc/template/cookiecutter.json"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "c55d3eeb2d9d39eb78168a575ec549eefb4f4830",
+      "commit_subject": "Update cookiecutter config",
+      "changed_files": [
+        "fastapi_mvc/template/cookiecutter.json"
+      ]
+    },
+    {
+      "prompt": "Create a Makefile with targets to run metrics, unit tests, and integration tests using shell scripts.",
+      "expected_files": [
+        "Makefile"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "9cea919fd9ad5aa0ab92f435513920a632a34e28",
+      "commit_subject": "Add new make targets, add new make scripts",
+      "changed_files": [
+        "Makefile"
+      ]
+    },
+    {
+      "prompt": "Fix the incorrect relative path in the template test to point to the correct directory.",
+      "expected_files": [
+        "tests/integration/test_template.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "fd87824872e57b57876e4466ec1e2630c6cae344",
+      "commit_subject": "Fix dummy test",
+      "changed_files": [
+        "tests/integration/test_template.py"
+      ]
+    },
+    {
+      "prompt": "Create Makefile targets for running metrics, unit tests, and integration tests.",
+      "expected_files": [
+        "fastapi_mvc/template/{{cookiecutter.folder_name}}/Makefile"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "186a54af8c308481c018656b58f181b10be6909b",
+      "commit_subject": "Add new template make targets, add new template make scripts",
+      "changed_files": [
+        "fastapi_mvc/template/{{cookiecutter.folder_name}}/Makefile"
+      ]
+    },
+    {
+      "prompt": "Fix the incorrect relative path to the template directory in the integration test.",
+      "expected_files": [
+        "tests/integration/test_template.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "7b19ca974ada3630adce2ebba0ee23cc1b51b90b",
+      "commit_subject": "Fix dummy test",
+      "changed_files": [
+        "tests/integration/test_template.py"
+      ]
+    },
+    {
+      "prompt": "Refactor the cookiecutter template test to remove debug print statements and simplify the directory path logic.",
+      "expected_files": [
+        "tests/integration/test_template.py",
+        "tests/unit/template/__init__.py",
+        "tests/unit/template/test_template.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "1d502fc4449a9dafce4c645d9c03dc650d24d18a",
+      "commit_subject": "Remove print",
+      "changed_files": [
+        "tests/integration/test_template.py",
+        "tests/unit/template/__init__.py",
+        "tests/unit/template/test_template.py"
+      ]
+    },
+    {
+      "prompt": "Write unit tests for the CLI new command module.",
+      "expected_files": [
+        "tests/unit/cli/__init__.py",
+        "tests/unit/cli/commands/__init__.py",
+        "tests/unit/cli/commands/test_new.py",
+        "tests/unit/cli/conftest.py",
+        "tests/unit/cli/test_cli.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "c6eaf296d6341f6dbb5f2e1966acdddc0fec1060",
+      "commit_subject": "Implement unit tests for cli submodule",
+      "changed_files": [
+        "tests/unit/cli/__init__.py",
+        "tests/unit/cli/commands/__init__.py",
+        "tests/unit/cli/commands/test_new.py",
+        "tests/unit/cli/conftest.py",
+        "tests/unit/cli/test_cli.py"
+      ]
+    },
+    {
+      "prompt": "Add mock as a dev dependency to pyproject.toml for Python 3.6+.",
+      "expected_files": [
+        "pyproject.toml"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "ffe4d577e6ef8cb776f1d4bb9832ab033fc10239",
+      "commit_subject": "Add mock dev dependency",
+      "changed_files": [
+        "pyproject.toml"
+      ]
+    },
+    {
+      "prompt": "Update the cookiecutter configuration to enable Codecov by changing the codecov option to yes.",
+      "expected_files": [
+        "fastapi_mvc/template/cookiecutter.json"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "932e5fe8ad6f2a701da3f3197b4ad4d0d7ccceb8",
+      "commit_subject": "Update cookiecutter config",
+      "changed_files": [
+        "fastapi_mvc/template/cookiecutter.json"
+      ]
+    },
+    {
+      "prompt": "Create a CLI command to generate a new FastAPI project with optional skip flags for install and code coverage.",
+      "expected_files": [
+        "fastapi_mvc/cli/commands/new.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "78b91b81328c90493be9b2a169a52e1b6fae98db",
+      "commit_subject": "Implement command logic",
+      "changed_files": [
+        "fastapi_mvc/cli/commands/new.py"
+      ]
+    },
+    {
+      "prompt": "Refactor the CLI command test to handle missing git user configuration gracefully.",
+      "expected_files": [
+        "tests/unit/cli/commands/test_new.py"
+      ],
+      "expected_commands": [
+        "pytest"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "4137e065b8dad5670e7093bcda623d7db1256604",
+      "commit_subject": "Update and extend unit tests",
+      "changed_files": [
+        "tests/unit/cli/commands/test_new.py"
+      ]
+    }
+  ]
+}

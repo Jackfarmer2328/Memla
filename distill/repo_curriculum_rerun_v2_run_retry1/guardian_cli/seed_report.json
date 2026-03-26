@@ -1,0 +1,148 @@
+{
+  "cases": 6,
+  "accepted": 1,
+  "accept_rate": 0.1667,
+  "avg_file_recall": 0.2022,
+  "avg_command_recall": 0.0,
+  "rows": [
+    {
+      "prompt": "Create a .env.example file with placeholder values for the Gemini API key and optional LangSmith tracing settings.",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        ".env.example",
+        "ai/gemini_client.py",
+        "ai/providers/gemini_provider.py",
+        "cli/main.py",
+        "cli/commands/models.py",
+        "ai/ai_client.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0465,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants a `.env.example` file created with placeholders for the Gemini API key and optional LangSmith tracing settings. Based on the retrieved memory, this is a specific requirement for this repository. I need to create this file with appropriate placeholder valu"
+    },
+    {
+      "prompt": "Implement Docker support for the security tool wrappers in the CLI.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "cli/main.py",
+        "cli/commands/models.py",
+        "cli/commands/workflow.py",
+        "cli/commands/scan.py",
+        "cli/commands/report.py",
+        "cli/commands/recon.py",
+        "requirements.txt"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "requirements.txt"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to implement Docker support for security tool wrappers in the CLI. Based on the retrieved memory, this is a specific decision made for this repository. I need to: 1. Create a Dockerfile for the CLI application 2. Create a docker-compose.yml file for easy "
+    },
+    {
+      "prompt": "Integrate Arjun, XSStrike, Gitleaks, CMSeek, and DnsRecon tools with Docker support into the CLI agent.",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "cli/main.py",
+        "cli/commands/models.py",
+        "cli/commands/workflow.py",
+        "cli/commands/scan.py",
+        "cli/commands/report.py",
+        "cli/commands/recon.py",
+        "cli/commands/arjun.py",
+        "cli/commands/xssstrike.py",
+        "cli/commands/gitleaks.py",
+        "cli/commands/cmseek.py",
+        "cli/commands/dnsrecon.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "cli/commands/models.py",
+        "cli/commands/arjun.py",
+        "cli/commands/xssstrike.py",
+        "cli/commands/gitleaks.py",
+        "cli/commands/cmseek.py",
+        "cli/commands/dnsrecon.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to integrate specific security tools (Arjun, XSStrike, Gitleaks, CMSeek, and DnsRecon) with Docker support into the CLI agent. Based on the retrieved memory, this is a confirmed decision for this repository. I need to: 1. Create command modules for each t"
+    },
+    {
+      "prompt": "Update the Dockerfile to use Go 1.25 and add Gemini rate limit handling to the client.",
+      "trace_id": 4,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants two specific updates: 1. Update the Dockerfile to use Go 1.25 (as per the retrieved memory). 2. Add Gemini rate limit handling to the client (as per the retrieved memory). I will proceed with these tasks. </think> Here are the requested updates. ### 1. Up"
+    },
+    {
+      "prompt": "Update the Gemini client to use Antigravity Auth instead of LangChain.",
+      "trace_id": 5,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "ai/gemini_client.py",
+        "ai/ai_client.py",
+        "ai/providers/gemini_provider.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.1667,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update the Gemini client to use Antigravity Auth instead of LangChain. Based on the retrieved memory, this is a confirmed decision for this repository. I need to: 1. Remove LangChain dependencies from the client code 2. Implement Antigravity Auth for a"
+    },
+    {
+      "prompt": "Add a check to warn users if no Antigravity accounts are found before running the CLI.",
+      "trace_id": 6,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "cli/main.py",
+        "cli/commands/models.py",
+        "cli/commands/workflow.py",
+        "cli/commands/scan.py",
+        "cli/commands/report.py",
+        "cli/commands/recon.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "cli/main.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to add a check to warn users if no Antigravity accounts are found before running the CLI. This is a safety measure to prevent the CLI from running without proper authentication. I need to: 1. Check for the presence of Antigravity credentials (API key or a"
+    }
+  ]
+}

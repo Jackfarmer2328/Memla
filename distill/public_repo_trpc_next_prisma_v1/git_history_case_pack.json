@@ -1,0 +1,426 @@
+{
+  "repo_root": "C:\\Users\\samat\\Project Memory\\external\\trpc-examples-next-prisma-starter",
+  "repo_subpath": ".",
+  "repo_label": "tRPC Next Prisma starter",
+  "manifest_path": "C:\\Users\\samat\\Project Memory\\external\\trpc-examples-next-prisma-starter\\package.json",
+  "local_model": "qwen3.5:9b",
+  "ollama_base_url": "http://127.0.0.1:11435",
+  "seed_count": 8,
+  "unseen_count": 12,
+  "seed_cases": [
+    {
+      "prompt": "Disable strict null checks in the TypeScript configuration to support Node version 12.x.",
+      "expected_files": [
+        "tsconfig.json"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "9ac4f7f32eb134a400cc57372625c44ec2cb9cbe",
+      "commit_subject": "add ci checks for node version `12.x` (#886)",
+      "changed_files": [
+        "tsconfig.json"
+      ]
+    },
+    {
+      "prompt": "Update all tRPC packages from version 9.1.0 to 9.2.0.",
+      "expected_files": [
+        "package.json"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "00372f34edf24bf405b2a38fd966cbf3fd08c341",
+      "commit_subject": "v9.2.0",
+      "changed_files": [
+        "package.json"
+      ]
+    },
+    {
+      "prompt": "Update React and TypeScript dependencies to their latest compatible versions.",
+      "expected_files": [
+        "package.json"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "7949d02499f2cb87c2b43b8a88e3587b847cd092",
+      "commit_subject": "bump dependencies (#894)",
+      "changed_files": [
+        "package.json"
+      ]
+    },
+    {
+      "prompt": "Comment out the queryClientConfig defaultOptions to disable the staleTime setting.",
+      "expected_files": [
+        "src/pages/_app.tsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "be2c3d7e82e147cae08ff3181c5c365715498614",
+      "commit_subject": "example: comment `queryClientConfig` in defaults (#922)",
+      "changed_files": [
+        "src/pages/_app.tsx"
+      ]
+    },
+    {
+      "prompt": "Refactor the tRPC setup to separate router creation from context definition in the examples.",
+      "expected_files": [
+        "src/pages/_app.tsx",
+        "src/pages/api/trpc/[trpc].ts",
+        "src/server/context.ts",
+        "src/server/createRouter.ts",
+        "src/server/routers/_app.ts",
+        "src/server/routers/app.ts",
+        "src/server/routers/post.ts",
+        "src/server/trpc.ts",
+        "src/utils/trpc.ts"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "202cdf96099f44ce8a92e7093d197d3be64ae453",
+      "commit_subject": "split up `createRouter` and `createContext` in examples (#951)",
+      "changed_files": [
+        "src/pages/_app.tsx",
+        "src/pages/api/trpc/[trpc].ts",
+        "src/server/context.ts",
+        "src/server/createRouter.ts",
+        "src/server/routers/_app.ts",
+        "src/server/routers/app.ts",
+        "src/server/routers/post.ts",
+        "src/server/trpc.ts",
+        "src/utils/trpc.ts"
+      ]
+    },
+    {
+      "prompt": "Add error status codes to NextError components and handle loading states for tRPC queries.",
+      "expected_files": [
+        "src/pages/index.tsx",
+        "src/pages/post/[id].tsx",
+        "src/server/routers/post.ts"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "ca49c2dcbcb3b0f2bdad6c88f9995487313910e0",
+      "commit_subject": "improve nextjs starter (#1011)",
+      "changed_files": [
+        "src/pages/index.tsx",
+        "src/pages/post/[id].tsx",
+        "src/server/routers/post.ts"
+      ]
+    },
+    {
+      "prompt": "Update the example code to use invalidateQueries instead of invalidateQuery for the post.all query.",
+      "expected_files": [
+        "src/pages/index.tsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "64d88715821344e23f9bd8cb2d28eb89d0f44f22",
+      "commit_subject": "update examples with `invalidateQueries()` (#1063)",
+      "changed_files": [
+        "src/pages/index.tsx"
+      ]
+    },
+    {
+      "prompt": "Update the example to use next/router instead of the default router.",
+      "expected_files": [
+        "src/pages/post/[id].tsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "101f5db11089ae66e6c2cca78ca7122341c3d98d",
+      "commit_subject": "tweak example - use `next/router` (#1105)",
+      "changed_files": [
+        "src/pages/post/[id].tsx"
+      ]
+    }
+  ],
+  "unseen_cases": [
+    {
+      "prompt": "Add createdAt and updatedAt timestamps to the Post schema and create a unique index on the createdAt field.",
+      "expected_files": [
+        "src/pages/post/[id].tsx",
+        "src/server/routers/post.ts"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "5c443ecf94eeb49e1706d56f0fa79e1dcfb5af67",
+      "commit_subject": "add dates to nextjs example (#1107)",
+      "changed_files": [
+        "src/pages/post/[id].tsx",
+        "src/server/routers/post.ts"
+      ]
+    },
+    {
+      "prompt": "Update the Prisma database connection string and development scripts to use the correct port and schema.",
+      "expected_files": [
+        "jest-playwright.config.js",
+        "jest.config.js",
+        "jest.config.ts",
+        "jest.playwright.config.ts",
+        "package.json",
+        "playwright/smoke.test.ts",
+        "prisma/seed.ts",
+        "src/server/lib/sum.test.ts",
+        "src/server/lib/sum.ts",
+        "test/playwright.test.ts"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "8b7bc1445e4245ff39fb350d3ef09777f7c6d94c",
+      "commit_subject": "update prisma starter (#1143)",
+      "changed_files": [
+        "jest-playwright.config.js",
+        "jest.config.js",
+        "jest.config.ts",
+        "jest.playwright.config.ts",
+        "package.json",
+        "playwright/smoke.test.ts",
+        "prisma/seed.ts",
+        "src/server/lib/sum.test.ts",
+        "src/server/lib/sum.ts",
+        "test/playwright.test.ts"
+      ]
+    },
+    {
+      "prompt": "Update the base URL logic to support Vercel deployments while removing legacy environment variable checks.",
+      "expected_files": [
+        "package.json",
+        "src/pages/_app.tsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "973b5cb9ec827e9e61aa1b8d22f6d64b2b54558b",
+      "commit_subject": "add deployment for `nextjs-prisma-starter` (#1152)",
+      "changed_files": [
+        "package.json",
+        "src/pages/_app.tsx"
+      ]
+    },
+    {
+      "prompt": "Update the prefetch logic to iterate over posts and pass the post ID as an object parameter.",
+      "expected_files": [
+        "src/pages/index.tsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "8b3cff2f5cf467762ef89d6d724af5324c068e19",
+      "commit_subject": "tweak next-prisma-starter prefetch reference (#1157)",
+      "changed_files": [
+        "src/pages/index.tsx"
+      ]
+    },
+    {
+      "prompt": "Update the seed script to use a dynamic variable for the first post ID instead of a hardcoded string.",
+      "expected_files": [
+        "prisma/seed.ts"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "62cfb869977f10a1bad1fbb217f0c6838665f757",
+      "commit_subject": "fix seed data (#1161)",
+      "changed_files": [
+        "prisma/seed.ts"
+      ]
+    },
+    {
+      "prompt": "Upgrade the project to Next.js 12 and update the TypeScript configuration accordingly.",
+      "expected_files": [
+        "package.json",
+        "tsconfig.json"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "2cc219c7d1f6174dba4bf5ca010839d72ce510ee",
+      "commit_subject": "upgrade examples to next 12 (#1174)",
+      "changed_files": [
+        "package.json",
+        "tsconfig.json"
+      ]
+    },
+    {
+      "prompt": "Configure the CI workflow to automatically upload Playwright test videos and screenshots as artifacts.",
+      "expected_files": [
+        "jest.playwright.config.ts"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "4a1031c1ded6acd03f31387b118330e602a8be80",
+      "commit_subject": "add workflow videos for e2e tests (#1204)",
+      "changed_files": [
+        "jest.playwright.config.ts"
+      ]
+    },
+    {
+      "prompt": "Add the NextConfig type import to the configuration file.",
+      "expected_files": [
+        "next.config.js"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "001d7d23c147660c0e1d4e4343e8c87778905962",
+      "commit_subject": "add type for next.config.js (#1277)",
+      "changed_files": [
+        "next.config.js"
+      ]
+    },
+    {
+      "prompt": "Configure Playwright to collect coverage only when running in headless mode.",
+      "expected_files": [
+        "jest.playwright.config.ts"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "349f9d2dc7fb7b9333587d54258a71b8b0d66ac0",
+      "commit_subject": "add basic e2e test for kitchen sink",
+      "changed_files": [
+        "jest.playwright.config.ts"
+      ]
+    },
+    {
+      "prompt": "Refactor the Next.js app to use a custom DefaultLayout component for consistent page styling.",
+      "expected_files": [
+        "src/components/DefaultLayout.tsx",
+        "src/pages/_app.tsx",
+        "src/pages/index.tsx",
+        "src/pages/post/[id].tsx"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "279a26d9f168b008dd2315abaf4f7ca93117e8be",
+      "commit_subject": "implement getLayout() in examples/next-prisma-starter (#1289)",
+      "changed_files": [
+        "src/components/DefaultLayout.tsx",
+        "src/pages/_app.tsx",
+        "src/pages/index.tsx",
+        "src/pages/post/[id].tsx"
+      ]
+    },
+    {
+      "prompt": "Update all tRPC packages from version 9.17.0 to the 10.0.0-alpha.1 release.",
+      "expected_files": [
+        "package.json",
+        "src/pages/_app.tsx",
+        "src/utils/trpc.ts"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "c38b354a9c5474c4f6518c55c7a2efdacaf9e362",
+      "commit_subject": "create new link architecture (#1366)",
+      "changed_files": [
+        "package.json",
+        "src/pages/_app.tsx",
+        "src/utils/trpc.ts"
+      ]
+    },
+    {
+      "prompt": "Update package versions to support Rollup bundling and ESModules in the tRPC Next Prisma starter.",
+      "expected_files": [
+        "package.json",
+        "src/utils/trpc.ts"
+      ],
+      "expected_commands": [
+        "npm run build",
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "43c6bd47375adea30bed8acc629d730ea7601092",
+      "commit_subject": "Bundle with Rollup / ESModules support (#1466)",
+      "changed_files": [
+        "package.json",
+        "src/utils/trpc.ts"
+      ]
+    }
+  ]
+}

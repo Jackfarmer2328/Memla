@@ -1,0 +1,304 @@
+{
+  "repo_root": "..\\external\\express-rate-limit",
+  "repo_subpath": ".",
+  "repo_label": "express rate limit",
+  "manifest_path": "C:\\Users\\samat\\Project Memory\\external\\express-rate-limit\\package.json",
+  "local_model": "qwen3.5:4b",
+  "ollama_base_url": "http://127.0.0.1:11435",
+  "seed_count": 8,
+  "unseen_count": 8,
+  "seed_cases": [
+    {
+      "prompt": "Update the project dependencies to the latest versions specified in the package.json file.",
+      "expected_files": [
+        "package.json"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "f0e44b8bd051773457218b6d27cff94a2de0ac3b",
+      "commit_subject": "Merge pull request #21 from nfriedly/greenkeeper-load-grunt-tasks-3.5.0",
+      "changed_files": [
+        "package.json"
+      ]
+    },
+    {
+      "prompt": "Refactor function declarations to use the function keyword instead of expressions for consistency.",
+      "expected_files": [
+        "lib/memory-store.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "ceb15698c435d2691a8c79a7042f97ae46757abe",
+      "commit_subject": "function declaration instead of expression for consistency",
+      "changed_files": [
+        "lib/memory-store.js"
+      ]
+    },
+    {
+      "prompt": "Update the package version from 2.2.0 to 2.3.0 in package.json.",
+      "expected_files": [
+        "package.json"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "abd28a40151b2eeae1a4477b65bb03cf068232b4",
+      "commit_subject": "2.3.0",
+      "changed_files": [
+        "package.json"
+      ]
+    },
+    {
+      "prompt": "How do I configure the test reporter to use 'spec' in CI environments?",
+      "expected_files": [
+        "Gruntfile.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "5412d1b6a53f272bb07e15c3f6d592d7caf66888",
+      "commit_subject": "better test reporter on travis ci",
+      "changed_files": [
+        "Gruntfile.js"
+      ]
+    },
+    {
+      "prompt": "Add strict mode to the memory store implementation to catch syntax errors early.",
+      "expected_files": [
+        "lib/memory-store.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "dd8f213f48f29f4c8943845a16255a97fc6d693a",
+      "commit_subject": "use strict on memory store",
+      "changed_files": [
+        "lib/memory-store.js"
+      ]
+    },
+    {
+      "prompt": "Enable custom headers to display request limits and remaining usage in Express rate limiting.",
+      "expected_files": [
+        "lib/express-rate-limit.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "60944922778cbb65e66e6b3b6db9c877a6eab6e5",
+      "commit_subject": "RateLimit Header",
+      "changed_files": [
+        "lib/express-rate-limit.js"
+      ]
+    },
+    {
+      "prompt": "Fix the rate limiter logic to properly handle errors and enforce rate limits.",
+      "expected_files": [
+        "lib/express-rate-limit.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "635ef2b8bf8b13c6ecfe92502721223c0268586b",
+      "commit_subject": "JSHint Fix",
+      "changed_files": [
+        "lib/express-rate-limit.js"
+      ]
+    },
+    {
+      "prompt": "Fix the logic error where rate limit headers are set before the limit is checked.",
+      "expected_files": [
+        "lib/express-rate-limit.js",
+        "test/express-rate-limit.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "eff1823f398ce3b427a890c9f1f90ba5aea59be7",
+      "commit_subject": "Modified library and tests available",
+      "changed_files": [
+        "lib/express-rate-limit.js",
+        "test/express-rate-limit.js"
+      ]
+    }
+  ],
+  "unseen_cases": [
+    {
+      "prompt": "How do I configure a custom function to skip rate limiting for specific requests?",
+      "expected_files": [
+        "lib/express-rate-limit.js",
+        "test/express-rate-limit.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "53f858c6536dd07d1df61da0f2022dd053c68e04",
+      "commit_subject": "Add in the ability to skip rate limiting with a custom function (#35)",
+      "changed_files": [
+        "lib/express-rate-limit.js",
+        "test/express-rate-limit.js"
+      ]
+    },
+    {
+      "prompt": "Fix setInterval behavior in Electron where it returns a number instead of a Timeout object.",
+      "expected_files": [
+        "lib/memory-store.js",
+        "test/memory-store.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "965e127962f95ad17e0b9d19e1f24b8ea570cab9",
+      "commit_subject": "Runs in electron where setInterval() returns only a number (#48)",
+      "changed_files": [
+        "lib/memory-store.js",
+        "test/memory-store.js"
+      ]
+    },
+    {
+      "prompt": "How do I configure the rate limiter to skip counting failed requests?",
+      "expected_files": [
+        "lib/express-rate-limit.js",
+        "lib/memory-store.js",
+        "test/memory-store.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "c9194780b6826d9cdb14b3395907cf7fb93e59f6",
+      "commit_subject": "Added ability to skip failed requests",
+      "changed_files": [
+        "lib/express-rate-limit.js",
+        "lib/memory-store.js",
+        "test/memory-store.js"
+      ]
+    },
+    {
+      "prompt": "Update the test to use a valid 4xx status code instead of 1xx to comply with RFC 2616.",
+      "expected_files": [
+        "test/express-rate-limit.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "cc28fb1feeb2ccafe8a15bbc4258da1a6fd84b5d",
+      "commit_subject": "fix RFC 2616 violation in tests section 10.1 states that 1xx status codes cannot include a body, and node.js now enforces this",
+      "changed_files": [
+        "test/express-rate-limit.js"
+      ]
+    },
+    {
+      "prompt": "Refactor the test suite to use ESLint with stricter rules for test files.",
+      "expected_files": [
+        ".eslintrc.js",
+        "Gruntfile.js",
+        "package.json",
+        "test/express-rate-limit-test.js",
+        "test/express-rate-limit.js",
+        "test/memory-store-test.js",
+        "test/memory-store.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "f2f54167d9c11087ca3cc1b81380aefa5e32da52",
+      "commit_subject": "simplifying testing setup, switching to eslint, improving setTimeout test",
+      "changed_files": [
+        ".eslintrc.js",
+        "Gruntfile.js",
+        "package.json",
+        "test/express-rate-limit-test.js",
+        "test/express-rate-limit.js",
+        "test/memory-store-test.js",
+        "test/memory-store.js"
+      ]
+    },
+    {
+      "prompt": "Configure ESLint to extend Prettier rules for test files.",
+      "expected_files": [
+        ".eslintrc.js",
+        "package.json"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "c31854aaf5904ddc4655e18980a222c07e37d7a5",
+      "commit_subject": "set up prettier",
+      "changed_files": [
+        ".eslintrc.js",
+        "package.json"
+      ]
+    },
+    {
+      "prompt": "Update the package version from 2.3.0 to 2.3.1 in the package.json file.",
+      "expected_files": [
+        "package.json"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "0ffc4a4cd5d437305fb43d17de220c909e43fb9e",
+      "commit_subject": "2.3.1",
+      "changed_files": [
+        "package.json"
+      ]
+    },
+    {
+      "prompt": "Refactor the rate limit header configuration to use a custom function for setting X-RateLimit headers.",
+      "expected_files": [
+        "lib/express-rate-limit.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "3714c090d93020e6f430752db7ba2aa7d7ff3a3a",
+      "commit_subject": "Improve",
+      "changed_files": [
+        "lib/express-rate-limit.js"
+      ]
+    }
+  ]
+}

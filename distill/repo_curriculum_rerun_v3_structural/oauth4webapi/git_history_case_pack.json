@@ -1,0 +1,328 @@
+{
+  "repo_root": "..\\external\\oauth4webapi",
+  "repo_subpath": ".",
+  "repo_label": "oauth4webapi",
+  "manifest_path": "C:\\Users\\samat\\Project Memory\\external\\oauth4webapi\\package.json",
+  "local_model": "qwen3.5:4b",
+  "ollama_base_url": "http://127.0.0.1:11435",
+  "seed_count": 8,
+  "unseen_count": 8,
+  "seed_cases": [
+    {
+      "prompt": "How do I ensure RSA-OAEP uses 2048-bit keys instead of the default 1024-bit size?",
+      "expected_files": [
+        "src/index.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "f4eda799b6e461c121f365af213de8bc1379dadf",
+      "commit_subject": "fix!: ensure 2048 RSA keys are used for RSA-OAEP too",
+      "changed_files": [
+        "src/index.ts"
+      ]
+    },
+    {
+      "prompt": "Update the library version to 0.2.0 and ensure RSA-OAEP uses 2048-bit keys.",
+      "expected_files": [
+        "package.json",
+        "src/index.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "0a8d1bf3ff026ffb1797e6f0866cad7284210558",
+      "commit_subject": "chore(release): 0.2.0",
+      "changed_files": [
+        "package.json",
+        "src/index.ts"
+      ]
+    },
+    {
+      "prompt": "Refactor the key derivation function to simplify the concatenation logic and remove unnecessary array allocations.",
+      "expected_files": [
+        "src/index.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "43a7d0c215f85c959b2467bcbf96d60fa89aebf0",
+      "commit_subject": "refactor: simplify concat kdf",
+      "changed_files": [
+        "src/index.ts"
+      ]
+    },
+    {
+      "prompt": "Update the OAuth2 library version from 0.2.0 to 0.2.1 in the package configuration and source code.",
+      "expected_files": [
+        "package.json",
+        "src/index.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "5e16c7528d401fc3acdd75f1a1050d811591e3ff",
+      "commit_subject": "chore(release): 0.2.1",
+      "changed_files": [
+        "package.json",
+        "src/index.ts"
+      ]
+    },
+    {
+      "prompt": "Update examples to add notes about state and nonce usage when S256 PKCE is unsupported.",
+      "expected_files": [
+        "examples/code.ts",
+        "examples/dpop.ts",
+        "examples/jarm.ts",
+        "examples/oauth.ts",
+        "examples/par.ts",
+        "examples/private_key_jwt.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "1b02ef304568be7149f36cf27610684602cf0233",
+      "commit_subject": "example: add notes about state and nonce use",
+      "changed_files": [
+        "examples/code.ts",
+        "examples/dpop.ts",
+        "examples/jarm.ts",
+        "examples/oauth.ts",
+        "examples/par.ts",
+        "examples/private_key_jwt.ts"
+      ]
+    },
+    {
+      "prompt": "Fix the PKCE S256 check syntax in all example files.",
+      "expected_files": [
+        "examples/code.ts",
+        "examples/dpop.ts",
+        "examples/jarm.ts",
+        "examples/oauth.ts",
+        "examples/par.ts",
+        "examples/private_key_jwt.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "d87fcd52ca856d71aed9607da50ed4aa670faae3",
+      "commit_subject": "example: update PKCE check",
+      "changed_files": [
+        "examples/code.ts",
+        "examples/dpop.ts",
+        "examples/jarm.ts",
+        "examples/oauth.ts",
+        "examples/par.ts",
+        "examples/private_key_jwt.ts"
+      ]
+    },
+    {
+      "prompt": "Update the toWeb function signature to accept a generic Readable stream instead of NodeJS.ReadableStream.",
+      "expected_files": [
+        "test/_setup.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "b1230519e0540e6d7747fe208bfdabf8c5fa9973",
+      "commit_subject": "test: update Readable.toWeb type def",
+      "changed_files": [
+        "test/_setup.ts"
+      ]
+    },
+    {
+      "prompt": "Update the Web API type definitions to lock down the TypeScript DOM types.",
+      "expected_files": [
+        "package.json"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "cbe5e608247c99cb726de3732f099bbe627999ea",
+      "commit_subject": "build: lock down Web API type definitions",
+      "changed_files": [
+        "package.json"
+      ]
+    }
+  ],
+  "unseen_cases": [
+    {
+      "prompt": "Refactor type definitions to enforce strict enum usage instead of string defaults.",
+      "expected_files": [
+        "src/index.ts",
+        "test/client_auth.test.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "188b25240a542a40044373f2696c0a2ef49964fa",
+      "commit_subject": "refactor(types)!: force types without string defaults",
+      "changed_files": [
+        "src/index.ts",
+        "test/client_auth.test.ts"
+      ]
+    },
+    {
+      "prompt": "Fix the error message for missing client_secret_jwt JWS algorithm configuration.",
+      "expected_files": [
+        "test/client_auth.test.ts",
+        "test/jarm.test.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "f3a1579e97f80d80acb755f49f7d3add91d55939",
+      "commit_subject": "test: improve coverage",
+      "changed_files": [
+        "test/client_auth.test.ts",
+        "test/jarm.test.ts"
+      ]
+    },
+    {
+      "prompt": "Update the client authentication interface to accept both CryptoKey and legacy PrivateKey/PublicKey types.",
+      "expected_files": [
+        "src/index.ts",
+        "test/client_auth.test.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "f40571911856ffed541503d16d95fd724a980639",
+      "commit_subject": "feat: allow all key inputs to be CryptoKey instances",
+      "changed_files": [
+        "src/index.ts",
+        "test/client_auth.test.ts"
+      ]
+    },
+    {
+      "prompt": "Refactor the codebase to enforce stricter type checking and remove implicit any types.",
+      "expected_files": [
+        "src/index.ts",
+        "test/_setup.ts",
+        "tsconfig.json"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "2163b2898a1040629d5d9901cf3a16ad6541c0d5",
+      "commit_subject": "refactor: stricter compile checks",
+      "changed_files": [
+        "src/index.ts",
+        "test/_setup.ts",
+        "tsconfig.json"
+      ]
+    },
+    {
+      "prompt": "Refactor nonce validation errors to use a consistent OPE error type instead of mixing it with TypeError.",
+      "expected_files": [
+        "src/index.ts",
+        "test/authorization_code.test.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "a0d6ff6c1ccdcdf43b9a7cfb5484222265ecfea7",
+      "commit_subject": "refactor: nonce check errors, messages, tests",
+      "changed_files": [
+        "src/index.ts",
+        "test/authorization_code.test.ts"
+      ]
+    },
+    {
+      "prompt": "Refactor the codebase to remove support for legacy HMAC algorithms and update related type definitions.",
+      "expected_files": [
+        "src/index.ts",
+        "test/authorization_code.test.ts",
+        "test/client_auth.test.ts",
+        "test/request_object.test.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "3a9e9a57a6b752c9789792364baf22e577377c5c",
+      "commit_subject": "refactor!: trim down the supported JOSE algorithms",
+      "changed_files": [
+        "src/index.ts",
+        "test/authorization_code.test.ts",
+        "test/client_auth.test.ts",
+        "test/request_object.test.ts"
+      ]
+    },
+    {
+      "prompt": "Refactor the OAuth public key configuration object to use a single structured format instead of separate properties.",
+      "expected_files": [
+        "src/index.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "d12062ba129d541930ee6da3738c5441b237cac2",
+      "commit_subject": "refactor: src/index.ts",
+      "changed_files": [
+        "src/index.ts"
+      ]
+    },
+    {
+      "prompt": "Fix the redundant null check and ensure the key instance validation uses optional chaining.",
+      "expected_files": [
+        "src/index.ts"
+      ],
+      "expected_commands": [
+        "npm run build"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "fbfeeba373b75155154d9f806c640787924cc7fa",
+      "commit_subject": "refactor: src/index.ts",
+      "changed_files": [
+        "src/index.ts"
+      ]
+    }
+  ]
+}

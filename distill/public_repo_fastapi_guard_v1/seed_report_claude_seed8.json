@@ -1,0 +1,183 @@
+{
+  "cases": 8,
+  "accepted": 0,
+  "accept_rate": 0.0,
+  "avg_file_recall": 0.2917,
+  "avg_command_recall": 0.125,
+  "rows": [
+    {
+      "prompt": "Update the project to use uv instead of poetry for dependency management and installation.",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        ".safety-project.ini",
+        "docs/tutorial/ip-management/rate-limiter.md",
+        "docs/tutorial/ip-management/geolocation.md",
+        "docs/tutorial/ip-management/cloud-providers.md",
+        "setup.py",
+        "pyproject.toml"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "setup.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.5,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to switch from poetry to uv for dependency management. Based on the retrieved memory, this is a decision they've made before. I need to identify the current poetry configuration files and convert them to uv-compatible format, then update any documentation"
+    },
+    {
+      "prompt": "Update FastAPI Guard to version 2.1.2 and switch package management from Poetry to uv.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "guard/protocols/redis_protocol.py",
+        "guard/protocols/py.typed",
+        "guard/protocols/geo_ip_protocol.py",
+        "guard/protocols/agent_protocol.py",
+        "setup.py",
+        "pyproject.toml",
+        "your_script.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "your_script.py",
+        "setup.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.6667,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to do two things: 1) Update FastAPI Guard to version 2.1.2, and 2) switch from poetry to uv. Based on the retrieved memory, these are decisions they've made before. I need to examine the current project structure to understand the existing poetry configur"
+    },
+    {
+      "prompt": "Fix the SecurityMiddleware to correctly parse IPv6 addresses using the ip_address() function.",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "tests/test_middleware.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "tests/test_middleware.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to fix SecurityMiddleware to correctly parse IPv6 addresses using the ip_address() function. Based on the retrieved memory, this is a specific issue they've identified before. I need to locate the SecurityMiddleware component and update it to use Python's"
+    },
+    {
+      "prompt": "Update the Makefile to include the .github directory in the markdown linting scan.",
+      "trace_id": 4,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        ".github/workflows/scheduled-lint.yml",
+        "tests/test_security_headers/test_middleware_integration.py",
+        "tests/test_models/test_models.py",
+        "tests/test_models/__init__.py",
+        "tests/test_middleware/test_security_middleware.py",
+        "tests/test_middleware/__init__.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 1.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update the Makefile to include the .github directory in markdown linting scan. Based on the retrieved memory, this is a decision they've made before. I need to find the current Makefile and modify the markdown linting target to include the .github dire"
+    },
+    {
+      "prompt": "Implement granular control for security decorators in FastAPI Guard.",
+      "trace_id": 5,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "guard/decorators/access_control.py",
+        "guard/handlers/security_headers_handler.py",
+        "guard/decorators/rate_limiting.py",
+        "guard/decorators/py.typed",
+        "guard/decorators/content_filtering.py",
+        "guard/decorators/behavioral.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "guard/decorators/access_control.py",
+        "guard/handlers/security_headers_handler.py",
+        "guard/decorators/rate_limiting.py",
+        "guard/decorators/content_filtering.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.1667,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to implement granular control for security decorators in FastAPI Guard. Based on the retrieved memory, this is a decision they've made before. Looking at the workflow plan, I can see likely files include guard/decorators/access_control.py, guard/handlers/"
+    },
+    {
+      "prompt": "Update the project configuration to include the MIT license and FastAPI framework classifiers.",
+      "trace_id": 6,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update the project configuration to include MIT license and FastAPI framework classifiers. Based on the retrieved memory, they've chosen MIT license for the project and are using FastAPI framework. Since we've already migrated to uv from poetry, I need"
+    },
+    {
+      "prompt": "Fix the ReDoS vulnerability by replacing unbounded regex quantifiers with bounded ones.",
+      "trace_id": 7,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "tests/test_redos_fixes.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "tests/test_redos_fixes.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to fix ReDoS (Regular Expression Denial of Service) vulnerability by replacing unbounded regex quantifiers with bounded ones. Based on the retrieved memory, this is a specific security issue they've identified before. I need to locate regex patterns in th"
+    },
+    {
+      "prompt": "Update the project homepage URL in pyproject.toml to match the new GitHub repository link.",
+      "trace_id": 8,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "pyproject.toml",
+        "examples/advanced_app/pyproject.toml",
+        ".safety-project.ini",
+        ".github/workflows/scheduled-lint.yml",
+        ".github/workflows/release.yml",
+        ".github/workflows/docs.yml"
+      ],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update the project homepage URL in pyproject.toml to match a new GitHub repository link. Based on the retrieved memory, this is a decision they've made before. I need to update the project URLs section in pyproject.toml to reflect the new repository lo"
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "name": "memla_transmutation_rerun_v2",
+  "description": "Focused rerun for weak/problem repos after repo-family weighting, transmutation specificity scoring, and adaptive seed/holdout fallback.",
+  "repos": [
+    {
+      "id": "oauth4webapi",
+      "url": "https://github.com/panva/oauth4webapi",
+      "repo_label": "oauth4webapi",
+      "framework": "typescript / oauth / security middleware",
+      "tier": "rerun",
+      "notes": "Seeded at 4/8 in the first batch but timed out on holdout; rerun with a shorter holdout.",
+      "enabled": true,
+      "seed_count": 8,
+      "unseen_count": 8,
+      "recent_window": 36,
+      "scan_limit": 90
+    },
+    {
+      "id": "teamhide_fastapi_boilerplate",
+      "url": "https://github.com/teamhide/fastapi-boilerplate",
+      "repo_label": "teamhide fastapi boilerplate",
+      "framework": "python / fastapi / sqlalchemy async",
+      "tier": "rerun",
+      "notes": "Under-seeded in the first batch; rerun to test same-family backend weighting.",
+      "enabled": true,
+      "seed_count": 8,
+      "unseen_count": 8,
+      "recent_window": 40,
+      "scan_limit": 100
+    },
+    {
+      "id": "fastapi_template",
+      "url": "https://github.com/JiayuXu0/FastAPI-Template",
+      "repo_label": "fastapi template",
+      "framework": "python / fastapi / auth / db",
+      "tier": "rerun",
+      "notes": "Borderline seed acceptance in the first batch; rerun after backend/security transmutation refinements.",
+      "enabled": true,
+      "seed_count": 8,
+      "unseen_count": 8,
+      "recent_window": 40,
+      "scan_limit": 100
+    },
+    {
+      "id": "express_rate_limit",
+      "url": "https://github.com/express-rate-limit/express-rate-limit",
+      "repo_label": "express rate limit",
+      "framework": "typescript / express / security middleware",
+      "tier": "rerun",
+      "notes": "Security middleware repo that under-seeded previously; good test of family-aware transfer.",
+      "enabled": true,
+      "seed_count": 8,
+      "unseen_count": 8,
+      "recent_window": 40,
+      "scan_limit": 100
+    },
+    {
+      "id": "redocly_cli",
+      "url": "https://github.com/Redocly/redocly-cli",
+      "repo_label": "redocly cli",
+      "framework": "typescript / cli / openapi tooling",
+      "tier": "rerun",
+      "notes": "CLI/tooling repo that should benefit from stronger repo-family routing and CLI transmutations.",
+      "enabled": true,
+      "seed_count": 8,
+      "unseen_count": 8,
+      "recent_window": 36,
+      "scan_limit": 90
+    },
+    {
+      "id": "stripe_nextjs_supabase",
+      "url": "https://github.com/ShenSeanChen/launch-mvp-stripe-nextjs-supabase",
+      "repo_label": "launch mvp stripe nextjs supabase",
+      "framework": "typescript / next.js / stripe / supabase",
+      "tier": "rerun",
+      "notes": "Sparse commit history repo; start smaller so adaptive fallback has a realistic path.",
+      "enabled": true,
+      "seed_count": 6,
+      "unseen_count": 8,
+      "recent_window": 30,
+      "scan_limit": 70
+    },
+    {
+      "id": "guardian_cli",
+      "url": "https://github.com/zakirkun/guardian-cli",
+      "repo_label": "guardian cli",
+      "framework": "python / cli / ai orchestration",
+      "tier": "rerun",
+      "notes": "Sparse CLI repo kept in the rerun set to test adaptive fallback and CLI-family transfer.",
+      "enabled": true,
+      "seed_count": 6,
+      "unseen_count": 6,
+      "recent_window": 30,
+      "scan_limit": 70
+    }
+  ]
+}

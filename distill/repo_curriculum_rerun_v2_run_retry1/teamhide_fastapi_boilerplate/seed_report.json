@@ -1,0 +1,265 @@
+{
+  "cases": 8,
+  "accepted": 1,
+  "accept_rate": 0.125,
+  "avg_file_recall": 0.1367,
+  "avg_command_recall": 1.0,
+  "rows": [
+    {
+      "prompt": "Add Field validation with descriptions to all schema models.",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "add_descriptions.py",
+        "models/order.py",
+        "models/user.py",
+        "schemas/product.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "add_descriptions.py",
+        "models/order.py",
+        "models/user.py",
+        "schemas/product.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 1.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to add field validation with descriptions to all schema models. Based on the retrieved memory, this is a specific decision made previously. I need to: 1. Identify the schema models in the repository (likely Pydantic models given the context of \"schema mod"
+    },
+    {
+      "prompt": "Refactor the FastAPI boilerplate to organize code into separate app and api folders with proper router configuration.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "app/auth/adapter/input/api/v1/response/__init__.py",
+        "app/auth/adapter/input/api/v1/request/__init__.py",
+        "app/auth/adapter/input/api/v1/auth.py",
+        "app/auth/adapter/input/api/v1/__init__.py",
+        "app/auth/adapter/input/api/__init__.py",
+        "app/user/adapter/input/api/v1/user.py",
+        "main.py",
+        "app/__init__.py",
+        "app/config.py",
+        "api/__init__.py",
+        "api/v1/__init__.py",
+        "__init__.py",
+        "config.py",
+        "database.py",
+        "dependencies.py",
+        "auth.py",
+        "user.py",
+        "app/dependencies.py",
+        "app/main.py",
+        "api/v1/auth.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "main.py",
+        "app/__init__.py",
+        "app/config.py",
+        "api/__init__.py",
+        "api/v1/__init__.py",
+        "__init__.py",
+        "config.py",
+        "database.py",
+        "dependencies.py",
+        "auth.py",
+        "user.py",
+        "app/dependencies.py",
+        "app/main.py",
+        "api/v1/auth.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0938,
+      "command_recall": 1.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to refactor the FastAPI boilerplate to separate code into `app` and `api` folders with proper router configuration. This aligns with the retrieved memory decision: \"Refactor FastAPI boilerplate to separate code into 'app' and 'api' folders.\" and \"Implemen"
+    },
+    {
+      "prompt": "Update the Alembic environment to use an async engine for database migrations.",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "env.py",
+        "alembic/env.py"
+      ],
+      "suggested_commands": [
+        "pip install asyncpg",
+        "pip install asyncmy"
+      ],
+      "answer_files": [
+        "env.py",
+        "alembic/env.py"
+      ],
+      "answer_commands": [
+        "pip install asyncpg",
+        "pip install asyncmy"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 1.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update the Alembic environment to use an async engine for database migrations. This aligns with the retrieved memory decision: \"Update Alembic environment to use an async engine for database migrations.\" I need to: 1. Identify the current Alembic confi"
+    },
+    {
+      "prompt": "Fix the transactional logic to properly handle propagation modes and commit the session.",
+      "trace_id": 4,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "core/db/session.py",
+        "app/auth/application/service/jwt.py",
+        "app/auth/application/service/__init__.py",
+        "app/auth/adapter/input/api/v1/response/__init__.py",
+        "app/auth/adapter/input/api/v1/request/__init__.py",
+        "app/auth/adapter/input/api/v1/auth.py",
+        "app/dependencies.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "app/dependencies.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 1.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to fix transactional logic to handle propagation modes and commit the session. This aligns with the retrieved memory decision: \"Fix transactional logic to handle propagation modes and commit session.\" I need to: 1. Identify common issues with transactiona"
+    },
+    {
+      "prompt": "Fix the Create user endpoint to return the new user ID instead of None.",
+      "trace_id": 5,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "app/user/application/service/user.py",
+        "app/user/adapter/input/api/v1/user.py",
+        "app/user/domain/command/__init__.py",
+        "app/user/application/service/__init__.py",
+        "app/user/adapter/input/api/v1/response/__init__.py",
+        "app/user/adapter/input/api/v1/request/__init__.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 1.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to fix the Create user endpoint to return the new user ID instead of None. This aligns with the retrieved memory decision: \"Fix Create user endpoint to return new user ID instead of None.\" I need to: 1. Identify the likely cause: The endpoint probably ret"
+    },
+    {
+      "prompt": "Update the FastAPI boilerplate to install and configure the click dependency.",
+      "trace_id": 6,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "core/fastapi/dependencies/permission.py",
+        "core/fastapi/dependencies/logging.py",
+        "core/fastapi/dependencies/__init__.py",
+        "tests/core/fastapi/dependencies/test_permission.py",
+        "tests/core/fastapi/dependencies/__init__.py",
+        "core/fastapi/middlewares/sqlalchemy.py",
+        "main.py",
+        "cli.py",
+        "requirements.txt",
+        "__main__.py"
+      ],
+      "suggested_commands": [
+        "pip install click",
+        "pip install fastapi-cli"
+      ],
+      "answer_files": [
+        "main.py",
+        "cli.py",
+        "requirements.txt",
+        "__main__.py"
+      ],
+      "answer_commands": [
+        "pip install click",
+        "pip install fastapi-cli"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the FastAPI boilerplate to install and configure the `click` dependency. This aligns with the retrieved memory decision: \"Update FastAPI boilerplate to install and configure the click dependency.\" I need to: 1. Explain what `click` is in the con"
+    },
+    {
+      "prompt": "Update SQLAlchemy and other dependencies in the Docker compose configuration.",
+      "trace_id": 7,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "docker/docker-compose.yml",
+        "core/fastapi/middlewares/sqlalchemy.py",
+        "docker/init.sql",
+        "core/fastapi/dependencies/permission.py",
+        "core/fastapi/dependencies/logging.py",
+        "core/fastapi/dependencies/__init__.py",
+        "requirements.txt",
+        "./requirements.txt",
+        "/app/requirements.txt"
+      ],
+      "suggested_commands": [
+        "- **`command`**: The `command` section explicitly runs `pip install -r /app/requirements.txt` before starting the server. This ensures the dependencies are installed from the mounted file.",
+        "pip install"
+      ],
+      "answer_files": [
+        "requirements.txt",
+        "./requirements.txt",
+        "/app/requirements.txt"
+      ],
+      "answer_commands": [
+        "- **`command`**: The `command` section explicitly runs `pip install -r /app/requirements.txt` before starting the server. This ensures the dependencies are installed from the mounted file.",
+        "pip install"
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "command_recall": 1.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update SQLAlchemy and other dependencies in the Docker compose configuration. This aligns with the retrieved memory decision: \"Update SQLAlchemy and other dependencies in the Docker compose configuration.\" I need to: 1. Identify the likely file: `docke"
+    },
+    {
+      "prompt": "Rename the create_session decorator to standalone_session and update all imports accordingly.",
+      "trace_id": 8,
+      "prior_trace_ids": [
+        6
+      ],
+      "suggested_files": [
+        "core/db/session.py",
+        "app/auth/application/service/jwt.py",
+        "app/auth/application/service/__init__.py",
+        "app/auth/adapter/input/api/v1/response/__init__.py",
+        "app/auth/adapter/input/api/v1/request/__init__.py",
+        "app/auth/adapter/input/api/v1/auth.py",
+        "app/core/db/session.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "core/db/session.py",
+        "app/auth/adapter/input/api/v1/auth.py",
+        "app/core/db/session.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [
+        "To update your FastAPI boilerplate to install and configure the `click` dependency, follow these steps",
+        "`click` is a popular Python library for creating command-line interfaces (CLIs)",
+        "It allows you to define commands that can initialize your FastAPI app, run migrations, or perform other tasks directly from the terminal",
+        "Installation"
+      ],
+      "file_recall": 0.0,
+      "command_recall": 1.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to rename the `create_session` decorator to `standalone_session` and update all imports. This aligns with the retrieved memory decision: \"Rename create_session decorator to standalone_session\" and \"Update all imports to reflect the new decorator name.\" I "
+    }
+  ]
+}

@@ -1,0 +1,716 @@
+{
+  "repo_root": "..\\external\\redocly-cli",
+  "repo_subpath": ".",
+  "repo_label": "redocly cli",
+  "manifest_path": "C:\\Users\\samat\\Project Memory\\external\\redocly-cli\\package.json",
+  "local_model": "qwen3.5:4b",
+  "ollama_base_url": "http://127.0.0.1:11435",
+  "seed_count": 8,
+  "unseen_count": 12,
+  "seed_cases": [
+    {
+      "prompt": "How do I implement support for aliases in the entryPoints argument?",
+      "expected_files": [
+        "src/config.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "ecdb77a10959a7299637140eb5960b947b5928ec",
+      "commit_subject": "feat: support aliases in entryPoints argument (#101)",
+      "changed_files": [
+        "src/config.js"
+      ]
+    },
+    {
+      "prompt": "Fix the duplicate parameters rule to correctly handle both array and object parameter formats.",
+      "expected_files": [
+        "src/traverse.js",
+        "src/visitors/rules/semantic/uniqueParameterNames.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "6d64132aa2f3059f666daa791f4da16af6e51aae",
+      "commit_subject": "fix: fix duplicate parameters rule to be spec-compliant",
+      "changed_files": [
+        "src/traverse.js",
+        "src/visitors/rules/semantic/uniqueParameterNames.js"
+      ]
+    },
+    {
+      "prompt": "Fix the encoding type handling in OpenAPI media objects to prevent circular imports.",
+      "expected_files": [
+        "src/types/OpenAPIEncodingsMap.js",
+        "src/types/OpenAPIMediaObject.js",
+        "src/types/index.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "2005ecfd8646bc48b0a7669ba6386888ba44c546",
+      "commit_subject": "fix: fix encoding type",
+      "changed_files": [
+        "src/types/OpenAPIEncodingsMap.js",
+        "src/types/OpenAPIMediaObject.js",
+        "src/types/index.js"
+      ]
+    },
+    {
+      "prompt": "Fix the structural rule visitor to reuse the existing source instead of reading the file again.",
+      "expected_files": [
+        "src/visitors/rules/structural/noRefSiblings.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "7a3d610cb7da59784b6ae8bb7c4e22727f89a253",
+      "commit_subject": "fix: extra file read",
+      "changed_files": [
+        "src/visitors/rules/structural/noRefSiblings.js"
+      ]
+    },
+    {
+      "prompt": "Update the Redocly CLI package version from 0.8.1 to 0.8.2 in package.json.",
+      "expected_files": [
+        "package.json"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "2a6913296dec74517d130db07b321e67bc4fb58a",
+      "commit_subject": "version: v0.8.2",
+      "changed_files": [
+        "package.json"
+      ]
+    },
+    {
+      "prompt": "How do I fix bundling issues when replacing non-idempotent nodes in the visitor?",
+      "expected_files": [
+        "src/visitors/bundler.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "6cb28d3f5f0a89385d181420588a9fd9ae687ce6",
+      "commit_subject": "fix: fix bundling for non-idempotent nodes",
+      "changed_files": [
+        "src/visitors/bundler.js"
+      ]
+    },
+    {
+      "prompt": "Update the Redocly CLI version in package.json from 0.8.2 to 0.8.3.",
+      "expected_files": [
+        "package.json"
+      ],
+      "expected_commands": [],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "e45c8c4007f68046500ea87108817ed85ea1391a",
+      "commit_subject": "version: v0.8.3",
+      "changed_files": [
+        "package.json"
+      ]
+    },
+    {
+      "prompt": "How do I ensure the XHR request uses a fully qualified URL instead of a relative file path?",
+      "expected_files": [
+        "src/resolver.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "ff1f337a4c7a780af5ad4cba2a78c1cfd64f8d89",
+      "commit_subject": "fix: use fully qualified url for XHR instead of filePath (#108)",
+      "changed_files": [
+        "src/resolver.js"
+      ]
+    }
+  ],
+  "unseen_cases": [
+    {
+      "prompt": "Implement async API and headers support with registry integration.",
+      "expected_files": [
+        "package.json",
+        "src/__tests__/resolver.test.js",
+        "src/__tests__/validate.test.js",
+        "src/bundle.js",
+        "src/cli/index.js",
+        "src/cli/utils.js",
+        "src/config.js",
+        "src/context.js",
+        "src/error/__tests__/default.test.js",
+        "src/error/default.js",
+        "src/redocly/index.js",
+        "src/redocly/query.js",
+        "src/resolver.js",
+        "src/traverse.js",
+        "src/types/OpenAPIDiscriminator.js",
+        "src/utils/index.js",
+        "src/validate.js",
+        "src/visitors/rules/custom/stringMatcher.js",
+        "src/visitors/rules/registry/registryDependencies.js",
+        "src/visitors/rules/structural/validateOpenAPIExternalDocumentation.js",
+        "src/yaml/__tests__/index.test.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "2baa58d9ec801f5e6fdda96b70edf0b8ca1f4514",
+      "commit_subject": "feat: async API & headers support & registry integration (#107)",
+      "changed_files": [
+        "package.json",
+        "src/__tests__/resolver.test.js",
+        "src/__tests__/validate.test.js",
+        "src/bundle.js",
+        "src/cli/index.js",
+        "src/cli/utils.js",
+        "src/config.js",
+        "src/context.js",
+        "src/error/__tests__/default.test.js",
+        "src/error/default.js",
+        "src/redocly/index.js",
+        "src/redocly/query.js",
+        "src/resolver.js",
+        "src/traverse.js",
+        "src/types/OpenAPIDiscriminator.js",
+        "src/utils/index.js",
+        "src/validate.js",
+        "src/visitors/rules/custom/stringMatcher.js",
+        "src/visitors/rules/registry/registryDependencies.js",
+        "src/visitors/rules/structural/validateOpenAPIExternalDocumentation.js",
+        "src/yaml/__tests__/index.test.js"
+      ]
+    },
+    {
+      "prompt": "Fix the JSON pointer decoding logic to correctly handle escape characters before processing path steps.",
+      "expected_files": [
+        "src/resolver.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "a1b7bd5406c83ca9fea7d029e1d63788de04e59e",
+      "commit_subject": "fix: decode json pointer components",
+      "changed_files": [
+        "src/resolver.js"
+      ]
+    },
+    {
+      "prompt": "Fix the GraphQL mutation query parameters for updating branch dependencies from URLs.",
+      "expected_files": [
+        "src/redocly/index.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "67ec4c10e2fb7566e736103470a3f66490cb19cf",
+      "commit_subject": "fix: fix registry update deps query",
+      "changed_files": [
+        "src/redocly/index.js"
+      ]
+    },
+    {
+      "prompt": "Implement OAS2 traversal and basic validation for the Redocly CLI.",
+      "expected_files": [
+        "src/__tests__/validate.test.js",
+        "src/bundle.js",
+        "src/context.js",
+        "src/resolveDefinition/index.js",
+        "src/types/AuthorizationCodeOpenAPIFlow.js",
+        "src/types/ClientCredentialsOpenAPIFlow.js",
+        "src/types/ImplicitOpenAPIFlow.js",
+        "src/types/OAS2/OAS2Contact.js",
+        "src/types/OAS2/OAS2Definitions.js",
+        "src/types/OAS2/OAS2Example.js",
+        "src/types/OAS2/OAS2ExternalDocumentation.js",
+        "src/types/OAS2/OAS2Header.js",
+        "src/types/OAS2/OAS2Headers.js",
+        "src/types/OAS2/OAS2Info.js",
+        "src/types/OAS2/OAS2Items.js",
+        "src/types/OAS2/OAS2License.js",
+        "src/types/OAS2/OAS2Operation.js",
+        "src/types/OAS2/OAS2Parameter.js",
+        "src/types/OAS2/OAS2Parameters.js",
+        "src/types/OAS2/OAS2PathItem.js",
+        "src/types/OAS2/OAS2Paths.js",
+        "src/types/OAS2/OAS2Response.js",
+        "src/types/OAS2/OAS2Responses.js",
+        "src/types/OAS2/OAS2Root.js",
+        "src/types/OAS2/OAS2Schema.js",
+        "src/types/OAS2/OAS2SchemaMap.js",
+        "src/types/OAS2/OAS2Scopes.js",
+        "src/types/OAS2/OAS2SecurityDefinitions.js",
+        "src/types/OAS2/OAS2SecurityRequirement.js",
+        "src/types/OAS2/OAS2SecurityScheme.js",
+        "src/types/OAS2/OAS2Tag.js",
+        "src/types/OAS2/OAS2XML.js",
+        "src/types/OAS2/index.js",
+        "src/types/OAS3/AuthorizationCodeOpenAPIFlow.js",
+        "src/types/OAS3/ClientCredentialsOpenAPIFlow.js",
+        "src/types/OAS3/ImplicitOpenAPIFlow.js",
+        "src/types/OAS3/OpenAPICallback.js",
+        "src/types/OAS3/OpenAPICallbackMap.js",
+        "src/types/OAS3/OpenAPIComponents.js",
+        "src/types/OAS3/OpenAPIContact.js",
+        "src/types/OAS3/OpenAPIDiscriminator.js",
+        "src/types/OAS3/OpenAPIEncoding.js",
+        "src/types/OAS3/OpenAPIEncodingsMap.js",
+        "src/types/OAS3/OpenAPIExample.js",
+        "src/types/OAS3/OpenAPIExampleMap.js",
+        "src/types/OAS3/OpenAPIExternalDocumentation.js",
+        "src/types/OAS3/OpenAPIFlows.js",
+        "src/types/OAS3/OpenAPIHeader.js",
+        "src/types/OAS3/OpenAPIHeaderMap.js",
+        "src/types/OAS3/OpenAPIInfo.js",
+        "src/types/OAS3/OpenAPILicense.js",
+        "src/types/OAS3/OpenAPILink.js",
+        "src/types/OAS3/OpenAPILinkMap.js",
+        "src/types/OAS3/OpenAPIMediaObject.js",
+        "src/types/OAS3/OpenAPIMediaTypeObject.js",
+        "src/types/OAS3/OpenAPIOperation.js",
+        "src/types/OAS3/OpenAPIParameter.js",
+        "src/types/OAS3/OpenAPIParameterMap.js",
+        "src/types/OAS3/OpenAPIPath.js",
+        "src/types/OAS3/OpenAPIPaths.js",
+        "src/types/OAS3/OpenAPIRequestBody.js",
+        "src/types/OAS3/OpenAPIRequestBodyMap.js",
+        "src/types/OAS3/OpenAPIResponse.js",
+        "src/types/OAS3/OpenAPIResponseMap.js",
+        "src/types/OAS3/OpenAPIRoot.js",
+        "src/types/OAS3/OpenAPISchema.js",
+        "src/types/OAS3/OpenAPISchemaMap.js",
+        "src/types/OAS3/OpenAPISecurityRequirement.js",
+        "src/types/OAS3/OpenAPISecuritySchema.js",
+        "src/types/OAS3/OpenAPISecuritySchemaMap.js",
+        "src/types/OAS3/OpenAPISecuritySchemas.js",
+        "src/types/OAS3/OpenAPIServer.js",
+        "src/types/OAS3/OpenAPIServerVariable.js",
+        "src/types/OAS3/OpenAPIServerVariableMap.js",
+        "src/types/OAS3/OpenAPITag.js",
+        "src/types/OAS3/OpenAPIXML.js",
+        "src/types/OAS3/PasswordOpenAPIFlow.js",
+        "src/types/OAS3/index.js",
+        "src/types/OpenAPICallback.js",
+        "src/types/OpenAPICallbackMap.js",
+        "src/types/OpenAPIComponents.js",
+        "src/types/OpenAPIContact.js",
+        "src/types/OpenAPIDiscriminator.js",
+        "src/types/OpenAPIEncoding.js",
+        "src/types/OpenAPIEncodingsMap.js",
+        "src/types/OpenAPIExample.js",
+        "src/types/OpenAPIExampleMap.js",
+        "src/types/OpenAPIExternalDocumentation.js",
+        "src/types/OpenAPIFlows.js",
+        "src/types/OpenAPIHeader.js",
+        "src/types/OpenAPIHeaderMap.js",
+        "src/types/OpenAPIInfo.js",
+        "src/types/OpenAPILicense.js",
+        "src/types/OpenAPILink.js",
+        "src/types/OpenAPILinkMap.js",
+        "src/types/OpenAPIMediaObject.js",
+        "src/types/OpenAPIMediaTypeObject.js",
+        "src/types/OpenAPIOperation.js",
+        "src/types/OpenAPIParameter.js",
+        "src/types/OpenAPIParameterMap.js",
+        "src/types/OpenAPIPath.js",
+        "src/types/OpenAPIPaths.js",
+        "src/types/OpenAPIRequestBody.js",
+        "src/types/OpenAPIRequestBodyMap.js",
+        "src/types/OpenAPIResponse.js",
+        "src/types/OpenAPIResponseMap.js",
+        "src/types/OpenAPIRoot.js",
+        "src/types/OpenAPISchema.js",
+        "src/types/OpenAPISchemaMap.js",
+        "src/types/OpenAPISecurityRequirement.js",
+        "src/types/OpenAPISecuritySchema.js",
+        "src/types/OpenAPISecuritySchemaMap.js",
+        "src/types/OpenAPISecuritySchemas.js",
+        "src/types/OpenAPIServer.js",
+        "src/types/OpenAPIServerVariable.js",
+        "src/types/OpenAPIServerVariableMap.js",
+        "src/types/OpenAPITag.js",
+        "src/types/OpenAPIXML.js",
+        "src/types/PasswordOpenAPIFlow.js",
+        "src/types/index.js",
+        "src/validate.js",
+        "src/visitors/bundler.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Contact.js",
+        "src/visitors/rules/oas2-structural/validateOAS2ExternalDocs.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Header.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Info.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Items.js",
+        "src/visitors/rules/oas2-structural/validateOAS2License.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Operation.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Parameter.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Response.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Root.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Schema.js",
+        "src/visitors/rules/oas2-structural/validateOAS2SecurityScheme.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Tag.js",
+        "src/visitors/rules/oas2-structural/validateOAS2XML.js",
+        "src/visitors/rules/semantic/enum-match-type.js",
+        "src/visitors/rules/semantic/model-description.js",
+        "src/visitors/rules/semantic/operation-description.js",
+        "src/visitors/rules/semantic/parameter-description.js",
+        "src/visitors/rules/semantic/uniqueParameterNames.js",
+        "src/visitors/rules/structural/noRefSiblings.js",
+        "src/visitors/rules/structural/validateOpenAPIInfo.js",
+        "src/visitors/rules/structural/validateOpenAPIResponse.js",
+        "src/visitors/rules/structural/validateOpenAPISchema.js",
+        "src/visitors/rules/structural/validateOpenAPIXML.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "e92de90a44ce887966f93fbaca39695d1af62535",
+      "commit_subject": "feat: add support of the OAS2 traversing and basic validation (#111)",
+      "changed_files": [
+        "src/__tests__/validate.test.js",
+        "src/bundle.js",
+        "src/context.js",
+        "src/resolveDefinition/index.js",
+        "src/types/AuthorizationCodeOpenAPIFlow.js",
+        "src/types/ClientCredentialsOpenAPIFlow.js",
+        "src/types/ImplicitOpenAPIFlow.js",
+        "src/types/OAS2/OAS2Contact.js",
+        "src/types/OAS2/OAS2Definitions.js",
+        "src/types/OAS2/OAS2Example.js",
+        "src/types/OAS2/OAS2ExternalDocumentation.js",
+        "src/types/OAS2/OAS2Header.js",
+        "src/types/OAS2/OAS2Headers.js",
+        "src/types/OAS2/OAS2Info.js",
+        "src/types/OAS2/OAS2Items.js",
+        "src/types/OAS2/OAS2License.js",
+        "src/types/OAS2/OAS2Operation.js",
+        "src/types/OAS2/OAS2Parameter.js",
+        "src/types/OAS2/OAS2Parameters.js",
+        "src/types/OAS2/OAS2PathItem.js",
+        "src/types/OAS2/OAS2Paths.js",
+        "src/types/OAS2/OAS2Response.js",
+        "src/types/OAS2/OAS2Responses.js",
+        "src/types/OAS2/OAS2Root.js",
+        "src/types/OAS2/OAS2Schema.js",
+        "src/types/OAS2/OAS2SchemaMap.js",
+        "src/types/OAS2/OAS2Scopes.js",
+        "src/types/OAS2/OAS2SecurityDefinitions.js",
+        "src/types/OAS2/OAS2SecurityRequirement.js",
+        "src/types/OAS2/OAS2SecurityScheme.js",
+        "src/types/OAS2/OAS2Tag.js",
+        "src/types/OAS2/OAS2XML.js",
+        "src/types/OAS2/index.js",
+        "src/types/OAS3/AuthorizationCodeOpenAPIFlow.js",
+        "src/types/OAS3/ClientCredentialsOpenAPIFlow.js",
+        "src/types/OAS3/ImplicitOpenAPIFlow.js",
+        "src/types/OAS3/OpenAPICallback.js",
+        "src/types/OAS3/OpenAPICallbackMap.js",
+        "src/types/OAS3/OpenAPIComponents.js",
+        "src/types/OAS3/OpenAPIContact.js",
+        "src/types/OAS3/OpenAPIDiscriminator.js",
+        "src/types/OAS3/OpenAPIEncoding.js",
+        "src/types/OAS3/OpenAPIEncodingsMap.js",
+        "src/types/OAS3/OpenAPIExample.js",
+        "src/types/OAS3/OpenAPIExampleMap.js",
+        "src/types/OAS3/OpenAPIExternalDocumentation.js",
+        "src/types/OAS3/OpenAPIFlows.js",
+        "src/types/OAS3/OpenAPIHeader.js",
+        "src/types/OAS3/OpenAPIHeaderMap.js",
+        "src/types/OAS3/OpenAPIInfo.js",
+        "src/types/OAS3/OpenAPILicense.js",
+        "src/types/OAS3/OpenAPILink.js",
+        "src/types/OAS3/OpenAPILinkMap.js",
+        "src/types/OAS3/OpenAPIMediaObject.js",
+        "src/types/OAS3/OpenAPIMediaTypeObject.js",
+        "src/types/OAS3/OpenAPIOperation.js",
+        "src/types/OAS3/OpenAPIParameter.js",
+        "src/types/OAS3/OpenAPIParameterMap.js",
+        "src/types/OAS3/OpenAPIPath.js",
+        "src/types/OAS3/OpenAPIPaths.js",
+        "src/types/OAS3/OpenAPIRequestBody.js",
+        "src/types/OAS3/OpenAPIRequestBodyMap.js",
+        "src/types/OAS3/OpenAPIResponse.js",
+        "src/types/OAS3/OpenAPIResponseMap.js",
+        "src/types/OAS3/OpenAPIRoot.js",
+        "src/types/OAS3/OpenAPISchema.js",
+        "src/types/OAS3/OpenAPISchemaMap.js",
+        "src/types/OAS3/OpenAPISecurityRequirement.js",
+        "src/types/OAS3/OpenAPISecuritySchema.js",
+        "src/types/OAS3/OpenAPISecuritySchemaMap.js",
+        "src/types/OAS3/OpenAPISecuritySchemas.js",
+        "src/types/OAS3/OpenAPIServer.js",
+        "src/types/OAS3/OpenAPIServerVariable.js",
+        "src/types/OAS3/OpenAPIServerVariableMap.js",
+        "src/types/OAS3/OpenAPITag.js",
+        "src/types/OAS3/OpenAPIXML.js",
+        "src/types/OAS3/PasswordOpenAPIFlow.js",
+        "src/types/OAS3/index.js",
+        "src/types/OpenAPICallback.js",
+        "src/types/OpenAPICallbackMap.js",
+        "src/types/OpenAPIComponents.js",
+        "src/types/OpenAPIContact.js",
+        "src/types/OpenAPIDiscriminator.js",
+        "src/types/OpenAPIEncoding.js",
+        "src/types/OpenAPIEncodingsMap.js",
+        "src/types/OpenAPIExample.js",
+        "src/types/OpenAPIExampleMap.js",
+        "src/types/OpenAPIExternalDocumentation.js",
+        "src/types/OpenAPIFlows.js",
+        "src/types/OpenAPIHeader.js",
+        "src/types/OpenAPIHeaderMap.js",
+        "src/types/OpenAPIInfo.js",
+        "src/types/OpenAPILicense.js",
+        "src/types/OpenAPILink.js",
+        "src/types/OpenAPILinkMap.js",
+        "src/types/OpenAPIMediaObject.js",
+        "src/types/OpenAPIMediaTypeObject.js",
+        "src/types/OpenAPIOperation.js",
+        "src/types/OpenAPIParameter.js",
+        "src/types/OpenAPIParameterMap.js",
+        "src/types/OpenAPIPath.js",
+        "src/types/OpenAPIPaths.js",
+        "src/types/OpenAPIRequestBody.js",
+        "src/types/OpenAPIRequestBodyMap.js",
+        "src/types/OpenAPIResponse.js",
+        "src/types/OpenAPIResponseMap.js",
+        "src/types/OpenAPIRoot.js",
+        "src/types/OpenAPISchema.js",
+        "src/types/OpenAPISchemaMap.js",
+        "src/types/OpenAPISecurityRequirement.js",
+        "src/types/OpenAPISecuritySchema.js",
+        "src/types/OpenAPISecuritySchemaMap.js",
+        "src/types/OpenAPISecuritySchemas.js",
+        "src/types/OpenAPIServer.js",
+        "src/types/OpenAPIServerVariable.js",
+        "src/types/OpenAPIServerVariableMap.js",
+        "src/types/OpenAPITag.js",
+        "src/types/OpenAPIXML.js",
+        "src/types/PasswordOpenAPIFlow.js",
+        "src/types/index.js",
+        "src/validate.js",
+        "src/visitors/bundler.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Contact.js",
+        "src/visitors/rules/oas2-structural/validateOAS2ExternalDocs.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Header.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Info.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Items.js",
+        "src/visitors/rules/oas2-structural/validateOAS2License.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Operation.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Parameter.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Response.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Root.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Schema.js",
+        "src/visitors/rules/oas2-structural/validateOAS2SecurityScheme.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Tag.js",
+        "src/visitors/rules/oas2-structural/validateOAS2XML.js",
+        "src/visitors/rules/semantic/enum-match-type.js",
+        "src/visitors/rules/semantic/model-description.js",
+        "src/visitors/rules/semantic/operation-description.js",
+        "src/visitors/rules/semantic/parameter-description.js",
+        "src/visitors/rules/semantic/uniqueParameterNames.js",
+        "src/visitors/rules/structural/noRefSiblings.js",
+        "src/visitors/rules/structural/validateOpenAPIInfo.js",
+        "src/visitors/rules/structural/validateOpenAPIResponse.js",
+        "src/visitors/rules/structural/validateOpenAPISchema.js",
+        "src/visitors/rules/structural/validateOpenAPIXML.js"
+      ]
+    },
+    {
+      "prompt": "Implement registry login and logout commands with optional prompt support.",
+      "expected_files": [
+        "src/cli/index.js",
+        "src/redocly/index.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "ffddf5edba7df71ebf493fc9d53f3e9ebd310e4b",
+      "commit_subject": "feat: registry login support (#112)",
+      "changed_files": [
+        "src/cli/index.js",
+        "src/redocly/index.js"
+      ]
+    },
+    {
+      "prompt": "Improve the login prompt UI by adding colored formatting and clearer user instructions.",
+      "expected_files": [
+        "src/cli/index.js",
+        "src/cli/utils.js",
+        "src/redocly/index.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "3401917acdbc03d484c8959f890c9d475f6814fe",
+      "commit_subject": "chore: improve login prompt",
+      "changed_files": [
+        "src/cli/index.js",
+        "src/cli/utils.js",
+        "src/redocly/index.js"
+      ]
+    },
+    {
+      "prompt": "Implement line truncation in error frames to prevent oversized output.",
+      "expected_files": [
+        "package.json",
+        "src/yaml/index.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "3de8b1338dd90ea6b79705896a967827855b658c",
+      "commit_subject": "feat: truncate long lines in error frames (#115)",
+      "changed_files": [
+        "package.json",
+        "src/yaml/index.js"
+      ]
+    },
+    {
+      "prompt": "Fix OpenAPI 2.0 bundling to correctly handle contributor and role properties.",
+      "expected_files": [
+        "src/bundle.js",
+        "src/visitors/bundler.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "dc09c390d701b97609be5025977471e1f7df9df5",
+      "commit_subject": "fix: enable bundling for openapi 2 definitions (#116)",
+      "changed_files": [
+        "src/bundle.js",
+        "src/visitors/bundler.js"
+      ]
+    },
+    {
+      "prompt": "Fix OAS2 validation to support 'file' type and correct parameter type checking.",
+      "expected_files": [
+        "src/types/OAS2/OAS2PathItem.js",
+        "src/types/OAS2/OAS2Schema.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Contact.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Schema.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "fa0ff6183321c3932c14e439a1c5857a84a2f674",
+      "commit_subject": "fix: OAS2 validation fixes",
+      "changed_files": [
+        "src/types/OAS2/OAS2PathItem.js",
+        "src/types/OAS2/OAS2Schema.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Contact.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Schema.js"
+      ]
+    },
+    {
+      "prompt": "Fix the OAS2 SecurityScheme description validation to ensure it strictly requires a string type.",
+      "expected_files": [
+        "src/visitors/rules/oas2-structural/validateOAS2SecurityScheme.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "1a2f72717d7cbf9246e763386aa950612bb0bb8e",
+      "commit_subject": "fix: oas2 SecurityScheme/description fix",
+      "changed_files": [
+        "src/visitors/rules/oas2-structural/validateOAS2SecurityScheme.js"
+      ]
+    },
+    {
+      "prompt": "How do I update the schema traversal logic to handle complex property types and additional properties validation?",
+      "expected_files": [
+        "src/traverse.js",
+        "src/types/OAS2/OAS2Schema.js",
+        "src/types/OAS3/OpenAPISchema.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Schema.js",
+        "src/visitors/rules/structural/validateOpenAPISchema.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "989d6e3b6ccbba2d6779e544abc1780cc6df14ad",
+      "commit_subject": "fix: allow more complex logic for property types & fix additiona… (#118)",
+      "changed_files": [
+        "src/traverse.js",
+        "src/types/OAS2/OAS2Schema.js",
+        "src/types/OAS3/OpenAPISchema.js",
+        "src/visitors/rules/oas2-structural/validateOAS2Schema.js",
+        "src/visitors/rules/structural/validateOpenAPISchema.js"
+      ]
+    },
+    {
+      "prompt": "Improve error messages when YAML files or definitions are missing.",
+      "expected_files": [
+        "src/bundle.js",
+        "src/config.js",
+        "src/utils/index.js",
+        "src/validate.js"
+      ],
+      "expected_commands": [
+        "npm run lint"
+      ],
+      "accept_strategy": "git_history_file_grounded",
+      "min_file_recall": 0.25,
+      "attach_expected_commands": true,
+      "commit_sha": "66faaf5c6a7916455010f9bb054da54497737e25",
+      "commit_subject": "feat: readable error message, when definition or file not found (#114)",
+      "changed_files": [
+        "src/bundle.js",
+        "src/config.js",
+        "src/utils/index.js",
+        "src/validate.js"
+      ]
+    }
+  ]
+}

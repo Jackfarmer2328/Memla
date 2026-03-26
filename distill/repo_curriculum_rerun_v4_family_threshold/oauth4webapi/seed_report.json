@@ -1,0 +1,231 @@
+{
+  "cases": 8,
+  "accepted": 4,
+  "accept_rate": 0.5,
+  "avg_file_recall": 0.2708,
+  "avg_role_recall": 0.5,
+  "avg_command_recall": 0.25,
+  "rows": [
+    {
+      "prompt": "How do I ensure RSA-OAEP uses 2048-bit keys instead of the default 1024-bit size?",
+      "trace_id": 1,
+      "prior_trace_ids": [],
+      "suggested_files": [],
+      "suggested_commands": [],
+      "answer_files": [],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to ensure RSA-OAEP uses 2048-bit keys instead of the default 1024-bit size. Based on the retrieved memory, this is a specific requirement for RSA-OAEP. I need to check the codebase to see where RSA keys are generated or configured, particularly for OAEP p"
+    },
+    {
+      "prompt": "Update the library version to 0.2.0 and ensure RSA-OAEP uses 2048-bit keys.",
+      "trace_id": 2,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "conformance/fapi/ensure-authorization-response-with-invalid-state-fails.ts",
+        "conformance/fapi/ensure-authorization-response-with-invalid-missing-state-fails.ts",
+        "tap/keys.ts",
+        "docs/variables/KEY_SELECTION.md",
+        "package.json",
+        "package-lock.json"
+      ],
+      "suggested_commands": [
+        "Then, run `npm install` or `yarn install` to update the dependencies."
+      ],
+      "answer_files": [
+        "package.json",
+        "package-lock.json"
+      ],
+      "answer_commands": [
+        "Then, run `npm install` or `yarn install` to update the dependencies."
+      ],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.5,
+      "role_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants two things: 1. Update the library version to 0.2.0. 2. Ensure RSA-OAEP uses 2048-bit keys. Based on the retrieved memory, the user has confirmed they want 2048-bit keys for RSA-OAEP. The memory also mentions updating the library version to 0.2.0. However,"
+    },
+    {
+      "prompt": "Refactor the key derivation function to simplify the SHA-256 concatenation logic.",
+      "trace_id": 3,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "key_derivation.py",
+        "crypto_utils.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "key_derivation.py",
+        "crypto_utils.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to refactor the key derivation function to simplify SHA-256 concatenation logic. Based on the retrieved memory, this is a specific decision the user has made before. I need to: 1. Look for existing key derivation functions in the codebase. 2. Identify whe"
+    },
+    {
+      "prompt": "Update the OAuth2 library version from 0.2.0 to 0.2.1 in package.json and source code.",
+      "trace_id": 4,
+      "prior_trace_ids": [
+        2
+      ],
+      "suggested_files": [
+        "package.json",
+        "package-lock.json",
+        "tap/end2end-device-code.ts",
+        "docs/variables/RESPONSE_IS_NOT_JSON.md",
+        "docs/variables/JSON_ATTRIBUTE_COMPARISON.md",
+        "docs/functions/validateCodeIdTokenResponse.md",
+        "Node.js"
+      ],
+      "suggested_commands": [
+        "npm run build",
+        "Then, run `npm install` or `yarn install` to update the dependencies."
+      ],
+      "answer_files": [
+        "package.json",
+        "Node.js"
+      ],
+      "answer_commands": [
+        "Then, run `npm install` or `yarn install` to update the dependencies."
+      ],
+      "likely_tests": [
+        "npm run build"
+      ],
+      "patch_steps": [
+        "To update the library version to 0",
+        "0 and ensure RSA-OAEP uses 2048-bit keys, follow these steps:",
+        "Update the Library Version in `package",
+        "Open your `package"
+      ],
+      "file_recall": 0.5,
+      "role_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the OAuth2 library version from 0.2.0 to 0.2.1 in `package.json` and source code. Based on the retrieved memory, this is a specific decision the user has made before. I need to: 1. Explain how to update the library version in `package.json`. 2. "
+    },
+    {
+      "prompt": "Update examples to handle missing S256 PKCE support by using random nonces for CSRF protection.",
+      "trace_id": 5,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "Node.js",
+        "oauth2_examples.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "Node.js",
+        "oauth2_examples.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update examples to handle cases where S256 PKCE support is missing, specifically by using random nonces for CSRF protection. Based on the retrieved memory, this is a specific decision and note the user has made before. I need to: 1. Identify existing e"
+    },
+    {
+      "prompt": "Fix the PKCE S256 check syntax in the OAuth examples.",
+      "trace_id": 6,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "examples/oauth.ts",
+        "examples/refresh_token.ts",
+        "examples/refresh_token.diff",
+        "docs/variables/skipAuthTimeCheck.md",
+        "conformance/fapi/token-type-case-insensitivity.ts",
+        "conformance/fapi/token-endpoint-response-without-expires_in.ts",
+        "Node.js",
+        "oauth2_examples.py"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "Node.js",
+        "oauth2_examples.py"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.1667,
+      "role_recall": 1.0,
+      "command_recall": 0.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to fix the PKCE S256 check syntax in the OAuth examples. Based on the retrieved memory, this is a specific fact the user has confirmed before. I need to: 1. Identify existing examples in the codebase that use PKCE S256. 2. Fix the syntax to ensure it's co"
+    },
+    {
+      "prompt": "Update the toWeb function type definition to accept NodeJS.ReadableStream instead of Readable.",
+      "trace_id": 7,
+      "prior_trace_ids": [],
+      "suggested_files": [
+        "src/utils.ts",
+        "src/types.ts"
+      ],
+      "suggested_commands": [],
+      "answer_files": [
+        "src/utils.ts",
+        "src/types.ts"
+      ],
+      "answer_commands": [],
+      "likely_tests": [],
+      "patch_steps": [],
+      "file_recall": 0.0,
+      "role_recall": 0.0,
+      "command_recall": 0.0,
+      "accepted": false,
+      "answer_excerpt": "[Thought] The user wants to update the `toWeb` function type definition to accept `NodeJS.ReadableStream` instead of `Readable`. Based on the retrieved memory, this is a specific decision the user has made before. I need to: 1. Identify the `toWeb` function in the codebase. 2. Up"
+    },
+    {
+      "prompt": "Update the Web API type definitions to lock down the TypeScript DOM types version.",
+      "trace_id": 8,
+      "prior_trace_ids": [
+        4,
+        2
+      ],
+      "suggested_files": [
+        "conformance/api.ts",
+        "package-lock.json",
+        "docs/type-aliases/ClientAuth.md",
+        "docs/functions/TlsClientAuth.md",
+        "tap/end2end-client-credentials.ts",
+        "docs/variables/REQUEST_PROTOCOL_FORBIDDEN.md",
+        "package.json",
+        "tsconfig.json"
+      ],
+      "suggested_commands": [
+        "npm run build"
+      ],
+      "answer_files": [
+        "package.json",
+        "tsconfig.json"
+      ],
+      "answer_commands": [],
+      "likely_tests": [
+        "npm run build"
+      ],
+      "patch_steps": [
+        "To update the OAuth2 library version from 0",
+        "1 in `package",
+        "json` and source code, follow these steps:",
+        "Update the Library Version in `package"
+      ],
+      "file_recall": 1.0,
+      "role_recall": 1.0,
+      "command_recall": 1.0,
+      "accepted": true,
+      "answer_excerpt": "[Thought] The user wants to update the Web API type definitions to lock down the TypeScript DOM types version. Based on the retrieved memory, this is a specific decision the user has made before. I need to: 1. Identify the current DOM types version in the project. 2. Update the `"
+    }
+  ]
+}
