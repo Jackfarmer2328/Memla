@@ -139,6 +139,14 @@ section{padding:clamp(var(--space-16),8vw,var(--space-24)) var(--space-6)}
 .methodology-body ul{list-style:none;display:flex;flex-direction:column;gap:var(--space-2);margin-top:var(--space-3)}
 .methodology-body ul li{padding-left:var(--space-4);position:relative}
 .methodology-body ul li::before{content:"→";position:absolute;left:0;color:var(--color-primary)}
+.example-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-4);margin-top:var(--space-6)}
+.example-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-5)}
+.example-kicker{font-size:var(--text-xs);letter-spacing:.05em;text-transform:uppercase;color:var(--color-primary);margin-bottom:var(--space-2);font-weight:600}
+.example-title{font-size:var(--text-base);font-weight:700;letter-spacing:-.01em;margin-bottom:var(--space-2)}
+.example-copy{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7}
+.example-notes{list-style:none;display:flex;flex-direction:column;gap:var(--space-2);margin-top:var(--space-4)}
+.example-notes li{font-size:var(--text-sm);color:var(--color-text-muted);padding-left:var(--space-4);position:relative}
+.example-notes li::before{content:"•";position:absolute;left:0;color:var(--color-primary)}
 
 /* CONTEXT / EVIDENCE */
 .context-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-4);margin-top:var(--space-8)}
@@ -225,14 +233,15 @@ footer{padding:var(--space-8) var(--space-6);border-top:1px solid var(--color-bo
 /* DIVIDER */
 .section-divider{height:1px;background:var(--color-border);max-width:900px;margin:0 auto}
 
-@media(max-width:640px){
+  @media(max-width:640px){
   .flow-diagram{grid-template-columns:1fr;grid-template-rows:auto auto auto}
   .flow-arrow{transform:rotate(90deg)}
   .hero-number{font-size:clamp(2.5rem,10vw,5rem)}
   .calculator{padding:var(--space-5)}
+  .example-grid,
   .context-grid,.faq-grid,.guardrail-grid{grid-template-columns:1fr}
   footer{flex-direction:column;text-align:center}
-}
+ }
 </style>
 </head>
 <body>
@@ -377,6 +386,27 @@ footer{padding:var(--space-8) var(--space-6);border-top:1px solid var(--color-bo
         </tr>
       </tbody>
     </table>
+
+    <div class="example-grid">
+      <article class="example-card">
+        <div class="example-kicker">Example 1</div>
+        <h3 class="example-title">Open-source data lake table formats</h3>
+        <p class="example-copy">Real Perplexity Deep Research prompt: compare Apache Iceberg, Delta Lake, and Apache Hudi for open-source lakehouse deployments in 2026, then recommend one for a fast-growing analytics team.</p>
+        <ul class="example-notes">
+          <li>Phase-3 had to decide whether more search was needed for independent benchmarks, recency checks, and conflicting performance claims.</li>
+          <li>The final recommendation converged on Iceberg as the safest default for a multi-engine analytics team.</li>
+        </ul>
+      </article>
+      <article class="example-card">
+        <div class="example-kicker">Example 2</div>
+        <h3 class="example-title">Open-source secret management stack</h3>
+        <p class="example-copy">Real Perplexity Deep Research prompt: compare the best open-source secret management stacks for multi-cloud production in 2026 and recommend one with recency checks and contradictions resolved.</p>
+        <ul class="example-notes">
+          <li>Phase-3 had to keep searching around Vault vs OpenBao licensing, ESO maintenance status, and Kubernetes / GitOps operator tradeoffs.</li>
+          <li>The final recommendation converged on an OpenBao-centric stack with SOPS and cloud KMS / HSM backing.</li>
+        </ul>
+      </article>
+    </div>
 
     <div class="methodology">
       <button class="methodology-toggle" id="methToggle" aria-expanded="false" aria-controls="methBody">
