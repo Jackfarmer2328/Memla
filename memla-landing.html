@@ -470,21 +470,20 @@ footer{padding:var(--space-8) var(--space-6);border-top:1px solid var(--color-bo
     </div>
 
     <div class="code-block">
-      <pre><span class="cm"># Drop-in routing — one function wraps your existing Phase 3 call</span>
-<span class="kw">from</span> memla <span class="kw">import</span> <span class="fn">route_decision</span>
+      <pre><span class="cm"># Run inside your VPC against historical phase-3 logs</span>
+pip install memla==0.2.0
 
-<span class="kw">def</span> <span class="fn">phase3_decide</span>(context, sub_question):
-    result = <span class="fn">route_decision</span>(
-        context=context,
-        candidates=[<span class="str">"search_more"</span>, <span class="str">"converge"</span>],
-        verifier=<span class="str">"coverage_check"</span>,
-        <span class="cm"># escalates to frontier if confidence below threshold</span>
-        escalation_threshold=<span class="str">0.85</span>
-    )
-    <span class="kw">return</span> result.decision</pre>
+memla research eval-harness \
+  --input ./perplexity_phase3_logs.jsonl \
+  --normalize-capture \
+  --frontier-use-logged-decisions \
+  --memla-provider openai \
+  --memla-base-url https://internal-llm-api.example/v1 \
+  --memla-model qwen2.5-14b-instruct \
+  --pricing-profile perplexity_public_sonar</pre>
     </div>
 
-    <p class="integration-note">No rip-and-replace - wraps the existing phase-3 call. Current replay observed a 13.16% fallback / override rate.</p>
+    <p class="integration-note">No rip-and-replace - first step is a one-command historical replay inside your VPC. If your logs already contain the production frontier decision, the harness can score against that directly without calling an external frontier API.</p>
   </div>
 </section>
 
