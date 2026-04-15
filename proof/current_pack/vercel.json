@@ -1,0 +1,31 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "builds": [
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "og-card.svg",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "90_second_demo.md",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "one_sentence_pitch.txt",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "strategic_memo.md",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "frozen/**",
+      "use": "@vercel/static"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{"case_id":"web_top_news","prompt":"whats on the news","expected_actions":["browser_answer_query:top news today"]}
+{"case_id":"web_news_topic","prompt":"what's happening in the news about AI agents today?","expected_actions":["browser_answer_query:ai agents news today"]}
+{"case_id":"web_weather_general","prompt":"whats the weather today","expected_actions":["browser_answer_query:weather today"]}
+{"case_id":"web_weather_location","prompt":"what's the weather today in minneapolis","expected_actions":["browser_answer_query:weather today minneapolis"]}
+{"case_id":"web_fact_saturn_v","prompt":"who built the Saturn V rocket engines?","expected_actions":["browser_answer_query:who built the saturn v rocket engines"]}
+{"case_id":"web_release_changes","prompt":"what changed in the latest OpenAI API release?","expected_actions":["browser_answer_query:what changed in the latest openai api release"]}
+{"case_id":"web_company_lookup","prompt":"who is the ceo of anthropic?","expected_actions":["browser_answer_query:who is the ceo of anthropic"]}
+{"case_id":"web_explainer","prompt":"why did humane ai pin fail?","expected_actions":["browser_answer_query:why did humane ai pin fail"]}

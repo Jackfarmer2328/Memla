@@ -1,0 +1,12 @@
+{"case_id":"creator_001_iphone","prompt":"who created the iphone","expected_actions":["browser_answer_query:who created the iphone"]}
+{"case_id":"creator_002_light_bulb","prompt":"who invented the light bulb","expected_actions":["browser_answer_query:who invented the light bulb"]}
+{"case_id":"creator_003_apple","prompt":"who founded apple","expected_actions":["browser_answer_query:who founded apple"]}
+{"case_id":"creator_004_anthropic","prompt":"who founded anthropic","expected_actions":["browser_answer_query:who founded anthropic"]}
+{"case_id":"creator_005_wikipedia","prompt":"who created wikipedia","expected_actions":["browser_answer_query:who created wikipedia"]}
+{"case_id":"creator_006_world_wide_web","prompt":"who invented the world wide web","expected_actions":["browser_answer_query:who invented the world wide web"]}
+{"case_id":"age_001_iphone","prompt":"who created the iphone and how old were they","expected_actions":["browser_answer_query:who created the iphone and how old were they"]}
+{"case_id":"age_002_light_bulb","prompt":"who invented the light bulb and how old were they when they did it","expected_actions":["browser_answer_query:who invented the light bulb and how old were they when they did it"]}
+{"case_id":"age_003_apple","prompt":"who founded apple and how old was steve jobs then","expected_actions":["browser_answer_query:who founded apple and how old was steve jobs then"]}
+{"case_id":"age_004_anthropic","prompt":"who founded anthropic and how old was dario amodei then","expected_actions":["browser_answer_query:who founded anthropic and how old was dario amodei then"]}
+{"case_id":"age_005_wikipedia","prompt":"who created wikipedia and how old was jimmy wales when he did it","expected_actions":["browser_answer_query:who created wikipedia and how old was jimmy wales when he did it"]}
+{"case_id":"age_006_www","prompt":"who invented the world wide web and how old was tim berners-lee then","expected_actions":["browser_answer_query:who invented the world wide web and how old was tim berners-lee then"]}

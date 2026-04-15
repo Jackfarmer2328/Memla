@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Memla Pre-Trade Exception Replay Pilot</title>
+  <style>
+    @page {
+      size: Letter;
+      margin: 0.45in;
+    }
+
+    :root {
+      --ink: #122033;
+      --muted: #4f6073;
+      --line: #d8dee7;
+      --panel: #f5f7fa;
+      --accent: #0f6c5b;
+      --accent-soft: #dff3ee;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-size: 10.2pt;
+      line-height: 1.28;
+      background: white;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 7.6in;
+      margin: 0 auto;
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: 1.6fr 0.9fr;
+      gap: 0.22in;
+      align-items: start;
+      margin-bottom: 0.18in;
+    }
+
+    .brand {
+      font-size: 9pt;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.05in;
+    }
+
+    h1 {
+      margin: 0 0 0.04in 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 21pt;
+      line-height: 1.06;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 11pt;
+      max-width: 4.7in;
+    }
+
+    .scope-box {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #f8fbff 0%, #f2f7fb 100%);
+      padding: 0.16in;
+      border-radius: 14px;
+    }
+
+    .scope-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.14in;
+      padding: 0.04in 0;
+      border-bottom: 1px solid rgba(18, 32, 51, 0.08);
+    }
+
+    .scope-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .scope-label {
+      color: var(--muted);
+      font-size: 8.8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+    }
+
+    .scope-value {
+      text-align: right;
+      font-weight: 700;
+      font-size: 10.4pt;
+    }
+
+    .intro {
+      border-top: 2px solid var(--ink);
+      border-bottom: 1px solid var(--line);
+      padding: 0.12in 0 0.14in;
+      margin-bottom: 0.15in;
+      color: var(--ink);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.18in;
+    }
+
+    .section {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.13in 0.14in 0.11in;
+      background: white;
+      min-height: 1.55in;
+    }
+
+    .section.wide {
+      grid-column: 1 / -1;
+      min-height: auto;
+    }
+
+    .kicker {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 0.04in 0.08in;
+      border-radius: 999px;
+      font-size: 8.8pt;
+      font-weight: 700;
+      margin-bottom: 0.08in;
+    }
+
+    h2 {
+      margin: 0 0 0.08in 0;
+      font-size: 11.2pt;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 0.18in;
+    }
+
+    li {
+      margin: 0 0 0.045in 0;
+    }
+
+    .footer {
+      margin-top: 0.16in;
+      border-top: 1px solid var(--line);
+      padding-top: 0.11in;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 0.18in;
+      align-items: start;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 8.8pt;
+    }
+
+    .cta {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+      padding: 0.13in;
+    }
+
+    .cta-title {
+      margin: 0 0 0.05in 0;
+      font-size: 10.4pt;
+      font-weight: 700;
+    }
+
+    .cta-copy {
+      font-size: 9.2pt;
+      color: var(--muted);
+    }
+
+    @media print {
+      .page {
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div>
+        <div class="brand">Memla Pilot Scope</div>
+        <h1>Pre-Trade Exception Replay Pilot</h1>
+        <div class="subtitle">
+          A fixed-fee pilot to replay recent blocked or soft-flagged trade exceptions,
+          propose compliant next actions, and return audit-ready rationale without changing
+          your live rule engine.
+        </div>
+      </div>
+      <div class="scope-box">
+        <div class="scope-row">
+          <div class="scope-label">Fee</div>
+          <div class="scope-value">$5,000 flat</div>
+        </div>
+        <div class="scope-row">
+          <div class="scope-label">Timeline</div>
+          <div class="scope-value">5 business days</div>
+        </div>
+        <div class="scope-row">
+          <div class="scope-label">Volume</div>
+          <div class="scope-value">50-100 exceptions</div>
+        </div>
+        <div class="scope-row">
+          <div class="scope-label">Mode</div>
+          <div class="scope-value">Offline replay only</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="intro">
+      Memla runs a verifier-backed remediation loop over historical exceptions. For each row,
+      it explains the constraint hit, proposes the next compliant action, and records why that
+      action is safer than a raw block, rewrite, or escalation. This pilot is designed to show
+      whether your team has a repeatable exception-handling workflow worth productizing.
+    </div>
+
+    <div class="grid">
+      <div class="section">
+        <div class="kicker">Client Provides</div>
+        <h2>Inputs</h2>
+        <ul>
+          <li>50-100 anonymized blocked or soft-flagged exception rows in CSV or JSONL.</li>
+          <li>Relevant reject reasons, rule ids, or exception notes from the current control stack.</li>
+          <li>Short rule reference, threshold sheet, or desk playbook for the covered workflow.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="kicker">We Deliver</div>
+        <h2>Outputs</h2>
+        <ul>
+          <li>Replay report for every exception with proposed next action.</li>
+          <li>Suggested remediation, escalation path, or safe block rationale.</li>
+          <li>Constraint hit summary and audit-ready explanation per row.</li>
+          <li>Top-line metrics: pass rate, action mix, and exception pattern summary.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="kicker">Guardrails</div>
+        <h2>What This Pilot Is Not</h2>
+        <ul>
+          <li>No live trading integration or autonomous order release.</li>
+          <li>No production threshold changes or rule ownership transfer.</li>
+          <li>No legal opinion or regulatory certification.</li>
+          <li>No requirement to send non-anonymized production identifiers.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="kicker">Success Criteria</div>
+        <h2>What Good Looks Like</h2>
+        <ul>
+          <li>Clear triage of which exceptions should be modified, escalated, or blocked.</li>
+          <li>Cleaner audit notes than the current manual process.</li>
+          <li>A concrete list of exception types suitable for shadow-mode automation next.</li>
+          <li>A go/no-go decision on a larger on-prem pilot.</li>
+        </ul>
+      </div>
+
+      <div class="section wide">
+        <div class="kicker">Pilot Deliverable Format</div>
+        <h2>Delivery Package</h2>
+        <ul>
+          <li>One CSV or JSONL output file with row-by-row recommendations.</li>
+          <li>One PDF summary covering exception categories, remediation patterns, and proposed next phase.</li>
+          <li>One review call to walk through results, false positives, and the highest-value workflow to automate next.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="note">
+        Scope note: this is a paid replay pilot for a single bounded workflow, intended to
+        evaluate real exception handling pain before any production integration. If useful,
+        the next phase would be a shadow-mode adapter against the firm's existing control outputs.
+      </div>
+      <div class="cta">
+        <div class="cta-title">Suggested Next Step</div>
+        <div class="cta-copy">
+          If this scope looks right, send a sample export and rule reference set.
+          Memla returns the replay package by Friday for a flat $5,000.
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

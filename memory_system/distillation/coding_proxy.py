@@ -7,7 +7,7 @@ import subprocess
 import time
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
+from typing import Any, Optional
 
 from ..distillation.coding_log import CodingTraceLog, SimilarCodingTrace, WorkflowPriorSummary
 from ..distillation.workflow_planner import WorkflowPlan, build_workflow_plan, render_workflow_plan_block
@@ -58,9 +58,16 @@ class ProxyResult:
     suggested_commands: list[str] | None = None
     likely_tests: list[str] | None = None
     patch_steps: list[str] | None = None
+    predicted_constraints: list[str] | None = None
+    ruled_out_constraints: list[str] | None = None
     constraint_tags: list[str] | None = None
     transmutations: list[str] | None = None
     role_targets: list[str] | None = None
+    ruled_out_roles: list[str] | None = None
+    hypothesis_swarm: list[dict[str, Any]] | None = None
+    compiled_hypotheses: list[dict[str, Any]] | None = None
+    validated_trade_path: dict[str, Any] | None = None
+    residual_constraints: list[str] | None = None
 
 
 @dataclass(frozen=True)
@@ -186,6 +193,9 @@ class CodingSession:
         top_k: int = 12,
         num_ctx: int | None = None,
         session_id: Optional[str] = None,
+        enable_compile_loop: bool = True,
+        c2a_policy_path: str = "",
+        disable_c2a_policy: bool = False,
     ) -> None:
         self.model = model
         self.user_id = user_id
@@ -194,6 +204,9 @@ class CodingSession:
         self.top_k = top_k
         self.num_ctx = num_ctx
         self.session_id = session_id or _new_session_id()
+        self.enable_compile_loop = bool(enable_compile_loop)
+        self.c2a_policy_path = str(c2a_policy_path or "").strip()
+        self.disable_c2a_policy = bool(disable_c2a_policy)
 
         self.log = EpisodeLog(db_path)
         self.client = UniversalLLMClient.from_env()
@@ -230,6 +243,9 @@ class CodingSession:
             summary=workflow_priors,
             prompt=prompt,
             repo_root=self.repo_root,
+            enable_compile_loop=self.enable_compile_loop,
+            c2a_policy_path=self.c2a_policy_path,
+            disable_c2a_policy=self.disable_c2a_policy,
         )
 
     def ask(self, prompt: str, *, test_command: Optional[str] = None) -> ProxyResult:
@@ -253,6 +269,9 @@ class CodingSession:
             summary=workflow_priors,
             prompt=prompt,
             repo_root=self.repo_root,
+            enable_compile_loop=self.enable_compile_loop,
+            c2a_policy_path=self.c2a_policy_path,
+            disable_c2a_policy=self.disable_c2a_policy,
         )
         distilled_priors = _build_distilled_priors_block(similar_traces)
         workflow_priors_block = _build_workflow_priors_block(workflow_priors)
@@ -314,6 +333,7 @@ class CodingSession:
             assistant_text=answer,
             meta={
                 "surface": "coding_proxy",
+                "compile_loop_enabled": self.enable_compile_loop,
                 "prior_trace_ids": [candidate.trace.id for candidate in similar_traces],
                 "prior_trace_scores": {
                     str(candidate.trace.id): round(candidate.score, 4) for candidate in similar_traces
@@ -323,9 +343,16 @@ class CodingSession:
                 "suggested_commands": list(workflow_priors.suggested_commands),
                 "likely_tests": list(workflow_plan.likely_tests),
                 "patch_steps": list(workflow_plan.patch_steps),
+                "predicted_constraints": list(workflow_plan.predicted_constraints),
+                "ruled_out_constraints": list(workflow_plan.ruled_out_constraints),
                 "constraint_tags": list(workflow_plan.constraint_tags),
                 "transmutations": list(workflow_plan.transmutations),
                 "role_targets": list(workflow_plan.role_targets),
+                "ruled_out_roles": list(workflow_plan.ruled_out_roles),
+                "hypothesis_swarm": list(workflow_plan.hypothesis_swarm),
+                "compiled_hypotheses": list(workflow_plan.compiled_hypotheses),
+                "validated_trade_path": dict(workflow_plan.validated_trade_path),
+                "residual_constraints": list(workflow_plan.residual_constraints),
             },
         )
         self.coding_log.update_trace_artifacts(
@@ -397,9 +424,16 @@ class CodingSession:
                     "likely_commands": list(workflow_plan.likely_commands),
                     "likely_tests": list(workflow_plan.likely_tests),
                     "patch_steps": list(workflow_plan.patch_steps),
+                    "predicted_constraints": list(workflow_plan.predicted_constraints),
+                    "ruled_out_constraints": list(workflow_plan.ruled_out_constraints),
                     "constraint_tags": list(workflow_plan.constraint_tags),
                     "transmutations": list(workflow_plan.transmutations),
                     "role_targets": list(workflow_plan.role_targets),
+                    "ruled_out_roles": list(workflow_plan.ruled_out_roles),
+                    "hypothesis_swarm": list(workflow_plan.hypothesis_swarm),
+                    "compiled_hypotheses": list(workflow_plan.compiled_hypotheses),
+                    "validated_trade_path": dict(workflow_plan.validated_trade_path),
+                    "residual_constraints": list(workflow_plan.residual_constraints),
                 },
             )
         self.coding_log.append_event(
@@ -439,12 +473,19 @@ class CodingSession:
             test_result=test_result,
             prior_trace_ids=[candidate.trace.id for candidate in similar_traces],
             suggested_files=list(workflow_plan.likely_files),
-            suggested_commands=list(workflow_priors.suggested_commands),
+            suggested_commands=list(workflow_plan.likely_commands),
             likely_tests=list(workflow_plan.likely_tests),
             patch_steps=list(workflow_plan.patch_steps),
+            predicted_constraints=list(workflow_plan.predicted_constraints),
+            ruled_out_constraints=list(workflow_plan.ruled_out_constraints),
             constraint_tags=list(workflow_plan.constraint_tags),
             transmutations=list(workflow_plan.transmutations),
             role_targets=list(workflow_plan.role_targets),
+            ruled_out_roles=list(workflow_plan.ruled_out_roles),
+            hypothesis_swarm=list(workflow_plan.hypothesis_swarm),
+            compiled_hypotheses=list(workflow_plan.compiled_hypotheses),
+            validated_trade_path=dict(workflow_plan.validated_trade_path),
+            residual_constraints=list(workflow_plan.residual_constraints),
         )
 
     def mark_feedback(self, *, is_positive: bool, note: str = "") -> bool:

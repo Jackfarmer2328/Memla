@@ -1,221 +1,333 @@
-# Memla
+# Memla CLI
 
-**The memory layer for AI — for humans and agents.**
+Memla is a bounded runtime that helps smaller models make better technical decisions inside verifier-backed loops.
 
-Every LLM session starts from zero. Every agent forgets what it learned yesterday. Every multi-agent system has agents that can't share what they know. This fixes all three. Persistently. Locally.
+Install from PyPI:
 
-**For humans:** A spatial prompt interface — select memories on a live knowledge graph, draw connections, then type. The model receives both your text and the relational structure you explicitly chose. Not a chat interface with a sidebar. A new interaction paradigm.
+```bash
+pip install memla
+```
 
-**For agents:** An MCP server that gives any agent on any framework (CrewAI, LangGraph, AutoGen, Claude Desktop, Cursor) persistent memory that learns. Four tool calls: retrieve, store, link, merge. Drop it into any agent. It stops being amnesiac.
+PyPI:
+- [memla on PyPI](https://pypi.org/project/memla/)
 
-**For multi-agent systems:** Each agent gets its own retrieval adapter. Periodic merges distill shared knowledge across all agents via PCA + EWC weight protection. Agents get collectively smarter without overwriting what they individually specialized in.
+This repo is the public, CLI-first version of Memla. It is intentionally narrower than the internal research repo and keeps the public snapshot focused on the tool, not every generated artifact.
 
-Works with **Ollama** (local), **Anthropic** (Claude), or **OpenAI-compatible APIs**. Your memory is **SQLite on your machine**. Your retrieval model trains locally via LoRA.
+## What this repo contains
 
-## What makes this different
+- `memla.py`
+  - thin top-level entry point
+- `memory_system/`
+  - CLI runtime, coding loop, finance pre-trade backtester, pure coding C2A benchmark, math benchmark, and pack builder
+- `cases/`
+  - bundled case files for quick local runs
+- `proof/`
+  - lightweight public proof summary and a small site template
+- `tests/`
+  - focused coverage for the CLI and benchmark surfaces
 
-1. **You prompt with a graph, not just text.** Click memory nodes to pin them as context. The model answers through the lens you selected — not the lens it guessed.
+## Current bounded claim
 
-2. **Drawing connections trains retrieval.** When you link two memories, the system fires a contrastive training signal that pulls their embeddings closer. Your act of organizing knowledge teaches the retriever how to retrieve.
+Public proof summary:
+- `proof/summary.md`
 
-3. **The learning loop is closed properly.** Training signal comes from whether the LLM *actually used* a retrieved memory in its response — not from the retriever scoring itself. This prevents the system from calcifying on its own biases.
+Current strongest public result:
+- on coding, local `qwen3.5:9b + Memla` beat hosted `Meta-Llama-3.1-405B-Instruct` raw on execution outcome in the primary patch benchmark
+- on coding, the same `qwen3.5:9b` base model moved from `0.0` apply / `0.0` semantic success raw to `1.0` apply / `0.6667` semantic success with Memla on the same OAuth slice
+- after loading a `405b`-only self-transmutation bank, same-model `qwen3.5:9b + Memla` on the OAuth slice improved from `0.6667` apply / `0.6667` semantic success with the bank disabled to `1.0` apply / `0.6667` semantic success with the bank enabled
+- on pure coding C2A, the same `405b`-only self-transmutation bank lifted same-model `qwen3.5:9b + Memla` utility from the earlier `0.4908` baseline to `0.5058`, and that repeated across `3` runs with average uplift `+0.015`
+- on coding, hosted `Grok-3` raw also stayed at `0.0` apply / `0.0` semantic success on the OAuth slice while local `qwen3.5:9b + Memla` reached `0.6667` apply / `0.6667` semantic success
+- on two small coding C2A slices, hosted `DeepSeek-R1` raw scored `0.2` and `0.35` utility while local `qwen3.5:9b + Memla` reached `0.7` and `0.55`
+- on a small healthcare denial replay slice, hosted `DeepSeek-R1` raw tied local `qwen3.5:9b + Memla` at `1.0` utility on the completed cases
+- on a second repo family, hosted `meta/Llama-3.3-70B-Instruct` raw again stayed at `0.0` apply while local `qwen3.5:9b + Memla` reached `0.3333` apply on the FastAPI slice
+- on a second repo family against hosted `Grok-3` raw, local `qwen3.5:9b + Memla` reached `0.5` apply on `2` completed FastAPI cases while the raw lane stayed at `0.0` apply and one raw-lane case failed with `HTTPError`
+- on math, `qwen3.5:4b + Memla` matched `qwen2.5:32b` raw on the harder bounded pack
+- on ambiguous math decision states, Memla lifted both `4b` and `9b` to perfect choice accuracy on the tested slice
 
-4. **Generation is untouched.** Only the retrieval model (MiniLM) gets fine-tuned via LoRA. The generation LLM (Ollama/Claude/GPT) stays as a black box. No risk of degrading output quality.
-
-5. **Agents get the same memory humans get.** Via MCP, any agent on any framework connects to the same memory system. Retrieval adapts to each agent individually. Cross-agent merge distills shared knowledge without catastrophic forgetting.
+This is a bounded-runtime claim, not a universal model-parity claim.
 
 ## Quick start
 
-**Prerequisites:** Python 3.11+, Ollama running locally
+Prerequisites:
+- Python 3.11+
+- either Ollama running locally or a hosted chat model reachable through the shared LLM client
+- one or more models already available
+
+Install:
 
 ```bash
-git clone https://github.com/Jackfarmer2328/Memla.git
-cd Memla
-pip install -r requirements.txt
+pip install memla
 ```
 
-### Web UI (recommended)
+For local editable development instead:
 
 ```bash
-ollama serve
-python app.py --model qwen3.5:4b
+py -3 -m pip install -e .
 ```
 
-Opens `http://localhost:8765` in your browser. Pick any local Ollama model from the dropdown.
-
-**Flags:**
-- `--port 8765` — server port
-- `--model qwen3.5:4b` — default model (any Ollama model)
-- `--db ./memory.sqlite` — database path
-- `--user_id default` — user identity for multi-user setups
-
-### MCP Server (for agents)
+Smoke-check the CLI:
 
 ```bash
-# stdio transport (Claude Desktop, Cursor, local frameworks)
-python mcp_server.py
-
-# HTTP transport (remote agents, multi-machine setups)
-python mcp_server.py --transport http --port 8766
-
-# Custom agent identity (each agent gets its own LoRA adapter)
-python mcp_server.py --agent_id researcher --db ./memory.sqlite
-python mcp_server.py --agent_id coder --db ./memory.sqlite
+memla --help
 ```
 
-Any MCP-compatible client connects and gets 7 tools:
-
-| Tool | What it does |
-|------|-------------|
-| `memory_retrieve` | Semantic + keyword search over memories |
-| `memory_store` | Persist a fact, decision, entity, or note |
-| `memory_link` | Connect two chunks (fires LoRA training signal) |
-| `memory_unlink` | Remove a connection |
-| `memory_chat` | Full pipeline: retrieve + inject + LLM + train |
-| `memory_feedback` | Positive/negative signal on last interaction |
-| `memory_merge` | Cross-agent adapter merge (PCA + EWC) |
-
-Plus 2 resources: `memory://graph` (full knowledge graph) and `memory://chunks/{agent_id}` (inspect any agent's memories).
-
-### CLI mode
+Run a local environment check:
 
 ```bash
-python -m memory_system.main --model qwen3.5:4b --db ./memory.sqlite --user_id default
+memla doctor --repo-root . --model qwen3.5:9b
 ```
 
-### Anthropic / OpenAI
+Use a hosted GitHub Models endpoint instead of Ollama:
+
+```powershell
+$env:LLM_PROVIDER="github_models"
+$env:GITHUB_TOKEN="YOUR_GITHUB_TOKEN"
+$env:LLM_BASE_URL="https://models.github.ai/inference"
+memla coding run --prompt "Repair the failing auth tests" --repo-root . --model "meta/Llama-3.3-70B-Instruct"
+```
+
+If you prefer, `LLM_API_KEY` also works in place of `GITHUB_TOKEN`.
+
+## Main commands
+
+Run the customer-facing research eval harness:
 
 ```bash
-export LLM_PROVIDER=anthropic
-export LLM_API_KEY="sk-ant-..."
-python -m memory_system.main --model claude-sonnet-4-6 --db ./memory.sqlite
+memla research eval-harness --input historical_decision_logs.jsonl --normalize-capture --frontier-use-logged-decisions --memla-provider openai --memla-base-url https://internal-llm-api.example/v1 --memla-model qwen2.5-14b-instruct --pricing-profile perplexity_public_sonar
 ```
+
+Build a workflow plan inside a repo:
 
 ```bash
-export LLM_PROVIDER=openai
-export LLM_API_KEY="YOUR_KEY"
-export LLM_BASE_URL="https://api.openai.com"
-python -m memory_system.main --model gpt-4o-mini --db ./memory.sqlite
+memla coding plan --prompt "Fix the auth regression" --repo-root .
 ```
 
-## The interface
+Run a bounded coding turn with optional verification:
 
-![Memla UI](assets/memla-ui.png)
-
-**Graph interactions:**
-- **Click** a node → pin it as context (purple glow, appears as chip above input)
-- **Shift+Click** two nodes → connect/disconnect them (trains retrieval)
-- **Shift+Drag** from one node to another → draw a connection
-- **Drag** → move nodes
-- **Scroll** → zoom
-- **Search box** → filter/highlight by keyword
-- **Esc** → clear all pins
-
-## How it works
-
-### The 5-step memory pipeline
-
-1. **Episode + chunk logging** — Every message is logged to SQLite. Key facts, decisions, entities, and notes are extracted and stored as retrievable chunks.
-
-2. **Hybrid retrieval + LoRA reranking** — Candidates are scored by semantic similarity (MiniLM embeddings) + keyword overlap + recency + frequency. A LoRA adapter on MiniLM reranks the top candidates.
-
-3. **Closed-loop training** — After the LLM responds, the system measures which retrieved chunks were actually *used* in the response (token overlap). Used chunks = positive signal. Ignored chunks = negative signal. User corrections flip the signal. This trains the LoRA to surface what actually helps, not what scores highest.
-
-4. **EWC weight protection** — Elastic Weight Consolidation uses Fisher information to protect important retrieval weights from catastrophic forgetting. Frequently-used retrieval pathways are "bolded" — harder to overwrite.
-
-5. **Multi-user merge + safe subspace** — PCA extracts shared retrieval directions across users. Updates are projected into an agreement subspace so one user's adapter can't degrade another's.
-
-### The spatial prompt layer (new)
-
-On top of the pipeline, the web UI adds:
-
-- **Pinned context injection** — Selected nodes bypass retrieval and get injected directly into the system prompt as highest-priority context.
-- **User-drawn connections** — Persisted in SQLite (`user_links` table). Each link fires `micro_gradient_pass` bidirectionally — pulling the two chunks' embeddings closer in the LoRA's representation space.
-- **Graph as training signal** — Every manual connection is a high-confidence contrastive pair. Over time, the retriever converges toward the user's mental model of how their knowledge is structured.
-
-### Training signals (4 sources)
-
-| Signal | Source | Confidence | Weight |
-|--------|--------|------------|--------|
-| Chunk usage | LLM referenced chunk in response | Medium | 1x |
-| Correction | User's next message contradicts response | Medium | 0.6-0.8x |
-| Explicit | `/good` or `/bad` command | High | 1x |
-| Spatial | User drew a connection on the graph | Highest | 1x (bidirectional) |
-
-## Multi-agent memory
-
-Multiple agents share the same SQLite database with different `--agent_id` values. Each gets its own LoRA retrieval adapter that learns what *that* agent needs. Periodically, any agent calls `memory_merge` to distill shared knowledge.
-
-```
-┌─────────────┐  ┌─────────────┐  ┌─────────────┐
-│  researcher  │  │    coder    │  │   writer    │
-│  (LoRA A)    │  │  (LoRA B)   │  │  (LoRA C)   │
-└──────┬───────┘  └──────┬──────┘  └──────┬──────┘
-       │                 │                │
-       └────────┬────────┴────────┬───────┘
-                │                 │
-         ┌──────▼──────┐  ┌──────▼──────┐
-         │  PCA merge  │→ │ EWC protect │→ shared_base/
-         └─────────────┘  └─────────────┘
+```bash
+memla coding run --prompt "Repair the failing auth tests" --repo-root . --test-command "pytest -q"
 ```
 
-The merge pipeline:
-1. **PCA** extracts shared retrieval directions across all agent adapters via SVD
-2. **EWC** protects important weights — frequently-used retrieval pathways can't be overwritten
-3. **Safe subspace projection** ensures updates only go where all agents agree
-4. The resulting `shared_base` adapter is loaded by all agents on next startup
+Run the patch execution benchmark:
 
-This means a researcher agent's discoveries about API patterns strengthen the coder agent's retrieval of related code decisions — without overwriting the coder's specialized knowledge about implementation details.
-
-## Commands (CLI mode)
-
-- `/new_session` — new session (memory persists)
-- `/recall` — show retrieved chunks from last turn
-- `/good` — positive feedback on last response
-- `/bad` — negative feedback on last response
-- `/merge_adapters` — multi-user merge (Steps 4-5)
-- `/exit` — quit
-
-## Project structure
-
-```
-Project-Memory/
-├── app.py                          # Web UI server (FastAPI + SSE streaming)
-├── mcp_server.py                   # MCP server for agents (FastMCP, stdio/HTTP)
-├── static/index.html               # Frontend (D3 graph + chat)
-├── memory_system/
-│   ├── main.py                     # CLI entry point
-│   ├── ollama_client.py            # Universal LLM client (Ollama/OpenAI/Anthropic)
-│   ├── memory/
-│   │   ├── episode_log.py          # SQLite persistence (episodes, chunks, user_links)
-│   │   ├── chunk_manager.py        # Hybrid retrieval (semantic + keyword + recency)
-│   │   └── llm_extractor.py        # Chunk extraction from messages
-│   ├── middleware/
-│   │   ├── ttt_layer.py            # Turn-by-turn orchestration + learning loop
-│   │   ├── context_builder.py      # System prompt assembly + deferred training
-│   │   └── quality.py              # Chunk usage scoring + correction detection
-│   ├── adapters/
-│   │   ├── lora_manager.py         # MiniLM + LoRA loading/saving/embedding
-│   │   ├── gradient_pass.py        # Micro gradient steps on retrieval LoRA
-│   │   ├── ewc.py                  # Elastic Weight Consolidation
-│   │   └── merge.py                # Multi-user PCA merge
-│   └── projection/
-│       └── gradient_filter.py      # Safe subspace projection
-├── tests/                          # 13 tests covering all pipeline steps
-├── requirements.txt
-└── memory.sqlite                   # Your memory (local, yours)
+```bash
+memla coding benchmark-patch --pack path\\to\\git_history_case_pack.json --raw-model qwen2.5:32b --memla-model qwen3.5:9b
 ```
 
-## Requirements
+Mix a hosted raw lane with a local Memla lane:
 
+```bash
+memla coding benchmark-patch --pack path\\to\\git_history_case_pack.json --raw-model meta/Llama-3.3-70B-Instruct --memla-model qwen3.5:9b --raw-provider github_models --raw-base-url https://models.github.ai/inference --memla-provider ollama --memla-base-url http://127.0.0.1:11435
 ```
-requests>=2.31,<3
-torch>=2.1
-transformers>=4.40
-peft>=0.7
-safetensors>=0.4
-sentence-transformers>=2.2
-fastapi>=0.100
-uvicorn>=0.20
-fastmcp>=2.0
+
+Run the compile-loop benchmark:
+
+```bash
+memla coding benchmark-compile --cases cases\\coding_eval_cases.jsonl --repo-root . --model qwen3.5:9b
 ```
+
+Run the pure next-move coding C2A benchmark:
+
+```bash
+memla coding benchmark-c2a --cases cases\\coding_eval_cases.jsonl --repo-root . --raw-model qwen3.5:9b --memla-model qwen3.5:9b
+```
+
+Run the finance pre-trade compliance backtester:
+
+```bash
+memla finance benchmark-pretrade --cases cases\\finance_pretrade_eval_cases.jsonl --raw-model meta/Llama-3.3-70B-Instruct --memla-model qwen3.5:9b
+```
+
+Run the public-rule-grounded finance pack built from SEC and FINRA control categories:
+
+```bash
+memla finance benchmark-pretrade --cases cases\\finance_pretrade_public_eval_cases.jsonl --raw-model qwen3.5:9b --memla-model qwen3.5:9b --raw-provider ollama --raw-base-url http://127.0.0.1:11435 --memla-provider ollama --memla-base-url http://127.0.0.1:11435
+```
+
+Public provenance for that pack:
+- `cases/finance_pretrade_public_sources.md`
+
+Run the healthcare denied-claim replay benchmark:
+
+```bash
+memla healthcare benchmark-denials --cases cases\\healthcare_denial_eval_cases.jsonl --raw-model qwen3.5:9b --memla-model qwen3.5:9b --raw-provider ollama --raw-base-url http://127.0.0.1:11435 --memla-provider ollama --memla-base-url http://127.0.0.1:11435
+```
+
+Public provenance for the bundled healthcare pack:
+- `cases/healthcare_denial_public_sources.md`
+
+Run the policy-as-code authz replay benchmark:
+
+```bash
+memla policy benchmark-authz --cases cases\\policy_authz_eval_cases.jsonl --raw-model qwen3.5:9b --memla-model qwen3.5:9b --raw-provider ollama --raw-base-url http://127.0.0.1:11435 --memla-provider ollama --memla-base-url http://127.0.0.1:11435
+```
+
+Extract a policy teacher trace bank and distill it into the live primitive-aware policy bank:
+
+```bash
+memla policy extract-authz --report memla_reports\\policy_deepseek_change_window_vs_9bmemla\\policy_authz_benchmark_report.json
+memla policy distill-authz --trace-bank memla_reports\\policy_trace_bank_deepseek_change_window\\policy_trace_bank_summary.json --repo-root .
+```
+
+Public provenance for the bundled policy pack:
+- `cases/policy_authz_public_sources.md`
+
+Run the bounded natural-language terminal assistant on a weak local machine:
+
+```bash
+memla terminal benchmark --model phi3
+memla terminal benchmark-browser --model phi3
+memla terminal benchmark-browser-v2 --model phi3
+memla terminal benchmark-browser-v3 --model phi3
+memla terminal benchmark-browser-v4 --model phi3
+memla terminal benchmark-browser-v5 --model phi3
+memla terminal benchmark-browser-v6 --model phi3
+memla terminal benchmark-browser-v7 --model phi3
+memla terminal benchmark-browser-v8 --model phi3
+memla terminal compare "open chrome and spotify"
+memla scout "find the top 10 github repos for local llms and tell me which best fits weak hardware"
+memla "find the top 10 github repos for local llms and tell me which best fits weak hardware"
+memla serve --host 0.0.0.0 --port 8080 --model phi3:mini
+memla terminal plan "open chrome and spotify" --heuristic-only
+memla terminal run "open chrome and spotify" --heuristic-only
+memla terminal run "open chrome" --without-memla --model phi3:mini
+memla terminal run "open youtube and search lo fi hip hop"
+memla terminal run "click the first video"
+memla terminal run "open github and search llama.cpp"
+memla terminal run "click the first repo"
+memla terminal run "what is this repo"
+memla terminal run "find the best repo for c++ llm inference on cpu then find a youtube video about it then open the first one and summarize it then find a reddit post about it then open the first one and explain it" --heuristic-only
+memla terminal run "find the best repo for c++ llm inference on cpu then find a youtube video about it then open the first one and summarize it then if the first one seems weak open a better one and summarize it then find a reddit post about it then open the first one and explain it" --heuristic-only
+memla terminal run "find the best repo for c++ llm inference on cpu then find a youtube video about it then open the first one and summarize it then if the first one seems weak open a better one and summarize it then find a reddit post about it then open the first one and explain it then tell me which source best explains cpu inference on weak hardware" --heuristic-only
+memla terminal step "now click the first vid" --heuristic-only
+memla terminal step "now click the first vid" --heuristic-only --choice 1
+memla terminal run "open youtube and search lo fi hip hop" --without-memla --model phi3:mini
+memla terminal run "open downloads folder" --model phi3:mini
+```
+
+The terminal surface is intentionally bounded:
+- it launches known apps, opens URLs or folders, lists directories, and answers a few local status questions
+- it does not generate arbitrary shell or privileged commands
+- for common launch/open prompts, the built-in heuristic parser often avoids the model entirely
+- `memla scout ...` adds a bounded autonomy layer on top of the browser ontology, so Memla can search GitHub, rank repo candidates, inspect the best few, and bring back a report in one shot
+- `memla serve ...` exposes the same bounded runtime over HTTP for thin clients like a SwiftUI iPhone app or Shortcuts bridge
+- the locked browser surface for benchmark/backtest work is documented in `proof/browser_ontology_v1.md`
+- the ranking/comparison extension is documented in `proof/browser_ontology_v2.md`
+- the multi-step browser research handoff layer is documented in `proof/browser_ontology_v3.md`
+- the research-completion chain that opens the follow-on result is documented in `proof/browser_ontology_v4.md`
+- the bounded research-explanation layer that opens and reads the follow-on result is documented in `proof/browser_ontology_v5.md`
+
+The HTTP layer is intentionally thin so the product seam stays stable:
+
+```bash
+memla serve --host 0.0.0.0 --port 8080 --model phi3:mini
+```
+
+Available routes:
+- `GET /health`
+- `GET /state`
+- `GET /memory`
+- `GET /actions`
+- `GET /missions`
+- `POST /missions`
+- `GET /missions/{mission_id}`
+- `POST /missions/{mission_id}/decision`
+- `POST /actions/plan`
+- `POST /actions/draft`
+- `POST /actions/capsule`
+- `POST /run`
+- `POST /scout`
+- `POST /followup`
+
+Example scout request:
+
+```bash
+curl -X POST http://127.0.0.1:8080/scout ^
+  -H "Content-Type: application/json" ^
+  -d "{\"prompt\":\"find the top 10 github repos for local llms and tell me which best fits weak hardware\"}"
+```
+
+Example follow-up request:
+
+```bash
+curl -X POST http://127.0.0.1:8080/followup ^
+  -H "Content-Type: application/json" ^
+  -d "{\"prompt\":\"find a youtube video about it then open the first one and summarize it\"}"
+```
+
+There is also a root `server.py`, so `uvicorn server:app --host 0.0.0.0 --port 8080` works if you want a plain FastAPI entrypoint for iPhone or Apple Shortcuts prototyping.
+
+Extract a normalized finance trace bank from one or more pre-trade benchmark reports:
+
+```bash
+memla finance extract-pretrade --report memla_reports\\finance_pretrade_benchmark_20260404_161024\\finance_pretrade_benchmark_report.json
+```
+
+Distill a finance self-transmutation policy bank Memla can load from `.memla`:
+
+```bash
+memla finance distill-pretrade --trace-bank memla_reports\\finance_pretrade_extract\\finance_trace_bank_summary.json --repo-root .
+```
+
+Extract a normalized C2A trace bank from one or more benchmark reports:
+
+```bash
+memla coding extract-c2a --report memla_reports\\coding_c2a_9braw_vs_9bmemla\\coding_c2a_benchmark_report.json --report memla_reports\\coding_c2a_405braw_vs_9bmemla\\coding_c2a_benchmark_report.json
+```
+
+Distill a self-transmutation policy bank Memla can load from `.memla`:
+
+```bash
+memla coding distill-c2a --trace-bank memla_reports\\c2a_trace_bank_seed\\c2a_trace_bank_summary.json --repo-root .
+```
+
+Use `--disable-c2a-policy` or `--disable-memla-c2a-policy` on planning, run, compile, C2A, or patch benchmark commands to ablate the learned bank for a clean before/after comparison.
+
+Validate the current self-transmutation bank against the same-model C2A harness:
+
+```bash
+memla coding benchmark-c2a --cases cases\\coding_eval_cases.jsonl --repo-root . --raw-model qwen3.5:9b --memla-model qwen3.5:9b --raw-provider ollama --raw-base-url http://127.0.0.1:11435 --memla-provider ollama --memla-base-url http://127.0.0.1:11435
+```
+
+Run the bounded math benchmark:
+
+```bash
+memla math benchmark --cases cases\\math_linear_c2a_v2_harder.jsonl --teacher-model qwen2.5:32b --student-models qwen3.5:4b qwen3.5:9b --executor-mode stepwise_rerank --teacher-trace-source hybrid
+```
+
+Build a proof pack from generated report JSONs:
+
+```bash
+memla pack thesis --coding path\\to\\coding_patch_execution_report.json --math-rerank path\\to\\math_step_rerank_report.json --math-progress path\\to\\math_progress_report.json
+```
+
+Benchmark commands write report bundles under `./memla_reports/` by default.
+
+## Public proof note
+
+This repo intentionally omits bulky raw benchmark dumps from version control so the public snapshot stays product-shaped.
+
+If you want the underlying artifacts, generate them locally with:
+- `memla coding benchmark-patch`
+- `memla coding benchmark-compile`
+- `memla math benchmark`
+- `memla pack thesis`
+
+## Tests
+
+Focused verification:
+
+```bash
+py -3 -m pytest -q tests\\test_step13_coding_compile_loop.py tests\\test_step14_compile_loop_benchmark.py tests\\test_step15_patch_execution_benchmark.py tests\\test_step16_math_c2a_benchmark.py tests\\test_step17_memla_cli.py
+```
+
+## Product direction
+
+Memla is being packaged as:
+- a local/private coding runtime for smaller models
+- a CLI first, not a chat app first
+- a verifier-backed system, not a prompt wrapper
+
+The wedge is:
+
+**make local 9b/14b/32b coding models more execution-capable than their raw form.**

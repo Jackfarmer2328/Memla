@@ -1,0 +1,97 @@
+name: Build iOS App
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths:
+      - "ios/**"
+      - ".github/workflows/build-ios.yml"
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+    permissions:
+      contents: read
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Generate Xcode project
+        working-directory: ios/MemlaApp
+        run: xcodegen generate
+
+      - name: Build app for iPhone Simulator
+        working-directory: ios/MemlaApp
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project MemlaApp.xcodeproj \
+            -scheme MemlaApp \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build/DerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            build | tee xcodebuild.log
+
+      - name: Build device app for AltStore IPA
+        working-directory: ios/MemlaApp
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project MemlaApp.xcodeproj \
+            -scheme MemlaApp \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath build/DerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            build | tee xcodebuild-device.log
+
+      - name: Package AltStore IPA artifact
+        working-directory: ios/MemlaApp
+        run: |
+          APP_PATH="build/DerivedData/Build/Products/Release-iphoneos/Memla.app"
+          if [ ! -d "$APP_PATH" ]; then
+            echo "Expected app bundle not found at $APP_PATH"
+            exit 1
+          fi
+          mkdir -p build/ipa/Payload
+          cp -R "$APP_PATH" build/ipa/Payload/Memla.app
+          cd build/ipa
+          /usr/bin/zip -qry Memla-AltStore.ipa Payload
+
+      - name: Package build logs
+        if: always()
+        run: |
+          mkdir -p ios-artifacts
+          if [ -d ~/Library/Developer/Xcode/DerivedData ]; then
+            cp -R ~/Library/Developer/Xcode/DerivedData ios-artifacts/DerivedData
+          fi
+          if [ -f ios/MemlaApp/xcodebuild.log ]; then
+            cp ios/MemlaApp/xcodebuild.log ios-artifacts/xcodebuild.log
+          fi
+          if [ -f ios/MemlaApp/xcodebuild-device.log ]; then
+            cp ios/MemlaApp/xcodebuild-device.log ios-artifacts/xcodebuild-device.log
+          fi
+          if [ -f ios/MemlaApp/build/ipa/Memla-AltStore.ipa ]; then
+            cp ios/MemlaApp/build/ipa/Memla-AltStore.ipa ios-artifacts/Memla-AltStore.ipa
+          fi
+
+      - name: Upload iOS build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: memla-ios-build
+          path: ios-artifacts

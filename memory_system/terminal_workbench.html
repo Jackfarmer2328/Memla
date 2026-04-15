@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>__MEMLA_WORKBENCH_TITLE__</title>
+  <style>
+    :root {
+      --bg: #f3efe4;
+      --panel: rgba(255, 251, 243, 0.92);
+      --panel-strong: #fffaf0;
+      --ink: #18211a;
+      --muted: #59665c;
+      --accent: #0e8f64;
+      --accent-2: #164f92;
+      --border: rgba(24, 33, 26, 0.12);
+      --shadow: 0 20px 50px rgba(26, 33, 24, 0.12);
+      --radius: 22px;
+      --mono: "Iosevka", "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+      --sans: "Aptos", "Segoe UI Variable", "Trebuchet MS", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(14, 143, 100, 0.18), transparent 32%),
+        radial-gradient(circle at top right, rgba(22, 79, 146, 0.15), transparent 28%),
+        linear-gradient(180deg, #faf5ea 0%, var(--bg) 100%);
+    }
+
+    .shell {
+      width: min(1440px, calc(100vw - 32px));
+      margin: 24px auto;
+      display: grid;
+      gap: 18px;
+    }
+
+    .hero,
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero {
+      padding: 24px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: start;
+      flex-wrap: wrap;
+    }
+
+    .eyebrow {
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 0.95;
+      max-width: 12ch;
+    }
+
+    .hero-copy {
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 62ch;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .status-bar {
+      display: grid;
+      gap: 10px;
+      min-width: 300px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(24, 33, 26, 0.08);
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(120px, 1fr));
+      gap: 10px 14px;
+    }
+
+    .status-k {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .status-v {
+      font-family: var(--mono);
+      font-size: 0.92rem;
+      margin-top: 3px;
+    }
+
+    .prompt-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .prompt-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: 12px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(24, 33, 26, 0.14);
+      background: rgba(255, 255, 255, 0.82);
+      padding: 14px 16px;
+      color: var(--ink);
+      font: inherit;
+    }
+
+    button {
+      appearance: none;
+      border: none;
+      border-radius: 16px;
+      padding: 13px 18px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+    button:disabled { opacity: 0.5; cursor: wait; transform: none; }
+
+    .primary {
+      background: linear-gradient(135deg, var(--accent), #13b680);
+      color: white;
+      box-shadow: 0 10px 24px rgba(14, 143, 100, 0.24);
+    }
+
+    .secondary {
+      background: linear-gradient(135deg, var(--accent-2), #2674cf);
+      color: white;
+      box-shadow: 0 10px 24px rgba(22, 79, 146, 0.22);
+    }
+
+    .ghost {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--ink);
+      border: 1px solid rgba(24, 33, 26, 0.12);
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(24, 33, 26, 0.1);
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    details {
+      border-radius: 18px;
+      border: 1px dashed rgba(24, 33, 26, 0.16);
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.48);
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--accent-2);
+      user-select: none;
+    }
+
+    .advanced-grid {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 1.05fr 1.45fr 1.1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+      min-height: 220px;
+    }
+
+    .panel h2 {
+      margin: 0;
+      font-size: 1.02rem;
+      letter-spacing: 0.02em;
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .kv-list,
+    .trace-list,
+    .result-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .kv,
+    .trace-item,
+    .result-item {
+      border-radius: 16px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(24, 33, 26, 0.08);
+    }
+
+    .kv-key {
+      color: var(--muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .kv-value,
+    .mono {
+      font-family: var(--mono);
+      word-break: break-word;
+    }
+
+    .candidate-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .candidate {
+      padding: 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(24, 33, 26, 0.1);
+      background: var(--panel-strong);
+      display: grid;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .candidate::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: rgba(14, 143, 100, 0.12);
+    }
+
+    .candidate.recommended::before {
+      background: linear-gradient(180deg, var(--accent), #17c78d);
+    }
+
+    .candidate-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .candidate h3 {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(22, 79, 146, 0.1);
+      color: var(--accent-2);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .recommended-badge {
+      background: rgba(14, 143, 100, 0.13);
+      color: var(--accent);
+    }
+
+    .candidate-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .candidate-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .small {
+      font-size: 0.87rem;
+    }
+
+    .empty {
+      border: 1px dashed rgba(24, 33, 26, 0.16);
+      border-radius: 18px;
+      padding: 18px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.45);
+    }
+
+    .footer-note {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 1120px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      .advanced-grid,
+      .prompt-row,
+      .candidate-grid,
+      .status-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-top">
+        <div>
+          <div class="eyebrow">Human-In-The-Loop C2A</div>
+          <h1>Memla Browser Workbench</h1>
+          <p class="hero-copy">Propose the next transmutation, inspect exactly what Memla wants to touch, approve the move you trust, and let the trace become ontology for later autonomy.</p>
+        </div>
+        <div class="status-bar">
+          <div class="status-grid">
+            <div>
+              <div class="status-k">Current URL</div>
+              <div class="status-v" id="status-url">None</div>
+            </div>
+            <div>
+              <div class="status-k">Page Kind</div>
+              <div class="status-v" id="status-kind">unknown</div>
+            </div>
+            <div>
+              <div class="status-k">Search Context</div>
+              <div class="status-v" id="status-search">none</div>
+            </div>
+            <div>
+              <div class="status-k">Trace Log</div>
+              <div class="status-v" id="status-trace">default</div>
+            </div>
+          </div>
+          <button class="ghost" id="refresh-state">Refresh state</button>
+        </div>
+      </div>
+
+      <form class="prompt-form" id="prompt-form">
+        <div class="prompt-row">
+          <input id="prompt-input" type="text" value="open github and search llama.cpp" placeholder='Type a natural prompt like "open github and search llama.cpp"'>
+          <button class="primary" id="propose-button" type="submit">Propose next move</button>
+          <button class="ghost" id="run-recommended" type="button">Run recommended</button>
+        </div>
+
+        <div class="toolbar">
+          <label class="toggle">
+            <input id="heuristic-only" type="checkbox" checked>
+            Heuristic-first workbench
+          </label>
+          <div class="footer-note" id="status-line">Ready to inspect the next transmutation.</div>
+        </div>
+
+        <details>
+          <summary>Advanced settings</summary>
+          <div class="advanced-grid">
+            <label>
+              <div class="small muted">Model</div>
+              <input id="model-input" type="text" placeholder="phi3:mini">
+            </label>
+            <label>
+              <div class="small muted">Provider</div>
+              <input id="provider-input" type="text" value="ollama">
+            </label>
+            <label>
+              <div class="small muted">Base URL</div>
+              <input id="base-url-input" type="text" placeholder="http://127.0.0.1:11434">
+            </label>
+            <label>
+              <div class="small muted">Temperature</div>
+              <input id="temperature-input" type="number" min="0" max="2" step="0.1" value="0.1">
+            </label>
+          </div>
+        </details>
+      </form>
+    </section>
+
+    <section class="dashboard">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Constraint State</h2>
+          <span class="chip">Live</span>
+        </div>
+        <div class="kv-list" id="constraints-panel">
+          <div class="empty">Run a prompt to see the current browser constraints and how Memla is framing the state.</div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Candidate Transmutations</h2>
+          <span class="chip" id="candidate-count">0 candidates</span>
+        </div>
+        <div class="candidate-list" id="candidate-panel">
+          <div class="empty">No candidate transmutations yet. Propose a prompt to inspect the next move.</div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Execution + Trace</h2>
+          <span class="chip">Verifier</span>
+        </div>
+        <div class="result-list" id="execution-panel">
+          <div class="empty">Approve a transmutation to see the execution result and the stored trace.</div>
+        </div>
+        <div class="trace-list" id="trace-panel">
+          <div class="empty">Recent approved traces will appear here.</div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const ui = {
+      prompt: document.getElementById("prompt-input"),
+      proposeButton: document.getElementById("propose-button"),
+      runRecommended: document.getElementById("run-recommended"),
+      heuristicOnly: document.getElementById("heuristic-only"),
+      model: document.getElementById("model-input"),
+      provider: document.getElementById("provider-input"),
+      baseUrl: document.getElementById("base-url-input"),
+      temperature: document.getElementById("temperature-input"),
+      statusLine: document.getElementById("status-line"),
+      statusUrl: document.getElementById("status-url"),
+      statusKind: document.getElementById("status-kind"),
+      statusSearch: document.getElementById("status-search"),
+      statusTrace: document.getElementById("status-trace"),
+      constraints: document.getElementById("constraints-panel"),
+      candidates: document.getElementById("candidate-panel"),
+      candidateCount: document.getElementById("candidate-count"),
+      execution: document.getElementById("execution-panel"),
+      traces: document.getElementById("trace-panel"),
+      refreshState: document.getElementById("refresh-state"),
+      promptForm: document.getElementById("prompt-form"),
+    };
+
+    const appState = {
+      lastReport: null,
+      lastPrompt: "",
+      defaults: {},
+      traceLog: "",
+    };
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+    }
+
+    function settingsPayload() {
+      return {
+        model: ui.model.value.trim(),
+        provider: ui.provider.value.trim(),
+        base_url: ui.baseUrl.value.trim(),
+        temperature: Number(ui.temperature.value || "0.1"),
+        heuristic_only: ui.heuristicOnly.checked,
+        trace_log: appState.traceLog || appState.defaults.trace_log || "",
+      };
+    }
+
+    function setBusy(isBusy, message) {
+      ui.proposeButton.disabled = isBusy;
+      ui.runRecommended.disabled = isBusy;
+      ui.statusLine.textContent = message;
+    }
+
+    async function requestJson(path, options = {}) {
+      const response = await fetch(path, {
+        headers: { "Content-Type": "application/json" },
+        ...options,
+      });
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(payload.error || `Request failed with ${response.status}`);
+      }
+      return payload;
+    }
+
+    function renderBrowserState(browserState) {
+      const currentUrl = browserState?.current_url || "None";
+      const pageKind = browserState?.page_kind || "unknown";
+      const searchContext = browserState?.search_engine
+        ? `${browserState.search_engine} / ${browserState.search_query || "query"}`
+        : "none";
+      ui.statusUrl.textContent = currentUrl;
+      ui.statusKind.textContent = pageKind;
+      ui.statusSearch.textContent = searchContext;
+      ui.statusTrace.textContent = appState.traceLog || appState.defaults.trace_log || "default";
+    }
+
+    function renderConstraints(constraints) {
+      const entries = Object.entries(constraints || {}).filter(([, value]) => {
+        if (value === "" || value === null || value === undefined) return false;
+        if (Array.isArray(value) && value.length === 0) return false;
+        return true;
+      });
+      if (!entries.length) {
+        ui.constraints.innerHTML = '<div class="empty">No active constraints yet.</div>';
+        return;
+      }
+      ui.constraints.innerHTML = entries.map(([key, value]) => {
+        const formatted = Array.isArray(value) ? value.join(", ") : typeof value === "object" ? JSON.stringify(value) : String(value);
+        return `
+          <div class="kv">
+            <div class="kv-key">${escapeHtml(key)}</div>
+            <div class="kv-value">${escapeHtml(formatted)}</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderCandidates(report) {
+      const candidates = report?.candidates || [];
+      appState.lastReport = report || null;
+      ui.candidateCount.textContent = `${candidates.length} candidate${candidates.length === 1 ? "" : "s"}`;
+      if (!candidates.length) {
+        ui.candidates.innerHTML = '<div class="empty">No candidate transmutations were proposed for this state.</div>';
+        return;
+      }
+      ui.candidates.innerHTML = candidates.map((candidate, index) => {
+        const fields = candidate.expected_fields?.length
+          ? `<div class="kv"><div class="kv-key">Will Extract</div><div class="kv-value">${escapeHtml(candidate.expected_fields.join(", "))}</div></div>`
+          : "";
+        const target = candidate.target_preview
+          ? `<div class="kv"><div class="kv-key">Will Act On</div><div class="kv-value">${escapeHtml(candidate.target_preview)}</div></div>`
+          : "";
+        const outcome = candidate.expected_outcome
+          ? `<div class="kv"><div class="kv-key">Expected Outcome</div><div class="kv-value">${escapeHtml(candidate.expected_outcome)}</div></div>`
+          : "";
+        const actions = (candidate.plan?.actions || []).map((action) => `${action.kind}:${action.resolved_target || action.target}`).join(", ");
+        return `
+          <article class="candidate ${candidate.recommended ? "recommended" : ""}">
+            <div class="candidate-top">
+              <div>
+                <h3>${index + 1}. ${escapeHtml(candidate.label)}</h3>
+                <div class="muted">${escapeHtml(candidate.rationale)}</div>
+              </div>
+              <div class="chip ${candidate.recommended ? "recommended-badge" : ""}">${escapeHtml(candidate.recommended ? "recommended" : candidate.origin)}</div>
+            </div>
+            <div class="candidate-grid">
+              ${target}
+              ${outcome}
+              ${fields}
+              <div class="kv">
+                <div class="kv-key">Raw Actions</div>
+                <div class="kv-value">${escapeHtml(actions || "none")}</div>
+              </div>
+            </div>
+            <div class="candidate-actions">
+              <button class="secondary" type="button" data-choice="${index + 1}">Approve and execute</button>
+              <span class="small muted">Candidate id: <span class="mono">${escapeHtml(candidate.candidate_id || "")}</span></span>
+            </div>
+          </article>
+        `;
+      }).join("");
+      ui.candidates.querySelectorAll("button[data-choice]").forEach((button) => {
+        button.addEventListener("click", () => executeChoice(button.dataset.choice));
+      });
+    }
+
+    function renderExecution(payload) {
+      if (!payload?.execution) {
+        ui.execution.innerHTML = '<div class="empty">No execution yet.</div>';
+        return;
+      }
+      const execution = payload.execution;
+      const result = execution.result || {};
+      const records = result.records || [];
+      const rows = records.length ? records.map((record) => {
+        const details = record.details && Object.keys(record.details).length
+          ? `<div class="small muted">${escapeHtml(JSON.stringify(record.details))}</div>`
+          : "";
+        return `
+          <div class="result-item">
+            <div class="kv-key">${escapeHtml(record.kind)} / ${escapeHtml(record.status)}</div>
+            <div>${escapeHtml(record.message || "")}</div>
+            ${details}
+          </div>
+        `;
+      }).join("") : '<div class="empty">No execution records returned.</div>';
+      ui.execution.innerHTML = `
+        <div class="result-item">
+          <div class="kv-key">Chosen Transmutation</div>
+          <div>${escapeHtml(execution.chosen_candidate?.label || "")}</div>
+        </div>
+        <div class="result-item">
+          <div class="kv-key">Timing</div>
+          <div class="mono">planning ${escapeHtml(String(payload.planning_duration_seconds ?? ""))}s | execution ${escapeHtml(String(payload.execution_duration_seconds ?? ""))}s | total ${escapeHtml(String(payload.total_duration_seconds ?? ""))}s</div>
+        </div>
+        <div class="result-item">
+          <div class="kv-key">Trace Path</div>
+          <div class="mono">${escapeHtml(execution.trace_path || "")}</div>
+        </div>
+        ${rows}
+      `;
+    }
+
+    function renderTraces(traces) {
+      const rows = traces || [];
+      if (!rows.length) {
+        ui.traces.innerHTML = '<div class="empty">No approved traces yet.</div>';
+        return;
+      }
+      ui.traces.innerHTML = rows.slice(0, 8).map((row) => `
+        <div class="trace-item">
+          <div class="kv-key">${escapeHtml(row.prompt || "trace")}</div>
+          <div>${escapeHtml(row.chosen_label || row.chosen_candidate_id || "")}</div>
+          <div class="small muted">origin ${escapeHtml(row.chosen_origin || "")}</div>
+        </div>
+      `).join("");
+    }
+
+    async function refreshState() {
+      try {
+        const payload = await requestJson("/api/state");
+        appState.defaults = payload.defaults || {};
+        appState.traceLog = payload.trace_log || "";
+        if (!ui.model.value) ui.model.value = appState.defaults.model || "";
+        if (!ui.provider.value) ui.provider.value = appState.defaults.provider || "ollama";
+        if (!ui.baseUrl.value && appState.defaults.base_url) ui.baseUrl.value = appState.defaults.base_url;
+        ui.temperature.value = String(appState.defaults.temperature ?? 0.1);
+        ui.heuristicOnly.checked = Boolean(appState.defaults.heuristic_only);
+        renderBrowserState(payload.browser_state || {});
+        renderTraces(payload.recent_traces || []);
+      } catch (error) {
+        ui.statusLine.textContent = error.message;
+      }
+    }
+
+    async function propose() {
+      const prompt = ui.prompt.value.trim();
+      if (!prompt) {
+        ui.statusLine.textContent = "Prompt is required.";
+        return;
+      }
+      setBusy(true, "Proposing candidate transmutations...");
+      try {
+        const payload = await requestJson("/api/step", {
+          method: "POST",
+          body: JSON.stringify({
+            prompt,
+            ...settingsPayload(),
+          }),
+        });
+        appState.lastPrompt = prompt;
+        renderConstraints(payload.report?.constraints || {});
+        renderCandidates(payload.report);
+        renderBrowserState(payload.browser_state || {});
+        renderTraces(payload.recent_traces || []);
+        ui.execution.innerHTML = '<div class="empty">Pick a candidate to execute and log the trace.</div>';
+        ui.statusLine.textContent = `Planning completed in ${payload.planning_duration_seconds}s.`;
+      } catch (error) {
+        ui.statusLine.textContent = error.message;
+      } finally {
+        setBusy(false, ui.statusLine.textContent);
+      }
+    }
+
+    async function executeChoice(choice) {
+      const prompt = ui.prompt.value.trim() || appState.lastPrompt;
+      if (!prompt) {
+        ui.statusLine.textContent = "Prompt is required before execution.";
+        return;
+      }
+      setBusy(true, `Executing candidate ${choice}...`);
+      try {
+        const payload = await requestJson("/api/execute", {
+          method: "POST",
+          body: JSON.stringify({
+            prompt,
+            choice,
+            ...settingsPayload(),
+          }),
+        });
+        renderExecution(payload);
+        renderBrowserState(payload.browser_state || {});
+        renderTraces(payload.recent_traces || []);
+        ui.statusLine.textContent = `Execution completed in ${payload.total_duration_seconds}s.`;
+      } catch (error) {
+        ui.statusLine.textContent = error.message;
+      } finally {
+        setBusy(false, ui.statusLine.textContent);
+      }
+    }
+
+    ui.promptForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      propose();
+    });
+
+    ui.runRecommended.addEventListener("click", () => {
+      const candidate = appState.lastReport?.candidates?.find((row) => row.recommended) || appState.lastReport?.candidates?.[0];
+      if (!candidate) {
+        ui.statusLine.textContent = "No candidate available yet. Propose a prompt first.";
+        return;
+      }
+      const index = (appState.lastReport.candidates || []).findIndex((row) => row.candidate_id === candidate.candidate_id);
+      executeChoice(String(index + 1));
+    });
+
+    ui.refreshState.addEventListener("click", refreshState);
+
+    refreshState();
+  </script>
+</body>
+</html>

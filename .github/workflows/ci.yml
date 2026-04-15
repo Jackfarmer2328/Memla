@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest requests sympy
+          pip install -e . --no-deps
+
+      - name: CLI smoke check
+        run: python memla.py --help
+
+      - name: Focused test suite
+        run: >
+          python -m pytest -q
+          tests/test_step13_coding_compile_loop.py
+          tests/test_step14_compile_loop_benchmark.py
+          tests/test_step15_patch_execution_benchmark.py
+          tests/test_step16_math_c2a_benchmark.py
+          tests/test_step17_memla_cli.py

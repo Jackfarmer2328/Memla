@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memla - Deep Research Phase-3 Routing Economics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="dark"]{
+  --color-bg:#0a0a09;
+  --color-surface:#111110;
+  --color-surface-2:#161614;
+  --color-surface-offset:#1c1c1a;
+  --color-border:#262622;
+  --color-divider:#1e1e1b;
+  --color-text:#e8e6e1;
+  --color-text-muted:#7a7870;
+  --color-text-faint:#3d3d3a;
+  --color-primary:#00c896;
+  --color-primary-hover:#00b386;
+  --color-primary-dim:#003d2e;
+  --color-accent:#00c896;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+  --shadow-md:0 4px 16px rgba(0,0,0,.5);
+  --shadow-lg:0 16px 48px rgba(0,0,0,.6);
+  --font-body:'Inter',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --text-xs:clamp(.75rem,.7rem + .25vw,.875rem);
+  --text-sm:clamp(.875rem,.8rem + .35vw,1rem);
+  --text-base:clamp(1rem,.95rem + .25vw,1.125rem);
+  --text-lg:clamp(1.125rem,1rem + .75vw,1.5rem);
+  --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
+  --text-2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);
+  --text-hero:clamp(3rem,.5rem + 7vw,8rem);
+  --space-1:.25rem;--space-2:.5rem;--space-3:.75rem;--space-4:1rem;
+  --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;
+  --space-12:3rem;--space-16:4rem;--space-20:5rem;--space-24:6rem;
+  --radius-sm:.375rem;--radius-md:.5rem;--radius-lg:.75rem;--radius-xl:1rem;
+  --radius-full:9999px;
+  --transition:180ms cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{min-height:100dvh;font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background:var(--color-bg);line-height:1.6}
+img,picture,video,canvas,svg{display:block;max-width:100%;height:auto}
+input,button,textarea,select{font:inherit;color:inherit}
+h1,h2,h3,h4{text-wrap:balance;line-height:1.1}
+p,li{text-wrap:pretty;max-width:72ch}
+button{cursor:pointer;background:none;border:none}
+::selection{background:rgba(0,200,150,.15);color:var(--color-text)}
+:focus-visible{outline:2px solid var(--color-primary);outline-offset:3px;border-radius:var(--radius-sm)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:var(--space-4) var(--space-6);display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,9,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--color-border)}
+.nav-logo{display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-sm);font-weight:600;letter-spacing:-.01em;color:var(--color-text);text-decoration:none}
+.nav-logo svg{color:var(--color-primary)}
+.nav-cta{background:var(--color-primary);color:#000;padding:var(--space-2) var(--space-5);border-radius:var(--radius-full);font-size:var(--text-sm);font-weight:600;text-decoration:none;transition:background var(--transition),transform var(--transition)}
+.nav-cta:hover{background:var(--color-primary-hover);transform:translateY(-1px)}
+
+/* HERO */
+.hero{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:var(--space-24) var(--space-6) var(--space-16);position:relative;overflow:hidden}
+.hero-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(0,200,150,.08) 0%,transparent 70%);pointer-events:none}
+.hero-label{display:inline-flex;align-items:center;gap:var(--space-2);background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-full);padding:var(--space-1) var(--space-4);font-size:var(--text-xs);color:var(--color-text-muted);letter-spacing:.04em;text-transform:uppercase;margin-bottom:var(--space-8)}
+.hero-label-dot{width:6px;height:6px;border-radius:50%;background:var(--color-primary);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.hero-number{font-size:var(--text-hero);font-weight:700;letter-spacing:-.04em;color:var(--color-text);line-height:1}
+.hero-number span{color:var(--color-primary)}
+.hero-scope{font-size:var(--text-sm);color:var(--color-text-muted);margin-top:var(--space-4);letter-spacing:.01em}
+.hero-scope strong{color:var(--color-text-faint);font-weight:500}
+
+/* CALCULATOR */
+.calculator{margin-top:var(--space-10);background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-8);max-width:520px;width:100%}
+.calc-label{font-size:var(--text-xs);color:var(--color-text-muted);letter-spacing:.04em;text-transform:uppercase;margin-bottom:var(--space-3)}
+.calc-input-row{display:flex;align-items:center;gap:var(--space-3)}
+.calc-input{flex:1;background:var(--color-surface-offset);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-3) var(--space-4);font-size:var(--text-lg);font-weight:600;color:var(--color-text);text-align:right;transition:border-color var(--transition)}
+.calc-input:focus{border-color:var(--color-primary);outline:none}
+.calc-unit{font-size:var(--text-sm);color:var(--color-text-muted);white-space:nowrap}
+.calc-result{margin-top:var(--space-5);padding-top:var(--space-5);border-top:1px solid var(--color-border);display:flex;justify-content:space-between;align-items:center}
+.calc-result-label{font-size:var(--text-sm);color:var(--color-text-muted)}
+.calc-result-number{font-size:var(--text-xl);font-weight:700;color:var(--color-primary);letter-spacing:-.02em;transition:all .15s ease}
+.hero-cta{margin-top:var(--space-8);background:var(--color-primary);color:#000;padding:var(--space-4) var(--space-10);border-radius:var(--radius-full);font-size:var(--text-base);font-weight:700;text-decoration:none;display:inline-block;transition:background var(--transition),transform var(--transition),box-shadow var(--transition)}
+.hero-cta:hover{background:var(--color-primary-hover);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,200,150,.25)}
+
+/* SECTIONS */
+section{padding:clamp(var(--space-16),8vw,var(--space-24)) var(--space-6)}
+.container{max-width:900px;margin-inline:auto}
+.section-label{font-size:var(--text-xs);color:var(--color-primary);letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-bottom:var(--space-4)}
+.section-title{font-size:var(--text-xl);font-weight:700;letter-spacing:-.02em;margin-bottom:var(--space-6)}
+
+/* PROBLEM */
+.problem-section{background:var(--color-surface)}
+.phase-bar-wrap{margin:var(--space-8) 0;background:var(--color-surface-offset);border-radius:var(--radius-md);overflow:hidden;height:52px;display:flex;position:relative}
+.phase-bar-segment{display:flex;align-items:center;justify-content:center;font-size:var(--text-xs);font-weight:600;letter-spacing:.03em;transition:opacity var(--transition)}
+.phase-bar-segment.memla{background:var(--color-primary);color:#000}
+.phase-bar-segment.frontier{background:var(--color-surface-2);color:var(--color-text-muted);border-right:1px solid var(--color-border)}
+.phase-bar-label{position:absolute;bottom:-28px;left:0;right:0;display:flex;justify-content:space-between;font-size:var(--text-xs);color:var(--color-text-muted)}
+.problem-bullets{list-style:none;display:flex;flex-direction:column;gap:var(--space-4);margin-top:var(--space-12)}
+.problem-bullets li{display:flex;gap:var(--space-3);align-items:flex-start;font-size:var(--text-base);color:var(--color-text-muted)}
+.problem-bullets li::before{content:"";display:block;width:6px;height:6px;border-radius:50%;background:var(--color-primary);margin-top:9px;flex-shrink:0}
+
+/* BENCHMARK */
+.benchmark-table{width:100%;border-collapse:collapse;margin-top:var(--space-8)}
+.benchmark-table th{font-size:var(--text-xs);letter-spacing:.05em;text-transform:uppercase;color:var(--color-text-muted);padding:var(--space-3) var(--space-4);text-align:left;border-bottom:1px solid var(--color-border)}
+.benchmark-table td{padding:var(--space-4);border-bottom:1px solid var(--color-divider);font-size:var(--text-sm);vertical-align:middle}
+.benchmark-table tr.highlight td{background:color-mix(in oklch,var(--color-primary) 5%,var(--color-surface))}
+.benchmark-table tr.highlight .lane-name{color:var(--color-primary);font-weight:600}
+.lane-name{font-weight:500;color:var(--color-text)}
+.cost-number{font-family:var(--font-mono);font-weight:600;color:var(--color-text);font-size:var(--text-base)}
+.cost-number.good{color:var(--color-primary)}
+.cost-number.bad{color:var(--color-text-muted)}
+.quality-bar{display:flex;align-items:center;gap:var(--space-2)}
+.quality-dots{display:flex;gap:3px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--color-border)}
+.dot.filled{background:var(--color-primary)}
+.dot.filled.frontier{background:var(--color-text-muted)}
+.badge{display:inline-block;padding:2px var(--space-2);border-radius:var(--radius-full);font-size:var(--text-xs);font-weight:600}
+.badge.green{background:rgba(0,200,150,.15);color:var(--color-primary)}
+.badge.yellow{background:rgba(255,200,0,.1);color:#c8a000}
+.badge.red{background:rgba(200,80,80,.1);color:#c85050}
+
+.safety-kpi{margin-top:var(--space-6);background:var(--color-surface-offset);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-5)}
+.safety-kpi-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-3)}
+.safety-kpi-label{font-size:var(--text-xs);letter-spacing:.05em;text-transform:uppercase;color:var(--color-text-muted)}
+.safety-kpi-number{font-size:var(--text-xl);font-weight:700;letter-spacing:-.02em;color:var(--color-text)}
+.safety-kpi-note{margin-top:var(--space-3);font-size:var(--text-sm);color:var(--color-text-muted)}
+
+/* METHODOLOGY TOGGLE */
+.methodology{margin-top:var(--space-6);border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden}
+.methodology-toggle{width:100%;padding:var(--space-4) var(--space-5);display:flex;justify-content:space-between;align-items:center;background:var(--color-surface);font-size:var(--text-sm);color:var(--color-text-muted);cursor:pointer;transition:background var(--transition)}
+.methodology-toggle:hover{background:var(--color-surface-offset)}
+.methodology-toggle svg{transition:transform var(--transition);flex-shrink:0}
+.methodology-toggle.open svg{transform:rotate(180deg)}
+.methodology-body{display:none;padding:var(--space-5);background:var(--color-surface-2);border-top:1px solid var(--color-border)}
+.methodology-body.open{display:block}
+.methodology-body p,.methodology-body li{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7}
+.methodology-body ul{list-style:none;display:flex;flex-direction:column;gap:var(--space-2);margin-top:var(--space-3)}
+.methodology-body ul li{padding-left:var(--space-4);position:relative}
+.methodology-body ul li::before{content:"→";position:absolute;left:0;color:var(--color-primary)}
+
+/* CONTEXT / EVIDENCE */
+.context-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-4);margin-top:var(--space-8)}
+.context-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-5)}
+.context-kicker{font-size:var(--text-xs);letter-spacing:.05em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:var(--space-2)}
+.context-value{font-size:var(--text-lg);font-weight:700;letter-spacing:-.02em;margin-bottom:var(--space-2)}
+.context-note{font-size:var(--text-sm);color:var(--color-text-muted)}
+.context-list{list-style:none;display:flex;flex-direction:column;gap:var(--space-3);margin-top:var(--space-6)}
+.context-list li{display:flex;align-items:flex-start;gap:var(--space-3);font-size:var(--text-sm);color:var(--color-text-muted)}
+.context-list li::before{content:"✓";color:var(--color-primary);font-weight:700;flex-shrink:0;margin-top:1px}
+
+.evidence-note{margin-top:var(--space-6);padding:var(--space-4);background:var(--color-surface-offset);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--text-sm);color:var(--color-text-muted)}
+
+.guardrail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-4);margin-top:var(--space-8)}
+.guardrail-item{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-5)}
+.guardrail-item h3{font-size:var(--text-sm);letter-spacing:.01em;margin-bottom:var(--space-2)}
+.guardrail-item p{font-size:var(--text-sm);color:var(--color-text-muted)}
+
+.appendix-list{list-style:none;display:flex;flex-direction:column;gap:var(--space-3);margin-top:var(--space-6)}
+.appendix-list li{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md)}
+.appendix-list span{font-size:var(--text-sm);color:var(--color-text-muted)}
+
+/* FAQ */
+.faq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-4);margin-top:var(--space-8)}
+.faq-item{background:var(--color-surface-offset);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-5)}
+.faq-item h3{font-size:var(--text-sm);letter-spacing:.01em;margin-bottom:var(--space-2)}
+.faq-item p{font-size:var(--text-sm);color:var(--color-text-muted)}
+
+.mini-link-row{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-top:var(--space-6)}
+.mini-link{font-size:var(--text-xs);letter-spacing:.04em;text-transform:uppercase;color:var(--color-text-muted);text-decoration:none;border:1px solid var(--color-border);border-radius:var(--radius-full);padding:6px 10px;transition:color var(--transition),border-color var(--transition),background var(--transition)}
+.mini-link:hover{color:var(--color-primary);border-color:var(--color-primary);background:rgba(0,200,150,.07)}
+
+/* INTEGRATION */
+.integration-section{background:var(--color-surface)}
+.flow-diagram{display:grid;grid-template-columns:1fr auto 1fr;gap:var(--space-4);align-items:center;margin:var(--space-8) 0}
+.flow-box{background:var(--color-surface-offset);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5)}
+.flow-box-title{font-size:var(--text-xs);letter-spacing:.05em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:var(--space-2)}
+.flow-box-body{font-size:var(--text-sm);color:var(--color-text);font-weight:500}
+.flow-box.memla-box{border-color:var(--color-primary);background:color-mix(in oklch,var(--color-primary) 6%,var(--color-surface))}
+.flow-box.memla-box .flow-box-title{color:var(--color-primary)}
+.flow-arrow{color:var(--color-text-faint);font-size:var(--text-lg);text-align:center}
+.flow-rows{display:flex;flex-direction:column;gap:var(--space-3)}
+.flow-row{display:flex;align-items:center;gap:var(--space-4)}
+.flow-step{flex:1}
+.code-block{background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-6);margin-top:var(--space-6);overflow-x:auto}
+.code-block pre{font-family:var(--font-mono);font-size:var(--text-xs);line-height:1.7;color:var(--color-text-muted)}
+.code-block .kw{color:#79b8ff}
+.code-block .fn{color:var(--color-primary)}
+.code-block .str{color:#f0a45d}
+.code-block .cm{color:var(--color-text-faint)}
+.integration-note{margin-top:var(--space-5);font-size:var(--text-sm);color:var(--color-text-muted);display:flex;align-items:center;gap:var(--space-2)}
+.integration-note::before{content:"✓";color:var(--color-primary);font-weight:700}
+
+/* PILOT */
+.pilot-section{background:var(--color-bg)}
+.pilot-box{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-10);max-width:600px;margin-inline:auto}
+.pilot-price{font-size:var(--text-2xl);font-weight:700;letter-spacing:-.03em;color:var(--color-text);margin-bottom:var(--space-2)}
+.pilot-price span{color:var(--color-primary)}
+.pilot-duration{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-8)}
+.pilot-items{list-style:none;display:flex;flex-direction:column;gap:var(--space-4);margin-bottom:var(--space-8)}
+.pilot-items li{display:flex;align-items:flex-start;gap:var(--space-3);font-size:var(--text-sm);color:var(--color-text-muted)}
+.pilot-items li::before{content:"✓";color:var(--color-primary);font-weight:700;flex-shrink:0;margin-top:1px}
+.pilot-cta{display:block;background:var(--color-primary);color:#000;text-align:center;padding:var(--space-4);border-radius:var(--radius-lg);font-size:var(--text-base);font-weight:700;text-decoration:none;transition:background var(--transition),transform var(--transition),box-shadow var(--transition)}
+.pilot-cta:hover{background:var(--color-primary-hover);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,200,150,.2)}
+
+/* CONTACT */
+.contact-section{background:var(--color-surface)}
+.contact-form{max-width:520px;margin-inline:auto;display:flex;flex-direction:column;gap:var(--space-5)}
+.field{display:flex;flex-direction:column;gap:var(--space-2)}
+.field label{font-size:var(--text-xs);letter-spacing:.04em;text-transform:uppercase;color:var(--color-text-muted);font-weight:600}
+.field input,.field textarea{background:var(--color-surface-offset);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-3) var(--space-4);font-size:var(--text-base);color:var(--color-text);transition:border-color var(--transition)}
+.field input:focus,.field textarea:focus{border-color:var(--color-primary);outline:none}
+.field textarea{resize:vertical;min-height:80px}
+.form-submit{background:var(--color-primary);color:#000;padding:var(--space-4);border-radius:var(--radius-md);font-size:var(--text-base);font-weight:700;cursor:pointer;transition:background var(--transition),transform var(--transition)}
+.form-submit:hover{background:var(--color-primary-hover);transform:translateY(-1px)}
+.form-success{display:none;text-align:center;padding:var(--space-8);color:var(--color-primary);font-size:var(--text-base);font-weight:600}
+
+/* FOOTER */
+footer{padding:var(--space-8) var(--space-6);border-top:1px solid var(--color-border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-4)}
+.footer-text{font-size:var(--text-xs);color:var(--color-text-faint)}
+.footer-link{font-size:var(--text-xs);color:var(--color-text-muted);text-decoration:none;transition:color var(--transition)}
+.footer-link:hover{color:var(--color-primary)}
+
+/* DIVIDER */
+.section-divider{height:1px;background:var(--color-border);max-width:900px;margin:0 auto}
+
+@media(max-width:640px){
+  .flow-diagram{grid-template-columns:1fr;grid-template-rows:auto auto auto}
+  .flow-arrow{transform:rotate(90deg)}
+  .hero-number{font-size:clamp(2.5rem,10vw,5rem)}
+  .calculator{padding:var(--space-5)}
+  .context-grid,.faq-grid,.guardrail-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-label="Memla logo">
+      <rect x="3" y="3" width="8" height="8" rx="2" fill="currentColor"/>
+      <rect x="13" y="3" width="8" height="8" rx="2" fill="currentColor" opacity=".4"/>
+      <rect x="3" y="13" width="8" height="8" rx="2" fill="currentColor" opacity=".4"/>
+      <rect x="13" y="13" width="8" height="8" rx="2" fill="currentColor" opacity=".2"/>
+    </svg>
+    Memla
+  </a>
+  <a href="#contact" class="nav-cta">Request pilot</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-label">
+    <span class="hero-label-dot"></span>
+    Deep Research - April 2026 Benchmark
+  </div>
+  <div class="hero-number"><span>$133</span> saved<br>per 1,000 routed sessions</div>
+  <p class="hero-scope">Based on <strong>20 cleaned sessions / 76 decisions</strong> - local 9B + Memla beat Claude raw on action accuracy under a public Perplexity-style pricing scenario.</p>
+
+  <div class="calculator">
+    <div class="calc-label">Your monthly routed Phase-3 volume</div>
+    <div class="calc-input-row">
+      <input type="number" class="calc-input" id="sessionInput" value="100000" min="1000" step="1000" aria-label="Monthly routed Phase-3 volume">
+      <span class="calc-unit">sessions / mo</span>
+    </div>
+    <div class="calc-result">
+      <span class="calc-result-label">Modeled annual savings</span>
+      <span class="calc-result-number" id="savingsOutput">$159K</span>
+    </div>
+  </div>
+
+  <a href="#contact" class="hero-cta">Start a 30-day $5K pilot -></a>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem-section">
+  <div class="container">
+    <div class="section-label">The Problem</div>
+    <h2 class="section-title">Phase 3 is ~60% of your token spend</h2>
+
+    <div style="position:relative;padding-bottom:var(--space-8)">
+      <div class="phase-bar-wrap">
+        <div class="phase-bar-segment frontier" style="width:4%" title="Phase 1: Query decomp">P1</div>
+        <div class="phase-bar-segment frontier" style="width:10%" title="Phase 2: Retrieval">P2</div>
+        <div class="phase-bar-segment memla" style="width:60%" title="Phase 3: Re-query loop">Phase 3 — Re-query loop · 60%</div>
+        <div class="phase-bar-segment frontier" style="width:8%" title="Phase 4: Contradiction">P4</div>
+        <div class="phase-bar-segment frontier" style="width:18%" title="Phase 5: Synthesis">P5</div>
+      </div>
+      <div class="phase-bar-label">
+        <span>← phases billed at frontier rates</span>
+        <span style="color:var(--color-primary)">Memla owns this →</span>
+      </div>
+    </div>
+
+    <ul class="problem-bullets">
+      <li>Repeated search loops re-read full accumulated context on every frontier API call</li>
+      <li>The model over-queries — continuing to search after coverage is already sufficient</li>
+      <li>A frontier model is used for what is structurally a bounded binary decision: search more vs. converge</li>
+    </ul>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- BENCHMARK -->
+<section id="benchmark">
+  <div class="container">
+    <div class="section-label">The Benchmark</div>
+    <h2 class="section-title">Three-lane replay across 20 sessions / 76 decisions</h2>
+
+    <div class="safety-kpi" aria-live="polite">
+      <div class="safety-kpi-top">
+        <div>
+          <div class="safety-kpi-label">First number to check</div>
+          <div class="safety-kpi-number" id="fcDelta">-1.3pp false-converge delta vs frontier</div>
+        </div>
+        <span class="badge green" id="fcDeltaBadge">Within acceptance band (&lt;= +3pp)</span>
+      </div>
+      <p class="safety-kpi-note" id="fcDeltaDetail">Memla 1.3% (1/76) vs Frontier 2.6% (2/76) - this is the quality-risk metric infra teams care about first.</p>
+    </div>
+
+    <table class="benchmark-table" role="table">
+      <thead>
+        <tr>
+          <th>Lane</th>
+          <th>Cost / 1,000 sessions</th>
+          <th>Quality proxy</th>
+          <th>False-converge rate</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="lane-name">Raw 9B (no Memla)</span></td>
+          <td><span class="cost-number bad">$7.60</span></td>
+          <td>
+            <div class="quality-bar">
+              <div class="quality-dots">
+                <div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+              </div>
+              <span style="font-size:var(--text-xs);color:var(--color-text-muted)">Low</span>
+            </div>
+          </td>
+          <td><span class="badge red" id="rawFalseRate">46.1%</span></td>
+          <td><span class="badge red">Unsafe</span></td>
+        </tr>
+        <tr class="highlight">
+          <td><span class="lane-name">9B + Memla runtime</span></td>
+          <td><span class="cost-number good" id="memlaCostPer1k">$28.91</span></td>
+          <td>
+            <div class="quality-bar">
+              <div class="quality-dots">
+                <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+              </div>
+              <span style="font-size:var(--text-xs);color:var(--color-primary)">Matches frontier</span>
+            </div>
+          </td>
+          <td><span class="badge green" id="memlaFalseRate">1.3%</span></td>
+          <td><span class="badge green">Best on this run</span></td>
+        </tr>
+        <tr>
+          <td><span class="lane-name">Frontier raw (baseline)</span></td>
+          <td><span class="cost-number bad" id="frontierCostPer1k">$161.75</span></td>
+          <td>
+            <div class="quality-bar">
+              <div class="quality-dots">
+                <div class="dot filled frontier"></div><div class="dot filled frontier"></div><div class="dot filled frontier"></div><div class="dot filled frontier"></div><div class="dot filled frontier"></div>
+              </div>
+              <span style="font-size:var(--text-xs);color:var(--color-text-muted)">Reference</span>
+            </div>
+          </td>
+          <td><span class="badge yellow" id="frontierFalseRate">2.6%</span></td>
+          <td><span class="badge yellow">Reference</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="methodology">
+      <button class="methodology-toggle" id="methToggle" aria-expanded="false" aria-controls="methBody">
+        <span>Methodology (expand)</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="methodology-body" id="methBody" role="region">
+        <p>Replay benchmark on a cleaned slice of 20 real Deep Research sessions captured in April 2026. After cleanup, the slice contains 76 valid phase-3 decision points.</p>
+        <ul>
+          <li>Primary safety metric: false-converge rate (premature converge with missing required sub-topic evidence).</li>
+          <li>Action benchmark: the same bounded binary decision is replayed across raw 9B, 9B + Memla, and Claude raw.</li>
+          <li>Economics shown here use a public Perplexity-style scenario: $2/M input, $8/M output, plus a modeled $0.005 search-equivalent fixed cost per frontier decision.</li>
+          <li>Memla lane assumes local qwen3.5:9b routing at a modeled $0.002 fixed cost per decision, with fallback priced at the frontier lane.</li>
+          <li>Observed replay fallback proxy is 13.16%, using verifier overrides as the escalation-rate assumption.</li>
+          <li>Treat the dollar figure as a pre-pilot model. The live pilot should recalculate economics against customer-internal costs inside the VPC.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- INTEGRATION -->
+<section class="integration-section">
+  <div class="container">
+    <div class="section-label">Integration</div>
+    <h2 class="section-title">Sits in the decision loop. No rip-and-replace.</h2>
+
+    <div class="flow-rows">
+      <div class="flow-row">
+        <div class="flow-step flow-box">
+          <div class="flow-box-title">Before</div>
+          <div class="flow-box-body">Phase-3 decision -> hosted research lane -> ~$0.16 / session modeled</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:var(--space-3);margin:var(--space-2) 0">
+        <div style="height:1px;flex:1;background:var(--color-border)"></div>
+        <span style="font-size:var(--text-xs);color:var(--color-text-faint)">with Memla</span>
+        <div style="height:1px;flex:1;background:var(--color-border)"></div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-step flow-box">
+          <div class="flow-box-title">Phase 3 decision arrives</div>
+          <div class="flow-box-body">Re-query decision with accumulated context</div>
+        </div>
+        <div class="flow-arrow">-></div>
+        <div class="flow-step flow-box memla-box">
+          <div class="flow-box-title">Memla runtime</div>
+          <div class="flow-box-body">Verifier-backed 9B routing - escalates if ambiguity is still material</div>
+        </div>
+        <div class="flow-arrow">-></div>
+        <div class="flow-step flow-box">
+          <div class="flow-box-title">Result</div>
+          <div class="flow-box-body">search_more / converge -> ~$0.03 / session modeled</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <pre><span class="cm"># Drop-in routing — one function wraps your existing Phase 3 call</span>
+<span class="kw">from</span> memla <span class="kw">import</span> <span class="fn">route_decision</span>
+
+<span class="kw">def</span> <span class="fn">phase3_decide</span>(context, sub_question):
+    result = <span class="fn">route_decision</span>(
+        context=context,
+        candidates=[<span class="str">"search_more"</span>, <span class="str">"converge"</span>],
+        verifier=<span class="str">"coverage_check"</span>,
+        <span class="cm"># escalates to frontier if confidence below threshold</span>
+        escalation_threshold=<span class="str">0.85</span>
+    )
+    <span class="kw">return</span> result.decision</pre>
+    </div>
+
+    <p class="integration-note">No rip-and-replace - wraps the existing phase-3 call. Current replay observed a 13.16% fallback / override rate.</p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PILOT -->
+<section class="pilot-section" id="pilot">
+  <div class="container">
+    <div class="section-label">The Pilot</div>
+    <div class="pilot-box">
+      <div class="pilot-price"><span>$5,000</span></div>
+      <div class="pilot-duration">30 days - runs on your traffic inside your VPC</div>
+      <ul class="pilot-items">
+        <li>You measure actual savings on your own sessions - not our benchmark.</li>
+        <li>At the current public-pricing model, the pilot breaks even at roughly 38K routed sessions over 30 days.</li>
+        <li>Success criteria are agreed upfront: false-converge band, quality gate, and positive savings after fallback.</li>
+        <li>No commitment beyond the pilot - license only if the number holds.</li>
+      </ul>
+      <a href="#contact" class="pilot-cta">Request pilot -></a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="section-label">Get Started</div>
+    <h2 class="section-title" style="text-align:center;margin-bottom:var(--space-8)">Request the pilot</h2>
+    <form class="contact-form" id="contactForm" novalidate>
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="email">Work email</label>
+        <input type="email" id="email" name="email" placeholder="you@company.com" required autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="context">Company + monthly routed session volume</label>
+        <textarea id="context" name="context" placeholder="e.g. Perplexity - ~250K routed phase-3 sessions/month" rows="3"></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send request -></button>
+    </form>
+    <div class="form-success" id="formSuccess">
+      Request received. You'll hear back within 24 hours.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-text">Memla - April 2026</span>
+</footer>
+
+<script>
+// Benchmark config
+// Update this JSON block after each benchmark run.
+const BENCHMARK_CONFIG = {
+  "acceptanceDeltaPp": 3,
+  "savingsPer1k": 132.84,
+  "sessions": 20,
+  "decisions": 76,
+  "confidenceIntervalText": "Current slice: 20 cleaned sessions / 76 decisions. Treat the benchmark as directional until the replay set is expanded and confidence intervals are published.",
+  "fallbackPolicy": "Escalate to the frontier lane when the verifier still sees material ambiguity or unresolved contradictions.",
+  "fallbackRateText": "Observed replay fallback proxy: 13.16% verifier overrides.",
+  "latencyBudgetText": "Pilot should publish p50 / p95 / p99 per-decision overhead before expansion.",
+  "rollbackPolicy": "One-switch revert to frontier-only routing.",
+  "appendixStatus": {
+    "causality": "Complete",
+    "calibration": "Planned",
+    "slices": "Planned",
+    "reliability": "Planned",
+    "security": "Planned",
+    "economics": "Complete"
+  },
+  "lanes": {
+    "raw": {"falseConvergePct": 46.05, "costPer1kUsd": 7.6},
+    "memla": {"falseConvergePct": 1.32, "falseConvergeCount": 1, "totalDecisions": 76, "costPer1kUsd": 28.91},
+    "frontier": {"falseConvergePct": 2.63, "falseConvergeCount": 2, "totalDecisions": 76, "costPer1kUsd": 161.75}
+  }
+};
+
+function formatPct(value) {
+  return `${Number(value).toFixed(1)}%`;
+}
+
+function formatUsd(value) {
+  return `$${Number(value).toLocaleString(undefined, { minimumFractionDigits: Number(value) % 1 === 0 ? 0 : 2, maximumFractionDigits: 2 })}`;
+}
+
+function renderBenchmark(config) {
+  const memlaFalse = Number(config?.lanes?.memla?.falseConvergePct ?? 0);
+  const frontierFalse = Number(config?.lanes?.frontier?.falseConvergePct ?? 0);
+  const rawFalse = Number(config?.lanes?.raw?.falseConvergePct ?? 0);
+  const memlaCost = Number(config?.lanes?.memla?.costPer1kUsd ?? 28.91);
+  const frontierCost = Number(config?.lanes?.frontier?.costPer1kUsd ?? 161.75);
+  const decisions = Number(config?.decisions ?? 76);
+  const sessions = Number(config?.sessions ?? 20);
+  const acceptanceBand = Number(config?.acceptanceDeltaPp ?? 3);
+  const confidenceIntervalText = String(config?.confidenceIntervalText ?? 'Directional at current N; publish 95% CI as sample expands.');
+  const fallbackPolicy = String(config?.fallbackPolicy ?? 'Escalate to frontier on low confidence.');
+  const fallbackRateText = String(config?.fallbackRateText ?? 'Track and publish fallback rate.');
+  const appendixStatus = config?.appendixStatus || {};
+
+  const delta = memlaFalse - frontierFalse;
+  const withinBand = delta <= acceptanceBand;
+  const deltaSign = delta > 0 ? '+' : '';
+  const memlaCount = config?.lanes?.memla?.falseConvergeCount;
+  const frontierCount = config?.lanes?.frontier?.falseConvergeCount;
+  const memlaTotal = Number(config?.lanes?.memla?.totalDecisions ?? decisions);
+  const frontierTotal = Number(config?.lanes?.frontier?.totalDecisions ?? decisions);
+
+  const deltaNode = document.getElementById('fcDelta');
+  const deltaBadge = document.getElementById('fcDeltaBadge');
+  const deltaDetail = document.getElementById('fcDeltaDetail');
+  const memlaFalseNode = document.getElementById('memlaFalseRate');
+  const frontierFalseNode = document.getElementById('frontierFalseRate');
+  const rawFalseNode = document.getElementById('rawFalseRate');
+  const memlaCostNode = document.getElementById('memlaCostPer1k');
+  const frontierCostNode = document.getElementById('frontierCostPer1k');
+  const observedDatasetNode = document.getElementById('observedDataset');
+  const uncertaintyValueNode = document.getElementById('uncertaintyValue');
+  const uncertaintyNoteNode = document.getElementById('uncertaintyNote');
+  const fallbackValueNode = document.getElementById('fallbackValue');
+  const fallbackNoteNode = document.getElementById('fallbackNote');
+  const appendixCausalityNode = document.getElementById('appendixCausality');
+  const appendixCalibrationNode = document.getElementById('appendixCalibration');
+  const appendixSlicesNode = document.getElementById('appendixSlices');
+  const appendixReliabilityNode = document.getElementById('appendixReliability');
+  const appendixSecurityNode = document.getElementById('appendixSecurity');
+  const appendixEconomicsNode = document.getElementById('appendixEconomics');
+
+  function setAppendixBadge(node, status) {
+    if (!node) return;
+    const clean = String(status || 'Planned').trim();
+    const isDone = clean.toLowerCase() === 'complete';
+    node.className = `badge ${isDone ? 'green' : 'yellow'}`;
+    node.textContent = clean;
+  }
+
+  if (deltaNode) deltaNode.textContent = `${deltaSign}${delta.toFixed(1)}pp false-converge delta vs frontier`;
+  if (deltaBadge) {
+    deltaBadge.className = `badge ${withinBand ? 'green' : 'red'}`;
+    deltaBadge.textContent = withinBand
+      ? `Within acceptance band (<= +${acceptanceBand}pp)`
+      : `Outside acceptance band (> +${acceptanceBand}pp)`;
+  }
+  if (deltaDetail) {
+    const memlaCountText = Number.isFinite(Number(memlaCount)) ? ` (${memlaCount}/${memlaTotal})` : '';
+    const frontierCountText = Number.isFinite(Number(frontierCount)) ? ` (${frontierCount}/${frontierTotal})` : '';
+    deltaDetail.textContent = `Memla ${formatPct(memlaFalse)}${memlaCountText} vs Frontier ${formatPct(frontierFalse)}${frontierCountText} - this is the quality-risk metric infra teams care about first.`;
+  }
+
+  if (memlaFalseNode) memlaFalseNode.textContent = formatPct(memlaFalse);
+  if (frontierFalseNode) frontierFalseNode.textContent = formatPct(frontierFalse);
+  if (rawFalseNode) rawFalseNode.textContent = formatPct(rawFalse);
+  if (memlaCostNode) memlaCostNode.textContent = formatUsd(memlaCost);
+  if (frontierCostNode) frontierCostNode.textContent = formatUsd(frontierCost);
+  if (observedDatasetNode) observedDatasetNode.textContent = `${decisions} decisions · ${sessions} sessions`;
+  if (uncertaintyValueNode) uncertaintyValueNode.textContent = `Counts + interval disclosure`;
+  if (uncertaintyNoteNode) uncertaintyNoteNode.textContent = confidenceIntervalText;
+  if (fallbackValueNode) fallbackValueNode.textContent = `Escalation + fallback tracked`;
+  if (fallbackNoteNode) fallbackNoteNode.textContent = `${fallbackPolicy} ${fallbackRateText}`;
+  setAppendixBadge(appendixCausalityNode, appendixStatus.causality);
+  setAppendixBadge(appendixCalibrationNode, appendixStatus.calibration);
+  setAppendixBadge(appendixSlicesNode, appendixStatus.slices);
+  setAppendixBadge(appendixReliabilityNode, appendixStatus.reliability);
+  setAppendixBadge(appendixSecurityNode, appendixStatus.security);
+  setAppendixBadge(appendixEconomicsNode, appendixStatus.economics);
+}
+
+// Exposed hook so benchmark tooling can set values if needed.
+window.applyMemlaBenchmark = (nextConfig) => {
+  renderBenchmark(nextConfig || BENCHMARK_CONFIG);
+};
+
+// Calculator
+const input = document.getElementById('sessionInput');
+const output = document.getElementById('savingsOutput');
+let SAVINGS_PER_1K = Number(BENCHMARK_CONFIG?.savingsPer1k ?? 132.84);
+
+function updateSavings() {
+  const sessions = parseInt(input.value) || 0;
+  const monthly = (sessions / 1000) * SAVINGS_PER_1K;
+  const annual = monthly * 12;
+  if (annual >= 1e6) {
+    output.textContent = '$' + (annual / 1e6).toFixed(1) + 'M';
+  } else if (annual >= 1e3) {
+    output.textContent = '$' + Math.round(annual / 1000) + 'K';
+  } else {
+    output.textContent = '$' + Math.round(annual);
+  }
+}
+input.addEventListener('input', updateSavings);
+updateSavings();
+renderBenchmark(BENCHMARK_CONFIG);
+
+// Methodology toggle
+const toggle = document.getElementById('methToggle');
+const body = document.getElementById('methBody');
+toggle.addEventListener('click', () => {
+  const open = body.classList.toggle('open');
+  toggle.classList.toggle('open', open);
+  toggle.setAttribute('aria-expanded', open);
+});
+
+// Form
+document.getElementById('contactForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  document.getElementById('contactForm').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('section:not(.hero), .pilot-box, .benchmark-table').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = 'opacity .5s ease, transform .5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>

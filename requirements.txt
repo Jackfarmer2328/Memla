@@ -9,3 +9,4 @@ uvicorn>=0.20
 fastmcp>=2.0
 bitsandbytes>=0.41
 accelerate>=0.25
+sympy>=1.12

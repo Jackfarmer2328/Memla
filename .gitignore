@@ -12,3 +12,10 @@ adapters/
 .anthropic_env.ps1
 .codex_tmp_*
 benchmarks/locomo/results/
+memla_reports/
+.memla/
+*.egg-info/
+dist/
+frozen/
+proof/current_pack/frozen/
+proof/reports/

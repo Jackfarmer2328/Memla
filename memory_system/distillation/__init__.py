@@ -1,93 +1,49 @@
-"""Distillation substrate for coding and workflow traces."""
+"""Public Memla distillation surface used by the CLI and bundled tests."""
 
-from .acquisition_pack_builder import (
-    build_acquisition_pack,
-    render_acquisition_demo_flow,
-    render_acquisition_pitch,
-    render_buyer_targets,
-    render_outreach_email,
-    render_strategic_memo,
-)
-from .batch_runner import (
-    CurriculumRepoSpec,
-    load_repo_curriculum,
-    render_batch_markdown,
-    run_repo_curriculum,
-)
 from .coding_log import CodingTrace, CodingTraceLog, SimilarCodingTrace
-from .comparison_runner import render_head_to_head_markdown, run_head_to_head
-from .constraint_graph import (
-    infer_constraint_tags,
-    infer_file_roles,
-    infer_prompt_roles,
-    infer_repo_family,
-    scan_repo_role_matches,
-    summarize_constraint_trades,
-    summarize_transmutations,
-    transmutation_specificity,
+from .compile_loop_benchmark import (
+    render_compile_loop_benchmark_markdown,
+    run_compile_loop_benchmark,
 )
-from .diligence_packet_builder import (
-    build_diligence_packet,
-    render_diligence_faq,
-    render_diligence_summary,
-    render_proof_table,
-    render_technical_diligence,
-)
-from .demo_runner import render_demo_markdown, run_bootstrap_demo, run_showcase_demo
 from .exporter import export_accepted_traces_to_jsonl, trace_to_training_record
-from .eval_harness import evaluate_workflow_plans, load_eval_cases
 from .git_history_cases import build_git_eval_cases, load_commit_records
-from .pitch_pack_builder import build_pitch_pack, render_demo_flow, render_one_sentence_pitch
-from .seed_runner import load_seed_cases, run_seed_cases
-from .transfer_eval import render_transfer_markdown, run_transfer_eval
+from .math_c2a_benchmark import (
+    capture_hybrid_teacher_math_traces,
+    capture_symbolic_teacher_math_traces,
+    capture_teacher_math_traces,
+    load_math_c2a_cases,
+    render_math_c2a_teacher_student_markdown,
+    run_math_c2a_teacher_student_benchmark,
+)
+from .patch_execution_benchmark import (
+    load_patch_cases,
+    render_patch_execution_markdown,
+    run_patch_execution_benchmark,
+)
+from .thesis_pack_builder import build_thesis_pack
 from .workflow_planner import WorkflowPlan, build_workflow_plan, render_workflow_plan_block
 
 __all__ = [
     "CodingTrace",
     "CodingTraceLog",
-    "CurriculumRepoSpec",
     "SimilarCodingTrace",
-    "build_acquisition_pack",
-    "build_diligence_packet",
     "WorkflowPlan",
-    "build_workflow_plan",
-    "infer_constraint_tags",
-    "infer_file_roles",
-    "infer_prompt_roles",
-    "infer_repo_family",
-    "scan_repo_role_matches",
-    "summarize_constraint_trades",
-    "summarize_transmutations",
-    "transmutation_specificity",
-    "run_head_to_head",
-    "render_head_to_head_markdown",
-    "run_showcase_demo",
-    "run_bootstrap_demo",
-    "render_demo_markdown",
-    "evaluate_workflow_plans",
-    "load_eval_cases",
     "build_git_eval_cases",
-    "load_commit_records",
-    "build_pitch_pack",
-    "render_acquisition_demo_flow",
-    "render_acquisition_pitch",
-    "render_buyer_targets",
-    "render_batch_markdown",
-    "render_diligence_faq",
-    "render_diligence_summary",
-    "render_demo_flow",
-    "render_outreach_email",
-    "render_one_sentence_pitch",
-    "render_proof_table",
-    "render_strategic_memo",
-    "render_technical_diligence",
-    "load_repo_curriculum",
-    "load_seed_cases",
-    "run_repo_curriculum",
-    "run_seed_cases",
-    "run_transfer_eval",
-    "render_transfer_markdown",
-    "render_workflow_plan_block",
+    "build_thesis_pack",
+    "build_workflow_plan",
+    "capture_hybrid_teacher_math_traces",
+    "capture_symbolic_teacher_math_traces",
+    "capture_teacher_math_traces",
     "export_accepted_traces_to_jsonl",
+    "load_commit_records",
+    "load_math_c2a_cases",
+    "load_patch_cases",
+    "render_compile_loop_benchmark_markdown",
+    "render_math_c2a_teacher_student_markdown",
+    "render_patch_execution_markdown",
+    "render_workflow_plan_block",
+    "run_compile_loop_benchmark",
+    "run_math_c2a_teacher_student_benchmark",
+    "run_patch_execution_benchmark",
     "trace_to_training_record",
 ]

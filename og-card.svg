@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" rx="28" fill="#0B1220"/>
+  <circle cx="150" cy="120" r="180" fill="#F59E0B" fill-opacity="0.14"/>
+  <circle cx="1040" cy="110" r="220" fill="#34D399" fill-opacity="0.14"/>
+  <text x="88" y="110" fill="#93C5FD" font-family="Segoe UI, Arial, sans-serif" font-size="18" letter-spacing="4">MEMLA / CONSTRAINT RUNTIME</text>
+  <text x="88" y="210" fill="#F8FAFC" font-family="Georgia, serif" font-size="64" font-weight="700">Local 9b + Memla beat</text>
+  <text x="88" y="276" fill="#F8FAFC" font-family="Georgia, serif" font-size="64" font-weight="700">hosted 405b raw on code.</text>
+  <text x="88" y="362" fill="#FDE68A" font-family="Segoe UI, Arial, sans-serif" font-size="24">OAuth patch execution apply rate</text>
+  <text x="88" y="438" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="82" font-weight="700">0 -&gt; 1</text>
+  <text x="88" y="520" fill="#A7F3D0" font-family="Segoe UI, Arial, sans-serif" font-size="24">Hosted Meta-Llama-3.1-405B raw vs local qwen3.5:9b + Memla</text>
+</svg>
