@@ -258,7 +258,7 @@ footer{padding:var(--space-8) var(--space-6);border-top:1px solid var(--color-bo
     Deep Research - April 2026 Benchmark
   </div>
   <div class="hero-number"><span>$133</span> saved<br>per 1,000 routed sessions</div>
-  <p class="hero-scope">Based on <strong>20 cleaned sessions / 76 decisions</strong> - local 9B + Memla beat Claude raw on action accuracy under a public Perplexity-style pricing scenario.</p>
+  <p class="hero-scope">Based on <strong>20 real Perplexity Deep Research examples, cleaned into 76 phase-3 decisions</strong> - local 9B + Memla slightly beat Claude raw on correct stop/continue decisions under a public Perplexity-style pricing scenario.</p>
 
   <div class="calculator">
     <div class="calc-label">Your monthly routed Phase-3 volume</div>
@@ -309,7 +309,7 @@ footer{padding:var(--space-8) var(--space-6);border-top:1px solid var(--color-bo
 <section id="benchmark">
   <div class="container">
     <div class="section-label">The Benchmark</div>
-    <h2 class="section-title">Three-lane replay across 20 sessions / 76 decisions</h2>
+    <h2 class="section-title">Three-lane replay across 20 real Perplexity Deep Research examples</h2>
 
     <div class="safety-kpi" aria-live="polite">
       <div class="safety-kpi-top">
@@ -384,10 +384,13 @@ footer{padding:var(--space-8) var(--space-6);border-top:1px solid var(--color-bo
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="methodology-body" id="methBody" role="region">
-        <p>Replay benchmark on a cleaned slice of 20 real Deep Research sessions captured in April 2026. After cleanup, the slice contains 76 valid phase-3 decision points.</p>
+        <p>Replay benchmark on 20 real Perplexity Deep Research examples captured in April 2026. After cleanup and normalization, the slice contains 76 valid phase-3 decision points.</p>
         <ul>
+          <li>Source data: real Perplexity Deep Research outputs captured as JSON, then cleaned into valid re-query states.</li>
+          <li>Each row is one historical phase-3 re-query state. The primary decision being scored is just: search more vs converge.</li>
+          <li>A correct action means matching the labeled stop/continue choice for that exact historical state.</li>
           <li>Primary safety metric: false-converge rate (premature converge with missing required sub-topic evidence).</li>
-          <li>Action benchmark: the same bounded binary decision is replayed across raw 9B, 9B + Memla, and Claude raw.</li>
+          <li>Three-lane replay: the same bounded state is replayed across raw 9B, 9B + Memla, and Claude raw.</li>
           <li>Economics shown here use a public Perplexity-style scenario: $2/M input, $8/M output, plus a modeled $0.005 search-equivalent fixed cost per frontier decision.</li>
           <li>Memla lane assumes local qwen3.5:9b routing at a modeled $0.002 fixed cost per decision, with fallback priced at the frontier lane.</li>
           <li>Observed replay fallback proxy is 13.16%, using verifier overrides as the escalation-rate assumption.</li>
@@ -513,7 +516,7 @@ const BENCHMARK_CONFIG = {
   "savingsPer1k": 132.84,
   "sessions": 20,
   "decisions": 76,
-  "confidenceIntervalText": "Current slice: 20 cleaned sessions / 76 decisions. Treat the benchmark as directional until the replay set is expanded and confidence intervals are published.",
+  "confidenceIntervalText": "Current slice: 20 real Perplexity Deep Research examples / 76 decision points. Treat the benchmark as directional until the replay set is expanded and confidence intervals are published.",
   "fallbackPolicy": "Escalate to the frontier lane when the verifier still sees material ambiguity or unresolved contradictions.",
   "fallbackRateText": "Observed replay fallback proxy: 13.16% verifier overrides.",
   "latencyBudgetText": "Pilot should publish p50 / p95 / p99 per-decision overhead before expansion.",
