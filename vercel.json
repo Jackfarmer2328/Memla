@@ -8,6 +8,10 @@
       "use": "@vercel/static"
     },
     {
+      "src": "memla-landing.html",
+      "use": "@vercel/static"
+    },
+    {
       "src": "og-card.svg",
       "use": "@vercel/static"
     },
@@ -26,6 +30,12 @@
     {
       "src": "frozen/**",
       "use": "@vercel/static"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/memla-landing.html"
     }
   ]
 }
