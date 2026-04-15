@@ -7,6 +7,24 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+window.va = window.va || function () {
+  (window.vaq = window.vaq || []).push(arguments);
+};
+window.va('beforeSend', (event) => {
+  if (!event || !event.url) return event;
+  try {
+    const normalized = new URL(event.url);
+    normalized.search = '';
+    normalized.hash = '';
+    event.url = normalized.toString();
+  } catch (error) {
+    return event;
+  }
+  return event;
+});
+</script>
+<script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 <style>
 :root,[data-theme="dark"]{
   --color-bg:#0a0a09;
