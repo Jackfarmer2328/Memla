@@ -15,7 +15,14 @@ from .action_capsules import action_capsule_to_dict, create_action_capsule
 from .action_ontology import action_draft_to_dict, action_match_to_dict, classify_action_prompt, create_action_draft, summarize_action_ontology
 from .memory.ontology import adjudicate_memory_trace, summarize_memory_ontology
 from .missions import MissionQueue, mission_to_dict, summarize_mission_queue
-from .persistent_world_lab.white_room_director import build_director_bundle, white_room_director_suite
+from .persistent_world_lab.white_room_director import (
+    build_counterfactual_bundle,
+    build_director_bundle,
+    creator_counterfactual_studio,
+    explain_relation,
+    simulate_player_entry,
+    white_room_director_suite,
+)
 from .natural_terminal import (
     BrowserSessionState,
     TERMINAL_MEMORY_ONTOLOGY_FILENAME,
@@ -330,6 +337,72 @@ def create_memla_app(
             "ok": True,
             "suite": suite,
         }
+
+    @app.get("/white-room/explain")
+    def white_room_explain(
+        day: int = 30,
+        a: str = "aldric",
+        b: str = "crath",
+        days: int = 30,
+        seed: int = 777,
+    ) -> dict[str, Any]:
+        safe_days = min(max(int(days), 1), 90)
+        safe_seed = int(seed)
+        safe_day = min(max(int(day), 1), safe_days)
+        bundle = build_director_bundle(days=safe_days, seed=safe_seed)
+        return {
+            "ok": True,
+            "explanation": explain_relation(bundle=bundle, day=safe_day, a=str(a), b=str(b)),
+        }
+
+    @app.get("/white-room/fork")
+    def white_room_fork(
+        days: int = 30,
+        seed: int = 777,
+        fork_day: int = 16,
+        a: str = "aldric",
+        b: str = "crath",
+        forced_relation: str = "alliance",
+    ) -> dict[str, Any]:
+        safe_days = min(max(int(days), 1), 90)
+        safe_seed = int(seed)
+        payload = build_counterfactual_bundle(
+            days=safe_days,
+            seed=safe_seed,
+            fork_day=int(fork_day),
+            a=str(a),
+            b=str(b),
+            forced_relation=str(forced_relation),
+        )
+        return {"ok": True, "fork": payload}
+
+    @app.get("/white-room/player-entry")
+    def white_room_player_entry(
+        day: int = 30,
+        npc_id: str = "aldric",
+        message: str = "I just arrived. What happened here?",
+        days: int = 30,
+        seed: int = 777,
+    ) -> dict[str, Any]:
+        safe_days = min(max(int(days), 1), 90)
+        safe_seed = int(seed)
+        safe_day = min(max(int(day), 1), safe_days)
+        bundle = build_director_bundle(days=safe_days, seed=safe_seed)
+        result = simulate_player_entry(
+            bundle=bundle,
+            day=safe_day,
+            npc_id=str(npc_id),
+            player_message=str(message),
+        )
+        return {"ok": True, "entry": result}
+
+    @app.get("/white-room/studio")
+    def white_room_studio(days: int = 30, seed: int = 777, top_k: int = 5) -> dict[str, Any]:
+        safe_days = min(max(int(days), 1), 90)
+        safe_seed = int(seed)
+        safe_top_k = min(max(int(top_k), 1), 20)
+        payload = creator_counterfactual_studio(days=safe_days, seed=safe_seed, top_k=safe_top_k)
+        return {"ok": True, "studio": payload}
 
     @app.get("/state")
     def state() -> dict[str, Any]:

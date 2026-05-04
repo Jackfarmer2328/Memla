@@ -1,0 +1,30 @@
+{
+  "days": 30,
+  "passed": true,
+  "scenario_count": 2,
+  "scenarios": [
+    {
+      "changed_relationships": 1,
+      "fork_pair": {
+        "a": "brennan",
+        "b": "serafin"
+      },
+      "from": "alliance",
+      "rewrite_count": 55,
+      "scenario_id": "studio_brennan_serafin_grudge",
+      "to": "grudge"
+    },
+    {
+      "changed_relationships": 1,
+      "fork_pair": {
+        "a": "crath",
+        "b": "nessa"
+      },
+      "from": "neutral",
+      "rewrite_count": 55,
+      "scenario_id": "studio_crath_nessa_grudge",
+      "to": "grudge"
+    }
+  ],
+  "seed": 777
+}

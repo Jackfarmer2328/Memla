@@ -1,5 +1,6 @@
 {
   "backtest_id": "white_room_director_suite",
+  "belief_divergence_count": 2,
   "checks": [
     {
       "backtest_id": "wr_no_player_bootstrap_30_days",
@@ -25,12 +26,40 @@
     {
       "backtest_id": "wr_npc_history_panel_completeness",
       "passed": true
+    },
+    {
+      "backtest_id": "wr_explainability_completeness",
+      "passed": true
+    },
+    {
+      "backtest_id": "wr_player_arrival_citation_integrity",
+      "passed": true
+    },
+    {
+      "backtest_id": "wr_counterfactual_divergence_validity",
+      "passed": true
+    },
+    {
+      "backtest_id": "wr_canon_belief_split_validity",
+      "divergence_count": 2,
+      "passed": true
+    },
+    {
+      "backtest_id": "wr_narrative_causality_compiler_validity",
+      "passed": true
+    },
+    {
+      "backtest_id": "wr_creator_counterfactual_studio_validity",
+      "passed": true,
+      "scenario_count": 2
     }
   ],
+  "counterfactual_changed_relationships": 1,
   "passed": true,
   "proof": {
     "checksum": "028135a3ab864dcb",
     "event_count": 638,
     "replay_verified": true
-  }
+  },
+  "studio_scenarios": 2
 }

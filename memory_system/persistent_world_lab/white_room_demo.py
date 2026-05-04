@@ -33,6 +33,8 @@ def main(argv: list[str] | None = None) -> int:
         "event_count": int(bundle["proof"]["event_count"]),
         "bundle_path": paths["bundle_path"],
         "fortress_path": paths["fortress_path"],
+        "counterfactual_path": paths["counterfactual_path"],
+        "studio_path": paths["studio_path"],
         "suite_passed": bool(suite["passed"]),
     }
     if args.json:
@@ -43,6 +45,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"event_count: {payload['event_count']}")
         print(f"bundle: {payload['bundle_path']}")
         print(f"fortress: {payload['fortress_path']}")
+        print(f"counterfactual: {payload['counterfactual_path']}")
+        print(f"studio: {payload['studio_path']}")
         print(f"suite_passed: {'YES' if payload['suite_passed'] else 'NO'}")
     return 0 if suite["passed"] else 1
 

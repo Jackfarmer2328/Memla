@@ -1,163 +1,293 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>White Room — Persistent World</title>
-  <style>
-    :root { --bg:#0a0d12; --bg2:#121922; --line:#2a3546; --text:#e6ecf7; --muted:#9ea9bb; --gold:#d2b268; --good:#78b07f; }
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--text); }
-    #intro { position: fixed; inset:0; background:#000; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:10; }
-    #intro .line { font-size: clamp(20px, 2.6vw, 42px); color: #ddd; max-width: 900px; text-align:center; padding: 18px; font-weight: 300; }
-    #app { display:none; height:100vh; grid-template-rows:auto 1fr auto; }
-    header { border-bottom:1px solid var(--line); padding:10px 14px; display:flex; justify-content:space-between; background:#0c1118; }
-    .muted { color: var(--muted); font-size: 12px; }
-    .panels { display:grid; grid-template-columns:1.2fr 1fr 1fr; min-height:0; }
-    .panel { border-right:1px solid var(--line); background:var(--bg2); display:flex; flex-direction:column; min-height:0; }
-    .panel:last-child { border-right:0; }
-    .panel h3 { margin:0; padding:10px 12px; border-bottom:1px solid var(--line); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
-    .panel .body { padding:10px 12px; overflow:auto; min-height:0; }
-    ul { margin:0; padding-left:18px; }
-    li { margin-bottom:7px; font-size:13px; }
-    .npc-btn { width:100%; text-align:left; padding:8px; border:1px solid var(--line); background:#101620; color:var(--text); margin-bottom:6px; cursor:pointer; }
-    .npc-btn.active { border-color:var(--gold); color:var(--gold); }
-    .row { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
-    .btn { border:1px solid #435777; background:#162237; color:#cfe0ff; padding:6px 10px; border-radius:6px; cursor:pointer; }
-    input[type=range] { width:100%; }
-    pre { margin:0; white-space:pre-wrap; font-size:12px; color:#a8b8d1; }
-    footer { border-top:1px solid var(--line); padding:8px 12px; display:flex; gap:18px; background:#0c1118; font-size:12px; color:var(--muted); }
-    .good { color: var(--good); }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>White Room — Persistent World Preview</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&family=Share+Tech+Mono&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg:#0a0d0f; --bg2:#0f1317; --bg3:#141a1f; --border:rgba(255,255,255,0.06); --border2:rgba(255,255,255,0.12); --text:#e8e0d0; --text2:#8a8278; --text3:#4a4640; --gold:#c4a44a; --gold2:#8a6e28; --alliance:#4a9e6a; --grudge:#b84a3a; --neutral:#5a7a8a; --mono:'Share Tech Mono', monospace; --serif:'Crimson Pro', Georgia, serif; --display:'Cinzel', serif; }
+  body { background: var(--bg); color: var(--text); font-family: var(--serif); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+  #intro { position: fixed; inset: 0; background: #000; display: flex; align-items: center; justify-content: center; z-index: 100; cursor: pointer; transition: opacity 1.2s ease; }
+  #intro.fade-out { opacity: 0; pointer-events: none; }
+  .intro-text { text-align: center; opacity: 0; animation: introReveal 2s ease forwards; }
+  .intro-line1 { font-family: var(--display); font-size: clamp(13px, 1.8vw, 22px); letter-spacing: 0.35em; color: var(--text2); text-transform: uppercase; margin-bottom: 2rem; }
+  .intro-line2 { font-family: var(--serif); font-size: clamp(18px, 3vw, 42px); font-weight: 300; font-style: italic; line-height: 1.3; max-width: 700px; }
+  .intro-line2 em { color: var(--gold); font-style: normal; }
+  #app { display: flex; flex-direction: column; height: 100vh; opacity: 0; transition: opacity 1s ease 0.3s; }
+  #app.visible { opacity: 1; }
+  .top-bar { display:flex; justify-content:space-between; padding:12px 24px; border-bottom:1px solid var(--border); background:var(--bg); }
+  .brand { font-family: var(--display); font-size: 13px; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; }
+  .top-status { font-family: var(--mono); font-size: 11px; color: var(--text3); display:flex; gap:24px; }
+  .panels { display: grid; grid-template-columns: 1fr 320px 320px; flex:1; overflow:hidden; }
+  .panel { border-right: 1px solid var(--border); display:flex; flex-direction:column; overflow:hidden; }
+  .panel:last-child { border-right: none; }
+  .panel-header { padding:10px 16px; border-bottom:1px solid var(--border); background:var(--bg2); display:flex; justify-content:space-between; }
+  .panel-title { font-family: var(--display); font-size:10px; letter-spacing:0.25em; color:var(--text2); text-transform:uppercase; }
+  .panel-meta { font-family: var(--mono); font-size:10px; color:var(--text3); }
+  #map-canvas { flex:1; position:relative; overflow:hidden; }
+  #world-svg { width:100%; height:100%; }
+  .scrubber-bar { padding:12px 16px; border-top:1px solid var(--border); background:var(--bg2); }
+  .scrubber-labels { display:flex; justify-content:space-between; font-family:var(--mono); font-size:9px; color:var(--text3); margin-bottom:6px; }
+  .scrubber-day { font-family:var(--display); font-size:11px; color:var(--gold); letter-spacing:0.1em; }
+  #day-slider { width:100%; accent-color:var(--gold); cursor:pointer; }
+  #memory-content { flex:1; overflow-y:auto; }
+  .npc-profile { padding:16px; border-bottom:1px solid var(--border); background:var(--bg3); }
+  .npc-name { font-family:var(--display); font-size:14px; color:var(--gold); margin-bottom:4px; }
+  .npc-traits { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+  .trait-pill { font-family:var(--mono); font-size:9px; padding:2px 8px; border:1px solid var(--border2); color:var(--text2); }
+  .memory-entry { padding:10px 16px; border-bottom:1px solid var(--border); cursor:pointer; }
+  .memory-entry:hover { background:var(--bg3); }
+  .mem-timestamp { font-family:var(--mono); font-size:9px; color:var(--text3); margin-bottom:3px; }
+  .mem-text { font-size:13px; font-weight:300; line-height:1.5; }
+  .mem-tag { display:inline-block; font-family:var(--mono); font-size:8px; padding:1px 5px; margin-top:4px; }
+  .mem-tag.promise { background:rgba(74,158,106,0.15); color:var(--alliance); }
+  .mem-tag.betrayal { background:rgba(184,74,58,0.15); color:var(--grudge); }
+  .mem-tag.event { background:rgba(196,164,74,0.1); color:var(--gold2); }
+  .no-selection { flex:1; display:flex; align-items:center; justify-content:center; color:var(--text3); font-family:var(--mono); font-size:10px; letter-spacing:0.15em; }
+  #log-stream { flex:1; overflow-y:auto; padding:12px; font-family:var(--mono); font-size:10px; line-height:1.7; color:var(--text3); }
+  .log-line { margin-bottom:2px; word-break:break-all; }
+  .proof-badge { display:flex; align-items:center; gap:8px; padding:6px 16px; background:rgba(74,158,106,0.05); border-top:1px solid rgba(74,158,106,0.15); }
+  .proof-check { font-family:var(--mono); font-size:10px; color:var(--alliance); letter-spacing:0.15em; }
+  .proof-hash { font-family:var(--mono); font-size:9px; color:var(--text3); margin-left:auto; }
+  .bottom { padding:6px 16px; border-top:1px solid var(--border); background:var(--bg2); display:flex; gap:14px; font-family:var(--mono); font-size:10px; color:var(--text3); }
+  @keyframes introReveal { 0%{opacity:0; transform:translateY(16px)} 100%{opacity:1; transform:translateY(0)} }
+</style>
 </head>
 <body>
-  <div id="intro"><div class="line">Full dive VR isn't a headset problem. It's a world problem.</div></div>
-  <div id="app">
-    <header>
-      <div>Memla — White Room Demo</div>
-      <div class="muted" id="proof">loading proof...</div>
-    </header>
-    <div class="panels">
-      <section class="panel">
-        <h3>Campaign Map (Relationships)</h3>
-        <div class="body">
-          <div class="row">
-            <span class="muted">Day 1</span>
-            <input id="day" type="range" min="1" max="30" value="30">
-            <span id="dayLabel">Day 30</span>
-          </div>
-          <div class="muted" id="leftMeta"></div>
-          <ul id="relations"></ul>
-        </div>
-      </section>
-      <section class="panel">
-        <h3>NPC Memory (30-day history)</h3>
-        <div class="body">
-          <div id="npcList"></div>
-          <div class="muted" id="npcMeta">Select an NPC.</div>
-          <ul id="npcHistory"></ul>
-        </div>
-      </section>
-      <section class="panel">
-        <h3>Raw JSON + Fortress</h3>
-        <div class="body">
-          <div class="row">
-            <button class="btn" id="runSuite">Run White-Room Suite</button>
-            <button class="btn" id="reload">Reload</button>
-            <span id="suite" class="muted"></span>
-          </div>
-          <pre id="dump"></pre>
-        </div>
-      </section>
-    </div>
-    <footer>
-      <span id="status">world loading...</span>
-      <span id="det" class="good"></span>
-    </footer>
+<div id="intro" onclick="startDemo()">
+  <div class="intro-text">
+    <div class="intro-line1">White Room — Persistent World</div>
+    <div class="intro-line2">Full dive VR isn't a <em>headset</em> problem.<br>It's a <em>world</em> problem.</div>
   </div>
-  <script>
-    let bundle = null;
-    let selectedNpc = "";
-    const dayInput = document.getElementById("day");
-    const dayLabel = document.getElementById("dayLabel");
-    const relationsEl = document.getElementById("relations");
-    const leftMeta = document.getElementById("leftMeta");
-    const npcList = document.getElementById("npcList");
-    const npcMeta = document.getElementById("npcMeta");
-    const npcHistory = document.getElementById("npcHistory");
-    const dump = document.getElementById("dump");
-    const proof = document.getElementById("proof");
-    const status = document.getElementById("status");
-    const det = document.getElementById("det");
-    const suiteEl = document.getElementById("suite");
+</div>
 
-    function renderNpcButtons() {
-      npcList.innerHTML = "";
-      for (const npc of bundle.cast) {
-        const b = document.createElement("button");
-        b.className = "npc-btn" + (selectedNpc === npc.id ? " active" : "");
-        b.textContent = `${npc.name} — ${npc.role}`;
-        b.onclick = () => { selectedNpc = npc.id; render(); };
-        npcList.appendChild(b);
-      }
-    }
+<div id="app">
+  <div class="top-bar">
+    <div class="brand">Memla — White Room Preview</div>
+    <div class="top-status">
+      <span id="top-day">day 0</span>
+      <span id="top-events">0 events</span>
+      <span id="top-divergence">belief divergence 0</span>
+    </div>
+  </div>
+  <div class="panels">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">The World</span><span class="panel-meta" id="map-meta">no player present</span></div>
+      <div id="map-canvas"><svg id="world-svg" viewBox="0 0 600 480"><g id="edges-layer"></g><g id="nodes-layer"></g></svg></div>
+      <div class="scrubber-bar">
+        <div class="scrubber-labels"><span>Day 1</span><span class="scrubber-day" id="scrubber-day-label">Day 1</span><span>Day 30</span></div>
+        <input type="range" id="day-slider" min="1" max="30" value="1" step="1">
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">Memory</span><span class="panel-meta" id="mem-meta">select a node</span></div>
+      <div id="memory-content">
+        <div class="no-selection" id="no-selection">SELECT AN NPC NODE</div>
+        <div id="npc-detail" style="display:none">
+          <div class="npc-profile">
+            <div class="npc-name" id="detail-name">—</div>
+            <div style="font-size:12px;color:var(--text2);font-style:italic;" id="detail-role">—</div>
+            <div class="npc-traits" id="detail-traits"></div>
+          </div>
+          <div id="memory-entries"></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">Event Log / Proof</span><span class="panel-meta" id="log-meta">append-only · deterministic</span></div>
+      <div id="log-stream"></div>
+      <div class="proof-badge">
+        <span class="proof-check" id="suite-badge">RUNNING CHECKS...</span>
+        <span class="proof-hash" id="proof-hash">sha: computing…</span>
+      </div>
+    </div>
+  </div>
+  <div class="bottom">
+    <span id="bottom-status">world initializing…</span>
+    <span id="consistency-score" style="margin-left:auto;color:var(--alliance)"></span>
+  </div>
+</div>
 
-    function render() {
-      if (!bundle) return;
-      const day = Number(dayInput.value);
-      dayLabel.textContent = `Day ${day}`;
-      const state = bundle.timeline[String(day)];
-      const relations = state.relations || [];
-      leftMeta.textContent = `${relations.length} relationships. Every edge includes source event_id.`;
-      relationsEl.innerHTML = "";
-      for (const row of relations.slice(0, 28)) {
-        const li = document.createElement("li");
-        li.textContent = `${row.a} ↔ ${row.b} | ${row.type} (${row.strength}) | from ${row.event_id}`;
-        relationsEl.appendChild(li);
-      }
+<script>
+let bundle = null;
+let selectedNPC = null;
+let currentDay = 1;
+let playerPresent = false;
+let NPCS = [];
+let RELATIONS_BY_DAY = {};
+let MEMORIES = {};
 
-      renderNpcButtons();
-      const npc = bundle.cast.find((x) => x.id === selectedNpc) || bundle.cast[0];
-      selectedNpc = npc.id;
-      const mem = (state.npc_history[npc.id] || []).slice().reverse();
-      npcMeta.textContent = `${npc.name} · ${npc.role} · ${mem.length} remembered events`;
-      npcHistory.innerHTML = "";
-      for (const row of mem.slice(0, 20)) {
-        const li = document.createElement("li");
-        li.textContent = `Day ${row.day} [${row.tag}] ${row.text}`;
-        npcHistory.appendChild(li);
-      }
+function npcColor(i){
+  const colors = ["#7a9e6a","#7a8abe","#c4a44a","#9a7abe","#be7a7a","#7abebe","#9abe7a","#be9a7a"];
+  return colors[i % colors.length];
+}
+function npcPos(i, n){
+  const cx = 300, cy = 240, r = 165;
+  const a = (Math.PI * 2 * i / Math.max(n, 1)) - Math.PI / 2;
+  return {x: Math.round(cx + Math.cos(a) * r), y: Math.round(cy + Math.sin(a) * r)};
+}
 
-      dump.textContent = JSON.stringify({ day, state, sample_events: bundle.events.slice(0, 10) }, null, 2);
-      status.textContent = `The world has run ${day} day(s) before player entry.`;
-      det.textContent = `deterministic replay: ${bundle.proof.replay_verified ? "verified" : "failed"}`;
-    }
+async function loadBackendBundle() {
+  const resp = await fetch("/white-room/bootstrap?days=30&seed=777");
+  const data = await resp.json();
+  bundle = data.bundle;
+  const cast = bundle.cast || [];
+  NPCS = cast.map((npc, i) => {
+    const pos = npcPos(i, cast.length);
+    return { id: npc.id, name: npc.name, role: npc.role, traits: npc.traits || [], color: npcColor(i), x: pos.x, y: pos.y };
+  });
+  RELATIONS_BY_DAY = {};
+  MEMORIES = {};
+  for (let d = 1; d <= 30; d++) {
+    const state = (bundle.timeline || {})[String(d)] || {};
+    RELATIONS_BY_DAY[d] = (state.relations || []).map(r => ({a:r.a,b:r.b,type:r.type,str:Number(r.strength || 0),event_id:r.event_id}));
+  }
+  const finalHist = (((bundle.timeline || {})["30"] || {}).npc_history || {});
+  Object.keys(finalHist).forEach(npcId => {
+    MEMORIES[npcId] = finalHist[npcId].map(m => ({day:Number(m.day||1), text:String(m.text||""), tag:String(m.tag||"event"), event_id:String(m.event_id||"")}));
+  });
+  document.getElementById("proof-hash").textContent = `sha: ${bundle.proof.checksum}`;
+}
 
-    async function loadBundle() {
-      const resp = await fetch("/white-room/bootstrap?days=30&seed=777");
-      const data = await resp.json();
-      bundle = data.bundle;
-      if (!selectedNpc && bundle.cast.length) selectedNpc = bundle.cast[0].id;
-      proof.textContent = `proof sha=${bundle.proof.checksum} · events=${bundle.proof.event_count}`;
-      render();
-    }
+function getRelationsForDay(day) {
+  return RELATIONS_BY_DAY[day] || [];
+}
 
-    async function runSuite() {
-      const day = Number(dayInput.value);
-      const resp = await fetch(`/white-room/fortress?days=${day}&seed=777`);
-      const data = await resp.json();
-      suiteEl.textContent = data.suite.passed ? "PASS" : "FAIL";
-      dump.textContent = JSON.stringify(data.suite, null, 2);
-    }
-
-    dayInput.addEventListener("input", render);
-    document.getElementById("reload").addEventListener("click", loadBundle);
-    document.getElementById("runSuite").addEventListener("click", runSuite);
-    document.getElementById("intro").addEventListener("click", () => {
-      document.getElementById("intro").style.display = "none";
-      document.getElementById("app").style.display = "grid";
-      loadBundle();
+function renderMap(day) {
+  const relations = getRelationsForDay(day);
+  const edgesEl = document.getElementById("edges-layer");
+  const nodesEl = document.getElementById("nodes-layer");
+  edgesEl.innerHTML = "";
+  for (const rel of relations) {
+    const a = NPCS.find(n => n.id === rel.a);
+    const b = NPCS.find(n => n.id === rel.b);
+    if (!a || !b) continue;
+    const color = rel.type === "alliance" ? "rgba(74,158,106,0.7)" : rel.type === "grudge" ? "rgba(184,74,58,0.7)" : "rgba(90,122,138,0.5)";
+    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    line.setAttribute("x1", a.x); line.setAttribute("y1", a.y); line.setAttribute("x2", b.x); line.setAttribute("y2", b.y);
+    line.setAttribute("stroke", color); line.setAttribute("stroke-width", String(0.5 + (rel.str || 0) * 2));
+    line.style.cursor = "pointer";
+    line.addEventListener("click", async () => {
+      const q = new URLSearchParams({day:String(day), a:String(rel.a), b:String(rel.b), days:"30", seed:"777"});
+      const r = await fetch(`/white-room/explain?${q.toString()}`);
+      const d = await r.json();
+      logDump(JSON.stringify(d.explanation, null, 2));
     });
-  </script>
+    edgesEl.appendChild(line);
+  }
+  nodesEl.innerHTML = "";
+  for (const npc of NPCS) {
+    const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    g.setAttribute("transform", `translate(${npc.x},${npc.y})`);
+    const ring = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    ring.setAttribute("r", selectedNPC === npc.id ? "20" : "16");
+    ring.setAttribute("fill", "rgba(10,13,15,0.8)");
+    ring.setAttribute("stroke", selectedNPC === npc.id ? "#c4a44a" : npc.color);
+    ring.setAttribute("stroke-width", selectedNPC === npc.id ? "2" : "1");
+    const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    dot.setAttribute("r", selectedNPC === npc.id ? "5" : "3");
+    dot.setAttribute("fill", selectedNPC === npc.id ? "#c4a44a" : npc.color);
+    const txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    txt.textContent = npc.name.split(" ")[0];
+    txt.setAttribute("y", "26"); txt.setAttribute("text-anchor", "middle");
+    txt.setAttribute("font-family", "Cinzel,serif"); txt.setAttribute("font-size", "8");
+    txt.setAttribute("fill", selectedNPC === npc.id ? "#c4a44a" : npc.color);
+    g.appendChild(ring); g.appendChild(dot); g.appendChild(txt);
+    g.style.cursor = "pointer";
+    g.addEventListener("click", () => selectNPC(npc.id));
+    nodesEl.appendChild(g);
+  }
+}
+
+function selectNPC(id) {
+  selectedNPC = id;
+  const npc = NPCS.find(n => n.id === id);
+  renderMap(currentDay);
+  document.getElementById("no-selection").style.display = "none";
+  document.getElementById("npc-detail").style.display = "block";
+  document.getElementById("detail-name").textContent = npc.name;
+  document.getElementById("detail-role").textContent = npc.role;
+  document.getElementById("mem-meta").textContent = npc.id;
+  const traitsEl = document.getElementById("detail-traits");
+  traitsEl.innerHTML = "";
+  for (const t of (npc.traits || [])) {
+    const pill = document.createElement("span"); pill.className = "trait-pill"; pill.textContent = t; traitsEl.appendChild(pill);
+  }
+  const mems = (MEMORIES[id] || []).filter(m => m.day <= currentDay);
+  const memEl = document.getElementById("memory-entries");
+  memEl.innerHTML = "";
+  for (const m of [...mems].reverse().slice(0, 40)) {
+    const entry = document.createElement("div");
+    const tagClass = m.tag === "alliance" ? "promise" : m.tag === "grudge" ? "betrayal" : "event";
+    entry.className = "memory-entry";
+    entry.innerHTML = `<div class="mem-timestamp">Day ${m.day} · ${m.event_id || ""}</div><div class="mem-text">${m.text}</div><span class="mem-tag ${tagClass}">${m.tag}</span>`;
+    memEl.appendChild(entry);
+  }
+}
+
+function logDump(content) {
+  const stream = document.getElementById("log-stream");
+  stream.innerHTML = "";
+  const line = document.createElement("div");
+  line.className = "log-line";
+  line.textContent = content;
+  stream.appendChild(line);
+}
+
+async function runSuite() {
+  const resp = await fetch(`/white-room/fortress?days=${currentDay}&seed=777`);
+  const data = await resp.json();
+  document.getElementById("suite-badge").textContent = data.suite.passed ? "SUITE PASS" : "SUITE FAIL";
+  logDump(JSON.stringify(data.suite, null, 2));
+}
+
+async function runStudio() {
+  const resp = await fetch("/white-room/studio?days=30&seed=777&top_k=5");
+  const data = await resp.json();
+  logDump(JSON.stringify(data.studio, null, 2));
+}
+
+async function runPlayerEntry() {
+  const npc = selectedNPC || (NPCS[0] ? NPCS[0].id : "aldric");
+  const q = new URLSearchParams({day:String(currentDay), npc_id:npc, message:"I just arrived. Who did you trust before me?", days:"30", seed:"777"});
+  const resp = await fetch(`/white-room/player-entry?${q.toString()}`);
+  const data = await resp.json();
+  playerPresent = true;
+  document.getElementById("map-meta").textContent = "player present";
+  logDump(JSON.stringify(data.entry, null, 2));
+}
+
+function updateDay(day) {
+  currentDay = day;
+  document.getElementById("scrubber-day-label").textContent = `Day ${day}`;
+  document.getElementById("top-day").textContent = `day ${day}`;
+  const state = (bundle.timeline || {})[String(day)] || {};
+  const rels = state.relations || [];
+  document.getElementById("top-events").textContent = `${bundle.proof.event_count} events`;
+  const divergence = (((bundle.belief_timeline || {})[String(day)] || {}).divergence_count) || 0;
+  document.getElementById("top-divergence").textContent = `belief divergence ${divergence}`;
+  document.getElementById("bottom-status").textContent = `world state day ${day} · ${playerPresent ? "player present" : "no player"}`;
+  document.getElementById("consistency-score").textContent = `relationships ${rels.length}`;
+  renderMap(day);
+  if (selectedNPC) selectNPC(selectedNPC);
+}
+
+async function startDemo() {
+  document.getElementById("intro").classList.add("fade-out");
+  setTimeout(() => { document.getElementById("intro").style.display = "none"; }, 1200);
+  document.getElementById("app").classList.add("visible");
+  await loadBackendBundle();
+  updateDay(1);
+  await runSuite();
+  await runStudio();
+}
+
+document.getElementById("day-slider").addEventListener("input", e => updateDay(parseInt(e.target.value, 10)));
+document.addEventListener("keydown", async (e) => {
+  if (e.key === "Enter" && document.getElementById("app").classList.contains("visible")) await runPlayerEntry();
+});
+</script>
 </body>
 </html>
