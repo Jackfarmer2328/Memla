@@ -7,6 +7,7 @@ from .event_store import EventStore, WorldEvent
 from .memory_engine import MemoryEngine
 from .npc_agent import NPCAgent
 from .policy_governor import PolicyGovernor
+from .white_room_director import white_room_director_suite
 
 
 def world_state_consistency_replay() -> dict[str, Any]:
@@ -165,6 +166,7 @@ def run_all_backtests() -> dict[str, Any]:
         narrative_coherence_long_arc_eval(),
         safety_governor_adversarial_suite(),
         cost_scaling_projection_review(),
+        white_room_director_suite(),
     ]
     all_pass = all(bool(r.get("passed")) for r in results)
     return {"all_passed": all_pass, "results": results}

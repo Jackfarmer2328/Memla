@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>White Room — Persistent World</title>
+  <style>
+    :root { --bg:#0a0d12; --bg2:#121922; --line:#2a3546; --text:#e6ecf7; --muted:#9ea9bb; --gold:#d2b268; --good:#78b07f; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--text); }
+    #intro { position: fixed; inset:0; background:#000; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:10; }
+    #intro .line { font-size: clamp(20px, 2.6vw, 42px); color: #ddd; max-width: 900px; text-align:center; padding: 18px; font-weight: 300; }
+    #app { display:none; height:100vh; grid-template-rows:auto 1fr auto; }
+    header { border-bottom:1px solid var(--line); padding:10px 14px; display:flex; justify-content:space-between; background:#0c1118; }
+    .muted { color: var(--muted); font-size: 12px; }
+    .panels { display:grid; grid-template-columns:1.2fr 1fr 1fr; min-height:0; }
+    .panel { border-right:1px solid var(--line); background:var(--bg2); display:flex; flex-direction:column; min-height:0; }
+    .panel:last-child { border-right:0; }
+    .panel h3 { margin:0; padding:10px 12px; border-bottom:1px solid var(--line); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+    .panel .body { padding:10px 12px; overflow:auto; min-height:0; }
+    ul { margin:0; padding-left:18px; }
+    li { margin-bottom:7px; font-size:13px; }
+    .npc-btn { width:100%; text-align:left; padding:8px; border:1px solid var(--line); background:#101620; color:var(--text); margin-bottom:6px; cursor:pointer; }
+    .npc-btn.active { border-color:var(--gold); color:var(--gold); }
+    .row { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
+    .btn { border:1px solid #435777; background:#162237; color:#cfe0ff; padding:6px 10px; border-radius:6px; cursor:pointer; }
+    input[type=range] { width:100%; }
+    pre { margin:0; white-space:pre-wrap; font-size:12px; color:#a8b8d1; }
+    footer { border-top:1px solid var(--line); padding:8px 12px; display:flex; gap:18px; background:#0c1118; font-size:12px; color:var(--muted); }
+    .good { color: var(--good); }
+  </style>
+</head>
+<body>
+  <div id="intro"><div class="line">Full dive VR isn't a headset problem. It's a world problem.</div></div>
+  <div id="app">
+    <header>
+      <div>Memla — White Room Demo</div>
+      <div class="muted" id="proof">loading proof...</div>
+    </header>
+    <div class="panels">
+      <section class="panel">
+        <h3>Campaign Map (Relationships)</h3>
+        <div class="body">
+          <div class="row">
+            <span class="muted">Day 1</span>
+            <input id="day" type="range" min="1" max="30" value="30">
+            <span id="dayLabel">Day 30</span>
+          </div>
+          <div class="muted" id="leftMeta"></div>
+          <ul id="relations"></ul>
+        </div>
+      </section>
+      <section class="panel">
+        <h3>NPC Memory (30-day history)</h3>
+        <div class="body">
+          <div id="npcList"></div>
+          <div class="muted" id="npcMeta">Select an NPC.</div>
+          <ul id="npcHistory"></ul>
+        </div>
+      </section>
+      <section class="panel">
+        <h3>Raw JSON + Fortress</h3>
+        <div class="body">
+          <div class="row">
+            <button class="btn" id="runSuite">Run White-Room Suite</button>
+            <button class="btn" id="reload">Reload</button>
+            <span id="suite" class="muted"></span>
+          </div>
+          <pre id="dump"></pre>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <span id="status">world loading...</span>
+      <span id="det" class="good"></span>
+    </footer>
+  </div>
+  <script>
+    let bundle = null;
+    let selectedNpc = "";
+    const dayInput = document.getElementById("day");
+    const dayLabel = document.getElementById("dayLabel");
+    const relationsEl = document.getElementById("relations");
+    const leftMeta = document.getElementById("leftMeta");
+    const npcList = document.getElementById("npcList");
+    const npcMeta = document.getElementById("npcMeta");
+    const npcHistory = document.getElementById("npcHistory");
+    const dump = document.getElementById("dump");
+    const proof = document.getElementById("proof");
+    const status = document.getElementById("status");
+    const det = document.getElementById("det");
+    const suiteEl = document.getElementById("suite");
+
+    function renderNpcButtons() {
+      npcList.innerHTML = "";
+      for (const npc of bundle.cast) {
+        const b = document.createElement("button");
+        b.className = "npc-btn" + (selectedNpc === npc.id ? " active" : "");
+        b.textContent = `${npc.name} — ${npc.role}`;
+        b.onclick = () => { selectedNpc = npc.id; render(); };
+        npcList.appendChild(b);
+      }
+    }
+
+    function render() {
+      if (!bundle) return;
+      const day = Number(dayInput.value);
+      dayLabel.textContent = `Day ${day}`;
+      const state = bundle.timeline[String(day)];
+      const relations = state.relations || [];
+      leftMeta.textContent = `${relations.length} relationships. Every edge includes source event_id.`;
+      relationsEl.innerHTML = "";
+      for (const row of relations.slice(0, 28)) {
+        const li = document.createElement("li");
+        li.textContent = `${row.a} ↔ ${row.b} | ${row.type} (${row.strength}) | from ${row.event_id}`;
+        relationsEl.appendChild(li);
+      }
+
+      renderNpcButtons();
+      const npc = bundle.cast.find((x) => x.id === selectedNpc) || bundle.cast[0];
+      selectedNpc = npc.id;
+      const mem = (state.npc_history[npc.id] || []).slice().reverse();
+      npcMeta.textContent = `${npc.name} · ${npc.role} · ${mem.length} remembered events`;
+      npcHistory.innerHTML = "";
+      for (const row of mem.slice(0, 20)) {
+        const li = document.createElement("li");
+        li.textContent = `Day ${row.day} [${row.tag}] ${row.text}`;
+        npcHistory.appendChild(li);
+      }
+
+      dump.textContent = JSON.stringify({ day, state, sample_events: bundle.events.slice(0, 10) }, null, 2);
+      status.textContent = `The world has run ${day} day(s) before player entry.`;
+      det.textContent = `deterministic replay: ${bundle.proof.replay_verified ? "verified" : "failed"}`;
+    }
+
+    async function loadBundle() {
+      const resp = await fetch("/white-room/bootstrap?days=30&seed=777");
+      const data = await resp.json();
+      bundle = data.bundle;
+      if (!selectedNpc && bundle.cast.length) selectedNpc = bundle.cast[0].id;
+      proof.textContent = `proof sha=${bundle.proof.checksum} · events=${bundle.proof.event_count}`;
+      render();
+    }
+
+    async function runSuite() {
+      const day = Number(dayInput.value);
+      const resp = await fetch(`/white-room/fortress?days=${day}&seed=777`);
+      const data = await resp.json();
+      suiteEl.textContent = data.suite.passed ? "PASS" : "FAIL";
+      dump.textContent = JSON.stringify(data.suite, null, 2);
+    }
+
+    dayInput.addEventListener("input", render);
+    document.getElementById("reload").addEventListener("click", loadBundle);
+    document.getElementById("runSuite").addEventListener("click", runSuite);
+    document.getElementById("intro").addEventListener("click", () => {
+      document.getElementById("intro").style.display = "none";
+      document.getElementById("app").style.display = "grid";
+      loadBundle();
+    });
+  </script>
+</body>
+</html>

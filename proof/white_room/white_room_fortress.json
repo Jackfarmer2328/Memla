@@ -1,0 +1,36 @@
+{
+  "backtest_id": "white_room_director_suite",
+  "checks": [
+    {
+      "backtest_id": "wr_no_player_bootstrap_30_days",
+      "passed": true
+    },
+    {
+      "backtest_id": "wr_named_npc_graph_integrity",
+      "cast_size": 8,
+      "passed": true
+    },
+    {
+      "backtest_id": "wr_edge_event_traceability",
+      "passed": true
+    },
+    {
+      "backtest_id": "wr_timeline_scrub_reproducibility",
+      "passed": true
+    },
+    {
+      "backtest_id": "wr_day1_day30_restore_equivalence",
+      "passed": true
+    },
+    {
+      "backtest_id": "wr_npc_history_panel_completeness",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "proof": {
+    "checksum": "028135a3ab864dcb",
+    "event_count": 638,
+    "replay_verified": true
+  }
+}

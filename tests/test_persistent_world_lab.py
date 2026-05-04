@@ -26,5 +26,5 @@ def test_npc_traits_stable_across_turns():
 def test_run_all_backtests_returns_bundle():
     summary = run_all_backtests()
     assert "results" in summary
-    assert len(summary["results"]) == 7
+    assert len(summary["results"]) == 8
 

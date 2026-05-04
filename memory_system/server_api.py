@@ -7,6 +7,7 @@ import time
 from typing import Any
 
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 import uvicorn
 
@@ -14,6 +15,7 @@ from .action_capsules import action_capsule_to_dict, create_action_capsule
 from .action_ontology import action_draft_to_dict, action_match_to_dict, classify_action_prompt, create_action_draft, summarize_action_ontology
 from .memory.ontology import adjudicate_memory_trace, summarize_memory_ontology
 from .missions import MissionQueue, mission_to_dict, summarize_mission_queue
+from .persistent_world_lab.white_room_director import build_director_bundle, white_room_director_suite
 from .natural_terminal import (
     BrowserSessionState,
     TERMINAL_MEMORY_ONTOLOGY_FILENAME,
@@ -287,6 +289,9 @@ def create_memla_app(
         version="0.1.1",
         description="Thin HTTP wrapper around Memla's bounded terminal/browser runtime.",
     )
+    static_dir = (Path(__file__).resolve().parent.parent / "static").resolve()
+    if static_dir.exists():
+        app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
     mission_queue = MissionQueue()
     browser_debug_history: deque[dict[str, Any]] = deque(maxlen=500)
     browser_debug_last_id = 0
@@ -305,6 +310,25 @@ def create_memla_app(
                 "provider": defaults["provider"],
                 "heuristic_only": defaults["heuristic_only"],
             },
+        }
+
+    @app.get("/white-room/bootstrap")
+    def white_room_bootstrap(days: int = 30, seed: int = 777) -> dict[str, Any]:
+        safe_days = min(max(int(days), 1), 90)
+        safe_seed = int(seed)
+        return {
+            "ok": True,
+            "bundle": build_director_bundle(days=safe_days, seed=safe_seed),
+        }
+
+    @app.get("/white-room/fortress")
+    def white_room_fortress(days: int = 30, seed: int = 777) -> dict[str, Any]:
+        safe_days = min(max(int(days), 1), 90)
+        safe_seed = int(seed)
+        suite = white_room_director_suite(days=safe_days, seed=safe_seed)
+        return {
+            "ok": True,
+            "suite": suite,
         }
 
     @app.get("/state")
