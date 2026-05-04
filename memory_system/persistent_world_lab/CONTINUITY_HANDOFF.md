@@ -2,12 +2,59 @@
 
 Read this file first when picking up work on **Memla’s persistent-world substrate demos**.
 
-## Repo anchor
+## Repo anchor (two remotes you care about)
 
-- **Project root:** `Memla-v2-product/` (under workspace `Project Memory` if local path differs).
+- **Project root:** `Memla-v2-product/` (this workspace folder name may differ on disk).
 - **Package:** `memory_system/persistent_world_lab/`
-- **Remote:** `origin` → `https://github.com/Jackfarmer2328/Memla-v2.git` (`main`).
-- **Lab slice pushed:** Commit **`52b1baf`** (`Add persistent_world_lab: fortresses, Dead Reckoning, Betrayal, Chorus, Tribunal, Sleeping World demos and tests`). That push included **only** this package + the tests listed below — **many other local changes in the repo were intentionally not staged** (distillation, cases, c2a, etc.). Run `git status` before assuming a clean tree.
+- **`origin` (this clone):** often `https://github.com/Jackfarmer2328/Memla-v2.git` — historical pushes for the “lab slice” landed on **`Memla-v2`** (`main` / commits like `52b1baf`, `564722a`).
+- **White Room / Abyss / Reality Compiler work:** lives on **`Jackfarmer2328/Memla`** branch **`import-yosazo`** (not the same repo name as Memla-v2).
+
+### Primary remote for Memla + SSH host alias (laptop)
+
+- **URL:** `git@github.com-jack:Jackfarmer2328/Memla.git`  
+- **Requires:** `Host github.com-jack` in `~/.ssh/config` mapping to `github.com` with the right key.
+- **Suggested remote name:** `yosazo` (or use it as the name you `git pull` from).
+
+### Sync recipe (bash)
+
+```bash
+git checkout import-yosazo
+git pull yosazo import-yosazo 2>/dev/null || true
+git push origin import-yosazo
+```
+
+Adjust `origin` vs `yosazo` to match your naming: some setups use **`yosazo`** = Memla (pull) and **`origin`** = Memla (push). Same branch name: **`import-yosazo`**.
+
+### Sync recipe (PowerShell, no `/dev/null`)
+
+```powershell
+git checkout import-yosazo
+git pull yosazo import-yosazo 2>$null
+git push origin import-yosazo
+```
+
+### Fetch without SSH (e.g. CI or read-only)
+
+```bash
+git fetch https://github.com/Jackfarmer2328/Memla.git import-yosazo:refs/remotes/memla/import-yosazo
+git checkout -B import-yosazo memla/import-yosazo
+```
+
+### Agent note (Cursor on this machine)
+
+If you switched to **`import-yosazo`** from **`main`** with a dirty tree, prior WIP may be in **`git stash`** (message like `wip before import-yosazo checkout`). On **`main`**, run `git stash list` / `git stash pop` when you want that work back.
+
+## `import-yosazo` — key paths (Memla white room track)
+
+| Area | Path |
+|------|------|
+| Director / demo entrypoints | `memory_system/persistent_world_lab/white_room_director.py`, `white_room_demo.py` |
+| Fortress modules | `memory_system/persistent_world_lab/abyss_fortress.py`, `reality_compiler_fortress.py` |
+| Specs / prompts | `ABYSS_FORTRESS_V0.md`, `ABYSS_DOSSIER_PROMPT.txt`, `REALITY_COMPILER_FORTRESS_V0.md`, `REALITY_COMPILER_DOSSIER_PROMPT.txt` |
+| Static HTML | `static/white_room_demo.html` |
+| Proof bundles | `proof/white_room/`, `proof/abyss/`, `proof/reality_compiler/` |
+
+The **seven backtests + Dead Reckoning / Betrayal / Chorus / Tribunal / Sleeping World** demos from the Memla-v2 lab slice may still exist on this branch alongside the above; run pytest scoped to the tests you care about.
 
 ## Architecture snapshot (core lab)
 
@@ -80,4 +127,4 @@ Use **`FREEZE_HANDOFF.md`** for a tight technical paste. For “everything inclu
 
 ---
 
-*Last updated for session continuity: persistent_world_lab package + tests as pushed in `52b1baf`; extend this section when you land the next milestone.*
+*Last updated: `import-yosazo` sync docs + Memla vs Memla-v2 remotes; Memla-v2 lab slice history remains `52b1baf` / `564722a` on `main`.*
