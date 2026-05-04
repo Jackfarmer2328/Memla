@@ -1,0 +1,31 @@
+{
+  "fortress_id": "abyss_fortress_v0",
+  "next_step": "run_32b_dossier_generation",
+  "required_outputs": [
+    [
+      "identity_signatures.json",
+      "identity_alerts.json"
+    ],
+    [
+      "subjective_timeline.json",
+      "merge_trace.json"
+    ],
+    [
+      "belief_graph.json",
+      "contagion_paths.json"
+    ],
+    [
+      "social_field_state.json",
+      "transition_events.json"
+    ],
+    [
+      "counterfactual_rankings.json",
+      "fork_deltas.json"
+    ],
+    [
+      "diegetic_explanations.json",
+      "citation_map.json"
+    ]
+  ],
+  "status": "seed_ready"
+}

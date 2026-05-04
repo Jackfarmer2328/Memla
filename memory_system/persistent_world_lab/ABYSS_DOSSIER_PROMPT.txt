@@ -1,0 +1,39 @@
+You are generating the ABYSS fortress dossier for a software-only full-dive continuity runtime.
+
+Use `abyss_fortress_v0_spec.json` as the hard contract.
+
+Requirements:
+
+1) Return implementation-ready dossier sections for EACH suite:
+- threat model
+- minimal architecture
+- event schema additions
+- deterministic replay implications
+- check-by-check pass criteria
+- artifact JSON schema
+- failure examples
+
+2) For every check, provide:
+- invariant statement
+- metric(s)
+- allowed tolerance
+- pass/fail function in plain language
+
+3) Explicitly identify:
+- where white-room components can be reused
+- where new engines are mandatory
+- top 3 ambiguity risks that would cause false greens
+
+4) Provide staged plan:
+- phase 1: lowest risk, highest leverage implementation order
+- phase 2: novelty amplification
+- phase 3: production hardening
+
+5) Output format:
+- concise markdown
+- one checklist per suite
+- end with `Abyss Gate Readiness` table (suite, blockers, confidence).
+
+Do not provide investor pitch copy.
+Do not provide broad philosophy.
+Focus on executable engineering dossier quality.
