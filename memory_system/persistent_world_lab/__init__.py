@@ -15,6 +15,10 @@ from .white_room_director import (
     white_room_director_suite,
 )
 from .abyss_fortress import abyss_fortress_v0_spec, write_abyss_fortress_seed
+from .reality_compiler_fortress import (
+    reality_compiler_fortress_v0_spec,
+    write_reality_compiler_seed,
+)
 
 __all__ = [
     "EventStore",
@@ -32,4 +36,6 @@ __all__ = [
     "white_room_director_suite",
     "abyss_fortress_v0_spec",
     "write_abyss_fortress_seed",
+    "reality_compiler_fortress_v0_spec",
+    "write_reality_compiler_seed",
 ]

@@ -1,0 +1,91 @@
+{
+  "compiler_contract": {
+    "input": "plain_language_world_law",
+    "output": [
+      "normalized_law_id",
+      "event_schema_extensions",
+      "constraint_function_spec",
+      "failure_counterexample_path",
+      "passing_proof_artifact"
+    ]
+  },
+  "fortress_id": "reality_compiler_fortress_v0",
+  "gate_policy": {
+    "critical_checks_must_pass": [
+      "lc_parse_determinism",
+      "vw_replayable_failure_path",
+      "pc_replay_equivalence",
+      "pc_proof_hash_stability",
+      "dl_clause_citation_integrity"
+    ],
+    "minimum_suite_pass_rate": 1.0
+  },
+  "intent": "Compile natural-language world laws into deterministic executable checks with proof.",
+  "suites": [
+    {
+      "checks": [
+        "lc_parse_determinism",
+        "lc_schema_extension_validity",
+        "lc_constraint_emission_completeness"
+      ],
+      "required_artifacts": [
+        "compiled_laws.json",
+        "schema_patch.json"
+      ],
+      "suite_id": "law_compilation_suite",
+      "target": "Natural-language law compiles to explicit deterministic check spec."
+    },
+    {
+      "checks": [
+        "vw_minimal_counterexample_trace",
+        "vw_violation_localization",
+        "vw_replayable_failure_path"
+      ],
+      "required_artifacts": [
+        "violation_witnesses.json",
+        "failure_replay_trace.json"
+      ],
+      "suite_id": "violation_witness_suite",
+      "target": "Failing worlds produce concrete counterexample traces."
+    },
+    {
+      "checks": [
+        "pc_proof_bundle_integrity",
+        "pc_replay_equivalence",
+        "pc_proof_hash_stability"
+      ],
+      "required_artifacts": [
+        "proof_bundles.json",
+        "proof_hashes.json"
+      ],
+      "suite_id": "proof_of_compliance_suite",
+      "target": "Passing worlds emit signed deterministic proof bundles."
+    },
+    {
+      "checks": [
+        "lm_diff_scoping",
+        "lm_backward_compatibility_report",
+        "lm_regression_guard_coverage"
+      ],
+      "required_artifacts": [
+        "law_diffs.json",
+        "compatibility_report.json"
+      ],
+      "suite_id": "law_mutation_regression_suite",
+      "target": "Small law edits trigger expected constraint deltas only."
+    },
+    {
+      "checks": [
+        "dl_clause_citation_integrity",
+        "dl_event_evidence_alignment",
+        "dl_role_voice_consistency"
+      ],
+      "required_artifacts": [
+        "diegetic_law_explanations.json",
+        "law_citation_map.json"
+      ],
+      "suite_id": "diegetic_law_explanation_suite",
+      "target": "NPC/world explanations cite law clauses and event evidence in-world."
+    }
+  ]
+}

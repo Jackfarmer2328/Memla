@@ -1,0 +1,27 @@
+{
+  "fortress_id": "reality_compiler_fortress_v0",
+  "next_step": "run_32b_law_compiler_dossier",
+  "required_outputs": [
+    [
+      "compiled_laws.json",
+      "schema_patch.json"
+    ],
+    [
+      "violation_witnesses.json",
+      "failure_replay_trace.json"
+    ],
+    [
+      "proof_bundles.json",
+      "proof_hashes.json"
+    ],
+    [
+      "law_diffs.json",
+      "compatibility_report.json"
+    ],
+    [
+      "diegetic_law_explanations.json",
+      "law_citation_map.json"
+    ]
+  ],
+  "status": "seed_ready"
+}

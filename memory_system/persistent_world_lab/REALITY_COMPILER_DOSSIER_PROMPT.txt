@@ -1,0 +1,37 @@
+Generate the Reality Compiler fortress dossier from `reality_compiler_fortress_v0_spec.json`.
+
+Context:
+- This is software-only.
+- Goal is intent -> executable world law -> violation witness or compliance proof.
+- Deterministic replay is mandatory.
+
+Instructions:
+
+1) For each suite/check:
+- define invariant
+- define measurable metric
+- define pass/fail function in plain language
+- define minimum required artifacts and schema fields
+
+2) Provide implementation skeleton by phase:
+- phase 1: parser + normalized law ids
+- phase 2: constraint emission + failure witness engine
+- phase 3: proof bundle generation + diegetic law explanations
+
+3) Explicitly include:
+- deterministic hashing policy for proof artifacts
+- counterexample minimization strategy
+- law mutation compatibility strategy
+
+4) Output format:
+- markdown
+- one section per suite
+- end with `Reality Compiler Gate Readiness` table:
+  - suite
+  - blockers
+  - confidence
+  - first implementation target
+
+Do not provide marketing text.
+Do not provide investor copy.
+Only executable engineering dossier details.
