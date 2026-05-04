@@ -3,19 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
 <title>Memla</title>
+=======
+<title>Project Memory</title>
+>>>>>>> 2b2363d (frontend)
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --bg:#09090b;--surface:#0f0f12;--surface-2:#1a1a22;
   --border:#27272a;--text:#fafafa;--text-2:#a1a1aa;--text-3:#71717a;
+<<<<<<< HEAD
   --accent:#8b5cf6;--accent-2:#7c3aed;--accent-glow:rgba(139,92,246,.35);
+=======
+  --accent:#8b5cf6;--accent-2:#7c3aed;
+>>>>>>> 2b2363d (frontend)
   --fact:#60a5fa;--decision:#c084fc;--entity:#34d399;--note:#fbbf24;
   --danger:#f87171;--radius:10px
 }
 body{
   font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+<<<<<<< HEAD
   background:
     radial-gradient(circle at top left, rgba(96,165,250,.14), transparent 28%),
     radial-gradient(circle at top right, rgba(139,92,246,.14), transparent 24%),
@@ -29,6 +38,12 @@ body::before{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
   background:linear-gradient(180deg, rgba(9,9,11,.18), rgba(9,9,11,.48) 20%, rgba(9,9,11,.78) 100%)
 }
+=======
+  background:var(--bg);color:var(--text);
+  height:100vh;display:flex;flex-direction:column;overflow:hidden;
+  -webkit-font-smoothing:antialiased
+}
+>>>>>>> 2b2363d (frontend)
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
@@ -36,6 +51,7 @@ body::before{
 
 /* ── Header ─────────────────────────────────────── */
 header{
+<<<<<<< HEAD
   position:fixed;top:16px;left:16px;right:16px;display:flex;align-items:center;
   justify-content:space-between;gap:10px;flex-wrap:wrap;padding:0;height:auto;
   border:none;background:transparent;flex-shrink:0;z-index:30;pointer-events:none
@@ -70,10 +86,32 @@ header{
   border:1px solid rgba(255,255,255,.08);border-radius:999px;
   padding:10px 14px;font-size:11px;cursor:pointer;transition:all .15s;font-family:inherit;
   box-shadow:0 18px 40px rgba(0,0,0,.30);backdrop-filter:blur(18px)
+=======
+  display:flex;align-items:center;padding:0 20px;height:52px;
+  border-bottom:1px solid var(--border);background:var(--surface);
+  gap:14px;flex-shrink:0;z-index:10
+}
+.logo{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;white-space:nowrap}
+.logo svg{color:var(--accent);flex-shrink:0}
+.model-wrap select{
+  background:var(--surface-2);color:var(--text);
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:5px 10px;font-size:12px;cursor:pointer;outline:none;
+  font-family:inherit
+}
+.model-wrap select:focus{border-color:var(--accent)}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.hdr-stat{font-size:11px;color:var(--text-3)}
+.hdr-btn{
+  background:var(--surface-2);color:var(--text-2);
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:5px 10px;font-size:11px;cursor:pointer;transition:all .15s;font-family:inherit
+>>>>>>> 2b2363d (frontend)
 }
 .hdr-btn:hover{background:var(--border);color:var(--text)}
 
 /* ── Main ───────────────────────────────────────── */
+<<<<<<< HEAD
 main{position:relative;flex:1;overflow:hidden;z-index:1}
 
 /* ── Graph panel ────────────────────────────────── */
@@ -132,11 +170,44 @@ main{position:relative;flex:1;overflow:hidden;z-index:1}
   font-size:10px;color:var(--text-3);flex-wrap:wrap;border-radius:999px;
   background:rgba(15,15,18,.78);box-shadow:0 18px 40px rgba(0,0,0,.30);backdrop-filter:blur(18px);
   max-width:calc(100vw - 32px);justify-content:center
+=======
+main{display:flex;flex:1;overflow:hidden}
+
+/* ── Graph panel ────────────────────────────────── */
+#graph-panel{
+  width:380px;min-width:0;border-right:1px solid var(--border);
+  display:flex;flex-direction:column;background:var(--surface);
+  transition:width .3s ease,min-width .3s ease,opacity .3s ease;
+  flex-shrink:0;overflow:hidden
+}
+#graph-panel.collapsed{width:0;border-right:none;opacity:0;pointer-events:none}
+.panel-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--border);
+  font-size:12px;font-weight:600;color:var(--text-2)
+}
+.panel-hdr button{
+  background:none;border:none;color:var(--text-3);cursor:pointer;
+  font-size:14px;padding:2px 4px;transition:color .15s
+}
+.panel-hdr button:hover{color:var(--text)}
+#graph-container{flex:1;position:relative;overflow:hidden}
+#graph-svg{width:100%;height:100%;display:block}
+.graph-empty{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  text-align:center;color:var(--text-3);font-size:12px;line-height:1.7;pointer-events:none
+}
+.graph-empty svg{display:block;margin:0 auto 10px;opacity:.3}
+.legend{
+  display:flex;gap:10px;padding:8px 14px;border-top:1px solid var(--border);
+  font-size:10px;color:var(--text-3);flex-wrap:wrap
+>>>>>>> 2b2363d (frontend)
 }
 .legend-item{display:flex;align-items:center;gap:3px}
 .dot{width:7px;height:7px;border-radius:50%;display:inline-block}
 .dot.fact{background:var(--fact)}.dot.decision{background:var(--decision)}
 .dot.entity{background:var(--entity)}.dot.note{background:var(--note)}
+<<<<<<< HEAD
 .dot.user-link{background:var(--accent)}
 .dot.summary{background:#f472b6}
 
@@ -151,6 +222,17 @@ main{position:relative;flex:1;overflow:hidden;z-index:1}
   margin-bottom:10px
 }
 .message.user{background:rgba(96,165,250,.10);border-color:rgba(96,165,250,.18)}
+=======
+
+/* ── Chat panel ─────────────────────────────────── */
+#chat-panel{flex:1;display:flex;flex-direction:column;min-width:0}
+#messages{flex:1;overflow-y:auto;padding:0}
+.message{
+  padding:18px 24px;border-bottom:1px solid rgba(255,255,255,.03);
+  line-height:1.65;font-size:14px;animation:fadeIn .2s ease
+}
+.message.user{background:rgba(139,92,246,.04)}
+>>>>>>> 2b2363d (frontend)
 .message .role{
   font-size:10px;font-weight:700;text-transform:uppercase;
   letter-spacing:.06em;color:var(--text-3);margin-bottom:6px
@@ -182,6 +264,7 @@ main{position:relative;flex:1;overflow:hidden;z-index:1}
   flex:1;display:flex;flex-direction:column;align-items:center;
   justify-content:center;color:var(--text-3);gap:6px
 }
+<<<<<<< HEAD
 .empty-chat h2{
   color:var(--text);font-size:20px;font-weight:600;padding:12px 16px;border-radius:999px;
   background:rgba(15,15,18,.82);border:1px solid rgba(255,255,255,.08);
@@ -246,15 +329,55 @@ main{position:relative;flex:1;overflow:hidden;z-index:1}
 #send-btn{
   background:var(--accent);color:#fff;border:none;border-radius:var(--radius);
   width:48px;height:48px;display:flex;align-items:center;justify-content:center;
+=======
+.empty-chat h2{color:var(--text-2);font-size:18px;font-weight:600}
+.empty-chat p{font-size:13px}
+
+/* ── Retrieved chips (shown after response) ────── */
+.retrieved-chips{
+  display:flex;flex-wrap:wrap;gap:4px;margin-top:10px
+}
+.r-chip{
+  font-size:10px;padding:2px 7px;border-radius:12px;
+  border:1px solid var(--border);color:var(--text-3);
+  background:var(--surface-2)
+}
+
+/* ── Input area ─────────────────────────────────── */
+#input-area{
+  border-top:1px solid var(--border);padding:14px 24px;background:var(--surface)
+}
+.input-row{display:flex;gap:8px;align-items:flex-end}
+#msg-input{
+  flex:1;background:var(--surface-2);color:var(--text);
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:10px 14px;font-size:14px;font-family:inherit;
+  resize:none;outline:none;min-height:40px;max-height:150px;
+  line-height:1.5;transition:border-color .15s
+}
+#msg-input:focus{border-color:var(--accent)}
+#msg-input::placeholder{color:var(--text-3)}
+#send-btn{
+  background:var(--accent);color:#fff;border:none;border-radius:var(--radius);
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+>>>>>>> 2b2363d (frontend)
   cursor:pointer;transition:all .15s;flex-shrink:0
 }
 #send-btn:hover{background:var(--accent-2)}
 #send-btn:disabled{opacity:.35;cursor:not-allowed}
+<<<<<<< HEAD
 .controls{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
 .ctrl{
   background:rgba(15,15,18,.82);color:var(--text-3);
   border:1px solid rgba(255,255,255,.08);border-radius:999px;
   padding:8px 12px;font-size:11px;cursor:pointer;
+=======
+.controls{display:flex;gap:5px;margin-top:8px}
+.ctrl{
+  background:var(--surface-2);color:var(--text-3);
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:4px 9px;font-size:11px;cursor:pointer;
+>>>>>>> 2b2363d (frontend)
   transition:all .15s;font-family:inherit;display:flex;align-items:center;gap:3px
 }
 .ctrl:hover{background:var(--border);color:var(--text)}
@@ -275,6 +398,7 @@ main{position:relative;flex:1;overflow:hidden;z-index:1}
 
 /* ── Recall drawer ──────────────────────────────── */
 #recall-drawer{
+<<<<<<< HEAD
   position:absolute;right:16px;bottom:132px;width:min(420px,calc(100vw - 32px));
   max-height:0;overflow:hidden;transition:max-height .3s ease;
   border:none;background:transparent;z-index:14
@@ -284,6 +408,13 @@ main{position:relative;flex:1;overflow:hidden;z-index:1}
   padding:14px 16px;background:rgba(15,15,18,.82);border:1px solid rgba(255,255,255,.08);
   border-radius:20px;box-shadow:0 18px 40px rgba(0,0,0,.30);backdrop-filter:blur(18px)
 }
+=======
+  max-height:0;overflow:hidden;transition:max-height .3s ease;
+  border-top:1px solid var(--border);background:var(--surface)
+}
+#recall-drawer.open{max-height:220px;overflow-y:auto}
+#recall-drawer .inner{padding:10px 24px}
+>>>>>>> 2b2363d (frontend)
 #recall-drawer h4{
   font-size:10px;text-transform:uppercase;letter-spacing:.06em;
   color:var(--text-3);margin-bottom:6px
@@ -293,6 +424,7 @@ main{position:relative;flex:1;overflow:hidden;z-index:1}
   font-size:12px;color:var(--text-2);line-height:1.5
 }
 .recall-item .rt{font-weight:600;font-size:10px;text-transform:uppercase;margin-right:5px}
+<<<<<<< HEAD
 
 /* ── Connect preview line ───────────────────────── */
 .connect-preview{
@@ -362,6 +494,8 @@ main{position:relative;flex:1;overflow:hidden;z-index:1}
   .graph-hint{display:none}
   .legend{left:10px;right:10px;transform:none;bottom:120px;justify-content:flex-start}
 }
+=======
+>>>>>>> 2b2363d (frontend)
 </style>
 </head>
 <body>
@@ -370,7 +504,11 @@ main{position:relative;flex:1;overflow:hidden;z-index:1}
 <header>
   <div class="logo">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/><line x1="9" y1="22" x2="15" y2="22"/><line x1="10" y1="2" x2="10" y2="7"/><line x1="14" y1="2" x2="14" y2="7"/></svg>
+<<<<<<< HEAD
     <span>Memla</span>
+=======
+    <span>Project Memory</span>
+>>>>>>> 2b2363d (frontend)
   </div>
   <div class="model-wrap">
     <select id="model-picker"><option>loading…</option></select>
@@ -380,8 +518,11 @@ main{position:relative;flex:1;overflow:hidden;z-index:1}
     <span class="hdr-stat" id="stat-turns">0 turns</span>
     <button class="hdr-btn" id="btn-graph" title="Toggle memory map">Map</button>
     <button class="hdr-btn" id="btn-new">New Session</button>
+<<<<<<< HEAD
     <button class="hdr-btn" id="btn-consolidate" title="Consolidate similar memories into summaries">Consolidate</button>
     <button class="hdr-btn" id="btn-clear-mem" title="Delete all memories and start fresh" style="color:#f87171">Clear Memory</button>
+=======
+>>>>>>> 2b2363d (frontend)
   </div>
 </header>
 
@@ -390,6 +531,7 @@ main{position:relative;flex:1;overflow:hidden;z-index:1}
   <!-- Graph panel -->
   <aside id="graph-panel">
     <div class="panel-hdr">
+<<<<<<< HEAD
       <span class="title">Memory Map</span>
       <input type="text" id="graph-search" placeholder="Search memories…">
       <button id="btn-close-graph" title="Close">&times;</button>
@@ -403,26 +545,40 @@ main{position:relative;flex:1;overflow:hidden;z-index:1}
           </filter>
         </defs>
       </svg>
+=======
+      <span>Memory Map</span>
+      <button id="btn-close-graph" title="Close">&times;</button>
+    </div>
+    <div id="graph-container">
+      <svg id="graph-svg"></svg>
+>>>>>>> 2b2363d (frontend)
       <div class="graph-empty" id="graph-empty">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="12" cy="18" r="2"/><line x1="8" y1="6" x2="16" y2="8" opacity=".4"/><line x1="7" y1="8" x2="11" y2="16" opacity=".4"/><line x1="17" y1="10" x2="13" y2="16" opacity=".4"/></svg>
         <div>No memories yet.<br>Start chatting to build your map.</div>
       </div>
     </div>
+<<<<<<< HEAD
     <div class="graph-hint">
       <kbd>Click</kbd> select &nbsp; <kbd>Shift+Click</kbd> connect &nbsp; <kbd>Drag</kbd> move &nbsp; <kbd>Shift+Drag</kbd> draw link
     </div>
+=======
+>>>>>>> 2b2363d (frontend)
     <div class="legend">
       <span class="legend-item"><span class="dot fact"></span>Fact</span>
       <span class="legend-item"><span class="dot decision"></span>Decision</span>
       <span class="legend-item"><span class="dot entity"></span>Entity</span>
       <span class="legend-item"><span class="dot note"></span>Note</span>
+<<<<<<< HEAD
       <span class="legend-item"><span class="dot summary"></span>Summary</span>
       <span class="legend-item"><span class="dot user-link"></span>Your links</span>
+=======
+>>>>>>> 2b2363d (frontend)
     </div>
   </aside>
 
   <!-- Chat panel -->
   <section id="chat-panel">
+<<<<<<< HEAD
     <!-- Pinned context bar (appears when nodes selected) -->
     <div id="pinned-bar">
       <div class="pinned-label">Pinned context — the model will focus on these:</div>
@@ -433,6 +589,12 @@ main{position:relative;flex:1;overflow:hidden;z-index:1}
       <div class="empty-chat" id="empty-chat">
         <h2>Memla</h2>
         <p>Select memories on the map, then ask a question.</p>
+=======
+    <div id="messages">
+      <div class="empty-chat" id="empty-chat">
+        <h2>Project Memory</h2>
+        <p>Your AI assistant that never forgets.</p>
+>>>>>>> 2b2363d (frontend)
       </div>
     </div>
 
@@ -449,12 +611,16 @@ main{position:relative;flex:1;overflow:hidden;z-index:1}
         <button class="ctrl good" id="btn-good" title="Good response">&#x1F44D; Good</button>
         <button class="ctrl bad" id="btn-bad" title="Bad response">&#x1F44E; Bad</button>
         <button class="ctrl" id="btn-recall">Recall</button>
+<<<<<<< HEAD
         <button class="ctrl" id="btn-clear-pins" style="margin-left:auto" title="Clear all selected nodes">Clear pins</button>
+=======
+>>>>>>> 2b2363d (frontend)
       </div>
     </div>
   </section>
 </main>
 
+<<<<<<< HEAD
 <!-- Trajectory panel (reasoning graph) -->
 <div id="traj-panel" class="traj-panel">
   <div class="traj-hdr">
@@ -493,6 +659,21 @@ let connectSource = null;          // shift+drag source node
 let connectLine = null;            // preview SVG line
 
 /* ── Init ──────────────────────────────────────────── */
+=======
+<!-- Tooltip -->
+<div id="tooltip"></div>
+
+<!-- ── Script ──────────────────────────────────── -->
+<script>
+const COLORS = {fact:'#60a5fa',decision:'#c084fc',entity:'#34d399',note:'#fbbf24'};
+let currentModel = '';
+let sending = false;
+let graphOpen = true;
+let sim, svgEl, gEl, linkSel, nodeSel;
+let graphW = 0, graphH = 0;
+
+/* ── Init ────────────────────────────────────────── */
+>>>>>>> 2b2363d (frontend)
 document.addEventListener('DOMContentLoaded', async () => {
   await fetchModels();
   await fetchState();
@@ -501,18 +682,33 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupListeners();
 });
 
+<<<<<<< HEAD
 /* ── API helpers ───────────────────────────────────── */
+=======
+/* ── API helpers ─────────────────────────────────── */
+>>>>>>> 2b2363d (frontend)
 async function fetchModels() {
   try {
     const r = await fetch('/api/models');
     const d = await r.json();
     const sel = document.getElementById('model-picker');
+<<<<<<< HEAD
     if (d.error) { sel.innerHTML = '<option>Ollama offline</option>'; return; }
+=======
+    if (d.error) {
+      sel.innerHTML = '<option>Ollama offline</option>';
+      return;
+    }
+>>>>>>> 2b2363d (frontend)
     sel.innerHTML = d.models.map(m =>
       `<option value="${m.name}" ${m.name===d.current?'selected':''}>${m.name}</option>`
     ).join('');
     currentModel = d.current;
+<<<<<<< HEAD
   } catch {}
+=======
+  } catch { /* offline */ }
+>>>>>>> 2b2363d (frontend)
 }
 
 async function fetchState() {
@@ -529,12 +725,19 @@ async function refreshGraph() {
     const empty = document.getElementById('graph-empty');
     if (!d.nodes.length) { empty.style.display = ''; return; }
     empty.style.display = 'none';
+<<<<<<< HEAD
     rawUserLinks = d.user_links || [];
+=======
+>>>>>>> 2b2363d (frontend)
     updateGraph(d);
   } catch {}
 }
 
+<<<<<<< HEAD
 /* ── Chat streaming ────────────────────────────────── */
+=======
+/* ── Chat streaming ──────────────────────────────── */
+>>>>>>> 2b2363d (frontend)
 async function sendMessage() {
   const inp = document.getElementById('msg-input');
   const text = inp.value.trim();
@@ -552,15 +755,22 @@ async function sendMessage() {
   const aEl = addMsg('assistant', '');
   aEl.classList.add('streaming');
 
+<<<<<<< HEAD
   const pinnedIds = [...selectedNodes.keys()];
 
+=======
+>>>>>>> 2b2363d (frontend)
   let full = '';
   let retrieved = [];
   try {
     const resp = await fetch('/api/chat', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
+<<<<<<< HEAD
       body: JSON.stringify({message: text, model: currentModel, pinned_ids: pinnedIds}),
+=======
+      body: JSON.stringify({message: text, model: currentModel}),
+>>>>>>> 2b2363d (frontend)
     });
     const reader = resp.body.getReader();
     const dec = new TextDecoder();
@@ -581,11 +791,19 @@ async function sendMessage() {
             setContent(aEl, full);
           } else if (ev.type === 'retrieved') {
             retrieved = ev.chunks || [];
+<<<<<<< HEAD
           } else if (ev.type === 'done' && ev.trajectory) {
             showTrajectory(ev.trajectory);
           } else if (ev.type === 'error') {
             setContent(aEl, 'Error: ' + ev.text);
             aEl.classList.add('error');
+=======
+          } else if (ev.type === 'error') {
+            setContent(aEl, 'Error: ' + ev.text);
+            aEl.classList.add('error');
+          } else if (ev.type === 'done') {
+            /* finalize */
+>>>>>>> 2b2363d (frontend)
           }
         } catch {}
       }
@@ -631,7 +849,15 @@ function addMsg(role, text) {
 function setContent(el, text, final) {
   const c = el.querySelector('.content');
   if (!text) { c.innerHTML = ''; return; }
+<<<<<<< HEAD
   c.innerHTML = md(text);
+=======
+  if (final) {
+    c.innerHTML = md(text);
+  } else {
+    c.innerHTML = md(text);
+  }
+>>>>>>> 2b2363d (frontend)
   scrollBottom();
 }
 
@@ -640,6 +866,7 @@ function scrollBottom() {
   m.scrollTop = m.scrollHeight;
 }
 
+<<<<<<< HEAD
 /* ── Pinned context chips ──────────────────────────── */
 function renderPinnedChips() {
   const bar = document.getElementById('pinned-bar');
@@ -715,6 +942,9 @@ function toggleLink(aId, bId) {
 }
 
 /* ── Markdown (lightweight) ────────────────────────── */
+=======
+/* ── Markdown (lightweight) ──────────────────────── */
+>>>>>>> 2b2363d (frontend)
 function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function md(raw) {
@@ -723,10 +953,15 @@ function md(raw) {
     blocks.push('<pre><code>' + esc(code.replace(/\n$/, '')) + '</code></pre>');
     return '\x00B' + (blocks.length - 1) + '\x00';
   });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2b2363d (frontend)
   out = esc(out);
   out = out.replace(/`([^`\n]+)`/g, '<code>$1</code>');
   out = out.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   out = out.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+<<<<<<< HEAD
   let lines = out.split('\n'), html = '', inList = false;
   for (let l of lines) {
     if (/^#{1,3}\s/.test(l)) {
@@ -761,6 +996,46 @@ function initGraph() {
   gEl = svgEl.append('g');
 
   svgEl.call(d3.zoom().scaleExtent([.15, 6]).on('zoom', e => gEl.attr('transform', e.transform)));
+=======
+
+  let lines = out.split('\n');
+  let html = '';
+  let inList = false;
+  for (let l of lines) {
+    if (/^#{1,3}\s/.test(l)) {
+      const lvl = l.match(/^(#+)/)[1].length;
+      html += `<h${lvl+1}>${l.replace(/^#+\s/, '')}</h${lvl+1}>`;
+    } else if (/^[-*]\s/.test(l)) {
+      if (!inList) { html += '<ul>'; inList = true; }
+      html += '<li>' + l.replace(/^[-*]\s/, '') + '</li>';
+    } else if (/^\d+\.\s/.test(l)) {
+      if (!inList) { html += '<ol>'; inList = true; }
+      html += '<li>' + l.replace(/^\d+\.\s/, '') + '</li>';
+    } else {
+      if (inList) { html += '</ul>'; inList = false; }
+      if (l.trim() === '') html += '<br>';
+      else html += '<p>' + l + '</p>';
+    }
+  }
+  if (inList) html += '</ul>';
+
+  for (let i = 0; i < blocks.length; i++) {
+    html = html.replace('\x00B' + i + '\x00', blocks[i]);
+  }
+  return html;
+}
+
+/* ── D3 Graph ────────────────────────────────────── */
+function initGraph() {
+  const box = document.getElementById('graph-container').getBoundingClientRect();
+  graphW = box.width || 380;
+  graphH = box.height || 400;
+
+  svgEl = d3.select('#graph-svg').attr('width', graphW).attr('height', graphH);
+  gEl = svgEl.append('g');
+
+  svgEl.call(d3.zoom().scaleExtent([.2, 5]).on('zoom', e => gEl.attr('transform', e.transform)));
+>>>>>>> 2b2363d (frontend)
 
   linkSel = gEl.append('g').attr('class','links').selectAll('line');
   nodeSel = gEl.append('g').attr('class','nodes').selectAll('circle');
@@ -784,6 +1059,7 @@ function initGraph() {
 }
 
 function updateGraph(data) {
+<<<<<<< HEAD
   currentNodes = data.nodes;
   const userEdges = (data.user_links || []).map(l => ({...l, _user: true, weight: 3}));
   const autoEdges = data.edges.map(l => ({...l, _user: false}));
@@ -797,11 +1073,19 @@ function updateGraph(data) {
     .attr('stroke-width', d => d._user ? 2.5 : Math.min(2, .5 + (d.weight||1) * .2))
     .attr('stroke-dasharray', d => d._user ? '7 4' : null)
     .attr('stroke-opacity', d => d._user ? .85 : Math.min(.7, .15 + (d.weight||1) * .08));
+=======
+  linkSel = linkSel.data(data.edges, d => d.source.id ?? d.source + '-' + (d.target.id ?? d.target))
+    .join('line')
+    .attr('stroke', '#3f3f46')
+    .attr('stroke-opacity', d => Math.min(.7, .15 + d.weight * .08))
+    .attr('stroke-width', d => Math.min(2, .5 + d.weight * .2));
+>>>>>>> 2b2363d (frontend)
 
   nodeSel = nodeSel.data(data.nodes, d => d.id).join(
     enter => enter.append('circle')
       .attr('r', 0)
       .attr('fill', d => COLORS[d.type] || '#888')
+<<<<<<< HEAD
       .attr('stroke', d => selectedNodes.has(d.id) ? '#8b5cf6' : 'rgba(255,255,255,.12)')
       .attr('stroke-width', d => selectedNodes.has(d.id) ? 3 : 1)
       .attr('filter', d => selectedNodes.has(d.id) ? 'url(#glow)' : null)
@@ -809,19 +1093,30 @@ function updateGraph(data) {
       .call(dragBehavior())
       .on('click', onNodeClick)
       .on('dblclick', onNodeDblClick)
+=======
+      .attr('stroke', 'rgba(255,255,255,.12)')
+      .attr('stroke-width', 1)
+      .attr('cursor', 'pointer')
+      .call(dragBehavior())
+>>>>>>> 2b2363d (frontend)
       .on('mouseover', tipShow)
       .on('mousemove', tipMove)
       .on('mouseout', tipHide)
       .transition().duration(400).attr('r', d => rad(d)),
+<<<<<<< HEAD
     update => update
       .attr('fill', d => COLORS[d.type] || '#888')
       .attr('stroke', d => selectedNodes.has(d.id) ? '#8b5cf6' : 'rgba(255,255,255,.12)')
       .attr('stroke-width', d => selectedNodes.has(d.id) ? 3 : 1)
       .attr('filter', d => selectedNodes.has(d.id) ? 'url(#glow)' : null),
+=======
+    update => update.attr('fill', d => COLORS[d.type] || '#888'),
+>>>>>>> 2b2363d (frontend)
     exit => exit.transition().duration(250).attr('r', 0).remove()
   );
 
   sim.nodes(data.nodes);
+<<<<<<< HEAD
   sim.force('link').links(allEdges);
   sim.alpha(.6).restart();
 }
@@ -834,12 +1129,19 @@ function updateNodeStyles() {
     .attr('filter', d => selectedNodes.has(d.id) ? 'url(#glow)' : null);
 }
 
+=======
+  sim.force('link').links(data.edges);
+  sim.alpha(.6).restart();
+}
+
+>>>>>>> 2b2363d (frontend)
 function tick() {
   linkSel.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
          .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
   nodeSel.attr('cx',d=>d.x).attr('cy',d=>d.y);
 }
 
+<<<<<<< HEAD
 function rad(d) {
   if (d.type === 'summary') return Math.min(22, 10 + Math.sqrt(d.freq || 1) * 2);
   return Math.min(14, 4 + Math.sqrt(d.freq || 1) * 2.5);
@@ -949,17 +1251,42 @@ function tipShow(e, d) {
   tip.innerHTML = `<span class="tip-type" style="color:${COLORS[d.type]||'#888'}">${d.type}${sel}</span>
     <div class="tip-text">${esc(d.text)}</div>
     <span class="tip-key">${esc(d.key)}</span>${expandHint}`;
+=======
+function rad(d) { return Math.min(14, 4 + Math.sqrt(d.freq || 1) * 2.5); }
+
+function dragBehavior() {
+  return d3.drag()
+    .on('start', (e,d) => { if(!e.active) sim.alphaTarget(.3).restart(); d.fx=d.x; d.fy=d.y; })
+    .on('drag', (e,d) => { d.fx=e.x; d.fy=e.y; })
+    .on('end', (e,d) => { if(!e.active) sim.alphaTarget(0); d.fx=null; d.fy=null; });
+}
+
+/* ── Tooltip ─────────────────────────────────────── */
+const tip = document.getElementById('tooltip');
+function tipShow(e, d) {
+  tip.innerHTML = `<span class="tip-type" style="color:${COLORS[d.type]||'#888'}">${d.type}</span>
+    <div class="tip-text">${esc(d.text)}</div>
+    <span class="tip-key">${esc(d.key)}</span>`;
+>>>>>>> 2b2363d (frontend)
   tip.style.opacity = '1';
   tipMove(e);
 }
 function tipMove(e) {
+<<<<<<< HEAD
   let x = e.clientX + 14, y = e.clientY - 14;
   if (x + 270 > window.innerWidth) x = e.clientX - 270;
   if (y < 0) y = e.clientY + 14;
+=======
+  const pad = 14;
+  let x = e.clientX + pad, y = e.clientY - pad;
+  if (x + 270 > window.innerWidth) x = e.clientX - 270;
+  if (y < 0) y = e.clientY + pad;
+>>>>>>> 2b2363d (frontend)
   tip.style.left = x + 'px'; tip.style.top = y + 'px';
 }
 function tipHide() { tip.style.opacity = '0'; }
 
+<<<<<<< HEAD
 /* ── Toast notification ────────────────────────────── */
 let toastTimer;
 function toast(msg) {
@@ -971,6 +1298,9 @@ function toast(msg) {
 }
 
 /* ── Event listeners ───────────────────────────────── */
+=======
+/* ── Event listeners ─────────────────────────────── */
+>>>>>>> 2b2363d (frontend)
 function setupListeners() {
   document.getElementById('send-btn').onclick = sendMessage;
 
@@ -978,6 +1308,7 @@ function setupListeners() {
   inp.addEventListener('keydown', e => {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
   });
+<<<<<<< HEAD
   let preflightTimer = null;
   inp.addEventListener('input', () => {
     inp.style.height = 'auto';
@@ -986,12 +1317,18 @@ function setupListeners() {
     const val = inp.value.trim();
     if (val.length < 3) { clearPreflightHighlight(); return; }
     preflightTimer = setTimeout(() => preflightHighlight(val), 300);
+=======
+  inp.addEventListener('input', () => {
+    inp.style.height = 'auto';
+    inp.style.height = Math.min(inp.scrollHeight, 150) + 'px';
+>>>>>>> 2b2363d (frontend)
   });
 
   document.getElementById('model-picker').onchange = e => { currentModel = e.target.value; };
   document.getElementById('btn-new').onclick = async () => {
     await fetch('/api/session', {method:'POST'});
     document.getElementById('messages').innerHTML =
+<<<<<<< HEAD
       '<div class="empty-chat" id="empty-chat"><h2>Memla</h2><p>New session started.</p></div>';
     clearSelection();
     fetchState();
@@ -1022,6 +1359,12 @@ function setupListeners() {
     showToast('All memories cleared');
   };
 
+=======
+      '<div class="empty-chat" id="empty-chat"><h2>Project Memory</h2><p>New session started.</p></div>';
+    fetchState();
+  };
+
+>>>>>>> 2b2363d (frontend)
   const gp = document.getElementById('graph-panel');
   const toggleGraph = () => { graphOpen = !graphOpen; gp.classList.toggle('collapsed', !graphOpen); };
   document.getElementById('btn-graph').onclick = toggleGraph;
@@ -1051,6 +1394,7 @@ function setupListeners() {
     drawer.classList.add('open');
   };
 
+<<<<<<< HEAD
   document.getElementById('btn-clear-pins').onclick = clearSelection;
 
   document.getElementById('graph-search').addEventListener('input', e => {
@@ -1061,6 +1405,8 @@ function setupListeners() {
     if (e.key === 'Escape') clearSelection();
   });
 
+=======
+>>>>>>> 2b2363d (frontend)
   inp.focus();
 }
 
@@ -1068,6 +1414,7 @@ function flash(el, ok) {
   el.classList.add('active');
   setTimeout(() => el.classList.remove('active'), ok ? 800 : 300);
 }
+<<<<<<< HEAD
 
 /* ── Pre-flight semantic highlighting (C3) ─────────── */
 let preflightHits = new Set();
@@ -1174,6 +1521,8 @@ document.getElementById('traj-save').onclick = async () => {
     document.getElementById('traj-panel').classList.remove('open');
   }
 };
+=======
+>>>>>>> 2b2363d (frontend)
 </script>
 </body>
 </html>

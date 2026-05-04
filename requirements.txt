@@ -6,7 +6,10 @@ safetensors>=0.4
 sentence-transformers>=2.2
 fastapi>=0.100
 uvicorn>=0.20
+<<<<<<< HEAD
 fastmcp>=2.0
 bitsandbytes>=0.41
 accelerate>=0.25
 sympy>=1.12
+=======
+>>>>>>> 2b2363d (frontend)

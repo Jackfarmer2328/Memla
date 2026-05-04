@@ -1,5 +1,9 @@
 """
+<<<<<<< HEAD
 Web UI for Memla.
+=======
+Web UI for Project Memory.
+>>>>>>> 2b2363d (frontend)
 
 Usage:
     python app.py [--port 8765] [--model qwen3.5:4b]
@@ -29,6 +33,7 @@ from pydantic import BaseModel
 from memory_system.memory.episode_log import EpisodeLog
 from memory_system.memory.chunk_manager import ChunkManager
 from memory_system.memory.llm_extractor import LLMChunkExtractor
+<<<<<<< HEAD
 from memory_system.memory.lazy_import import LazyImporter
 from memory_system.middleware.ttt_layer import TTTLayer
 from memory_system.ollama_client import ChatMessage, UniversalLLMClient
@@ -40,6 +45,10 @@ from memory_system.reasoning.trajectory import (
     inject_reasoning_prompt, parse_trajectory, has_trajectory_format,
     extract_output_text,
 )
+=======
+from memory_system.middleware.ttt_layer import TTTLayer
+from memory_system.ollama_client import ChatMessage, UniversalLLMClient
+>>>>>>> 2b2363d (frontend)
 
 BASE_SYSTEM = (
     "You are a helpful assistant running locally.\n\n"
@@ -61,6 +70,7 @@ def _tok(text: str) -> set[str]:
             if len(t) >= 2 and t not in _STOP}
 
 
+<<<<<<< HEAD
 _USER_LINKS_DDL = """
 CREATE TABLE IF NOT EXISTS user_links (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -73,6 +83,8 @@ CREATE TABLE IF NOT EXISTS user_links (
 """
 
 
+=======
+>>>>>>> 2b2363d (frontend)
 class State:
     def __init__(self) -> None:
         self.lock = threading.Lock()
@@ -85,11 +97,14 @@ class State:
         self.log: Optional[EpisodeLog] = None
         self.client: Optional[UniversalLLMClient] = None
         self.ttt: Optional[TTTLayer] = None
+<<<<<<< HEAD
         self.traj_log: Optional[TrajectoryLog] = None
         self.lazy: Optional[LazyImporter] = None
         self.last_trajectory_id: Optional[int] = None
         self.coding_log: Optional[CodingTraceLog] = None
         self.last_coding_trace_id: Optional[int] = None
+=======
+>>>>>>> 2b2363d (frontend)
 
     def init(self, *, model: str, db: str, user_id: str, ollama_url: str) -> None:
         self.model = model
@@ -102,22 +117,28 @@ class State:
         self.session_id = f"sess_{int(time.time())}_{secrets.token_hex(3)}"
         self.history = []
 
+<<<<<<< HEAD
         pulled = pull_if_enabled()
         if pulled is not None:
             print(f"[sync] pulled {pulled} files from cloud")
 
+=======
+>>>>>>> 2b2363d (frontend)
         self.log = EpisodeLog(db)
         self.client = UniversalLLMClient(provider="ollama", base_url=self.ollama_url)
         ext = LLMChunkExtractor(client=self.client, model=model, temperature=0.0)
         cm = ChunkManager(self.log, llm_extractor=ext.extract)
         self.ttt = TTTLayer(episode_log=self.log, chunk_manager=cm)
 
+<<<<<<< HEAD
         self.log._conn.execute(_USER_LINKS_DDL)
         self.log._conn.commit()
         self.traj_log = TrajectoryLog(self.log._conn)
         self.coding_log = CodingTraceLog(self.log._conn)
         self.lazy = LazyImporter(self.log)
 
+=======
+>>>>>>> 2b2363d (frontend)
     def set_model(self, model: str) -> None:
         self.model = model
         if self.client and self.ttt:
@@ -130,6 +151,7 @@ class State:
         if self.ttt:
             self.ttt.clear_turn_state()
 
+<<<<<<< HEAD
     def fetch_user_links(self) -> list[dict]:
         if not self.log:
             return []
@@ -143,6 +165,8 @@ class State:
         all_c = self.log.fetch_recent_chunks(user_id=self.user_id, limit=9999)
         return next((c for c in all_c if c.id == cid), None)
 
+=======
+>>>>>>> 2b2363d (frontend)
 
 S = State()
 
@@ -152,13 +176,17 @@ S = State()
 class ChatReq(BaseModel):
     message: str
     model: str = ""
+<<<<<<< HEAD
     pinned_ids: list[int] = []
+=======
+>>>>>>> 2b2363d (frontend)
 
 
 class FeedbackReq(BaseModel):
     is_positive: bool
 
 
+<<<<<<< HEAD
 class LinkReq(BaseModel):
     chunk_a: int
     chunk_b: int
@@ -174,6 +202,11 @@ class TraceTestReq(BaseModel):
 # ── FastAPI ──────────────────────────────────────────────────────
 
 app = FastAPI(title="Memla")
+=======
+# ── FastAPI ──────────────────────────────────────────────────────
+
+app = FastAPI(title="Project Memory")
+>>>>>>> 2b2363d (frontend)
 STATIC = Path(__file__).parent / "static"
 
 
@@ -224,9 +257,12 @@ def chat(req: ChatReq):
     if not msg:
         return JSONResponse({"error": "Empty message"}, 400)
 
+<<<<<<< HEAD
     if S.lazy:
         S.lazy.on_demand_extract(query=msg, user_id=S.user_id, session_id=S.session_id)
 
+=======
+>>>>>>> 2b2363d (frontend)
     with S.lock:
         artifacts = S.ttt.on_user_message(
             session_id=S.session_id, user_id=S.user_id,
@@ -238,6 +274,7 @@ def chat(req: ChatReq):
          "text": c.text, "freq": c.frequency_count}
         for c in artifacts.retrieved
     ]
+<<<<<<< HEAD
 
     system_prompt = inject_reasoning_prompt(artifacts.built.system_prompt)
     if req.pinned_ids:
@@ -256,6 +293,10 @@ def chat(req: ChatReq):
 
     messages = [
         ChatMessage(role="system", content=system_prompt),
+=======
+    messages = [
+        ChatMessage(role="system", content=artifacts.built.system_prompt),
+>>>>>>> 2b2363d (frontend)
         *S.history[-(20 * 2):],
         ChatMessage(role="user", content=msg),
     ]
@@ -298,6 +339,7 @@ def chat(req: ChatReq):
                 assistant_text=full,
                 meta={"retrieved_chunk_ids": [c.id for c in artifacts.retrieved]},
             )
+<<<<<<< HEAD
 
         traj_data = None
         if has_trajectory_format(full) and S.traj_log:
@@ -341,6 +383,9 @@ def chat(req: ChatReq):
             except Exception:
                 pass
         yield f"data: {json.dumps(done_payload)}\n\n"
+=======
+        yield f"data: {json.dumps({'type': 'done'})}\n\n"
+>>>>>>> 2b2363d (frontend)
 
     return StreamingResponse(generate(), media_type="text/event-stream")
 
@@ -349,6 +394,7 @@ def chat(req: ChatReq):
 def feedback(req: FeedbackReq):
     if not S.ttt:
         return {"ok": False}
+<<<<<<< HEAD
     ok = S.ttt.explicit_feedback(is_positive=req.is_positive)
     if ok and S.coding_log and S.last_coding_trace_id is not None:
         try:
@@ -465,6 +511,9 @@ def delete_link(req: LinkReq):
     )
     S.log._conn.commit()
     return {"ok": True}
+=======
+    return {"ok": S.ttt.explicit_feedback(is_positive=req.is_positive)}
+>>>>>>> 2b2363d (frontend)
 
 
 @app.post("/api/session")
@@ -473,6 +522,7 @@ def new_session():
     return {"session_id": S.session_id}
 
 
+<<<<<<< HEAD
 @app.get("/api/expand/{node_id}")
 def expand_node(node_id: int):
     if not S.log:
@@ -517,6 +567,15 @@ def get_memories():
     chunks = S.log.fetch_recent_chunks(user_id=S.user_id, limit=200)
     if not chunks:
         return {"nodes": [], "edges": [], "user_links": S.fetch_user_links()}
+=======
+@app.get("/api/memories")
+def get_memories():
+    if not S.log:
+        return {"nodes": [], "edges": []}
+    chunks = S.log.fetch_recent_chunks(user_id=S.user_id, limit=200)
+    if not chunks:
+        return {"nodes": [], "edges": []}
+>>>>>>> 2b2363d (frontend)
 
     nodes = []
     ti: dict[str, set[int]] = defaultdict(set)
@@ -542,6 +601,7 @@ def get_memories():
         {"source": chunks[a].id, "target": chunks[b].id, "weight": w}
         for (a, b), w in ew.items() if w >= 2
     ]
+<<<<<<< HEAD
     return {"nodes": nodes, "edges": edges, "user_links": S.fetch_user_links()}
 
 
@@ -678,6 +738,9 @@ def pending_cpo_pairs():
         return {"pairs": []}
     pairs = S.traj_log.fetch_uncorrected_pairs(user_id=S.user_id, limit=50)
     return {"pairs": [t.to_dict() for t in pairs]}
+=======
+    return {"nodes": nodes, "edges": edges}
+>>>>>>> 2b2363d (frontend)
 
 
 @app.get("/api/recall")
@@ -693,6 +756,7 @@ def recall():
     }
 
 
+<<<<<<< HEAD
 @app.on_event("shutdown")
 def _on_shutdown():
     pushed = push_if_enabled()
@@ -704,6 +768,12 @@ def _on_shutdown():
 
 def main() -> None:
     p = argparse.ArgumentParser(description="Memla Web UI")
+=======
+# ── Entry point ──────────────────────────────────────────────────
+
+def main() -> None:
+    p = argparse.ArgumentParser(description="Project Memory Web UI")
+>>>>>>> 2b2363d (frontend)
     p.add_argument("--port", type=int, default=8765)
     p.add_argument("--model", default="qwen3.5:4b")
     p.add_argument("--db", default=os.environ.get("MEMORY_DB", "./memory.sqlite"))
@@ -716,7 +786,11 @@ def main() -> None:
     S.init(model=a.model, db=a.db, user_id=a.user_id, ollama_url=a.ollama_url)
 
     url = f"http://127.0.0.1:{a.port}"
+<<<<<<< HEAD
     print(f"\n  Memla  ->  {url}\n")
+=======
+    print(f"\n  Project Memory  ->  {url}\n")
+>>>>>>> 2b2363d (frontend)
     threading.Timer(1.5, lambda: webbrowser.open(url)).start()
     uvicorn.run(app, host="127.0.0.1", port=a.port, log_level="warning")
 
